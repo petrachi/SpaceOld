@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  descr: MyString
+  brief: MyString
+  domain: MyString
+  domain_modifier: 1.5
+  research_time: 
+  cost: 1
+
+two:
+  name: MyString
+  descr: MyString
+  brief: MyString
+  domain: MyString
+  domain_modifier: 1.5
+  research_time: 
+  cost: 1

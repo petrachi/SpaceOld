@@ -1,0 +1,2 @@
+module Gmae::YoupiHelper
+end
