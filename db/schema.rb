@@ -166,19 +166,18 @@ ActiveRecord::Schema.define(:version => 20120827161432) do
   end
 
   create_table "game_users", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "main_user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "main_users", :force => true do |t|
     t.string   "first_name"
     t.string   "name"
     t.string   "email"
-    t.string   "password_salt"
-    t.string   "password_hash"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end

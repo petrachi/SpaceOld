@@ -3,10 +3,12 @@ module TableInherit
   module ClassMethods
     def inherit inherit_class
       self.class_eval "belongs_to :#{ inherit_association = inherit_class.name.demodulize.underscore }"
-      inherit_class.class_eval "has_many :#{ self.name.demodulize.underscore.pluralize }"
+      inherit_class.class_eval "has_one :#{ self.name.underscore.gsub("/", "_") }, :class_name => \"#{ self.name }\""
       
-      inherit_class.column_names.stealth_delete("id").each do |column|
+      inherit_class.column_names.stealth_delete_from_collection(["id", "created_at", "updated_at"]).each do |column|
         self.class_eval %{
+          attr_accessible :#{ column }
+          
           def #{ column }
             #{ inherit_association }.#{ column }
           end
@@ -24,9 +26,10 @@ module TableInherit
           default_#{ inherit_association } || (self.#{ inherit_association } = #{ inherit_class }.new)
         end
       }
-      
+            
       self.class_eval %{
-        before_save :save_inherit
+        before_validation :save_inherit
+        validate :inherit_saved
         
         def save_inherit
           #{ inherit_association }.save
@@ -34,6 +37,10 @@ module TableInherit
           #{ inherit_association }.errors.each do |field, message|
             self.errors.add field, message
           end
+        end
+        
+        def inherit_saved
+          #{ inherit_association }.valid?
         end
       }
     end

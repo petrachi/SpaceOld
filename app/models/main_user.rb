@@ -1,5 +1,9 @@
 class MainUser < ActiveRecord::Base
-  attr_accessible :email, :first_name, :name, :password_hash, :password_salt
+  attr_accessible :email, :first_name, :name, :password, :password_confirmation
   
-  validates_presence_of :email, :first_name, :name, :password_hash, :password_salt
+  has_secure_password
+  validates_presence_of :password, :on => :create
+  validates_presence_of :email
+  
+  
 end

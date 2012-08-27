@@ -1,5 +1,6 @@
 class Game::User < ActiveRecord::Base
-  include TableInherit; inherit MainUser
+  include UserInherit
   
-  attr_accessible :user_id
+  
+  
 end

@@ -1,10 +1,28 @@
+def namespaced_routes namespace, controller
+  match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }", :as => "#{ controller }_ctrl"
+end
+
 Space::Application.routes.draw do
-  ActiveAdmin.routes(self)
-
-  devise_for :admin_users, ActiveAdmin::Devise.config
-
+  
+  constraints :subdomain => "game" do
+    root :to => "game/home#index"
+    
+    #namespace :game do
+    #  match "/users(/:action(/:id))", :controller => "game/users", :as => "users_ctrl"
+      
+      namespaced_routes :game, :users
+    #end    
+  end
   root :to => "home#index"
-
+  
+  
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  
+  
+  
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
