@@ -8,7 +8,7 @@ class MainUsersController < ApplicationController
     end
   end
   
-  def sign_in_errors params, request
+  def sign_in_errors params
     @_request = request
     @user = MainUser.find_by_email params[:email]
     

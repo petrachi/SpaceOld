@@ -1,4 +1,4 @@
-class Game::UsersController < ApplicationController
+class Game::UsersController < Game::ApplicationController
   def sign_up
     sign_up_errors params.merge(:call=>"ruby")
     
@@ -46,8 +46,10 @@ class Game::UsersController < ApplicationController
     end
   end
   
-  def current
-    MainUsersController.new.current(@_request).try(:game_user)
+  def current request = @_request
+    p MainUsersController.new.current(request)
+    MainUsersController.new.current(request).try(:game_user)
+    
   end
   
   def sign_out
