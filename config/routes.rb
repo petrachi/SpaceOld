@@ -17,7 +17,6 @@ Space::Application.routes.draw do
   
   routes_for_subdomain :game, [:home, :users]
   
-  
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
   
