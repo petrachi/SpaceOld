@@ -2,24 +2,27 @@ def namespaced_routes namespace, controller
   match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }", :as => "#{ controller }_ctrl"
 end
 
+
+def routes_for_subdomain namespace, controllers
+  constraints :subdomain => namespace do
+    controllers.each do |controller|
+      namespaced_routes namespace, controller  
+    end
+    
+    root :to => "#{ namespace }/home#index"
+  end
+end
+
 Space::Application.routes.draw do
   
-  constraints :subdomain => "game" do
-    root :to => "game/home#index"
-    
-    #namespace :game do
-    #  match "/users(/:action(/:id))", :controller => "game/users", :as => "users_ctrl"
-      
-      namespaced_routes :game, :users
-    #end    
-  end
-  root :to => "home#index"
+  routes_for_subdomain :game, [:home, :users]
   
   
   ActiveAdmin.routes(self)
   devise_for :admin_users, ActiveAdmin::Devise.config
   
   
+  root :to => "home#index"
   
   
   

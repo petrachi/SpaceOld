@@ -1,3 +1,6 @@
 class Game::Province < ActiveRecord::Base
-  attr_accessible :environment, :game_user_id
+  belongs_to :planet
+  belongs_to :user
+  
+  attr_accessible :game_planet_id, :environment, :game_user_id
 end

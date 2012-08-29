@@ -1,3 +1,3 @@
 class Game::ApplicationController < ApplicationController
-  layout "game/application"
+  include Game; layout "game/application"
 end

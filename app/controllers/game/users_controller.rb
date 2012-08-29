@@ -16,7 +16,7 @@ class Game::UsersController < Game::ApplicationController
   end
   
   def sign_up_errors params = params
-    @user = Game::User.new params.select_from_collection([:first_name, :name, :email, :password, :password_confirmation])
+    @user = User.new params.select_from_collection([:first_name, :name, :email, :password, :password_confirmation])
     @user.valid?
     
     if params[:call] == "js"

@@ -2,7 +2,6 @@ module UserInherit
   
   module ClassMethods
     def user_inherit
-      
       self.class_eval "include TableInherit; inherit MainUser"
       [:password, :password_confirmation].each do |column|
         self.class_eval %{
