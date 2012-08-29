@@ -1,4 +1,6 @@
 class Game::Province < ActiveRecord::Base
+  include AssociateNamespace; accessors_for_namespace :game
+  
   belongs_to :planet
   belongs_to :user
   

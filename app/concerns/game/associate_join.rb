@@ -11,12 +11,14 @@ module Game::AssociateJoin
     def associate
       eval "@join_table = #{ self.name }Join"
       ["Game::User", "Game::Province", self.name].each do |belongs_table|
-        @join_table.class_eval "belongs_to :#{ belongs_table.demodulize.underscore }, :class_name => \"#{ @join_table }\""
+        @join_table.class_eval "belongs_to :#{ belongs_table.demodulize.underscore } #, :class_name => \"#{ belongs_table }\""
       end
             
       has_many_for_ternary self, @join_table.name, ["user", "province"]
       has_many_for_ternary Game::Province, @join_table.name, ["user", name.demodulize.underscore]
       has_many_for_ternary Game::User, @join_table.name, [name.demodulize.underscore, "province"]
+      
+      @join_table.class_eval "include AssociateNamespace; accessors_for_namespace :game"
     end
   end
   
