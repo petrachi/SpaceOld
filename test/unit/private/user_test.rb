@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Gmae::YoupiControllerTest < ActionController::TestCase
+class Private::UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

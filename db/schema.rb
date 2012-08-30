@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827161432) do
+ActiveRecord::Schema.define(:version => 20120830002029) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -95,9 +95,9 @@ ActiveRecord::Schema.define(:version => 20120827161432) do
   end
 
   create_table "game_requirements", :force => true do |t|
-    t.string   "object_type"
-    t.integer  "object_id"
-    t.float    "lvl"
+    t.string   "struct_type"
+    t.integer  "struct_id"
+    t.text     "block"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -178,6 +178,22 @@ ActiveRecord::Schema.define(:version => 20120827161432) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "private_bank_accounts", :force => true do |t|
+    t.integer  "balance"
+    t.integer  "private_user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "private_bank_accounts", ["private_user_id"], :name => "index_private_bank_accounts_on_private_user_id"
+
+  create_table "private_users", :force => true do |t|
+    t.integer  "main_user_id"
+    t.boolean  "access_authorized"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
 end

@@ -2,9 +2,8 @@ def namespaced_routes namespace, controller
   match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }", :as => "#{ controller }_ctrl"
 end
 
-
 def routes_for_subdomain namespace, controllers
-  constraints :subdomain => namespace do
+  constraints :subdomain => namespace.to_s do
     controllers.each do |controller|
       namespaced_routes namespace, controller  
     end
@@ -13,11 +12,17 @@ def routes_for_subdomain namespace, controllers
   end
 end
 
+
 Space::Application.routes.draw do
   
   routes_for_subdomain :game, [:home, :users]
+  routes_for_subdomain :private, [:home, :users]
   
-  ActiveAdmin.routes(self)
+  begin
+    ActiveAdmin.routes(self)
+  rescue Exception => e
+    puts "ActiveAdmin: #{e.class}: #{e}"
+  end
   devise_for :admin_users, ActiveAdmin::Devise.config
   
   

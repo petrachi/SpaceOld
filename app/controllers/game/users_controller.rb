@@ -47,9 +47,7 @@ class Game::UsersController < Game::ApplicationController
   end
   
   def current request = @_request
-    p MainUsersController.new.current(request)
-    MainUsersController.new.current(request).try(:game_user)
-    
+    MainUsersController.new.current(request).try(:game_user)    
   end
   
   def sign_out
