@@ -8,6 +8,14 @@ def routes_for_subdomain namespace, controllers
       namespaced_routes namespace, controller  
     end
     
+    match "/sign_up" => "main_users#sign_up", :as=>:sign_up
+    match "/sign_up_errors" => "main_users#sign_up_errors"
+    match "/sign_in" => "main_users#sign_in", :as=>:sign_in
+    match "/sign_in_errors" => "main_users#sign_in_errors"
+    match "/sign_out" => "main_users#sign_out", :as=>:sign_out
+    
+    
+    
     root :to => "#{ namespace }/home#index"
   end
 end
