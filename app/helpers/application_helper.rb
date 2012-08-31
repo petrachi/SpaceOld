@@ -44,8 +44,6 @@ module ApplicationHelper
     recollection_size = {"two" => 2, "three" => 3, "four" => 4, "six" => 6, "twelve" => 12}[col_number]
     
     rows = recollect(recollection_size, collection).map do |collection_mini|
-      p collection_mini
-      
       col col_number, collection_mini, &block
     end
     
