@@ -1,2 +1,25 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<%= container do %>
+	<%= two_col_row [1,2] do |i| %>
+		bonjour <%= i %>
+	<% end %>
+	
+	<%= three_col_row [1,2,3] do |i| %>
+		bonjour <%= i %>
+	<% end %>
+	
+	<%= four_col_row [1,2,3, 4] do |i| %>
+		bonjour <%= i %>
+	<% end %>
+	
+	<%= six_col_row [1,2,3, 4, 5, 6] do |i| %>
+		bonjour <%= i %>
+	<% end %>
+	
+	<%= twelve_col_row (1..12).to_a do |i| %>
+		bonjour <%= i %>
+	<% end %>
+<% end %>
+
+<%= four_col_container (1..9).to_a do |i| %>
+	salut <%= i %>
+<% end %>

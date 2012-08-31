@@ -5,5 +5,7 @@ class MainUser < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :email
   
-  
+  def to_s
+    email
+  end
 end

@@ -1,1 +1,12 @@
-@import "home";
+body{ margin: 0; }
+
+
+@import "1140_grid";
+
+
+$color: #59f;
+
+.task_bar{ position: fixed; width: 100%; background: rgba($color, 0.9); 
+	&:hover { background: rgba($color, 1); }
+}
+.push{ height: 150px; }

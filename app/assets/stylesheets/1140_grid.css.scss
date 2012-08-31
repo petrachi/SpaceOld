@@ -1,0 +1,45 @@
+@mixin span($width) { width: $width; margin: 0 1.74%; float: left; min-height: 1px; }
+
+.container { 
+	
+	.row { 
+		width: 100%; max-width: 1140px; min-width: 755px; margin: 0 auto; overflow: hidden; 
+		
+		.one_span { @include span(4.85%); }
+		.two_span { @include span(13.18%); }
+		.three_span { @include span(21.51%); }
+		.four_span { @include span(29.84%); }
+		.five_span { @include span(38.17%); }
+		.six_span { @include span(46.5%); }
+		.seven_span { @include span(54.83%); }
+		.eight_span { @include span(63.16%); }
+		.nine_span { @include span(71.49%); }
+		.ten_span { @include span(79.82%); }
+		.eleven_span { @include span(88.15%); }
+		.twelve_span { @include span(96.47%); }
+	}
+	
+	img, object, embed { max-width: 100%; }
+	img { height: auto; }
+	
+}
+
+
+/* Smaller screens */
+@media only screen and (max-width: 1023px) {
+	body { font-size: 0.8em; line-height: 1.5em; }
+}
+
+
+/* Mobile */
+@media handheld, only screen and (max-width: 767px) {
+	body { font-size: 16px; -webkit-text-size-adjust: none; }
+	
+	.container{
+	    .row { min-width: 0; padding: 0; 
+	    	.one_span, .two_span, .three_span, .four_span, .five_span, .six_span, .seven_span, .eight_span, .nine_span, .ten_span, .eleven_span, .twelve_span { 
+    	        width: auto; float: none; margin: 0; padding: 0 20px;
+	    	}
+	    }
+	}
+}

@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Space</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<title>Space</title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-<%= yield %>
-
+	<%= container :task_bar do %>
+		<%= row do %>
+			<%= six_span do %>
+				<p>
+					<%= link_to "Home", root_path %><br/>
+					Go To <%= link_to "Space Game", root_url(:subdomain => :game) %><br/>
+					Go To <%= link_to "Space Private", root_url(:subdomain => :private) %>
+				</p>
+			<% end %>
+			
+			<%= six_span do %>
+				<p>
+					<% if current_user %>
+						<%= current_user %> <%= link_to "Sign out", sign_out_url %>
+					<% else %>
+						<%= link_to "Sign in", sign_in_url %> or <%= link_to "Sign up", sign_up_url %>
+					<% end %>
+				</p>
+			<% end %>
+		<% end %>
+		
+		<%= row do %>
+			<%= twelve_span do %>
+				<p class="notice"><%= notice %></p>
+				<p class="alert"><%= alert %></p>
+			<% end %>
+		<% end %>
+	<% end %>
+	<div class="push"></div>
+	
+	<%= yield %>
+	
 </body>
 </html>
+
+
+
+
