@@ -1,16 +1,25 @@
 class MainUsersController < ApplicationController
+  respond_to :html
+  
   def sign_up
     sign_up_errors params.merge(:call=>"ruby")
     
     if @user.errors.blank?
       @user.save
     end
-
+    
     if params[:call] == "js"
-      render :text => if @user.id.present?
-        "valid-merge"
+      if @user.id.present?
+        @valid, flash[:notice] = true, "Signed in"
+        respond_to do |format|        
+          format.js
+        end
       else
-        "bug-merge"
+        render :text => "bug-merge"
+      end
+    elsif request.xhr?
+      respond_to do |format|        
+        format.js
       end
     end
   end
@@ -25,7 +34,7 @@ class MainUsersController < ApplicationController
   end
   
   
-  def sign_in
+  def sign_in    
     sign_in_errors params.merge(:call=>"ruby")
     
     if @errors.blank?
@@ -33,17 +42,17 @@ class MainUsersController < ApplicationController
     end
     
     if params[:call] == "js"
-      
-      #redirect_to root_url, :notice => "Logged out"
-      #notice=Flash%20message
-      #render :update do |page|
-      #        page.redirect_to show_product_path(:id=>@entities[0].id)
-      #end
-      
-      render :text => if @user.id.present?
-        "valid-merge"        
+      if @user.id.present?
+        @valid, flash[:notice] = true, "Signed in"
+        respond_to do |format|        
+          format.js
+        end
       else
-        "bug-merge"
+        render :text => "bug-merge"
+      end
+    elsif request.xhr?
+      respond_to do |format|        
+        format.js
       end
     end
   end
@@ -70,7 +79,16 @@ class MainUsersController < ApplicationController
   end
   
   def sign_out
-    session[:user_id] = nil
-    redirect_to root_url, :notice => "Logged out"
+    session[:user_id], flash[:notice] = nil, "Logged out"
+    
+    if request.xhr?
+      #flash[:notice] = "Logged out"
+      # redirect_to root if page not authorized for unlogged user
+      respond_to do |format|        
+        format.js
+      end
+    else
+      redirect_to root_url#, :notice => "Logged out"
+    end
   end
 end

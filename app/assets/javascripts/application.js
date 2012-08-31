@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.qtip
-//= require merge_form
+//= require jquery-ui
+//= require lib_application
+//= require vendor_application
+//= require_tree .
+

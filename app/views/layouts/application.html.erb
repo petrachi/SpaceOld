@@ -17,21 +17,19 @@
 				</p>
 			<% end %>
 			
-			<%= six_span do %>
-				<p>
-					<% if current_user %>
-						<%= current_user %> <%= link_to "Sign out", sign_out_url %>
-					<% else %>
-						<%= link_to "Sign in", sign_in_url %> or <%= link_to "Sign up", sign_up_url %>
-					<% end %>
-				</p>
+			<%= six_span :user_info do %>
+				<%= render :partial => "layouts/user_info" %>
 			<% end %>
+		<% end %>
+		
+		<%= row :flashs do %>
+			<%= render :partial => "layouts/flashs" %>
 		<% end %>
 		
 		<%= row do %>
 			<%= twelve_span do %>
-				<p class="notice"><%= notice %></p>
-				<p class="alert"><%= alert %></p>
+				<p id="sign_in"></p>
+				<p id="sign_up"></p>
 			<% end %>
 		<% end %>
 	<% end %>

@@ -5,6 +5,14 @@ module ApplicationHelper
   include MainUsersHelper
   
   
+  def reload_flash
+    "$(\".flashs\").html(\"#{ escape_javascript(render(:partial => "layouts/flashs")) }\");".html_safe
+  end
+  
+  def reload_user_info
+    "$(\".user_info\").html(\"#{ escape_javascript(render(:partial => "layouts/user_info")) }\");".html_safe
+  end
+  
   def grid element_class, html_class = nil, &block
     content_tag(:div, :class => "#{ element_class } #{ html_class }", &block)
   end
