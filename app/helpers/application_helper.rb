@@ -13,12 +13,18 @@ module ApplicationHelper
     "$(\".user_info\").html(\"#{ escape_javascript(render(:partial => "layouts/user_info")) }\");".html_safe
   end
   
+  def resize_push
+    "$(\"body\").css(\"margin-top\", $(\".task_bar\").height() + 30 );".html_safe
+  end
+  
+  
   def grid element_class, html_class = nil, &block
     content_tag(:div, :class => "#{ element_class } #{ html_class }", &block)
   end
   
-  def col col_number, collection, html_class = nil, &block
+  def col col_number, collection = [1], html_class = nil, &block
     span_width, collection_length = case col_number
+    when "one" then [:twelve, 1]
     when "two" then [:six, 2]
     when "three" then [:four, 3]
     when "four" then [:three, 4]
@@ -48,8 +54,8 @@ module ApplicationHelper
     recollected
   end
   
-  def rows col_number, collection, html_class = nil, &block
-    recollection_size = {"two" => 2, "three" => 3, "four" => 4, "six" => 6, "twelve" => 12}[col_number]
+  def rows col_number, collection = [1], html_class = nil, &block
+    recollection_size = {"one" => 1, "two" => 2, "three" => 3, "four" => 4, "six" => 6, "twelve" => 12}[col_number]
     
     rows = recollect(recollection_size, collection).map do |collection_mini|
       col col_number, collection_mini, &block
@@ -64,9 +70,9 @@ module ApplicationHelper
     case method_name.to_s
     when /^(container|row|(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span)$/
       lambda{ self.grid($1, *args, &block) }
-    when /^(two|three|four|six|twelve)_col_row$/
+    when /^(one|two|three|four|six|twelve)_col_row$/
       lambda{ self.col($1, *args, &block) }
-    when /^(two|three|four|six|twelve)_col_container$/
+    when /^(one|two|three|four|six|twelve)_col_container$/
       lambda{ self.rows($1, *args, &block) }
     else super
     end

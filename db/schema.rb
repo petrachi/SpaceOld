@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830002029) do
+ActiveRecord::Schema.define(:version => 20120902141116) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,6 +45,43 @@ ActiveRecord::Schema.define(:version => 20120830002029) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "cv_achievements", :force => true do |t|
+    t.integer  "cv_user_id"
+    t.string   "year"
+    t.string   "activity"
+    t.string   "organisation"
+    t.string   "location"
+    t.string   "country"
+    t.string   "brief"
+    t.text     "description"
+    t.string   "type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "cv_achievements", ["cv_user_id"], :name => "index_cv_achievements_on_cv_user_id"
+
+  create_table "cv_experimentations", :force => true do |t|
+    t.integer  "cv_user_id"
+    t.string   "name"
+    t.string   "brief"
+    t.text     "description"
+    t.text     "controller"
+    t.text     "view"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "cv_experimentations", ["cv_user_id"], :name => "index_cv_experimentations_on_cv_user_id"
+
+  create_table "cv_users", :force => true do |t|
+    t.integer  "main_user_id"
+    t.string   "headline"
+    t.integer  "age"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "game_building_joins", :force => true do |t|
     t.integer  "game_user_id"
@@ -195,5 +232,15 @@ ActiveRecord::Schema.define(:version => 20120830002029) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
 end

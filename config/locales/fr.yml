@@ -1,0 +1,18 @@
+fr:
+    hello: "Bonjour monde"
+    know_more: "En savoir plus"
+    install: "Installer"
+  
+    cv:
+        name: "Space CV"
+        brief: "Votre Cv en ligne, et des démos live de vos expérimentations en ruby"
+        description: "Faites votre cv, avec expériences, écoles, profil. Et montrez ce que vous savez faire, projets, démos. Vous pouvez écrire du code ruby/rails (controller ou vue+controller) et montrer le résultat."
+    
+    game:
+        name: "Space Game"
+        brief: "Un jeu super fun"
+        
+    private:
+        name: "Space Private"
+        brief: "Reproting de tes comptes"
+

@@ -1,0 +1,2 @@
+module Cv::HomeHelper
+end

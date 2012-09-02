@@ -1,5 +1,5 @@
 class Private::UsersController < Private::ApplicationController
-  def globalize
+  def install
     User.create :main_user => MainUsersController.new.current(@_request)
     redirect_to root_url, :notice => "Globalized"
   end

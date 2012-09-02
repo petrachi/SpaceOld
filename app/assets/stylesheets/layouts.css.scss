@@ -1,13 +1,12 @@
 
 
-body{ margin: 0; }
+body{ margin: 150px 0 20px; }
 
 
 
 
 $color: #59f;
 
-.task_bar{ position: fixed; width: 100%; background: rgba($color, 0.9); 
+.task_bar{ position: fixed; top: 0; width: 100%; background: rgba($color, 0.9); 
 	&:hover { background: rgba($color, 1); }
 }
-.push{ height: 150px; }

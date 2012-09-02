@@ -14,6 +14,8 @@ class MainUsersController < ApplicationController
         respond_to do |format|        
           format.js
         end
+      elsif @errors.present?
+        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
       else
         render :text => "bug-merge"
       end
@@ -42,11 +44,13 @@ class MainUsersController < ApplicationController
     end
     
     if params[:call] == "js"
-      if @user.id.present?
+      if session[:user_id].present?
         @valid, flash[:notice] = true, "Signed in"
         respond_to do |format|        
           format.js
         end
+      elsif @errors.present?
+        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
       else
         render :text => "bug-merge"
       end
@@ -75,6 +79,9 @@ class MainUsersController < ApplicationController
   
   def current request
     @_request = request
+    
+    p(MainUser.find_by_id session[:user_id]) 
+    
     MainUser.find_by_id session[:user_id]
   end
   

@@ -18,6 +18,12 @@ module UserInherit
         }
         
         self.class_eval "attr_accessible :main_user"
+        
+        self.class_eval %{
+          def to_s
+            main_user.to_s
+          end
+        }
       end
     end
   end

@@ -4,8 +4,4 @@ class Private::User < ActiveRecord::Base
   has_many :bank_accounts
   
   attr_accessible :access_authorized
-  
-  def to_s
-    email
-  end
 end

@@ -13,7 +13,8 @@
 				<p>
 					<%= link_to "Home", root_path %><br/>
 					Go To <%= link_to "Space Game", root_url(:subdomain => :game) %><br/>
-					Go To <%= link_to "Space Private", root_url(:subdomain => :private) %>
+					Go To <%= link_to "Space Private", root_url(:subdomain => :private) %><br/>
+					Go To <%= link_to "Space CV", root_url(:subdomain => :cv) %>
 				</p>
 			<% end %>
 			
@@ -33,7 +34,6 @@
 			<% end %>
 		<% end %>
 	<% end %>
-	<div class="push"></div>
 	
 	<%= yield %>
 	

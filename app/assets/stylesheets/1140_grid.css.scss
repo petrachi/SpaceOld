@@ -5,12 +5,12 @@
 	.row { 
 		width: 100%; max-width: 1140px; min-width: 755px; margin: 0 auto; overflow: hidden; 
 		
-		.one_span { @include span(4.85%); }
-		.two_span { @include span(13.18%); }
-		.three_span { @include span(21.51%); }
-		.four_span { @include span(29.84%); }
+		.one_span { @include span(4.85%); } /* 55px */
+		.two_span { @include span(13.18%); } /* 150px */
+		.three_span { @include span(21.51%); } /* 245px */
+		.four_span { @include span(29.84%); } /* 340px */
 		.five_span { @include span(38.17%); }
-		.six_span { @include span(46.5%); }
+		.six_span { @include span(46.5%); } /* 530px */
 		.seven_span { @include span(54.83%); }
 		.eight_span { @include span(63.16%); }
 		.nine_span { @include span(71.49%); }

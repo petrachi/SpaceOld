@@ -8,6 +8,3 @@ $(document).ready ->
 			$(this).text("something went wrong");
 		.bind "ajax:complete", (evt, xhr, status, error) ->
 			$(this).removeClass("disabled");
-			
-			
-			

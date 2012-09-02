@@ -8,6 +8,8 @@ def routes_for_subdomain namespace, controllers
       namespaced_routes namespace, controller  
     end
     
+    match "/install", :controller => "#{ namespace }/users", :action=>"install", :as => "install"
+    
     root :to => "#{ namespace }/home#index"
   end
   
@@ -21,8 +23,11 @@ Space::Application.routes.draw do
   match "/sign_in_errors" => "main_users#sign_in_errors"
   match "/sign_out" => "main_users#sign_out", :as=>:sign_out
   
+  routes_for_subdomain :cv, [:home, :users]
   routes_for_subdomain :game, [:home, :users]
   routes_for_subdomain :private, [:home, :users]
+  
+  match "/:controller(/:action(/:id))"
   
   begin
     ActiveAdmin.routes(self)
@@ -30,7 +35,6 @@ Space::Application.routes.draw do
     puts "ActiveAdmin: #{e.class}: #{e}"
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
-  
   
   root :to => "home#index"
   
