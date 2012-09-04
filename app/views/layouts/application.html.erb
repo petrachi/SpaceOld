@@ -11,7 +11,7 @@
 		<%= row do %>
 			<%= six_span do %>
 				<p>
-					<%= link_to "Home", root_path %><br/>
+					<%= link_to "Home", root_url %><br/>
 					Go To <%= link_to "Space Game", root_url(:subdomain => :game) %><br/>
 					Go To <%= link_to "Space Private", root_url(:subdomain => :private) %><br/>
 					Go To <%= link_to "Space CV", root_url(:subdomain => :cv) %>
@@ -35,8 +35,7 @@
 		<% end %>
 	<% end %>
 	
-	<%= yield %>
-	
+	<%= render :partial => "layouts/pjax_container" %>
 </body>
 </html>
 

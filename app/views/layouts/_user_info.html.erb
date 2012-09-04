@@ -1,7 +1,7 @@
 <p>
 	<% if current_user %>
-		<%= current_user %> <%= link_to "Sign out", sign_out_url, :remote=>true %>
+		<%= current_user %> <%= remote_link_to "Sign out", sign_out_url %>
 	<% else %>
-		<%= link_to "Sign in", sign_in_url, :remote=>true %> or <%= link_to "Sign up", sign_up_url, :remote=>true %>
+		<%= remote_link_to "Sign in", sign_in_url %> or <%= remote_link_to "Sign up", sign_up_url %>
 	<% end %>
 </p>

@@ -17,13 +17,23 @@ end
 
 
 Space::Application.routes.draw do
+  get "experimentations/index"
+
+  get "experimentations/show"
+
+  get "experimentations/edit"
+
+  get "achievements/show"
+
+  get "achievements/edit"
+
   match "/sign_up" => "main_users#sign_up", :as=>:sign_up
   match "/sign_up_errors" => "main_users#sign_up_errors"
   match "/sign_in" => "main_users#sign_in", :as=>:sign_in
   match "/sign_in_errors" => "main_users#sign_in_errors"
   match "/sign_out" => "main_users#sign_out", :as=>:sign_out
   
-  routes_for_subdomain :cv, [:home, :users]
+  routes_for_subdomain :cv, [:achievements ,:experimentations, :home, :users]
   routes_for_subdomain :game, [:home, :users]
   routes_for_subdomain :private, [:home, :users]
   

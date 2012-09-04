@@ -18,11 +18,23 @@ module ApplicationHelper
   end
   
   
+  def remote_link_to *args
+    link_to *args, :remote=>true
+  end
+  
+  def pjax_skip_link_to *args
+    link_to *args, "data-skip-pjax"=>true
+  end
+  
+  
   def grid element_class, html_class = nil, &block
     content_tag(:div, :class => "#{ element_class } #{ html_class }", &block)
   end
   
-  def col col_number, collection = [1], html_class = nil, &block
+  def col col_number, options = Hash.new, &block
+    collection = options.delete(:collection) || [1]
+    html_class = options.delete(:class)
+    
     span_width, collection_length = case col_number
     when "one" then [:twelve, 1]
     when "two" then [:six, 2]
@@ -54,7 +66,10 @@ module ApplicationHelper
     recollected
   end
   
-  def rows col_number, collection = [1], html_class = nil, &block
+  def rows col_number, options = Hash.new, &block
+    collection = options.delete(:collection) || [1]
+    html_class = options.delete(:class)
+    
     recollection_size = {"one" => 1, "two" => 2, "three" => 3, "four" => 4, "six" => 6, "twelve" => 12}[col_number]
     
     rows = recollect(recollection_size, collection).map do |collection_mini|

@@ -1,5 +1,5 @@
 <%= container do %>
-	<%= four_col_row [:cv, :game, :private] do |namespace| %>
+	<%= four_col_row :collection=>[:cv, :game, :private] do |namespace| %>
 		<%= image_tag "http://placehold.it/245x100" %>
 		
 		<h2><%=t "#{ namespace }.name" %></h2>
@@ -8,5 +8,3 @@
 		<p><%= link_to t(:know_more), {:action=>namespace} %></p>
 	<% end %>
 <% end %>
-
-<p><%= session[:new] %></p>

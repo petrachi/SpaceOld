@@ -1,0 +1,2 @@
+module Cv::AchievementsHelper
+end

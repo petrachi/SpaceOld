@@ -1,27 +1,28 @@
 class Cv::UsersController < Cv::ApplicationController
   before_filter :install_authorize, :only => :install
   def install_authorize
-    p "autho"
-    p current    
-    p MainUsersController.new.current(@_request)
-    
     if MainUsersController.new.current(@_request).present? and current.blank?
     else
-      @_request.env['HTTP_REFERER'] ||= root_url(:subdomain=>false)
-      redirect_to :back, :notice => "no access"
+      #}, {:notice => "no access"}
+      
+      redirect_to :subdomain=>false, :controller=>:home, :action=>:cv
     end
   end
   
   def install
     User.create :main_user => MainUsersController.new.current(@_request)
-    redirect_to root_url, :notice => "Globalized"
+    
+    #flash[:notice] = "Globalized"
+    #respond_to do |format|        
+    #  format.js
+    #end
+    
+    
+    #}, {:notice => "Globalized"}
+    redirect_to :subdomain=>false, :controller=>:home, :action=>:cv
   end
   
-  
   def current request = @_request
-    p MainUsersController.new.current(request)
-    p MainUsersController.new.current(request).try(:cv_user)    
-    
     MainUsersController.new.current(request).try(:cv_user)    
   end
 end

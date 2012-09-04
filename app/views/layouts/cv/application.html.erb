@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Space CV</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<title>Space CV</title>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-<%= yield %>
-
+	<%= container :task_bar do %>
+		<%= row do %>
+			<%= six_span do %>
+				<p>
+					Space CV<br/>
+					<%= link_to "Home", root_url %><br/>
+					<%= link_to "back to global space", root_url(:subdomain=>false) %>
+				</p>
+			<% end %>
+			
+			<%= six_span :user_info do %>
+				<%= render :partial => "layouts/user_info" %>
+			<% end %>
+		<% end %>
+		
+		<%= row :flashs do %>
+			<%= render :partial => "layouts/flashs" %>
+		<% end %>
+		
+		<%= row do %>
+			<%= twelve_span do %>
+				<p id="sign_in"></p>
+				<p id="sign_up"></p>
+			<% end %>
+		<% end %>
+	<% end %>
+	
+	<%= render :partial => "layouts/pjax_container" %>
 </body>
 </html>
+
+
+
+

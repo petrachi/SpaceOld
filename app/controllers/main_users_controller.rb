@@ -1,6 +1,4 @@
-class MainUsersController < ApplicationController
-  respond_to :html
-  
+class MainUsersController < ApplicationController  
   def sign_up
     sign_up_errors params.merge(:call=>"ruby")
     
@@ -76,6 +74,7 @@ class MainUsersController < ApplicationController
         render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
     end
   end
+
   
   def current request
     @_request = request

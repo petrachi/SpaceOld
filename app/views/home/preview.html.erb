@@ -2,8 +2,7 @@
 	<h1><%=t "#{ namespace }.name" %></h1>
 	<p><%=t "#{ namespace }.description" %></p>
 	
-	<p><%= link_to t(:install), install_url(:subdomain=>namespace) %></p>
+	<p><%= pjax_skip_link_to t(:install), install_url(:subdomain=>namespace) %></p>
+	
+	<p>deja installé ? <%= eval("#{ namespace.classify }::UsersController").new.current(@_request).present?     %></p>
 <% end %>
-
-<p><%= session[:new] = 12 %></p>
-<p><%= session[:new] %></p>
