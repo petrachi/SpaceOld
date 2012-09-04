@@ -1,7 +1,7 @@
 <% if @valid.blank? %>
-	$("#sign_in").html("<%=j render :template => 'main_users/sign_up.html' %>");
+	$("#sign_forms").html("<%=j render :template => 'main_users/sign_up.html' %>");
 <% else %>
-	$("#sign_in").html("");
+	$("#sign_forms").html("");
 	<%= reload_flash %>
 	<%= reload_user_info %>
 <% end %>

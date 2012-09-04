@@ -1,77 +1,84 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		jsMergeForm("#main form", "/sign_up");
-		initializeQtip("#main form");
+		jsMergeForm("#sign_forms form", "<%= sign_up_url %>");
+		initializeQtip("#sign_forms form");
 	});
 </script>
 
 
-<div id="main">
-	<%= form_tag do %>
-		<%= hidden_field_tag :call, :js %>
+<%= form_tag do %>
+	<%= hidden_field_tag :call, :js %>
 	
-		<table>
-			
-			<tr>
-				<td>
-					<%= label_tag :email, nil, :title=>"bonjour", :class=>"qtip" %>
-				</td>
-				<td>
-					<%= text_field_tag :email %>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<%= label_tag :first_name, nil, :title=>"bonjour", :class=>"qtip" %>
-				</td>
-				<td>
-					<%= text_field_tag :first_name %> <%= text_field_tag :name %>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<%= label_tag :password %>
-				</td>
-				<td>
-					<%= password_field_tag :password %>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<%=	label_tag :password_confirmation %>
-				</td>
-				<td>
-					<%= password_field_tag :password_confirmation %>
-				</td>
-			</tr>
-			
-			<tr id="js-merge-form">
-				<td colspan="2" id="merge-init">
-					Initialization <span class="merge-button">Click</span>
-				</td>
-				<td colspan="2" id="merge-loading" style="display:none;">
-					Vérification du formulaire <span class="merge-button">Click</span>
-				</td>
-				<td colspan="2" id="merge-errors" style="display:none;">
-					Des erreurs se sont cachés dans ce formulaire ! Traquez-les et anéantissez-les ! <span class="merge-button">Click</span>
-					<div id="merge-errors-list">
-					</div>
-				</td>
-				<td colspan="2" id="merge-bug" style="display:none;">
-					Oops, I did it again ! <span class="merge-button">Click</span>
-				</td>
-				<td colspan="2" id="merge-validate" style="display:none;">
-					Ce formulaire est valide et peut être mergé <span class="merge-button">Click</span>
-				</td>
-				<td colspan="2" id="merge-save" style="display:none;">
-					Êtes-vous sûr de vos informations ? vérifiez juste une petite derniere fois avant de valider... <span class="merge-button">Click</span>
-				</td>
-			</tr>
-		</table>
-	<% end %>
-</div>
+	<%#= form_row :email, :placeholder=>t("forms.placeholders.email") %>
+	<%#= form_row :password, :label=>t("forms.labels.password") %>
+	
+	<%#= js_merge_row %>
+	
+	
+
+	<%= hidden_field_tag :call, :js %>
+
+	<table>
+		
+		<tr>
+			<td>
+				<%= label_tag :email, nil, :title=>"bonjour", :class=>"qtip" %>
+			</td>
+			<td>
+				<%= text_field_tag :email %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<%= label_tag :first_name, nil, :title=>"bonjour", :class=>"qtip" %>
+			</td>
+			<td>
+				<%= text_field_tag :first_name %> <%= text_field_tag :name %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<%= label_tag :password %>
+			</td>
+			<td>
+				<%= password_field_tag :password %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<%=	label_tag :password_confirmation %>
+			</td>
+			<td>
+				<%= password_field_tag :password_confirmation %>
+			</td>
+		</tr>
+		
+		<tr id="js-merge-form">
+			<td colspan="2" id="merge-init">
+				Initialization <span class="merge-button">Click</span>
+			</td>
+			<td colspan="2" id="merge-loading" style="display:none;">
+				Vérification du formulaire <span class="merge-button">Click</span>
+			</td>
+			<td colspan="2" id="merge-errors" style="display:none;">
+				Des erreurs se sont cachés dans ce formulaire ! Traquez-les et anéantissez-les ! <span class="merge-button">Click</span>
+				<div id="merge-errors-list">
+				</div>
+			</td>
+			<td colspan="2" id="merge-bug" style="display:none;">
+				Oops, I did it again ! <span class="merge-button">Click</span>
+			</td>
+			<td colspan="2" id="merge-validate" style="display:none;">
+				Ce formulaire est valide et peut être mergé <span class="merge-button">Click</span>
+			</td>
+			<td colspan="2" id="merge-save" style="display:none;">
+				Êtes-vous sûr de vos informations ? vérifiez juste une petite derniere fois avant de valider... <span class="merge-button">Click</span>
+			</td>
+		</tr>
+	</table>
+<% end %>
 
 

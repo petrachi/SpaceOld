@@ -2,7 +2,25 @@ fr:
     hello: "Bonjour monde"
     know_more: "En savoir plus"
     install: "Installer"
-  
+    access: "Accéder à l'application'"
+    
+    forms:
+        labels:
+            password: "Mot de passe"
+            
+        placeholders:
+            email: "exemple@email.com"
+            
+        merge_form:
+            init: "Préparation"
+            loading: "Chargement"
+            errors: "Ce formulaire contient des erreurs"
+            bug: "Une erreur inattendue s'est produite"
+            validate: "Ce formulaire est valide"
+            save: "Cette action est irréversible.Voulez-vous continuer ?"
+            
+        send: "Envoyer"
+    
     cv:
         name: "Space CV"
         brief: "Votre Cv en ligne, et des démos live de vos expérimentations en ruby"

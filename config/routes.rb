@@ -17,16 +17,6 @@ end
 
 
 Space::Application.routes.draw do
-  get "experimentations/index"
-
-  get "experimentations/show"
-
-  get "experimentations/edit"
-
-  get "achievements/show"
-
-  get "achievements/edit"
-
   match "/sign_up" => "main_users#sign_up", :as=>:sign_up
   match "/sign_up_errors" => "main_users#sign_up_errors"
   match "/sign_in" => "main_users#sign_in", :as=>:sign_in

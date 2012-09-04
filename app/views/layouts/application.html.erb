@@ -7,33 +7,17 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	<%= container :task_bar do %>
-		<%= row do %>
-			<%= six_span do %>
-				<p>
-					<%= link_to "Home", root_url %><br/>
-					Go To <%= link_to "Space Game", root_url(:subdomain => :game) %><br/>
-					Go To <%= link_to "Space Private", root_url(:subdomain => :private) %><br/>
-					Go To <%= link_to "Space CV", root_url(:subdomain => :cv) %>
-				</p>
-			<% end %>
-			
-			<%= six_span :user_info do %>
+	<div id="header">
+		<%= container :id => :task_bar, :class => request.subdomain do %>
+			<%= row do %>
+				<%= render :partial => "layouts/#{ request.subdomain << "/" if request.subdomain.present? }navigation" %>
 				<%= render :partial => "layouts/user_info" %>
 			<% end %>
 		<% end %>
-		
-		<%= row :flashs do %>
-			<%= render :partial => "layouts/flashs" %>
-		<% end %>
-		
-		<%= row do %>
-			<%= twelve_span do %>
-				<p id="sign_in"></p>
-				<p id="sign_up"></p>
-			<% end %>
-		<% end %>
-	<% end %>
+	
+		<%= render :partial => "layouts/flashs" %>
+		<%= render :partial => "layouts/sign_forms" %>
+	</div>
 	
 	<%= render :partial => "layouts/pjax_container" %>
 </body>

@@ -1,0 +1,17 @@
+
+
+body{ margin: 150px 0 20px; }
+
+
+
+
+$color: #59f;
+$color_cv: #39D;
+
+#header{ position: fixed; top: 0; width: 100%; background: rgba($color, 0.9); 
+	&:hover{ background: rgba($color, 1); }
+	
+	&.cv{ background: rgba($color_cv, 0.9);
+		&:hover{ background: rgba($color_cv, 1); }
+	}
+}

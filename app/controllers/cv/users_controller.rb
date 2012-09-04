@@ -22,6 +22,10 @@ class Cv::UsersController < Cv::ApplicationController
     redirect_to :subdomain=>false, :controller=>:home, :action=>:cv
   end
   
+  def installed? request = @_request
+    current(request).present?
+  end
+  
   def current request = @_request
     MainUsersController.new.current(request).try(:cv_user)    
   end

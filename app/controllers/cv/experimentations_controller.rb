@@ -1,4 +1,6 @@
-class Cv::ExperimentationsController < ApplicationController
+class Cv::ExperimentationsController < Cv::ApplicationController
+  before_filter :access_authorized?, :except => :show
+  
   def index
   end
 
