@@ -24,7 +24,7 @@ class Cv::AchievementsController < Cv::ApplicationController
         flash[:notice] = "Signed in"
         redirect_to :action=>:index
       elsif @errors.present?
-        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+        render :json => @errors
       else
         render :text => "bug-merge"
       end
@@ -32,13 +32,19 @@ class Cv::AchievementsController < Cv::ApplicationController
   end
   
   def edit_errors params = params
+    @errors = Array.new
     @achievement = Achievement.where(:id => params[:id], :user_id => current_user.id).first || Achievement.new
     
-    @errors = {:year => "ne peut pas etre vide"} if params[:year].blank?
-    @errors ||= {}
+    check_errors_for [:year, :activity, :brief] do |attr|
+      params[attr].blank?
+    end
+    
+    check_errors_for :year do
+      params[:year] != params[:year].to_i.to_s
+    end
     
     if params[:call] == "js"
-        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+        render :json => @errors
     end
   end
   

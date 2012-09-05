@@ -10,6 +10,9 @@ fr:
             
         placeholders:
             email: "exemple@email.com"
+        
+        errors:
+            
             
         merge_form:
             init: "Préparation"

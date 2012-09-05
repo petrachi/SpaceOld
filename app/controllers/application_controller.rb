@@ -8,4 +8,5 @@ class ApplicationController < ActionController::Base
   def discard_flash_if_xhr
     flash.discard if request.xhr?
   end
+  
 end

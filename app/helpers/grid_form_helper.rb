@@ -1,10 +1,10 @@
 module GridFormHelper
   
   def form_row field_name, options = Hash.new, &block
-    html_id, html_class, label, default, placeholder = options.delete_many :id, :class, :label, :default, :placeholder
+    html_id, html_class, label, qtip, default, placeholder, errors = options.delete_many :id, :class, :label, :qtip, :default, :placeholder, :errors
     
     form_row = three_span do
-      label_tag field_name, label
+      label_tag field_name, label, :class=>"#{ "qtip" if qtip }", :title=>qtip
     end
     
     form_row += six_span do
@@ -15,11 +15,18 @@ module GridFormHelper
         end
     end
     
-    form_row += three_span do
-      content_tag(:span, nil, :class => "errors_for_#{ field_name }")
+    
+    errors = [] if errors == false
+    errors ||= [:blank]
+    errors = errors.map{ |err| t("errors.messages.#{ err }") }.join "<br/>"
+    
+    if errors.present?
+      form_row += three_span do
+        content_tag(:span, "!", :class => "errors #{ "qtip" if errors }", :title => errors)
+      end
     end
     
-    row :id => html_id, :class => html_class do form_row end
+    row :id => html_id, :class => "#{ field_name } #{ html_class }" do form_row end
   end
   
   def js_merge_row options = Hash.new
@@ -61,4 +68,27 @@ module GridFormHelper
     end  
   end
   
+  
+  def check_errors_for attr, no_blank = false, &block
+    raise ArgumentError, "errors must be an Array" if @errors.class != Array
+    
+    case attr
+    when String, Symbol
+      unless @errors.include? attr
+        @errors << attr if case block.arity
+        when 0 then yield
+        when 1 then yield(attr)
+        else raise NotImplementedError, "block arity can be nil or 1"
+        end
+      end
+      
+    when Array
+      attr.each do |single_attr|
+        check_errors_for single_attr, &block
+      end
+      
+    else
+      raise ArgumentError, "attr must be a String, a Symbol or an Array"
+    end
+  end
 end
