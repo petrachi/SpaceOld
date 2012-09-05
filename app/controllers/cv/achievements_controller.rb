@@ -2,17 +2,21 @@ class Cv::AchievementsController < Cv::ApplicationController
   before_filter :access_authorized?, :except => :show
   
   def index
+    @achievements = current_user.achievements
   end
   
   def show
+    @user = User.where(:id=>params[:id]).first
+    if @user.present?
+      @achievements = @user.achievements
+    end
   end
 
   def edit
     edit_errors params.merge(:call=>"ruby")
     
     if @errors.blank?
-      # add cv_user_id to params
-      @achievement.update_attributes params.select_from_collection([:year, :activity, :brief])#.merge({:cv_user=>current_user})
+      @achievement.update_attributes params.select_from_collection([:year, :activity, :brief]).merge({:user=>current_user})
     end
     
     if params[:call] == "js"
@@ -28,9 +32,10 @@ class Cv::AchievementsController < Cv::ApplicationController
   end
   
   def edit_errors params = params
-    @achievement = Achievement.find_by_id(params[:id]) || Achievement.new
+    @achievement = Achievement.where(:id => params[:id], :user_id => current_user.id).first || Achievement.new
     
-    @errors = {}
+    @errors = {:year => "ne peut pas etre vide"} if params[:year].blank?
+    @errors ||= {}
     
     if params[:call] == "js"
         render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
@@ -38,6 +43,12 @@ class Cv::AchievementsController < Cv::ApplicationController
   end
   
   def destroy
-    Achievement.find_by_id(params[:id]).destroy
+    if Achievement.where(:id => params[:id], :user_id => current_user.id).first.try(:destroy).present?
+      flash[:notice] = "achievement supprime"
+    else
+      flash[:alert] = "Impossible de supprimer cet element"
+    end
+    
+    redirect_to :action=>:index
   end
 end

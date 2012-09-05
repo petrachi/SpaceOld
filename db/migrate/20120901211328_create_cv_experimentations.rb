@@ -1,7 +1,7 @@
 class CreateCvExperimentations < ActiveRecord::Migration
   def change
     create_table :cv_experimentations do |t|
-      t.references :cv_user
+      t.references :user
       t.string :name
       t.string :brief
       t.text :description
@@ -10,6 +10,6 @@ class CreateCvExperimentations < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :cv_experimentations, :cv_user_id
+    add_index :cv_experimentations, :user_id
   end
 end

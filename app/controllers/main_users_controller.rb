@@ -78,9 +78,6 @@ class MainUsersController < ApplicationController
   
   def current request
     @_request = request
-    
-    p(MainUser.find_by_id session[:user_id]) 
-    
     MainUser.find_by_id session[:user_id]
   end
   

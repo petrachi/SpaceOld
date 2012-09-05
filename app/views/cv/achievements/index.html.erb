@@ -2,5 +2,17 @@
 	<%= link_to "voir ton cv finis", {:action=>:show} %>
 	
 	<%= link_to "crée un nouveau achievement", {:action=>:edit} %>
-	<%# link to creer puis liste des existants avec supprimer + editer %>
+<% end %>
+
+<%= container do %>
+	<% @achievements.each do |achievement| %>
+		<%= row do %>
+			<%= two_span do achievement.year end %>
+			<%= seven_span do "#{ achievement.activity } - #{ achievement.brief }" end %>
+			<%= three_span do %>
+				<%= link_to "Edit", {:action=>:edit, :id=>achievement.id} %>
+				<%= link_to "Delete", {:action=>:destroy, :id=>achievement} %>
+			<% end %>
+		<% end %>
+	<% end %>
 <% end %>

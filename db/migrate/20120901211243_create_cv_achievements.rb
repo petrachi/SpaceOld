@@ -1,7 +1,7 @@
 class CreateCvAchievements < ActiveRecord::Migration
   def change
     create_table :cv_achievements do |t|
-      t.references :cv_user
+      t.references :user
       t.string :year
       t.string :activity
       t.string :organisation
@@ -13,6 +13,6 @@ class CreateCvAchievements < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :cv_achievements, :cv_user_id
+    add_index :cv_achievements, :user_id
   end
 end

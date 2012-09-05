@@ -1,2 +1,16 @@
-<h1>Cv::Achievements#show</h1>
-<p>Find me in app/views/cv/achievements/show.html.erb</p>
+<% if @achievements.present? %>
+
+	<%= container do %>
+		<% @achievements.each do |achievement| %>
+			<%= row do %>
+				<%= two_span do achievement.year end %>
+				<%= seven_span do "#{ achievement.activity } - #{ achievement.brief }" end %>
+			<% end %>
+		<% end %>
+	<% end %>
+
+<% else %>
+	<%= one_col_container do %>
+		nothing here
+	<% end %>
+<% end %>
