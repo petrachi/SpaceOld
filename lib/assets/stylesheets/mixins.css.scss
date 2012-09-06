@@ -1,0 +1,5 @@
+@mixin gradient($color, $color_change: 7%) { 
+	background-color: $color; 
+	background: -webkit-linear-gradient(top, lighten($color, $color_change) 5%, darken($color, $color_change));
+	background: -moz-linear-gradient(top, lighten($color, $color_change) 5%, darken($color, $color_change));	
+}

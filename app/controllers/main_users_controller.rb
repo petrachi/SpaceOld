@@ -1,4 +1,9 @@
-class MainUsersController < ApplicationController  
+class MainUsersController < ApplicationController 
+  before_filter :request_xhr?, :only=>[:sign_up, :sign_in]
+  def request_xhr?
+    redirect_to root_url, :alert => "acces non authorise" unless request.xhr?
+  end
+  
   def sign_up
     sign_up_errors params.merge(:call=>"ruby")
     
@@ -12,12 +17,12 @@ class MainUsersController < ApplicationController
         respond_to do |format|        
           format.js
         end
-      elsif @errors.present?
-        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+      elsif @user.errors.present?
+        render :json => @user.errors.keys
       else
         render :text => "bug-merge"
       end
-    elsif request.xhr?
+    else
       respond_to do |format|        
         format.js
       end
@@ -29,7 +34,7 @@ class MainUsersController < ApplicationController
     @user.valid?
     
     if params[:call] == "js"
-        render :text=>@user.errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+        render :json => @user.errors.keys
     end
   end
   
@@ -48,11 +53,11 @@ class MainUsersController < ApplicationController
           format.js
         end
       elsif @errors.present?
-        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+        render :json => @errors
       else
         render :text => "bug-merge"
       end
-    elsif request.xhr?
+    else
       respond_to do |format|        
         format.js
       end
@@ -63,15 +68,15 @@ class MainUsersController < ApplicationController
     @user = MainUser.find_by_email params[:email]
     
     @errors = if @user.blank?
-      {:user => "n'existe pas"} 
+      [:user]
     elsif @user.authenticate(params[:password]).blank?
-      {:user => "mdp non valide"}
+      [:password]
     else 
-      {}
+      []
     end
     
     if params[:call] == "js"
-        render :text=>@errors.map{ |field, error| "#{ field } : #{ error }" }.join("<br/>")
+        render :json => @errors
     end
   end
 
@@ -85,13 +90,11 @@ class MainUsersController < ApplicationController
     session[:user_id], flash[:notice] = nil, "Logged out"
     
     if request.xhr?
-      #flash[:notice] = "Logged out"
-      # redirect_to root if page not authorized for unlogged user
       respond_to do |format|        
         format.js
       end
     else
-      redirect_to root_url#, :notice => "Logged out"
+      redirect_to root_url
     end
   end
 end

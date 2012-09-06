@@ -7,6 +7,8 @@ class CreateCvExperimentations < ActiveRecord::Migration
       t.text :description
       t.text :controller
       t.text :view
+      t.text :css
+      t.text :javascript
 
       t.timestamps
     end

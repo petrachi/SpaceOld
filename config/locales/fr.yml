@@ -12,12 +12,13 @@ fr:
             email: "exemple@email.com"
         
         errors:
-            
+            blank: "ne peut pas être vide"
             
         merge_form:
             init: "Préparation"
             loading: "Chargement"
             errors: "Ce formulaire contient des erreurs"
+            highlight_errors: "Montrer les erreurs"
             bug: "Une erreur inattendue s'est produite"
             validate: "Ce formulaire est valide"
             save: "Cette action est irréversible.Voulez-vous continuer ?"

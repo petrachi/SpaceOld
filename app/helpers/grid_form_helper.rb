@@ -16,11 +16,10 @@ module GridFormHelper
     end
     
     
-    errors = [] if errors == false
-    errors ||= [:blank]
-    errors = errors.map{ |err| t("errors.messages.#{ err }") }.join "<br/>"
-    
-    if errors.present?
+    if errors != false
+      errors ||= [:blank]
+      errors = "<ul><li>" << errors.map{ |err| t("forms.errors.#{ err }").capitalize }.join("</li><li>") << "</li></ul>"
+  
       form_row += three_span do
         content_tag(:span, "!", :class => "errors #{ "qtip" if errors }", :title => errors)
       end

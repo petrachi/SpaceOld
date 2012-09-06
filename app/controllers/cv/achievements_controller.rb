@@ -21,8 +21,8 @@ class Cv::AchievementsController < Cv::ApplicationController
     
     if params[:call] == "js"
       if @achievement.valid?
-        flash[:notice] = "Signed in"
-        redirect_to :action=>:index
+        flash[:notice] = "achievement ajoute au profil"
+        render :text => "valid-merge"        
       elsif @errors.present?
         render :json => @errors
       else
@@ -44,7 +44,7 @@ class Cv::AchievementsController < Cv::ApplicationController
     end
     
     if params[:call] == "js"
-        render :json => @errors
+      render :json => @errors
     end
   end
   

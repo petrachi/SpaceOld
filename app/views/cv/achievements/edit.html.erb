@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		jsMergeForm("#yield form", "/achievements/edit");
+		jsMergeForm("#yield form", "/achievements/edit", "/achievements");
 		initializeQtip("#yield form");
 	});
 </script>
@@ -11,11 +11,11 @@
 	<%= form_tag do %>
 		<%= hidden_field_tag :call, :js %>
 		<%= hidden_field_tag :id, @achievement.id %>
-	
-		<%= form_row :year, :errors => [:blank, :not_a_number] %>
-		<%= form_row :activity, :qtip => "bonjour", :errors => false %>
+		
+		<%= form_row :year, :errors => [:blank, :not_a_number], :default => @achievement.year %>
+		<%= form_row :activity, :qtip => "bonjour", :errors => false, :placeholder => "ex: dev web" %>
 		<%= form_row :brief %>
 	
-		<%= js_merge_row :errors=>"bonjour" %>	
+		<%= js_merge_row %>	
 	<% end %>
 <% end %>

@@ -1,13 +1,13 @@
 <% if @valid.blank? %>
 	$("#sign_forms").html("<%=j render :template => "main_users/sign_in.html" %>");
 <% else %>
-	$("#sign_forms").html("");
-	<%= reload_flash %>
+
+	<%= pjax_redirect "window.location" %>
 	<%= reload_user_info %>
+
+	$("#sign_forms").empty();
 	
-	if( $("#yield .sign_in").length ){
-		$("#yield").html("<%=j render :template => "#{ controller.controller_name }/#{ controller.action_name }.html" %>");
-	}
+	
 <% end %>
 
 <%= resize_push %>

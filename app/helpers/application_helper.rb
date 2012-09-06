@@ -4,16 +4,18 @@ module ApplicationHelper
   include GridHelper
   include GridFormHelper
   
+  include PjaxHelper
+  
   include HomeHelper
   include MainUsersHelper
   
   
-  def reload_flash
-    "$(\"#flashs\").html(\"#{ escape_javascript(render(:partial => "layouts/flashs")) }\");".html_safe
+  def reload_flashs
+    "$(\"#flashs\").replaceWith(\"#{ escape_javascript(render(:partial => "layouts/flashs")) }\");".html_safe
   end
   
   def reload_user_info
-    "$(\"#user_info\").html(\"#{ escape_javascript(render(:partial => "layouts/user_info")) }\");".html_safe
+    "$(\"#user_info\").replaceWith(\"#{ escape_javascript(render(:partial => "layouts/user_info")) }\");".html_safe
   end
   
   def resize_push

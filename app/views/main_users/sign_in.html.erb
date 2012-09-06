@@ -1,14 +1,9 @@
-
-
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		jsMergeForm("#sign_forms form", "<%= sign_in_url %>");
+		jsMergeForm("#sign_forms form", "<%= sign_in_url %>", window.location);
 		initializeQtip("#sign_forms form");
-		
 	});
 </script>
-
 
 
 <%= form_tag do %>

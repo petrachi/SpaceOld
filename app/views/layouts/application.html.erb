@@ -2,8 +2,11 @@
 <html>
 <head>
 	<title>Space</title>
-	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	
 	<%= javascript_include_tag "application" %>
+	<%= javascript_tag do "$(document).ready(function(){ #{ resize_push } });".html_safe end if notice or alert %>	
+		
 	<%= csrf_meta_tags %>
 </head>
 <body>
@@ -14,12 +17,17 @@
 				<%= render :partial => "layouts/user_info" %>
 			<% end %>
 		<% end %>
-	
+		
 		<%= render :partial => "layouts/flashs" %>
-		<%= render :partial => "layouts/sign_forms" %>
+		<%= container :id => :sign_forms %>
 	</div>
 	
-	<%= render :partial => "layouts/pjax_container" %>
+	<div id="yield" data-pjax-container>
+		<%= hidden_field_tag :notice, notice %>
+		<%= hidden_field_tag :alert, alert %>
+
+		<%= yield %>	
+	</div>
 </body>
 </html>
 

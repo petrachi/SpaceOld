@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		jsMergeForm("#sign_forms form", "<%= sign_up_url %>");
+		jsMergeForm("#sign_forms form", "<%= sign_up_url %>", window.location);
 		initializeQtip("#sign_forms form");
 	});
 </script>
@@ -8,12 +8,6 @@
 
 <%= form_tag do %>
 	<%= hidden_field_tag :call, :js %>
-	
-	<%#= form_row :email, :placeholder=>t("forms.placeholders.email") %>
-	<%#= form_row :password, :label=>t("forms.labels.password") %>
-	
-	<%#= js_merge_row %>
-	
 	
 
 	<%= hidden_field_tag :call, :js %>
