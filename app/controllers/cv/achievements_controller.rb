@@ -35,6 +35,9 @@ class Cv::AchievementsController < Cv::ApplicationController
     @errors = Array.new
     @achievement = Achievement.where(:id => params[:id], :user_id => current_user.id).first || Achievement.new
     
+    # passer les validations dans le modele et imiter sing_up.
+    # s possible, creer un helper de méthodes de validations (à appeller dans la class, like "helper_method" ou "before_filter", qui créerait l'action d'erreurs,avec un block optionnel pour les erreurs (qui sont hors modeles), et un proc? pour récupérer l'objet)
+    
     check_errors_for [:year, :activity, :brief] do |attr|
       params[attr].blank?
     end

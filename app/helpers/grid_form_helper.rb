@@ -2,7 +2,17 @@ module GridFormHelper
   
   def form_row field_name, options = Hash.new, &block
     html_id, html_class, label, qtip, default, placeholder, errors = options.delete_many :id, :class, :label, :qtip, :default, :placeholder, :errors
+
+=begin
+    # doit pouvoir détecter si la clé i18n existe
     
+    label ||= t("forms.labels.email") unless label == false
+    placeholder ||= t("forms.placeholders.email") unless placeholder == false
+    
+    # delault : mettre la possibilité de passer un objet dans les params, et mettre la valeur par défault à objet.field_name 
+=end
+
+
     form_row = three_span do
       label_tag field_name, label, :class=>"#{ "qtip" if qtip }", :title=>qtip
     end
