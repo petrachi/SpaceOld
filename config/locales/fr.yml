@@ -7,6 +7,9 @@ fr:
     forms:
         labels:
             password: "Mot de passe"
+        
+        qtips:
+            email: "Votre identifiant globalisé"
             
         placeholders:
             email: "exemple@email.com"

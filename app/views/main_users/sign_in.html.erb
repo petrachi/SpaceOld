@@ -9,8 +9,8 @@
 <%= form_tag do %>
 	<%= hidden_field_tag :call, :js %>
 	
-	<%= form_row :email, :placeholder=>t("forms.placeholders.email"), :errors=>[:blank, :user_not_found] %>
-	<%= form_row :password, :label=>t("forms.labels.password"), :errors=>[:blank, "password.authenticate"] %>
+	<%= form_row :email, :errors=>[:blank, :user_not_found] %>
+	<%= form_row :password, :errors=>[:blank, "password.authenticate"] %>
 	
 	<%= js_merge_row %>	
 <% end %>

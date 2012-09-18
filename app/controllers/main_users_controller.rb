@@ -37,8 +37,7 @@ class MainUsersController < ApplicationController
         render :json => @user.errors.keys
     end
   end
-  
-  
+
   def sign_in    
     sign_in_errors params.merge(:call=>"ruby")
     

@@ -2,17 +2,23 @@ module GridFormHelper
   
   def form_row field_name, options = Hash.new, &block
     html_id, html_class, label, qtip, default, placeholder, errors = options.delete_many :id, :class, :label, :qtip, :default, :placeholder, :errors
-
-=begin
-    # doit pouvoir détecter si la clé i18n existe
     
-    label ||= t("forms.labels.email") unless label == false
-    placeholder ||= t("forms.placeholders.email") unless placeholder == false
     
+    label ||= t("forms.labels.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless label == false
+    qtip ||= t("forms.qtips.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless qtip == false
+    
+    
+    # la gestion du default ne me plait pas
+    default = eval "default.#{ field_name }" unless [String, Symbol].include? default.class or default.blank?
+    default ||= t("forms.defaults.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless default == false
+    
+    placeholder ||= t("forms.placeholders.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless placeholder == false
+    
+    
+    # errors ||= t("forms.errors.email", :raise => I18n::MissingTranslationData) rescue nil unless errors == false
     # delault : mettre la possibilité de passer un objet dans les params, et mettre la valeur par défault à objet.field_name 
-=end
-
-
+    
+    
     form_row = three_span do
       label_tag field_name, label, :class=>"#{ "qtip" if qtip }", :title=>qtip
     end
