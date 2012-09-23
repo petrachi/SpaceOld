@@ -1,6 +1,6 @@
 <%= pjax_flashs %>
 
-<%= four_col_container :collection=>[:cv, :game, :private] do |namespace| %>
+<%= four_col_container :collection=>[:cv, :game, :private], :offset=>:one, :offsets=>3 do |namespace| %>
 	<%= image_tag "http://placehold.it/245x100" %>
 	
 	<h2><%=t "#{ namespace }.name" %></h2>

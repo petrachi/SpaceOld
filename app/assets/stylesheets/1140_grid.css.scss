@@ -1,4 +1,6 @@
 @mixin span($width) { width: $width; margin: 0 1.74%; float: left; min-height: 1px; }
+@mixin offset($width) { margin-left: $width + 5.22%; }
+
 
 .container { 
 	
@@ -17,6 +19,19 @@
 		.ten_span { @include span(79.82%); }
 		.eleven_span { @include span(88.15%); }
 		.twelve_span { @include span(96.47%); }
+		
+		.offset_one { @include offset(4.85%); }
+		.offset_two { @include offset(13.18%); }
+		.offset_three { @include offset(21.51%); }
+		.offset_four { @include offset(29.84%); }
+		.offset_five { @include offset(38.17%); }
+		.offset_six { @include offset(46.5%); }
+		.offset_seven { @include offset(54.83%); }
+		.offset_eight { @include offset(63.16%); }
+		.offset_nine { @include offset(71.49%); }
+		.offset_ten { @include offset(79.82%); }
+		.offset_eleven { @include offset(88.15%); }
+		.offset_twelve { @include offset(96.47%); }
 	}
 	
 	img, object, embed { max-width: 100%; }

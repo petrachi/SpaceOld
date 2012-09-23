@@ -2,7 +2,7 @@ module MergeFormHelper
   module ClassMethods
     def merge_form method_name, class_name, options = Hash.new, &block
       # options => errors perso, valid persos
-      
+=begin      
       
       
       define_method method_name do
@@ -58,7 +58,7 @@ module MergeFormHelper
       merge_form
 
 
-      
+=end      
       
       
       
