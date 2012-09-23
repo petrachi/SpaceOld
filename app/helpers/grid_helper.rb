@@ -9,8 +9,7 @@ module GridHelper
   end
   
   def col col_number, options = Hash.new, &block
-    html_id, html_class, offsets, collection = options.delete_many :id, :class, :offsets, :collection
-    offset = OneReadOnly.new (options.delete :offset || offsets)
+    html_id, html_class, collection = options.delete_many :id, :class, :collection
     collection ||= [1]
     
     collection_length = TWELVE_STRING_INTS[col_number.to_sym]
@@ -20,7 +19,7 @@ module GridHelper
     
     cols = collection.map do |elt|
       eval %{
-        #{ span_width }_span :offset => (offset.read || offsets) do
+        #{ span_width }_span do
           capture(elt, &block)
         end }
     end
@@ -39,13 +38,13 @@ module GridHelper
   end
   
   def rows col_number, options = Hash.new, &block
-    html_id, html_class, offset, offsets, collection = options.delete_many :id, :class, :offset, :offsets, :collection    
+    html_id, html_class, collection = options.delete_many :id, :class, :collection    
     collection ||= [1]
     
     recollection_size = TWELVE_STRING_INTS[col_number.to_sym]
     
     rows = recollect(recollection_size, collection).map do |collection_mini|
-      col col_number, {:collection => collection_mini, :offset => offset, :offsets => offsets}, &block
+      col col_number, {:collection => collection_mini}, &block
     end
     
     container :id => html_id, :class => html_class do
