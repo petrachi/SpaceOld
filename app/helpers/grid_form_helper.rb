@@ -1,13 +1,13 @@
 module GridFormHelper
   
-  def merge_fomr_tag
+  def merge_form_tag
 =begin
     passer inputs
     permettre de passer un block pour personnaliser le form
     passer un objet pour les valeurs par défault
     passer l'url pour validation
     
-    init les qtips + le js merge form
+    init les qtips + le js merge for
 =end    
   end
   

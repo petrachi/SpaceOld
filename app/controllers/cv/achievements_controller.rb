@@ -12,6 +12,10 @@ class Cv::AchievementsController < Cv::ApplicationController
     end
   end
 
+
+  include MergeFormHelper
+  merge_form :edit, Achievement
+=begin
   def edit
     edit_errors params.merge(:call=>"ruby")
     
@@ -50,7 +54,7 @@ class Cv::AchievementsController < Cv::ApplicationController
       render :json => @errors
     end
   end
-  
+=end  
   def destroy
     if Achievement.where(:id => params[:id], :user_id => current_user.id).first.try(:destroy).present?
       flash[:notice] = "achievement supprime"
