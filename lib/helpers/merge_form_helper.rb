@@ -1,8 +1,13 @@
 module MergeFormHelper
+  
   module ClassMethods
+    
+    
     # U must can create / edit on the same method, by passing the id of the object
     # this render the action via http (like achievments), add option to init these actions base on a js render (like sign_up)
     def merge_form method_name, object_class, options = Hash.new, &block
+      
+      
       
       # U must can choose the object name
       object_name = "@#{ object_class.name.demodulize.underscore }"
@@ -10,17 +15,23 @@ module MergeFormHelper
       
       
       error_method_name = "#{ method_name }_errors"
+      column_names = object_class.column_names.map(&:to_sym) - [:created_at, :updated_at]
+      
+      edit = options.delete(:edit)
       
       
-      # add your specific saves things (ex : create fake stats when create lms_ent)
+      
+      
+      
+      # add your specific saves things (ex : create fake stats when create lms_ent) - must use object_name or pass in params of block
       define_method method_name do
         if eval("#{ error_method_name } params.merge(:call=>\"ruby\")").blank?
           @object.save
         end
         
+        
         instance_variable_set object_name, @object
         
-        p object_name
         
         if params[:call] == "js"
           if @object.id.present?
@@ -39,8 +50,23 @@ module MergeFormHelper
       # add your specific validateions
       define_method error_method_name, ->(params = params, &block) do
         
+        #Achievement.where(:id => params[:id], :user_id => current_user.id).first || Achievement.new
+        if edit
+          p "toto"
+          p({:id => params[:id], :user_id => current_user.id})
+          
+          p method(:current_user)
+          
+          @object = object_class.where( edit.call params ).first
+        end
         
-        @object = object_class.new(params.select_from_collection([:year, :activity, :brief]))
+        @object ||= object_class.new(params.select_from_collection(column_names))
+        # obj = find or new
+        # obj.assign_attributes
+        # obj.valid?
+        
+        
+        
         @object.valid?
         
         if params[:call] == "js"
