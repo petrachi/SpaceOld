@@ -39,3 +39,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
 # gem 'debugger'
+
+
+gem 'hash_extend'
+gem 'array_extend'
+
+gem 'css_grid'

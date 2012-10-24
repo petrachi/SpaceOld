@@ -1,16 +1,37 @@
-@mixin span($width) { width: $width; margin: 0 1.74%; float: left; min-height: 1px; }
-@mixin offset($width) { margin-left: $width + 5.22%; }
+@mixin span($width) { width: $width; margin: 0 1.74%; float: left; min-height: 1px; background:#ccc; }
 
+
+
+/*(((12 / 12) * 100) - (1,74 * 2)) / 100 * 1140*/
+
+@mixin offset($width) { margin-left: $width + 5.22%; }
+/*
+@mixin new_span($full, $col_num) { width: (((($col_num / 12) * 100)) - (1.74 * 2)) / 100 * ((12/$full) * 100%); margin: 0 (1.74 / 100 * (12/$full) * 100%); float: left; min-height: 1px; background:#ccc; }
+*/
+
+@mixin new_span($full, $col_num) { width: (((($col_num / 12) * 100)) - (1.74 * 2)) / 100 * $full; margin: 0 (1.74 / 100 * $full); float: left; min-height: 1px; background:#ccc; }
+
+
+
+
+
+@mixin new_inner($full){ margin: 0 (-1.74 / 100 * $full); width:100%; }
 
 .container { 
 	
 	.row { 
 		width: 100%; max-width: 1140px; min-width: 755px; margin: 0 auto; overflow: hidden; 
 		
+		.inner_row{ @include new_inner(1140px);  }
+		
 		.one_span { @include span(4.85%); } /* 55px */
 		.two_span { @include span(13.18%); } /* 150px */
-		.three_span { @include span(21.51%); } /* 245px */
-		.four_span { @include span(29.84%); } /* 340px */
+		.three_span { /*@include span(21.51%);*/ @include new_span(1140px, 3); } /* 245px */
+		.four_span { @include span(29.84%);
+			/*
+			.three_span{ @include new_span(4, 3); background: #fef; }
+			*/
+			 } /* 340px */
 		.five_span { @include span(38.17%); }
 		.six_span { @include span(46.5%); } /* 530px */
 		.seven_span { @include span(54.83%); }
@@ -39,10 +60,12 @@
 	
 }
 
-
 /* Smaller screens */
 @media only screen and (max-width: 1023px) {
 	body { font-size: 0.8em; line-height: 1.5em; }
+	
+	.container .row .three_span { /*@include span(21.51%);*/ @include new_span(768px, 3); } /* 245px */
+	
 }
 
 

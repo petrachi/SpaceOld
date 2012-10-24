@@ -1,7 +1,7 @@
 module ApplicationHelper
   include DynamicMethod
   
-  include GridHelper
+  include SelfGridHelper
   include GridFormHelper
   
   include PjaxHelper

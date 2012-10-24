@@ -1,10 +1,20 @@
 <%= pjax_flashs %>
 
-<%= four_col_container :collection=>[:cv, :game, :private], :offset=>:one, :offsets=>3 do |namespace| %>
+<%= four_col_container :collection=>[:cv, :game, :private] do |namespace| %>
 	<%= image_tag "http://placehold.it/245x100" %>
 	
 	<h2><%=t "#{ namespace }.name" %></h2>
 	<p><%=t "#{ namespace }.brief" %></p>
 	
 	<p><%= link_to t(:know_more), {:action=>namespace} %></p>
+<% end %>
+
+
+<%= three_col_container :collection=>[:cv, :game, :private] do |namespace| %>
+
+<%= inner_row do %>
+	<%= three_span{ t "#{ namespace }.name" } %>
+	<%= two_span{ t "#{ namespace }.brief" } %>
+<% end %>
+
 <% end %>
