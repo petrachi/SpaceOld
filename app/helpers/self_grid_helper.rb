@@ -4,13 +4,14 @@ module SelfGridHelper
   TWELVE_STRING_INTS = {:one => 1, :two => 2, :three => 3, :four => 4, :five => 5, :six => 6, :seven => 7, :eight => 8, :nine => 9, :ten => 10, :evelen => 11, :twelve => 12}
 
   def grid element_class, options = Hash.new, &block
-    html_id, html_class, offset, nested = options.delete_many :id, :class, :offset, :nested
-    offset = TWELVE_STRING_INTS.invert[offset] if offset.class == Fixnum
+    html_id, html_class, prepend, append, nested = options.delete_many :id, :class, :prepend, :append, :nested
+    prepend = TWELVE_STRING_INTS.invert[prepend] if prepend.class == Fixnum
     
    # raise ArgumentError, "" => offset only for span, nested only for rows
     
     content_class = [element_class, html_class]
-    content_class << "offset_#{ offset }" if offset #change in append / prepend
+    content_class << "prepend_#{ prepend }" if prepend
+    content_class << "append_#{ append }" if append
     content_class << "nested" if nested
     
     content_tag(:div, nil, :id => html_id, :class => content_class.compact.join(" ") , &block)
@@ -22,10 +23,10 @@ module SelfGridHelper
   def col col_number, options = Hash.new, &block
     collection = options.delete(:collection) || [1]
     nested = options.delete :nested
-
+    
     collection_length = TWELVE_STRING_INTS[col_number.to_sym]
     span_width = TWELVE_STRING_INTS.invert[ 12 / collection_length ]
-
+    
     raise ArgumentError, "collection.size must be <= #{ collection_length }" if collection.size > collection_length
     
     cols = collection.map do |elt|
@@ -37,7 +38,7 @@ module SelfGridHelper
         end 
       }
     end
-
+    
     row :id => options.delete(:id), :class => options.delete(:class) do
       cols.inject(ActiveSupport::SafeBuffer.new){ |buffer, col| buffer.safe_concat(col) }
     end
@@ -50,7 +51,9 @@ module SelfGridHelper
     end
     recollected
   end
-
+  
+  # make an "option special" who is an an array (or single symbol), an wich contains ":nested", ":no_auto_spans", etc...
+  # make an option "spans" which contains options for spans (like :class, :append, etc..)
   def rows col_number, options = Hash.new, &block
     nested = options.delete :nested
     rows = recollect(TWELVE_STRING_INTS[col_number.to_sym], options.delete(:collection) || [1]).map do |collection_mini|
