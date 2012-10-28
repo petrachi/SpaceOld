@@ -8,16 +8,3 @@
 	
 	<p><%= link_to t(:know_more), {:action=>namespace} %></p>
 <% end %>
-
-<%= three_col_container :collection=>[:cv, :game, :private], :nested=>true do |namespace| %>
-
-	<%= one_span{ t "#{ namespace }.name" } %>
-	<%= three_span{ t "#{ namespace }.brief" } %>
-
-<% end %>
-
-
-
-what if : 
-menu in 3s + content in 9s, 
-i want to use "three col container" inside the content

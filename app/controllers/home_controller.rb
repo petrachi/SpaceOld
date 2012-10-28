@@ -2,6 +2,12 @@ class HomeController < ApplicationController
   def index
   end
   
+  def css_grid 
+    @collection = [Enumerable, Array, String].inject([]){ |arr, cur| arr << {:name=>cur.name, :methods=>"#{ cur.methods.count } methods"} }
+    @large_collection = [Hash, Set, Fixnum, Float, NilClass, TrueClass].inject([]){ |arr, cur| arr << {:name=>cur.name, :methods=>"#{ cur.methods.count } methods"} }
+    
+  end
+  
   def preview namespace
     render :template=>"home/preview", :locals=>{:namespace => namespace}
   end

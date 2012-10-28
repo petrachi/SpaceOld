@@ -14,7 +14,7 @@
 		.row { 
 			width: $grid_width; margin: 0 auto; overflow: hidden; 
 			
-			&.nested{ margin: 0 (-1.74 / 100 * $grid_width); min-width: 0; width: (-1.74 / 100 * $grid_width) * 2 + $grid_width }
+			&.nested{ margin: 0 (-1.74 / 100 * $grid_width); min-width: 0;/* width: (-1.74 / 100 * $grid_width) * 2 + $grid_width; */ width: auto; }
 			
 			.one_span { @include span($grid_width, 1); } /* 55px */
 			.two_span { @include span($grid_width, 2); } /* 150px */
@@ -89,6 +89,8 @@
 	
 	.container{
 	    .row { width: 100%; padding: 0; 
+			&.nested{ margin: 0 -20px; }
+			
 	    	.one_span, .two_span, .three_span, .four_span, .five_span, .six_span, .seven_span, .eight_span, .nine_span, .ten_span, .eleven_span, .twelve_span { 
     	        width: auto; float: none; margin: 0; padding: 0 20px;
 	    	}
