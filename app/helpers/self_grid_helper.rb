@@ -4,6 +4,8 @@ module SelfGridHelper
   TWELVE_STRING_INTS = {:one => 1, :two => 2, :three => 3, :four => 4, :five => 5, :six => 6, :seven => 7, :eight => 8, :nine => 9, :ten => 10, :evelen => 11, :twelve => 12}
 
   def grid element_class, options = Hash.new, &block
+    options = Hash.new if options.nil?
+    
     prepend, append = options.delete_many :prepend, :append
     prepend = TWELVE_STRING_INTS.invert[prepend] if prepend.class == Fixnum
     append = TWELVE_STRING_INTS.invert[append] if append.class == Fixnum
@@ -45,16 +47,35 @@ module SelfGridHelper
     recollected
   end
   
-  # make an "option special" who is an an array (or single symbol), an wich contains ":nested", ":no_auto_spans", etc...
-  # make an option "spans" which contains options for spans (like :class, :append, etc..)
+  
+  #faire des fonctions "raccourics", par exemple, l'ancien 'one_col_row' pourra être réactivé en appelant one_col_container(:disable=>:container)
+  # gaffe en faisant ça pour gérer les options, par exemple si j'appelle one_col_row(:disable=>:spans)
+  
+  
+  
+  #faire une var de config générale qui donne les noms des container, rows, spans, offsets etc, les éléments html à créer, la largeur de la grid
+  
+  
+  
+  # option "continer width" qui permet de gérer si j'appelle la fonction dans un 9_span par ex => doit mettre les rows large en nested + prendre en compte pour le calcul du span width
   def rows col_number, options = Hash.new, &block
-#    prepend, append = options.delete_many :prepend, :append
     
-    nested, kontainer, spans = options.delete_many :nested, :container, :spans
-    nested, kontainer, spans = (options.delete(:running) || Hash.new).delete_many :nested, :container, :spans
-    # nested et no spans ne peut pas aller ensemble je crois. en désactiver un si les deux sont true
+    # attention au prepend / append à prendre en compte dans le calcul du span_width    
     
-    #réorganiser options en : :rows=>{:id, :class}, :spans=>{:nested, :disable, :id, :class, :prepend, :append}, :container=>{:disable, :id, :class}
+    #:disable=>[:container, :spans]
+    #:nested
+    #:container_width
+    
+    #refaire nested avec nested=>[::spans, :container=>width] ?
+    
+    
+    
+    #note - disable span ignore option nested
+    
+    disable = [*options.delete(:disable)]
+    nested = options.delete :nested
+    
+    
     
     collection_length = TWELVE_STRING_INTS[col_number.to_sym]
     span_width = TWELVE_STRING_INTS.invert[ 12 / collection_length ]
@@ -62,43 +83,53 @@ module SelfGridHelper
     
     
     rows = recollect(collection_length, options.delete(:collection) || [1]).map do |collection_mini|
-      #col col_number, {:collection => collection_mini, :nested => nested}, &block
       
-
+      
       cols = collection_mini.map do |elt|
         
-        if nested.present?
+        
+        
+        safe_buffer = capture(elt, &block)
+        
+        unless disable.include? :spans
           
-          # instead of using (:nested=>true, :id=>html_id, :class=>html_class), use (:class=>"#{ html_class } nested")
-          # this is for optimisation, test the code to be sure string interpolation is faster than passing by args
-          grid("row", :nested => true){ 
-            grid("#{ span_width }_span"){ capture(elt, &block) }
-          }
           
-        else
-          grid("#{ span_width }_span"){ capture(elt, &block) }
+          
+          if nested
+            safe_buffer = grid(:row, :nested=>true){ safe_buffer }
+            
+          end
+          
+          safe_buffer = grid("#{ span_width }_span", options[:spans]){ safe_buffer }
+        
+          
+        
         end
-=begin        
-        eval %{
-          #{ span_width }_span do
-            #{ "row :nested=>true do" if nested }
-              capture(elt, &block)
-            #{ "end" if nested }
-          end 
-        }
-=end
+        
+        
+        
+        safe_buffer
       end
 
-      # utiliser "grid(...)" pour alléger le code et optimiser la rapiditée 
-      row :id => options.delete(:id_i), :class => options.delete(:class_i) do
-        cols.inject(ActiveSupport::SafeBuffer.new){ |buffer, col| buffer.safe_concat(col) }
-      end
+      
+      grid(:row, options[:rows]){ cols.reduce(:safe_concat) }
       
     end
     
-    container :id => options.delete(:id), :class => options.delete(:class) do
-      rows.inject(ActiveSupport::SafeBuffer.new){ |buffer, col| buffer.safe_concat(col) }
+    
+    
+    
+    
+    safe_buffer = rows.reduce(:safe_concat)
+    
+    unless disable.include? :container
+      safe_buffer = grid(:container, options.delete(:container)){ safe_buffer }
+    
+      
+    
     end
+    
+    safe_buffer
   end
   
   
