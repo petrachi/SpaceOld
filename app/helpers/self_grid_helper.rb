@@ -8,21 +8,32 @@ module SelfGridHelper
   
   # optimisation : parcourir les calculs "cachables", pour les mettre dans une var de classe
   # ex : @content_class[options] ||= calc_content_class[options]; content_class = @content_class[options]
-  # ça sera sauvegardé jusqu'au prochain redémarrage, faire gaffe au "memory leak", mais dans l'appel du *_col_container, si il y a des options "rows" ou "spans", ce sera probablement utile
+  # ça sera sauvegardé jusqu'au prochain redémarrage, faire gaffe au "memory leak", mais dans l'appel du *_cols_container, si il y a des options "rows" ou "spans", ce sera probablement utile
   
   #peut etre en faire une option activable, if @use_cache; @content_class[] ||= calc; else; content_class = calc; end
   #et on pourrait l'utiliser dans le col_container automatiquement
   #et en option des "grid" : ex, je l'active dansun container, tout est géré avec le cache (l'exécution du &block), à la fin, la variable se désactive
   #si je fais ça, faire gaffe au multi exécutions
   
+  
+  #faire des options "persistantes", par ex le nested_width, qui probablement sera utilisé tout au long de la page.
+  # je pourrais faire une var @persistant qui prendra une certaine config, et à chaque appel je ferais options = @persistant.merge!(options)
+  # utilise pour col_container & span_container
+  
+  
+  # renommer col_container en col ? :four_cols_container(...){...} => :four_cols(...){...}
+  # peut être pas, le container est plus explicite
+  
   def grid element_class, options = Hash.new, &block
-    
+    #note - append/prepend do not support '=> :one', only '=> 1'
     prepend = TWELVE_STRING_INTS_INVERT[options.delete :prepend]
     append = TWELVE_STRING_INTS_INVERT[options.delete :append]
     
-   # raise ArgumentError, "" => offset only for span, nested only for rows
-    
-    warn "WARNING : argument ':nested' is not supported for #{ element_class }" if options[:nested].present? and element_class != :row
+    warn "WARNING : argument ':nested' is not supported for '#{ element_class }'" if options[:nested].present? and element_class != :row
+    unless element_class =~ /_span$/
+      warn "WARNING : argument ':prepend' is not supported for '#{ element_class }'" if prepend.present?
+      warn "WARNING : argument ':append' is not supported for '#{ element_class }'" if append.present?
+    end
     
     content_class = [element_class, options.delete(:class)]
     content_class << "prepend_#{ prepend }" if prepend
@@ -33,20 +44,6 @@ module SelfGridHelper
     content_tag(:div, nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
   end
 
-
-
-
-
-  #is this function realy necessary ? move it in "rows"
-  # btw, rename "rows" in something
-  # end create a "four_spans_rows", wich will do the same, but not auto calculate span width (?), and not in container. (for use in nested_row for example)
-  
-  #def col col_number, options = Hash.new, &block
-   # collection = options.delete(:collection) || [1]
-  #  nested = options.delete :nested
-    
-  #end
-
   def recollect size, collection
     recollected = Array.new
     0.step(collection.size - 1, size) do |i|
@@ -56,7 +53,7 @@ module SelfGridHelper
   end
   
   
-  #faire des fonctions "raccourics", par exemple, l'ancien 'one_col_row' pourra être réactivé en appelant one_col_container(:disable=>:container)
+  #faire des fonctions "raccourics", par exemple, l'ancien 'one_col_row' pourra être réactivé en appelant one_cols_container(:disable=>:container)
   # gaffe en faisant ça pour gérer les options, par exemple si j'appelle one_col_row(:disable=>:spans)
   
   
@@ -64,12 +61,10 @@ module SelfGridHelper
   #faire une var de config générale qui donne les noms des container, rows, spans, offsets etc, les éléments html à créer, etc...
   
   
-  
   # option "continer width" qui permet de gérer si j'appelle la fonction dans un 9_span par ex => doit mettre les rows large en nested + prendre en compte pour le calcul du span width
-  def rows col_number, options = Hash.new, &block
+  def cols_container col_number, options = Hash.new, &block
     options[:rows] ||= Hash.new
     options[:spans] ||= Hash.new
-    # attention au prepend / append => gérer le :offset=>1 comme le offset=>:one (, ou pas, mais changer dans 'grid' aussi alors)
     
     
     
@@ -85,7 +80,7 @@ module SelfGridHelper
     
     
     collection_length = TWELVE_STRING_INTS[col_number]
-    span_width = TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / (collection_length + (options[:spans][:prepend] || 0) + (options[:spans][:append] || 0))]
+    span_width = @span_width || TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / (collection_length + (options[:spans][:prepend] || 0) + (options[:spans][:append] || 0))]
     
     
     rows = recollect(collection_length, options.delete(:collection) || [1]).map do |collection_mini|
@@ -139,8 +134,30 @@ module SelfGridHelper
   end
   
   
+  
+  def spans_container span_width, options = Hash.new, &block
+    
+    @span_width = span_width
+    col_number = TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / TWELVE_STRING_INTS[span_width]]
+    
+    
+    cols_container col_number, options, &block
+  
+    
+  end
+  
+  
+=begin
+  #not sure if i must do this one
+  def one_col_row options = Hash.new, &block
+    
+    options[:disable] = [*options.delete(:disable)] << :container
+    cols_container one, options, &block
+  end
+=end
+  
   def method_missing method_name, *args, &block
-    case method_name.to_s
+    case method_name.to_sym
     when /^(container|row|(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span)$/
       self.grid($1.to_sym, *args, &block)
    # when /^(one|two|three|four|six|twelve)_col_row$/
@@ -150,21 +167,30 @@ module SelfGridHelper
     #in wainting
     
     when /^(one|two|three|four|six|twelve)_col_row$/
-        self.rows($1.to_sym, *args, &block)
+        self.cols_container($1.to_sym, *args, &block)
     
     #todo delete - end
     
-    when /^(one|two|three|four|six|twelve)_col_container$/
-      self.rows($1.to_sym, *args, &block)
+    when /^(one|two|three|four|six|twelve)_cols?_container$/
+      self.cols_container($1.to_sym, *args, &block)
+    when /^(one|two|three|four|six|twelve)_spans?_container$/
+      self.spans_container($1.to_sym, *args, &block)
+    
+    
+    
+    
+   
     else super
     end
   end
   
+  
+  # compléter le respond to
   def respond_to? method_name, include_private = false
     case method_name.to_s
     when  /^(container|row|(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span)$/, 
    #       /^(one|two|three|four|six|twelve)_col_row$/,
-          /^(one|two|three|four|six|twelve)_col_container$/
+          /^(one|two|three|four|six|twelve)_cols_container$/
       true
     else super
     end

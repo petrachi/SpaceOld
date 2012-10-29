@@ -14,7 +14,7 @@
 	#disable_double .two_span{ background-color: #ff90ff; }
 	
 	
-	.yellow{ color: yellow; }
+	.yellow{ color: skyblue; }
 	.yellow_bg{ background-color: yellow; }
 	
 	#prepend .two_span{ font-style: italic; background-color: #ffc0c0; }
@@ -28,19 +28,32 @@
 	#nested_container_span .three_span{ background-color: #9090ff; }
 	#nested_container_span .three_span .one_span{ background-color: #6060ff; }
 	#nested_container_span .three_span .two_span{ background-color: #6060ff; }
+	
+	#span_container{ color: #ffffc0; }
+	
+	#classique_spans .two_span{ background-color: #ffc000; }
+	
+	#nested_container_spans{ background-color: #ff00c0; }
+	#nested_container_spans .two_span{ background-color: #ff0090; }
+	
+	#nested_container_span_spans{ background-color: #c00000; }
+	#nested_container_span_spans .two_span{ background-color: #900000; }
+	#nested_container_span_spans .two_span .one_span{ background-color: #600000; }
+	#nested_container_span_spans .two_span .two_span{ background-color: #600000; }
+	
 </style>
 
-<%= three_col_container :id=>"classique", :collection=>@collection do |elt| %>
+<%= three_cols_container :id=>"classique", :collection=>@collection do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"class", :collection=>@collection, :class=>"gris" do |elt| %>
+<%= three_cols_container :id=>"class", :collection=>@collection, :class=>"gris" do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"nested", :collection=>@collection, :nested=>:spans do |elt| %>
+<%= three_cols_container :id=>"nested", :collection=>@collection, :nested=>:spans do |elt| %>
 	<%= two_span do %>
 		Class : <%= elt[:name] %>
 	<% end %>
@@ -50,7 +63,7 @@
 	<% end %>
 <% end %>
 
-<%= three_col_container :id=>"disable_spans", :collection=>@collection, :disable=>:spans do |elt| %>
+<%= three_cols_container :id=>"disable_spans", :collection=>@collection, :disable=>:spans do |elt| %>
 	<%= two_span do %>
 		Class : <%= elt[:name] %>
 	<% end %>
@@ -61,14 +74,14 @@
 <% end %>
 
 <%= container :id=>"disable_container" do %>
-	<%= three_col_container :collection=>@collection, :disable=>:container do |elt| %>
+	<%= three_cols_container :collection=>@collection, :disable=>:container do |elt| %>
 		Class : <%= elt[:name] %><br/>
 		Detail : <%= elt[:methods] %>
 	<% end %>
 <% end %>
 
 <%= container :id=>"disable_double" do %>
-	<%= three_col_container :collection=>@collection, :disable=>[:container, :spans] do |elt| %>
+	<%= three_cols_container :collection=>@collection, :disable=>[:container, :spans] do |elt| %>
 		<%= two_span do %>
 			Class : <%= elt[:name] %>
 		<% end %>
@@ -79,44 +92,44 @@
 	<% end %>
 <% end %>
 
-<%= three_col_container :id=>"spans_options", :collection=>@large_collection, :spans=>{:class=>:yellow_bg} do |elt| %>
+<%= three_cols_container :id=>"spans_options", :collection=>@large_collection, :spans=>{:class=>:yellow_bg} do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"rows_options", :collection=>@large_collection, :rows=>{:class=>:yellow} do |elt| %>
+<%= three_cols_container :id=>"rows_options", :collection=>@large_collection, :rows=>{:class=>:yellow} do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"prepend", :collection=>@collection, :spans=>{:prepend=>2} do |elt| %>
+<%= three_cols_container :id=>"prepend", :collection=>@collection, :spans=>{:prepend=>2} do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"append", :collection=>@collection, :spans=>{:append=>1} do |elt| %>
+<%= three_cols_container :id=>"append", :collection=>@collection, :spans=>{:append=>1} do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= three_col_container :id=>"prepend_append", :collection=>@collection, :spans=>{:prepend=>1, :append=>1} do |elt| %>
+<%= three_cols_container :id=>"prepend_append", :collection=>@collection, :spans=>{:prepend=>1, :append=>1} do |elt| %>
 	Class : <%= elt[:name] %><br/>
 	Detail : <%= elt[:methods] %>
 <% end %>
 
-<%= one_col_container :disable=>:spans do %>
+<%= one_cols_container :disable=>:spans do %>
 	
 	<%= three_span :id=>:menu do %>
 		Menu
 	<% end %>
 	
 	<%= nine_span :id=>:content do %>
-		<%= three_col_container :id=>"nested_container", :collection=>@large_collection, :nested=>:container, :nested_width=>9 do |elt| %>
+		<%= three_cols_container :id=>"nested_container", :collection=>@large_collection, :nested=>:container, :nested_width=>9 do |elt| %>
 			Class : <%= elt[:name] %><br/>
 			Detail : <%= elt[:methods] %>
 		<% end %>
 		
-		<%= three_col_container :id=>"nested_container_span", :collection=>@collection, :nested=>[:spans, :container], :nested_width=>9 do |elt| %>
+		<%= three_cols_container :id=>"nested_container_span", :collection=>@collection, :nested=>[:spans, :container], :nested_width=>9 do |elt| %>
 			<%= one_span do %>
 				Class : <%= elt[:name] %>
 			<% end %>
@@ -128,5 +141,43 @@
 	<% end %>
 <% end %>
 
+<%= container :id => "warnings", :prepend => 2, :nested => true do %>
+	<%= row :append => 1 do %>
+		<%= twelve_span :nested => true do %>
+			Warnings
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= container :id=>"span_container" do %>
+	<%= two_spans_container :rows=>{:id=>"classique_spans"}, :collection=>@large_collection, :disable=>:container do |elt| %>
+		Class : <%= elt[:name] %><br/>
+		Detail : <%= elt[:methods] %>
+	<% end %>
+	
+	<%= twelve_span_container :disable=>:spans do %>
+
+		<%= four_span :id=>:menu do %>
+			Menu
+		<% end %>
+
+		<%= eight_span :id=>:content_spans do %>
+			<%= two_spans_container :id=>"nested_container_spans", :collection=>@large_collection, :nested=>:container, :nested_width=>8 do |elt| %>
+				Class : <%= elt[:name] %><br/>
+				Detail : <%= elt[:methods] %>
+			<% end %>
+
+			<%= two_spans_container :id=>"nested_container_span_spans", :collection=>@collection, :nested=>[:spans, :container], :nested_width=>8 do |elt| %>
+				<%= one_span do %>
+					Class : <%= elt[:name] %>
+				<% end %>
+
+				<%= one_span do %>
+					Detail : <%= elt[:methods] %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
 
 
