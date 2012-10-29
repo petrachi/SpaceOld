@@ -2,18 +2,27 @@ module SelfGridHelper
   
   
   TWELVE_STRING_INTS = {:one => 1, :two => 2, :three => 3, :four => 4, :five => 5, :six => 6, :seven => 7, :eight => 8, :nine => 9, :ten => 10, :evelen => 11, :twelve => 12}
-
+  
+  TWELVE_STRING_INTS_INVERT = TWELVE_STRING_INTS.invert
+  #faire le invert dans une classe afin de pouvoir le précalculer
+  
+  # optimisation : parcourir les calculs "cachables", pour les mettre dans une var de classe
+  # ex : @content_class[options] ||= calc_content_class[options]; content_class = @content_class[options]
+  # ça sera sauvegardé jusqu'au prochain redémarrage, faire gaffe au "memory leak", mais dans l'appel du *_col_container, si il y a des options "rows" ou "spans", ce sera probablement utile
+  
+  #peut etre en faire une option activable, if @use_cache; @content_class[] ||= calc; else; content_class = calc; end
+  #et on pourrait l'utiliser dans le col_container automatiquement
+  #et en option des "grid" : ex, je l'active dansun container, tout est géré avec le cache (l'exécution du &block), à la fin, la variable se désactive
+  #si je fais ça, faire gaffe au multi exécutions
+  
   def grid element_class, options = Hash.new, &block
     
-    prepend, append = options.delete_many :prepend, :append
-    prepend = TWELVE_STRING_INTS.invert[prepend] if prepend.class == Fixnum
-    append = TWELVE_STRING_INTS.invert[append] if append.class == Fixnum
+    prepend = TWELVE_STRING_INTS_INVERT[options.delete :prepend]
+    append = TWELVE_STRING_INTS_INVERT[options.delete :append]
     
    # raise ArgumentError, "" => offset only for span, nested only for rows
     
-    #TypeError: wrong argument type Array (expected Regexp)
-    # raise a warning instead
-    
+    warn "WARNING : argument ':nested' is not supported for #{ element_class }" if options[:nested].present? and element_class != :row
     
     content_class = [element_class, options.delete(:class)]
     content_class << "prepend_#{ prepend }" if prepend
@@ -58,15 +67,9 @@ module SelfGridHelper
   
   # option "continer width" qui permet de gérer si j'appelle la fonction dans un 9_span par ex => doit mettre les rows large en nested + prendre en compte pour le calcul du span width
   def rows col_number, options = Hash.new, &block
-    options.default = Hash.new
-    
-    # attention au prepend / append à prendre en compte dans le calcul du span_width    
-    
-    #:disable=>[:container, :spans]
-    #:nested
-    #:container_width
-    
-    #refaire nested avec nested=>[::spans, :container=>width] ?
+    options[:rows] ||= Hash.new
+    options[:spans] ||= Hash.new
+    # attention au prepend / append => gérer le :offset=>1 comme le offset=>:one (, ou pas, mais changer dans 'grid' aussi alors)
     
     
     
@@ -76,13 +79,13 @@ module SelfGridHelper
     nested = [*options.delete(:nested)]
     
     
-    if nested.delete :container
-      options[:rows].merge!({:nested => true})
-    end
+    
+    options[:rows].merge!({:nested => true}) if nested.delete :container
+    #end
     
     
-    collection_length = TWELVE_STRING_INTS[col_number.to_sym]
-    span_width = TWELVE_STRING_INTS.invert[(options.delete(:nested_width) || 12) / (collection_length + (options[:spans][:prepend] || 0) + (options[:spans][:append] || 0))]
+    collection_length = TWELVE_STRING_INTS[col_number]
+    span_width = TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / (collection_length + (options[:spans][:prepend] || 0) + (options[:spans][:append] || 0))]
     
     
     rows = recollect(collection_length, options.delete(:collection) || [1]).map do |collection_mini|
@@ -98,13 +101,12 @@ module SelfGridHelper
           
           
           
-          if nested.include? :spans
-            safe_buffer = grid(:row, :nested=>true){ safe_buffer }
+          
+          safe_buffer = grid(:row, :nested=>true){ safe_buffer } if nested.include? :spans
             
-          end
+        #  end
           
-          
-          safe_buffer = grid("#{ span_width }_span", options[:spans].clone){ safe_buffer }
+          safe_buffer = grid("#{ span_width }_span".to_sym, options[:spans].clone){ safe_buffer }
           
           
           
@@ -126,12 +128,12 @@ module SelfGridHelper
     
     safe_buffer = rows.reduce(:safe_concat)
     
-    unless disable.delete :container
-      safe_buffer = grid(:container, :id=>options.delete(:id), :class=>options.delete(:class)){ safe_buffer }
+    safe_buffer = grid(:container, :id=>options.delete(:id), :class=>options.delete(:class)){ safe_buffer } unless disable.delete :container
+    
     
       
     
-    end
+    #end
     
     safe_buffer
   end
@@ -140,20 +142,20 @@ module SelfGridHelper
   def method_missing method_name, *args, &block
     case method_name.to_s
     when /^(container|row|(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span)$/
-      self.grid($1, *args, &block)
+      self.grid($1.to_sym, *args, &block)
    # when /^(one|two|three|four|six|twelve)_col_row$/
   #    self.col($1, *args, &block)
     
-    
+    # todo - delete start
     #in wainting
     
     when /^(one|two|three|four|six|twelve)_col_row$/
-        self.rows($1, *args, &block)
+        self.rows($1.to_sym, *args, &block)
     
-    #todo deletr
+    #todo delete - end
     
     when /^(one|two|three|four|six|twelve)_col_container$/
-      self.rows($1, *args, &block)
+      self.rows($1.to_sym, *args, &block)
     else super
     end
   end

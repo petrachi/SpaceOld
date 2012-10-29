@@ -9,6 +9,11 @@
 	
 	#disable_container{ color: #ff0000; }
 	
+	#disable_double{ color: #ff0000; }
+	#disable_double{ background-color: #ffc0ff; }
+	#disable_double .two_span{ background-color: #ff90ff; }
+	
+	
 	.yellow{ color: yellow; }
 	.yellow_bg{ background-color: yellow; }
 	
@@ -59,6 +64,18 @@
 	<%= three_col_container :collection=>@collection, :disable=>:container do |elt| %>
 		Class : <%= elt[:name] %><br/>
 		Detail : <%= elt[:methods] %>
+	<% end %>
+<% end %>
+
+<%= container :id=>"disable_double" do %>
+	<%= three_col_container :collection=>@collection, :disable=>[:container, :spans] do |elt| %>
+		<%= two_span do %>
+			Class : <%= elt[:name] %>
+		<% end %>
+	
+		<%= two_span do %>
+			Detail : <%= elt[:methods] %>
+		<% end %>
 	<% end %>
 <% end %>
 
