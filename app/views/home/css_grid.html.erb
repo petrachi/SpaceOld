@@ -1,4 +1,10 @@
 <style>
+	/*
+	#yield > .container{ border: 2px dashed peachpuff; margin: 3px 0 }
+	.container .row{ margin-top: 6px; margin-bottom: 6px; }
+	.container .row.nested{ margin-top: 6px; margin-bottom: 6px; }
+	*/
+	
 	#class.gris{ background-color: #f2f2f2; }
 	
 	#nested .four_span{ background-color: #c0ffff; }
@@ -47,9 +53,9 @@
 	#anticipation .nested .nested [class*=span]{ box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.2) inset; }
 	
 	#multi_nested .two_span{ background-image: -webkit-repeating-linear-gradient(45deg, transparent 0px, transparent 12px, skyblue 12px, skyblue 24px); }
+	#floor .four_span{ background-image:-webkit-linear-gradient(45deg, white , white 50%, black 50%, black) }
+	#floor #span_col .four_span{ background-image:-webkit-linear-gradient(45deg, white , white 50%, red 50%, red 60%, black 60%, black) }
 	
-	
-	#next{background-image:-webkit-linear-gradient(45deg, white , white 50%, black 50%, black)}
 </style>
 
 <% t = Time.now %>
@@ -244,4 +250,21 @@
 
 <%= one_col_container do %>
 	page load : <%= tf %>
+<% end %>
+
+<%= one_col_container :id=>"floor", :nested=>:spans do %>
+
+	<%= three_span :id=>:menu do %>
+		Menu
+	<% end %>
+
+	<%= nine_span do %>
+		<%= two_cols_container :collection=>@collection do |elt| %>
+			<%= elt[:name] %> (<%= elt[:methods] %>)
+		<% end %>
+		
+		<%= four_spans_container :id=>:span_col, :collection=>@collection do |elt| %>
+			<%= elt[:name] %> (<%= elt[:methods] %>)
+		<% end %>
+	<% end %>
 <% end %>

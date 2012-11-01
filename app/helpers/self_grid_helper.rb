@@ -78,6 +78,7 @@ module SelfGridHelper
   
   #faire une var de config générale qui donne les noms des container, rows, spans, offsets etc, les éléments html à créer, etc...
   
+  # persistant option
   # attention au options mergables (genre :disable, :rows, :spans, :nested, ...)
   # voir même, les class doivent se 'persistant + current' (persistant :ok, options :youpi => doit être "ok youpi")
   
@@ -85,10 +86,7 @@ module SelfGridHelper
   
   # add option :persistant => {...} dans cols_container qui permet de set ces options là en persistant
   # persistant should not be used out of block (in this example, the persistant applies ont the layout elements)
-  # grooso modo : nine_span :anticipate=>:nested_container do; ...(*_col_container inside); end
-    
-  #mettre un .floor pour le calcul de la span_width & collection_width
-  
+  # grooso modo : nine_span :anticipate=>:nested_container do; ...(*_col_container inside); end  
   
   # note - nested :spans == va contenir des spans à l'intérieur des spans auto générées' / nested :container == est exécuté à l'intérieur d'une span
   def cols_container col_number, options = {}, &block
@@ -141,8 +139,16 @@ module SelfGridHelper
   
   def spans_container span_width, options = {}, &block
     
+    
+    if @nested_stack.present?
+      options[:nested_width] ||= TWELVE_STRING_INTS[@nested_stack.last.to_sym]
+    end
+    
     @span_width = span_width
     col_number = TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / TWELVE_STRING_INTS[span_width]]
+    
+    
+    p @span_width, col_number, "-"
     
     safe_buffer = cols_container col_number, options, &block
     @span_width = nil
