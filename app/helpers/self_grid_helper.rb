@@ -30,9 +30,23 @@ module SelfGridHelper
     append = TWELVE_STRING_INTS_INVERT[options.delete :append]
     
     warn "WARNING : argument ':nested' is not supported for '#{ element_class }'" if options[:nested].present? and element_class != :row
-    unless element_class =~ /_span$/
+    
+    
+    if element_class =~ /(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span$/
+      if options[:anticipate_nested]
+        
+        # do support if possible
+        raise ArgumentError, "argument ':anticipate' do not supported to be nested" if @options.present?
+        
+        
+        @options = {:nested => :container, :nested_width => TWELVE_STRING_INTS[$1.to_sym]}
+        
+      end
+    else
       warn "WARNING : argument ':prepend' is not supported for '#{ element_class }'" if prepend.present?
       warn "WARNING : argument ':append' is not supported for '#{ element_class }'" if append.present?
+      
+      raise ArgumentError, "argument ':anticipate' is not supported for '#{ element_class }' - use it on *_span" if options.delete :anticipate
     end
     
     content_class = [element_class, options.delete(:class)]
@@ -41,7 +55,11 @@ module SelfGridHelper
     content_class << "nested" if options.delete(:nested)
     
     # instead of using div, think if you can use html5 elements ("section" for container maybye)
-    content_tag(:div, nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
+    safe_buffer = content_tag(:div, nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
+    
+    
+    @options = nil if options.delete :anticipate_nested
+    safe_buffer
   end
 
   def recollect size, collection
@@ -53,16 +71,92 @@ module SelfGridHelper
   end
   
   
-  #faire des fonctions "raccourics", par exemple, l'ancien 'one_col_row' pourra être réactivé en appelant one_cols_container(:disable=>:container)
-  # gaffe en faisant ça pour gérer les options, par exemple si j'appelle one_col_row(:disable=>:spans)
-  
-  
   
   #faire une var de config générale qui donne les noms des container, rows, spans, offsets etc, les éléments html à créer, etc...
   
+  # attention au options mergables (genre :disable, :rows, :spans, :nested, ...)
+  # voir même, les class doivent se 'persistant + current' (persistant :ok, options :youpi => doit être "ok youpi")
   
-  # option "continer width" qui permet de gérer si j'appelle la fonction dans un 9_span par ex => doit mettre les rows large en nested + prendre en compte pour le calcul du span width
+  # rename persistant oprions
+  
+  # add option :persistant => {...} dans cols_container qui permet de set ces options là en persistant
+  # persistant should not be used out of block (in this example, the persistant applies ont the layout elements)
+  # grooso modo : nine_span :anticipate=>:nested_container do; ...(*_col_container inside); end
+  
+  # faire un "auto persistant" qui va set le :nested_width / :nested=>:container automatiquement dans un *_span
+=begin
+  def persistant_options options
+    p "-"*20 + "is set #{options.inspect}"
+    
+    @options = Hash.new
+    
+    @options[:rows] ||= Hash.new
+    @options[:spans] ||= Hash.new
+    
+    @options = options
+  end
+=end  
+  def merge_persistant_options options
+    
+    p options
+    p @options
+    
+    if @options.present?
+      
+      p "*"*14 + "opt #{options.inspect}"
+      p "&"*14 + "@opt #{@options.inspect}"
+      
+      
+      p [*options[:nested]], [*@options[:nested]], [*options[:nested]] + [*@options[:nested]]
+      
+      options[:nested] = [*options.delete(:nested)] + [*@options[:nested]]
+      
+      
+      p "*"*14 + "opt #{options.inspect}"
+      
+      options[:nested_width] ||= @options[:nested_width]
+      
+    #  options.merge!({:nested_width => @options[:nested_width]})
+      
+      p "*"*14 + "opt #{options.inspect}"
+    end
+    
+    #options.merge!(@options) if @options.present?
+    
+    p options
+    
+    #options
+  end
+  
+=begin  
+  def clear_persistant_options
+    
+    p "-"*20 + "is clear"
+    
+    @options = nil
+    
+  end
+=end  
+  
+  #mettre un .floor pour le calcul de la span_width & collection_width
+  
+  
+  # note - nested :spans == va contenir des spans à l'intérieur des spans auto générées' / nested :container == est exécuté à l'intérieur d'une span
   def cols_container col_number, options = Hash.new, &block
+    
+    p options
+    p @options
+    
+    
+    
+    merge_persistant_options options
+    
+    p options
+    
+    
+    
+    p "col #{options.inspect}"
+    
     options[:rows] ||= Hash.new
     options[:spans] ||= Hash.new
     
@@ -83,6 +177,9 @@ module SelfGridHelper
     span_width = @span_width || TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / (collection_length + (options[:spans][:prepend] || 0) + (options[:spans][:append] || 0))]
     
     
+    
+    p "span_width #{span_width}"
+    p *["-"*75]*3
     rows = recollect(collection_length, options.delete(:collection) || [1]).map do |collection_mini|
       
       
@@ -141,11 +238,22 @@ module SelfGridHelper
     col_number = TWELVE_STRING_INTS_INVERT[(options.delete(:nested_width) || 12) / TWELVE_STRING_INTS[span_width]]
     
     
-    cols_container col_number, options, &block
-  
+    safe_buffer = cols_container col_number, options, &block
+    @span_width = nil
+    
+    
+    
+    safe_buffer
+    
     
   end
   
+  
+  def one_col_row options = Hash.new, &block
+    p "one col #{options.inspect}"
+    
+    cols_container :one, options.merge(:disable=>:container, :rows=>{:id=>options.delete(:id), :class=>options.delete(:class)}), &block
+  end
   
 =begin
   #not sure if i must do this one
