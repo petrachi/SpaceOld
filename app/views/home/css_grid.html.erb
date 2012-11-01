@@ -46,11 +46,13 @@
 	#anticipation .nested [class*=span]{ box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2) inset; }
 	#anticipation .nested .nested [class*=span]{ box-shadow: 0 0 0 6px rgba(255, 0, 0, 0.2) inset; }
 	
-	#multi_nested  .nested  .nested  .nested [class*=span]{ background-image: -webkit-repeating-linear-gradient(45deg, transparent 0px, transparent 12px, skyblue 12px, skyblue 24px); }
+	#multi_nested .two_span{ background-image: -webkit-repeating-linear-gradient(45deg, transparent 0px, transparent 12px, skyblue 12px, skyblue 24px); }
 	
 	
 	#next{background-image:-webkit-linear-gradient(45deg, white , white 50%, black 50%, black)}
 </style>
+
+<% t = Time.now %>
 
 <%= three_cols_container :id=>"classique", :collection=>@collection do |elt| %>
 	Class : <%= elt[:name] %><br/>
@@ -133,12 +135,12 @@
 	<% end %>
 	
 	<%= nine_span :id=>:content do %>
-		<%= three_cols_container :id=>"nested_container", :collection=>@large_collection, :nested=>:container, :nested_width=>9 do |elt| %>
+		<%= three_cols_container :id=>"nested_container", :collection=>@large_collection do |elt| %>
 			Class : <%= elt[:name] %><br/>
 			Detail : <%= elt[:methods] %>
 		<% end %>
 		
-		<%= three_cols_container :id=>"nested_container_span", :collection=>@collection, :nested=>[:spans, :container], :nested_width=>9 do |elt| %>
+		<%= three_cols_container :id=>"nested_container_span", :collection=>@collection, :nested=>:spans do |elt| %>
 			<%= one_span do %>
 				Class : <%= elt[:name] %>
 			<% end %>
@@ -171,12 +173,12 @@
 		<% end %>
 
 		<%= eight_span :id=>:content_spans do %>
-			<%= two_spans_container :id=>"nested_container_spans", :collection=>@large_collection, :nested=>:container, :nested_width=>8 do |elt| %>
+			<%= two_spans_container :id=>"nested_container_spans", :collection=>@large_collection do |elt| %>
 				Class : <%= elt[:name] %><br/>
 				Detail : <%= elt[:methods] %>
 			<% end %>
 
-			<%= two_spans_container :id=>"nested_container_span_spans", :collection=>@collection, :nested=>[:spans, :container], :nested_width=>8 do |elt| %>
+			<%= two_spans_container :id=>"nested_container_span_spans", :collection=>@collection, :nested=>:spans do |elt| %>
 			
 				<%= one_span do %>
 					Class : <%= elt[:name] %>
@@ -203,8 +205,8 @@
 		Menu
 	<% end %>
 	
-	<%= nine_span :id=>:content, :anticipate_nested => true do %>
-			
+	<%= nine_span :id=>:content do %>
+		
 		<%= three_cols_container :id=>"nested_container", :collection=>@large_collection do |elt| %>
 			Class : <%= elt[:name] %><br/>
 			Detail : <%= elt[:methods] %>
@@ -219,6 +221,7 @@
 				Detail : <%= elt[:methods] %>
 			<% end %>
 		<% end %>
+		
 	<% end %>
 <% end %>
 
@@ -228,13 +231,17 @@
 		Menu
 	<% end %>
 
-	<%= eight_span :anticipate_nested => true do %>
+	<%= eight_span do %>
 		<%= two_col_container :collection=>@large_collection do |elt| %>
 			
-			
-			<%= two_col_container(:collection=>elt.values, :nested=>:container, :nested_width=>4){ |val| val } %>
+			<%= two_col_container(:collection=>elt.values){ |val| val } %>
 			
 		<% end %>
 	<% end %>
 <% end %>
 
+<% tf = Time.now - t %>
+
+<%= one_col_container do %>
+	page load : <%= tf %>
+<% end %>
