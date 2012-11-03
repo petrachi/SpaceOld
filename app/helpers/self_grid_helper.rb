@@ -5,61 +5,62 @@ module SelfGridHelper
   
   TWELVE_STRING_INTS_INVERT = TWELVE_STRING_INTS.invert
   
-  # optimisation : parcourir les calculs "cachables", pour les mettre dans une var de classe
-  # ex : @content_class[options] ||= calc_content_class[options]; content_class = @content_class[options]
-  # ça sera sauvegardé jusqu'au prochain redémarrage, faire gaffe au "memory leak", mais dans l'appel du *_cols_container, si il y a des options "rows" ou "spans", ce sera probablement utile
-  
-  #peut etre en faire une option activable, if @use_cache; @content_class[] ||= calc; else; content_class = calc; end
-  #et on pourrait l'utiliser dans le col_container automatiquement
-  #et en option des "grid" : ex, je l'active dansun container, tout est géré avec le cache (l'exécution du &block), à la fin, la variable se désactive
-  #si je fais ça, faire gaffe au multi exécutions
   
   
-  #faire des options "persistantes", par ex le nested_width, qui probablement sera utilisé tout au long de la page.
-  # je pourrais faire une var @persistant qui prendra une certaine config, et à chaque appel je ferais options = @persistant.merge!(options)
-  # utilise pour col_container & span_container
+=begin  
+  GRID_CONFIG = { :classes => { :container => :container,
+                                :row => :row, :nested => :nested,                                                                                                  
+                                :prepend => :prepend, :append => :append,                                                                                              
+                                :one_span => :one_span, :two_span => :two_span, :three_span => :three_span, :four_span => :four_span,                                  
+                                :five_span => :five_span, :six_span => :six_span, :seven_span => :seven_span, :eight_span => :eight_span,                              
+                                :nine_span => :nine_span, :ten_span => :ten_span, :eleven_span => :eleven_span, :twelve_span => :twelve_span },
+                  :elements => {:container => :section,
+                                :row => :div,                                                                                              
+                                :one_span => :div, :two_span => :div, :three_span => :div, :four_span => :div,                                  
+                                :five_span => :div, :six_span => :div, :seven_span => :div, :eight_span => :div,                              
+                                :nine_span => :div, :ten_span => :div, :eleven_span => :div, :twelve_span => :div}
+                }                        
+=end  
   
+  GRID_CONFIG = { :classes => Hash.new{ |hash, key| hash[key] = key }, 
+                  :elements => Hash.new(:div).merge(:container => :section) }
   
-  #optimisation : [] 2* + rapide que Array.new (2s vs 1s sur 5,000,000), {} 6* + rapide que Hash.new (6s vs 1s sur 5.000.000)
+  # tester grid config avec twitter bootstrap & autre => à mettre dans le readme
   
   
   # opti : 0.024 / 0.028 / 0.031 / 0.042 / 0.017 / 0.011 - manque optimisation + personnalisation
   
   
-  # renommer col_container en col ? :four_cols_container(...){...} => :four_cols(...){...}
-  # peut être pas, le container est plus explicite
   def initialize *args
     @nested_stack = []
     super
   end
   
-  def grid element_class, options = {}, &block
+  def grid tag, options = {}, &block
     #note - append/prepend do not support '=> :one', only '=> 1'
     prepend = TWELVE_STRING_INTS_INVERT[options.delete :prepend]
     append = TWELVE_STRING_INTS_INVERT[options.delete :append]
     
-    warn "WARNING : argument ':nested' is not supported for '#{ element_class }'" if options[:nested].present? and element_class != :row
+    warn "WARNING : argument ':nested' is not supported for '#{ tag }'" if options[:nested].present? and tag != :row
     
-    if element_class =~ /(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span$/
+    if tag =~ /(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span$/
         @nested_stack << $1
         
         unstack = true
     else
-      warn "WARNING : argument ':prepend' is not supported for '#{ element_class }'" if prepend.present?
-      warn "WARNING : argument ':append' is not supported for '#{ element_class }'" if append.present?
-      
-      raise ArgumentError, "argument ':anticipate' is not supported for '#{ element_class }' - use it on *_span" if options.delete :anticipate
-      
+      warn "WARNING : argument ':prepend' is not supported for '#{ tag }'" if prepend.present?
+      warn "WARNING : argument ':append' is not supported for '#{ tag }'" if append.present?
+            
       unstack = false
     end
     
-    content_class = [element_class, options.delete(:class)]
-    content_class << "prepend_#{ prepend }" if prepend
-    content_class << "append_#{ append }" if append
-    content_class << "nested" if options.delete(:nested)
+    content_class = [GRID_CONFIG[:classes][tag], options.delete(:class)]
+    content_class << "#{ GRID_CONFIG[:classes][:prepend] }_#{ prepend }" if prepend
+    content_class << "#{ GRID_CONFIG[:classes][:append] }_#{ append }" if append
+    content_class << GRID_CONFIG[:classes][:nested] if options.delete(:nested)
     
     # instead of using div, think if you can use html5 elements ("section" for container maybye)
-    safe_buffer = content_tag(:div, nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
+    safe_buffer = content_tag(GRID_CONFIG[:elements][tag], nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
     
     @nested_stack.pop if unstack
     
@@ -78,17 +79,8 @@ module SelfGridHelper
   
   #faire une var de config générale qui donne les noms des container, rows, spans, offsets etc, les éléments html à créer, etc...
   
-  # persistant option
-  # attention au options mergables (genre :disable, :rows, :spans, :nested, ...)
-  # voir même, les class doivent se 'persistant + current' (persistant :ok, options :youpi => doit être "ok youpi")
-  
-  # rename persistant oprions
-  
-  # add option :persistant => {...} dans cols_container qui permet de set ces options là en persistant
-  # persistant should not be used out of block (in this example, the persistant applies ont the layout elements)
-  # grooso modo : nine_span :anticipate=>:nested_container do; ...(*_col_container inside); end  
-  
   # note - nested :spans == va contenir des spans à l'intérieur des spans auto générées' / nested :container == est exécuté à l'intérieur d'une span
+  # note - nested-container est automatique et ne devrait plus être appelé manuellement 
   def cols_container col_number, options = {}, &block
     
     options[:rows] ||= {}
@@ -173,8 +165,8 @@ module SelfGridHelper
     # todo - delete start
     #in wainting
     
-    when /^(one|two|three|four|six|twelve)_col_row$/
-        self.cols_container($1.to_sym, *args, &block)
+  #  when /^(one|two|three|four|six|twelve)_col_row$/
+  #      self.cols_container($1.to_sym, *args, &block)
     
     #todo delete - end
     
@@ -192,7 +184,8 @@ module SelfGridHelper
     case method_name.to_s
     when  /^(container|row|(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span)$/, 
    #       /^(one|two|three|four|six|twelve)_col_row$/,
-          /^(one|two|three|four|six|twelve)_cols_container$/
+          /^(one|two|three|four|six|twelve)_cols?_container$/,
+          /^(one|two|three|four|six|twelve)_spans?_container$/
       true
     else super
     end
