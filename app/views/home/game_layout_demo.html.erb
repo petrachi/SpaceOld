@@ -39,8 +39,10 @@
 		
 		<%= container do %>
 			<%= row do %>
-				<%= eleven_span :id=>:player do %>
-					<%= image_tag "tmp/#{ rand(124) + 1 }.jpeg" %>
+				<%= one_span do %>
+					<div class="img_56"><%= image_tag "tmp/#{ rand(124) + 1 }.jpeg" %></div>
+				<% end %>
+				<%= ten_span :id=>:player do %>
 					El Petrachi
 				<% end %>
 				
