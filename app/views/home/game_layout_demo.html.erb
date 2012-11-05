@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Space</title>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	
+	<%= javascript_include_tag "application" %>
+	<%= javascript_tag do "$(document).ready(function(){ #{ resize_push } });".html_safe end if notice or alert %>	
+		
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="game_demo">
+		
+		<%= container do %>
+			<%= row do %>
+				<%= one_span :id=>:return do %>
+					<
+				<% end %>
+				
+				<%= eleven_span :id=>:title do %>
+					<h1>Titre</h1>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= four_col_container :id=>:sections, :collection=>@sections do %>
+			<div class="img_112">
+				<%= image_tag "tmp/#{ rand(124) + 1 }.jpeg" %>
+				<div class="section">SECTION</div>
+			</div>
+		<% end %>
+		
+		<%= container do %>
+			<%= one_col_row :id=>:intro do %>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor iaculis tellus quis sagittis. Sed malesuada, erat vel ultricies vestibulum, sem enim ultricies dolor, a lacinia nunc dui sit amet elit. Donec et erat vestibulum sem adipiscing vestibulum.
+			<% end %>
+		<% end %>
+		
+		<%= container do %>
+			<%= row do %>
+				<%= eleven_span :id=>:player do %>
+					<%= image_tag "tmp/#{ rand(124) + 1 }.jpeg" %>
+					El Petrachi
+				<% end %>
+				
+				<%= one_span :id=>:options do %>
+					<%= image_tag "common/gear.png" %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container do %>
+			<%= row do %>
+				<%= three_span :id=>:sub_sections do %>
+					<div>SOUS SECTION</div>
+					<div>SOUS SECTION</div>
+				<% end %>
+				
+				<%= nine_span :id=>:content do %>
+					<%= container do %>
+						<%= one_col_row do %>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor iaculis tellus quis sagittis. Sed malesuada, erat vel ultricies vestibulum, sem enim ultricies dolor, a lacinia nunc dui sit amet elit. Donec et erat vestibulum sem adipiscing vestibulum. Nullam sagittis, enim quis dictum faucibus, magna elit condimentum nisi, id rutrum nisl sapien at tellus. Aliquam erat volutpat. Mauris id aliquet nunc. Sed aliquet gravida nisi at viverra. Sed odio augue, euismod in cursus ac, dictum et nisl. Nunc nisl diam, tempor eu euismod vel, dapibus ut nunc. Praesent vehicula, dui et tincidunt vehicula, massa nibh tempor quam, nec bibendum augue mi sed ipsum. Donec pellentesque sodales tristique.
+							</p>
+							<p>
+								Quisque eu fermentum eros. Ut iaculis, eros eu posuere lacinia, enim nisi aliquam mauris, sed elementum leo nibh sodales mauris. Morbi sit amet leo nibh. Sed tempor justo at nulla faucibus eleifend. Proin congue scelerisque dui, vitae bibendum dui blandit vitae. Maecenas suscipit aliquet justo eget volutpat. Sed nec lectus semper dolor consectetur mattis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut blandit mi.
+							</p>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container do %>
+			<%= one_col_row :id=>:footer do %>
+				SPACE
+			<% end %>
+		<% end %>
+	</div>
+</body>
+</html>
+
+
+
+
