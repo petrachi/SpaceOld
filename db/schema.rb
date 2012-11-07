@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(:version => 20120902141116) do
     t.text     "description"
     t.text     "controller"
     t.text     "view"
+    t.text     "css"
+    t.text     "javascript"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
