@@ -7,12 +7,18 @@ fr:
     forms:
         labels:
             password: "Mot de passe"
+        
+        qtips:
+            email: "Votre identifiant globalisé"
             
         placeholders:
             email: "exemple@email.com"
         
         errors:
-            blank: "ne peut pas être vide"
+            blank: "ce champ ne peut pas être vide"
+            user_not_found: "doit correspondre a un utilisateur. insert???sign_up??? si vous ne vous êtes jamais connecté"
+            password:
+                authenticate: "doit correspondre au insert???forms.labels.password??? enregistré"
             
         merge_form:
             init: "Préparation"

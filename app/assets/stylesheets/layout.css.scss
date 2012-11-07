@@ -10,7 +10,7 @@ body{ margin: 150px 0 20px; }
 $color: #59f;
 $color_cv: #39D;
 
-#header{ position: fixed; top: 0; width: 100%; @include gradient(transparentize($color, 0.1), 13%);
+header{ position: fixed; top: 0; width: 100%; @include gradient(transparentize($color, 0.1), 13%);
 
 	&:hover{ @include gradient($color) }
 	

@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require lib_application
+ *= require vendor_application
  *= require_tree .
  */

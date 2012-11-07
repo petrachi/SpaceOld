@@ -1,3 +1,46 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#game_demo{
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	#title h1{ font-size: 2em; margin: 0; }
+	#return h1{ font-size: 2em; margin: 0; text-align: center; background-color: grey; }
+	#options{
+		background-color: skyblue; 
+		background-image: url(/assets/common/gear.png);
+		background-position: center center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		
+		height: 39px;
+		
+		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: skyblue; }
+		&:hover .nested [class*=span]{ left: auto; }
+		
+		ul#params{ margin: 0; padding: 0; list-style: none;
+			li{ padding: 12px 18px; }
+		}
+	}
+	
+	#sections{
+		color: #fff;
+		
+		[class*=span]{
+			background-position: center center;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			
+			&#monde{ background-image: url(/assets/tmp/21.jpeg); }
+			&#empire{ background-image: url(/assets/tmp/3.jpeg); }
+			&#armee{ background-image: url(/assets/tmp/62.jpeg); }
+			&#profil{ background-image: url(/assets/tmp/30-2.png); }
+		}
+		
+		h2{	margin: 0;
+			padding: 72px 18px 12px;
+			background-image: -webkit-linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%);
+		}
+	}
+}

@@ -1,3 +1,4 @@
+=begin
 class Hash
   def delete_many *keys
     keys.map{ |key| self.delete(key) }
@@ -15,3 +16,4 @@ class Hash
     end
   end
 end
+=end

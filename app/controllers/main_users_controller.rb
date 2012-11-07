@@ -37,8 +37,7 @@ class MainUsersController < ApplicationController
         render :json => @user.errors.keys
     end
   end
-  
-  
+
   def sign_in    
     sign_in_errors params.merge(:call=>"ruby")
     
@@ -65,18 +64,23 @@ class MainUsersController < ApplicationController
   end
   
   def sign_in_errors params = params
+    @errors = Array.new
     @user = MainUser.find_by_email params[:email]
     
-    @errors = if @user.blank?
-      [:user]
-    elsif @user.authenticate(params[:password]).blank?
-      [:password]
-    else 
-      []
+    check_errors_for [:email, :password] do |attr|
+      params[attr].blank?
+    end
+    
+    check_errors_for :email do
+      @user.blank?
+    end
+    
+    check_errors_for :password do
+      @user.authenticate(params[:password]).blank?
     end
     
     if params[:call] == "js"
-        render :json => @errors
+      render :json => @errors
     end
   end
 

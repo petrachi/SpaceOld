@@ -12,6 +12,26 @@ class Cv::AchievementsController < Cv::ApplicationController
     end
   end
 
+
+
+
+  include MergeFormHelper
+  merge_form  :edit, Achievement, 
+              :edit => ->(params) do
+                  #current_user is not a method of controler => why is it call like a self.method, instead of like in a def; curren_user; end
+                  # if i puts current_user in merge module, it puts right
+                  #p method(:current_user)
+                  
+                  
+                  {:id => params[:id], :user_id => UsersController.new.current(@_request).id}
+                end
+  
+  
+  
+  
+  
+            
+=begin
   def edit
     edit_errors params.merge(:call=>"ruby")
     
@@ -35,6 +55,9 @@ class Cv::AchievementsController < Cv::ApplicationController
     @errors = Array.new
     @achievement = Achievement.where(:id => params[:id], :user_id => current_user.id).first || Achievement.new
     
+    # passer les validations dans le modele et imiter sing_up.
+    # s possible, creer un helper de méthodes de validations (à appeller dans la class, like "helper_method" ou "before_filter", qui créerait l'action d'erreurs,avec un block optionnel pour les erreurs (qui sont hors modeles), et un proc? pour récupérer l'objet)
+    
     check_errors_for [:year, :activity, :brief] do |attr|
       params[attr].blank?
     end
@@ -47,7 +70,7 @@ class Cv::AchievementsController < Cv::ApplicationController
       render :json => @errors
     end
   end
-  
+=end  
   def destroy
     if Achievement.where(:id => params[:id], :user_id => current_user.id).first.try(:destroy).present?
       flash[:notice] = "achievement supprime"

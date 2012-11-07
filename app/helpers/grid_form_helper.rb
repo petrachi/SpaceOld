@@ -1,7 +1,24 @@
 module GridFormHelper
   
+  def merge_form_tag
+=begin
+    passer inputs
+    permettre de passer un block pour personnaliser le form
+    passer un objet pour les valeurs par défault
+    passer l'url pour validation
+    
+    init les qtips + le js merge for
+=end    
+  end
+  
   def form_row field_name, options = Hash.new, &block
     html_id, html_class, label, qtip, default, placeholder, errors = options.delete_many :id, :class, :label, :qtip, :default, :placeholder, :errors
+    
+    
+    label ||= t("forms.labels.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless label == false
+    qtip ||= t("forms.qtips.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless qtip == false    
+    placeholder ||= t("forms.placeholders.#{ field_name }", :raise => I18n::MissingTranslationData) rescue nil unless placeholder == false
+    
     
     form_row = three_span do
       label_tag field_name, label, :class=>"#{ "qtip" if qtip }", :title=>qtip

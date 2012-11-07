@@ -1,3 +1,4 @@
+=begin
 class Array
   def stealth_delete! *args
     delete *args
@@ -19,3 +20,4 @@ class Array
     end
   end
 end
+=end

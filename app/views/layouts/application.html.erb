@@ -10,7 +10,7 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	<div id="header">
+	<header>
 		<%= container :id => :task_bar, :class => request.subdomain do %>
 			<%= row do %>
 				<%= render :partial => "layouts/#{ request.subdomain << "/" if request.subdomain.present? }navigation" %>
@@ -20,7 +20,7 @@
 		
 		<%= render :partial => "layouts/flashs" %>
 		<%= container :id => :sign_forms %>
-	</div>
+	</header>
 	
 	<div id="yield" data-pjax-container>
 		<%= hidden_field_tag :notice, notice %>
