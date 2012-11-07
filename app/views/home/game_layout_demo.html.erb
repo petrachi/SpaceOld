@@ -23,6 +23,15 @@
 				<% end %>
 				
 				<%= one_span :id=>:options do %>
+					<%= row :nested=>true do %>
+						<%= two_span do %>
+							<ul id="params">
+								<li>Paramètres</li>
+								<li>Space</li>
+								<li>CGU</li>
+							</ul>
+						<% end %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
