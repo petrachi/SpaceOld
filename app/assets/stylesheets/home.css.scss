@@ -2,26 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 #game_demo{
-	#return{ text-align: center; background-color: skyblue; }
-	#title h1{ margin: 0; }
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	#title h1{ font-size: 2em; margin: 0; }
+	#return h1{ font-size: 2em; margin: 0; text-align: center; background-color: grey; }
+	#options{
+		background-color: skyblue; 
+		background-image: url(/assets/common/gear.png);
+		background-position: center center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		
+		height: 39px;
+	}
 	
 	#sections{
-		div.img_112{ overflow: hidden; height: 111px; border: 1px solid #000; position: relative;
-			img{ width: 100%; min-height: 111px; }
-			.section{ position: absolute; bottom: 0; color: #fff; padding: 12px; background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4) 80%); width: 100%; }
+		color: #fff;
+		
+		[class*=span]{
+			background-position: center center;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			
+			&#monde{ background-image: url(/assets/tmp/21.jpeg); }
+			&#empire{ background-image: url(/assets/tmp/3.jpeg); }
+			&#armee{ background-image: url(/assets/tmp/115.jpeg); }
+			&#profil{ background-image: url(/assets/tmp/30-2.png); }
 		}
 		
-		div.img_56{ overflow: hidden; height: 56px; border: 1px solid #000; position: relative;
-			img{ width: 100%; min-height: 56px; }
+		h2{	margin: 0;
+			padding: 72px 18px 12px;
+			background-image: -webkit-linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%);
 		}
 	}
 }
-
-
-
-
-
-
-
