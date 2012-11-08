@@ -74,7 +74,7 @@
 			<% end %>
 		<% end %>
 		
-		<%= container :id=>:content_after %>
+		<%= container :id=>:content_after, :class=>:recrutement do %>
 			<%= row do %>
 				<%= twelve_span do %>
 					<h3>RECRUTEMENT</h3>
@@ -82,7 +82,75 @@
 			<% end %>
 			
 			<%= row do %>
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_5, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Infanterie
+						<% end %>
+					<% end %>
+				<% end %>
 				
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_26, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Infanterie Lourde
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_27, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Infanterie Soutient
+						<% end %>
+					<% end %>
+				<% end %>
+				
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_8, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Support Aérien
+						<% end %>
+					<% end %>
+				<% end %>			
+			<% end %>
+
+			<%= row do %>
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_19, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Biologique
+						<% end %>
+					<% end %>
+				<% end %>
+				
+				<%= six_span :class=>:unit do %>
+					<%= row :nested=>true do %>
+						<%= two_span :id=>:img_36, :class=>:profil do %>
+						<% end %>
+						
+						<%= four_span :class=>:descr do %>
+							<span class="btn">Recruter</span> Biologique Lourd
+						<% end %>
+					<% end %>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>
