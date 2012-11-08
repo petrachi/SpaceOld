@@ -53,11 +53,11 @@ $bleudefrance: #318CE7;
 	#content_first{
 		color: #fff;
 		
-		background-image: -webkit-linear-gradient(left, #000, transparent 20%, transparent 80%, #000), url(/assets/tmp/2.jpeg);
+		background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), url(/assets/tmp/2.jpeg);
 		background-position: center center;
 		background-size: 100% auto;
 		background-repeat: no-repeat;
-		box-shadow: 0 0 45px #000 inset;
+		box-shadow: 0 0 45px 4px #000 inset;
 		
 		img{ background: rgba(#fff, 0.1); }
 		
@@ -81,7 +81,7 @@ $bleudefrance: #318CE7;
 				background-size: 100% auto;
 				background-repeat: no-repeat;
 				
-				box-shadow: 0 0 0 12px rgba(#000, 0.6) inset;
+				box-shadow: 0 0 0 8px rgba(#000, 0.6) inset;
 				
 				&#img_5{ background-image: url(/assets/tmp/5.jpeg); }
 				&#img_26{ background-image: url(/assets/tmp/26.jpeg); }
