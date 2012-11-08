@@ -2,13 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$bleudefrance: #318CE7;
+
 #game_demo{
 	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	.container{ margin: 36px 0; }
 	
 	#title h1{ font-size: 2em; margin: 0; }
 	#return h1{ font-size: 2em; margin: 0; text-align: center; background-color: grey; }
 	#options{
-		background-color: skyblue; 
+		background-color: $bleudefrance; 
 		background-image: url(/assets/common/gear.png);
 		background-position: center center;
 		background-size: auto 100%;
@@ -16,8 +20,10 @@
 		
 		height: 39px;
 		
-		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: skyblue; }
-		&:hover .nested [class*=span]{ left: auto; }
+		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $bleudefrance; }
+		&:hover .nested [class*=span]{ left: auto; 
+			li:hover{ background-color: rgba(#fff, 0.3); }
+		}
 		
 		ul#params{ margin: 0; padding: 0; list-style: none;
 			li{ padding: 12px 18px; }
@@ -42,5 +48,19 @@
 			padding: 72px 18px 12px;
 			background-image: -webkit-linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%);
 		}
+	}
+	
+	#content_first{
+		color: #fff;
+		
+		background-image: -webkit-linear-gradient(left, #000, transparent 20%, transparent 80%, #000), url(/assets/tmp/2.jpeg);
+		background-position: center center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		box-shadow: 0 0 45px #000 inset;
+		
+		img{ background: rgba(#fff, 0.1); }
+		
+		#progress{ background-image: -webkit-linear-gradient(left, rgba($bleudefrance, 0.7), rgba($bleudefrance, 0.4), rgba($bleudefrance, 0.7) 40%, transparent 40%); background-color: rgba(#fff, 0.3); }
 	}
 }

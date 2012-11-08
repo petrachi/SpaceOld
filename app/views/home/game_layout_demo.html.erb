@@ -44,6 +44,47 @@
 				<%= three_span(:id=>:profil){ content_tag :h2, :PROFIL } %>
 			<% end %>
 		<% end %>
+		
+		<%= container :id=>:content_first do %>
+			<%= row do %>
+				<%= six_span do %>
+					Dernières victoires : <strong>+6 500 XP</strong>
+				<% end %>
+				
+				<%= six_span :class=>:right do %>
+					<strong>ARMEE LEVEL 4</strong>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= six_span do %>
+					Corps d'armee 1 : <%= image_tag "tmp/125.png" %> <%= image_tag "tmp/125.png" %> <%= image_tag "tmp/125.png" %> <%= image_tag "tmp/125.png" %><br/>
+					Corps d'armee 2 : <%= image_tag "tmp/125.png" %> <%= image_tag "tmp/125.png" %>
+				<% end %>
+				
+				<%= six_span :class=>:right do %>
+					Corps de réserve : <%= image_tag "tmp/125.png" %> <%= image_tag "tmp/125.png" %>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= twelve_span :id=>:progress, :class=>:center do %>
+					12 350 / 38 000 XP
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:content_after %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h3>RECRUTEMENT</h3>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				
+			<% end %>
+		<% end %>
 	</div>
 </body>
 </html>
