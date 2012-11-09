@@ -67,6 +67,21 @@ $bleudefrance: #318CE7;
 	#content_after{
 		&.recrutement > .row{ margin-top: 6px; }
 		
+		&.action{ 
+			> .row{ margin-top: 6px; }
+			
+			.movement{ 
+				background-image: -webkit-linear-gradient(left, red, rgba(red, 0.7), red 75%, transparent 75%);
+				
+				height: 9px;
+				margin-top: 12px;
+				
+				&.bis{ background-image: -webkit-linear-gradient(left, red, rgba(red, 0.6), red 45%, transparent 45%); }
+				&.ter{ background-image: -webkit-linear-gradient(left, gold, rgba(gold, 0.6), gold 60%, transparent 60%); }
+				&.qua{ background-image: -webkit-linear-gradient(left, lightgreen, rgba(lightgreen, 0.6), lightgreen); }
+			}
+		}
+		
 		.unit{
 			&:hover{ background-color: lightgrey;
 				.profil{ box-shadow: 0 0 0 1px rgba(#000, 0.6) inset; }
@@ -95,5 +110,15 @@ $bleudefrance: #318CE7;
 	
 	.btn{ display: inline-block; padding: 8px 16px; background-color: $bleudefrance;
 		&:hover{ background-color: rgba($bleudefrance, 0.7); }
+		
+		&.red{ background-color: red;
+			&:hover{ background-color: rgba(red, 0.7); }
+		}
+		&.orange{ background-color: gold;
+			&:hover{ background-color: rgba(gold, 0.7); }
+		}
+		&.green{ background-color: lightgreen;
+			&:hover{ background-color: rgba(lightgreen, 0.7); }
+		}
 	}
 }

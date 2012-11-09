@@ -140,7 +140,66 @@
 						<% end %>
 					<% end %>
 				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:content_after, :class=>:action do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h3>ACTIONS EN COURS</h3>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= two_span do %>
+					Attaque
+				<% end %>
+						
+				<%= six_span :prepend=>1, :class=>:movement do %>
+				<% end %>
 				
+				<%= three_span :class=>:right do %>
+					3'45'' restante <span class="btn red">Annuler</span>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= two_span do %>
+					Attaque
+				<% end %>
+						
+				<%= six_span :prepend=>1, :class=>"movement bis" do %>
+				<% end %>
+				
+				<%= three_span :class=>:right do %>
+					7'14'' restante <span class="btn red">Annuler</span>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= two_span do %>
+					Mouvement
+				<% end %>
+						
+				<%= six_span :prepend=>1, :class=>"movement ter" do %>
+				<% end %>
+				
+				<%= three_span :class=>:right do %>
+					5'30'' restante <span class="btn orange">Annuler</span>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= two_span do %>
+					Mouvement
+				<% end %>
+						
+				<%= six_span :prepend=>1, :class=>"movement qua" do %>
+				<% end %>
+				
+				<%= three_span :class=>:right do %>
+					Complété <span class="btn green">Valider</span>
+				<% end %>
 			<% end %>
 		<% end %>
 	</div>
