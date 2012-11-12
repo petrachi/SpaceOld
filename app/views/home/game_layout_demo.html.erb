@@ -202,6 +202,34 @@
 				<% end %>
 			<% end %>
 		<% end %>
+		
+		<%= container :id=>:content_after, :class=>:corps do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h3>CORPS D'ARMÉE</h3>
+				<% end %>
+			<% end %>
+
+			<%= row do %>
+				<%= six_span do %>
+					<h4>Corps d'armee 1</h4>
+					<%= image_tag "tmp/125.png" %> 
+					<%= image_tag "tmp/125.png" %> 
+					<%= image_tag "tmp/125.png" %> 
+					<%= image_tag "tmp/125.png" %>
+					<span class="btn">Réorganiser</span>
+				<% end %>
+
+				<%= six_span do %>
+					<h4>Composition</h4>
+					64% Infanterie - 28% Blindé - 8% Support <br/>
+					71% Munition creuse - 29% Anti-protection <br/>
+					
+					<h4>État</h4>
+					85% OK - 10% Repos - 5% Reserve
+				<% end %>
+			<% end %>
+		<% end %>
 	</div>
 </body>
 </html>
