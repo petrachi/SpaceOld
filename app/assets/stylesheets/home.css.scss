@@ -4,6 +4,8 @@
 
 $bleudefrance: #318CE7;
 
+
+body{ margin: 0 0 20px !important; }
 #game_demo{
 	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
 	
@@ -121,4 +123,95 @@ $bleudefrance: #318CE7;
 			&:hover{ background-color: rgba(lightgreen, 0.7); }
 		}
 	}
+}
+
+
+
+
+
+#general_demo{
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	h1{ font-size: 6em; margin: 1em 0; }
+	h2{ margin: 1em 0 .75em; }
+	
+	#main_title{
+		color: rgba(#fff, .65);
+		
+		background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), url(/assets/tmp/93.jpeg); 
+		background-position: center center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		box-shadow: 0 0 45px 4px #000 inset; 
+		
+		
+	}
+	
+	.btn{ display: inline-block; padding: 8px 16px; background-color: $bleudefrance;
+		&:hover{ background-color: rgba($bleudefrance, 0.7); }
+		
+		&.red{ background-color: red;
+			&:hover{ background-color: rgba(red, 0.7); }
+		}
+		&.orange{ background-color: gold;
+			&:hover{ background-color: rgba(gold, 0.7); }
+		}
+		&.green{ background-color: lightgreen;
+			&:hover{ background-color: rgba(lightgreen, 0.7); }
+		}
+	}
+	
+	
+	#descr{
+		background-image: url(/assets/tmp/21.jpeg); 
+		background-position: center center;
+		background-size: 90% auto;
+		background-repeat: no-repeat;
+		
+		[class*=span]{
+			background-color: #fff;
+		}
+	}
+	
+	
+	.sections{
+		margin: 1em 0;
+	}
+	
+	#abs{
+		width: 100%;
+		position: absolute;
+		top: 0;
+		
+		#options{
+			background-color: $bleudefrance; 
+			background-image: url(/assets/common/gear.png);
+			background-position: center center;
+			background-size: auto 100%;
+			background-repeat: no-repeat;
+
+			height: 39px;
+
+			.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $bleudefrance; }
+			&:hover .nested [class*=span]{ left: auto; 
+				li:hover{ background-color: rgba(#fff, 0.3); }
+			}
+
+			ul#params{ margin: 0; padding: 0; list-style: none;
+				li{ padding: 12px 18px; }
+			}
+		}
+	}
+	
+	/*
+	.sections:hover{
+		&#monde{ background-image: url(/assets/tmp/21.jpeg); }
+		&#empire{ background-image: url(/assets/tmp/3.jpeg); }
+		&#armee{ background-image: -webkit-linear-gradient(left, transparent, lightgrey 5%), url(/assets/tmp/62.jpeg); }
+		
+		background-position: left center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+	}
+	*/	
 }

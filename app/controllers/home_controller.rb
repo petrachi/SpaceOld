@@ -8,8 +8,11 @@ class HomeController < ApplicationController
   end
   
   def game_layout_demo
-    @sections = Array.new(4,0)
     render :layout => false
+  end
+  
+  def general_demo
+    render :layout => false    
   end
   
   def preview namespace
