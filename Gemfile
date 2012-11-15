@@ -18,10 +18,14 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  
+  gem 'compass-rails'
 end
 
 gem 'jquery-rails'
-gem 'pjax_rails'
+
+#gem 'pjax_rails'
+gem 'turbolinks'
 
 gem 'rails-i18n'
 

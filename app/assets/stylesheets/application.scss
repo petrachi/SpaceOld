@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require lib_application
  *= require vendor_application
+ *= require lib_application
  *= require_tree .
  */

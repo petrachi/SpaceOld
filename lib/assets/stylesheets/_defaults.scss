@@ -1,0 +1,52 @@
+@import "variables";
+
+html{
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+}
+	
+h1{
+	font-size: 2em;
+	margin: 1em 0;
+
+	&#main{
+		font-size: 6em;
+		margin: 1em 0;
+		
+		color: rgba(#fff, .65);
+	}
+}
+
+h2{
+	font-size: 1.5em;
+	margin: 1em 0 .75em;
+}
+
+h3{
+	font-size: 1.25em;
+	margin: 1em 0 .75em;
+}
+
+P{
+	margin: 1em 0;
+}
+	
+.btn{ display: inline-block; padding: 8px 16px; background-color: $bleudefrance;
+	&:hover{ background-color: rgba($bleudefrance, 0.7); }
+	
+	&.red{ background-color: red;
+		&:hover{ background-color: rgba(red, 0.7); }
+	}
+	&.orange{ background-color: gold;
+		&:hover{ background-color: rgba(gold, 0.7); }
+	}
+	&.green{ background-color: lightgreen;
+		&:hover{ background-color: rgba(lightgreen, 0.7); }
+	}
+}
+
+.left{ text-align: left; }
+.center{ text-align: center; }
+.right{ text-align: right; }
+
+.f_left{ float: left; }
+.f_right{ float: right; }

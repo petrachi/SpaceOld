@@ -1,7 +1,0 @@
-<%= six_span :id => :user_info, :class => :right do %>
-	<% if current_user %>
-		<%= current_user %> <%= remote_link_to "Sign out", sign_out_url %>
-	<% else %>
-		<%= remote_link_to "Sign in", sign_in_url %> or <%= remote_link_to "Sign up", sign_up_url %>
-	<% end %>
-<% end %>

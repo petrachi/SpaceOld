@@ -1,10 +1,6 @@
-<%= pjax_flashs %>
-
-<%= four_cols_container :collection=>[:cv, :game, :private] do |namespace| %>
-	<%= image_tag "http://placehold.it/245x100" %>
+<%= four_cols_container :collection=>@applications, :spans=>{:id => -> x { x }} do |application| %>
+	<h2><%=t "#{ application }.name" %></h2>
+	<p><%=t "#{ application }.brief" %></p>
 	
-	<h2><%=t "#{ namespace }.name" %></h2>
-	<p><%=t "#{ namespace }.brief" %></p>
-	
-	<p><%= link_to t(:know_more), {:action=>namespace} %></p>
+	<p><%= link_to t(:know_more), {:action=>application}, :class=>:btn, :remote=>true %></p>
 <% end %>
