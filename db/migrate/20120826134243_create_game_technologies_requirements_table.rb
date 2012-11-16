@@ -1,4 +1,4 @@
-class CreateTechnologiesRequirementsTable < ActiveRecord::Migration
+class CreateGameTechnologiesRequirementsTable < ActiveRecord::Migration
   def up
     create_table :game_requirements_game_technologies, :id => false do |t|
       t.references :game_requirement

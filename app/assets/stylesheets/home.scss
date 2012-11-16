@@ -1,6 +1,19 @@
-@import "config";
+@import "defaults";
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* demos */
 
 
 @import "demo/*.png";
@@ -15,7 +28,6 @@
 
 
 
-/* demos */
 body{ margin: 0 0 20px !important; }
 #game_demo{
 	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
@@ -25,7 +37,7 @@ body{ margin: 0 0 20px !important; }
 	#title h1{ font-size: 2em; margin: 0; }
 	#return h1{ font-size: 2em; margin: 0; text-align: center; background-color: lightgrey; }
 	#options{
-		background-color: $bleudefrance; 
+		background-color: $blue; 
 		background-image: url(/assets/common/gear.png);
 		background-position: center center;
 		background-size: auto 100%;
@@ -33,7 +45,7 @@ body{ margin: 0 0 20px !important; }
 		
 		height: 39px;
 		
-		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $bleudefrance; }
+		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
 		&:hover .nested [class*=span]{ left: auto; 
 			li:hover{ background-color: rgba(#fff, 0.3); }
 		}
@@ -74,7 +86,7 @@ body{ margin: 0 0 20px !important; }
 		
 		img{ background: rgba(#fff, 0.1); }
 		
-		#progress{ background-image: -webkit-linear-gradient(left, rgba($bleudefrance, 0.7), rgba($bleudefrance, 0.4), rgba($bleudefrance, 0.7) 40%, transparent 40%); background-color: rgba(#fff, 0.3); margin-top: 6px; margin-bottom: 6px; }
+		#progress{ background-image: -webkit-linear-gradient(left, rgba($blue, 0.7), rgba($blue, 0.4), rgba($blue, 0.7) 40%, transparent 40%); background-color: rgba(#fff, 0.3); margin-top: 6px; margin-bottom: 6px; }
 	}
 	
 	#content_after{
@@ -121,8 +133,8 @@ body{ margin: 0 0 20px !important; }
 		}
 	}
 	
-	.btn{ display: inline-block; padding: 8px 16px; background-color: $bleudefrance;
-		&:hover{ background-color: rgba($bleudefrance, 0.7); }
+	.btn{ display: inline-block; padding: 8px 16px; background-color: $blue;
+		&:hover{ background-color: rgba($blue, 0.7); }
 		
 		&.red{ background-color: red;
 			&:hover{ background-color: rgba(red, 0.7); }
@@ -158,8 +170,8 @@ body{ margin: 0 0 20px !important; }
 		
 	}
 	
-	.btn{ display: inline-block; padding: 8px 16px; background-color: $bleudefrance;
-		&:hover{ background-color: rgba($bleudefrance, 0.7); }
+	.btn{ display: inline-block; padding: 8px 16px; background-color: $blue;
+		&:hover{ background-color: rgba($blue, 0.7); }
 		
 		&.red{ background-color: red;
 			&:hover{ background-color: rgba(red, 0.7); }
@@ -195,7 +207,7 @@ body{ margin: 0 0 20px !important; }
 		top: 0;
 		
 		#options{
-			background-color: $bleudefrance; 
+			background-color: $blue; 
 			background-image: url(/assets/common/gear.png);
 			background-position: center center;
 			background-size: auto 100%;
@@ -203,7 +215,7 @@ body{ margin: 0 0 20px !important; }
 
 			height: 39px;
 
-			.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $bleudefrance; }
+			.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
 			&:hover .nested [class*=span]{ left: auto; 
 				li:hover{ background-color: rgba(#fff, 0.3); }
 			}

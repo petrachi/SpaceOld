@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  layout "home"
+  
+  
   protect_from_forgery
   
   clear_helpers

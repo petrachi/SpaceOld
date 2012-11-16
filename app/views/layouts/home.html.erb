@@ -9,9 +9,15 @@
 	</head>
 	<body>
 		<header>
-			<!-- mettre le bandeau "SPACE" -->
+			<!-- mettre le bandeau "SPACE" + deroulante ? + notice, alert -->
 		</header>
-	
+		
+		<%= render :partial=>"layouts/user" %>
+		
+		<%= flash[:alert] %>
+		<%= flash[:notice] %>
+		
+		
 		<%= yield %>	
 	</body>
 </html>

@@ -1,8 +1,10 @@
 class HomeController < ApplicationController  
-  layout "home"
   
   def index
     @applications = [:game]
+  end
+  
+  def game
   end
   
   

@@ -1,5 +1,14 @@
 fr:
-    hello: "Bonjour monde"
+    space: "Space"
+    
+    sign_in: "Connexion"
+    sign_up: "Créer un compte"
+    sign_out: "Déconnexion"
+    
+    or: "ou"
+    
+    
+    
     know_more: "En savoir plus"
     install: "Installer"
     access: "Accéder à l'application'"
@@ -30,15 +39,7 @@ fr:
             save: "Cette action est irréversible.Voulez-vous continuer ?"
             
         send: "Envoyer"
-    
-    cv:
-        name: "Space CV"
-        brief: "Votre Cv en ligne, et des démos live de vos expérimentations en ruby"
-        description: "Faites votre cv, avec expériences, écoles, profil. Et montrez ce que vous savez faire, projets, démos. Vous pouvez écrire du code ruby/rails (controller ou vue+controller) et montrer le résultat."
-    
-    game:
-        name: "Space Game"
-        brief: "Un jeu super fun"
+        
         
     private:
         name: "Space Private"

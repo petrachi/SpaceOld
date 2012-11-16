@@ -1,9 +1,4 @@
 class MainUsersController < ApplicationController 
-  before_filter :request_xhr?, :only=>[:sign_up, :sign_in]
-  def request_xhr?
-    redirect_to root_url, :alert => "acces non authorise" unless request.xhr?
-  end
-  
   def sign_up
     sign_up_errors params.merge(:call=>"ruby")
     
@@ -38,7 +33,7 @@ class MainUsersController < ApplicationController
     end
   end
 
-  def sign_in    
+  def sign_in
     sign_in_errors params.merge(:call=>"ruby")
     
     if @errors.blank?
@@ -55,10 +50,6 @@ class MainUsersController < ApplicationController
         render :json => @errors
       else
         render :text => "bug-merge"
-      end
-    else
-      respond_to do |format|        
-        format.js
       end
     end
   end
@@ -89,6 +80,11 @@ class MainUsersController < ApplicationController
     @_request = request
     MainUser.find_by_id session[:user_id]
   end
+  
+  def installed? application
+    eval("#{ application.classify }::UsersController").new.installed?(@_request).blank?
+  end
+  
   
   def sign_out
     session[:user_id], flash[:notice] = nil, "Logged out"

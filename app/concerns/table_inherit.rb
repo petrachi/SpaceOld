@@ -5,7 +5,7 @@ module TableInherit
       self.class_eval "belongs_to :#{ inherit_association = inherit_class.name.demodulize.underscore }"
       inherit_class.class_eval "has_one :#{ self.name.underscore.gsub("/", "_") }, :class_name => \"#{ self.name }\""
       
-      inherit_class.column_names.stealth_delete_from_collection(["id", "created_at", "updated_at"]).each do |column|
+      inherit_class.column_names.stealth_delete(["id", "created_at", "updated_at"]).each do |column|
         self.class_eval %{
           attr_accessible :#{ column }
           
