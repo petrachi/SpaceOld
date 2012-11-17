@@ -14,10 +14,12 @@ module SelfGridHelper
     end
 
     def grid tag, options = {}, &block
-      prepend = if options[:prepend] > 0
-        TWELVE_STRING_INTS_INVERT[options.delete :prepend]
-      else
-        "minus_#{ TWELVE_STRING_INTS_INVERT[options.delete :prepend] }"
+      prepend = if options[:prepend].present? 
+        if options[:prepend] > 0
+          TWELVE_STRING_INTS_INVERT[options.delete :prepend]
+        else
+          "minus_#{ TWELVE_STRING_INTS_INVERT[options.delete :prepend] }"
+        end
       end
       append = TWELVE_STRING_INTS_INVERT[options.delete :append]
 
@@ -39,7 +41,7 @@ module SelfGridHelper
       content_class << "#{ GRID_CONFIG[:classes][:append] }_#{ append }" if append
       content_class << GRID_CONFIG[:classes][:nested] if options.delete(:nested)
 
-      safe_buffer = content_tag(GRID_CONFIG[:elements][tag], nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
+      safe_buffer = content_tag(options.delete(:element) || GRID_CONFIG[:elements][tag], nil, :id => options.delete(:id), :class => content_class.join(" ") , &block)
 
       @nested_stack.pop if unstack
       safe_buffer

@@ -1,5 +1,5 @@
 def namespaced_routes namespace, controller
-  match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }", :as => "#{ controller }_ctrl"
+  match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }"
 end
 
 def routes_for_subdomain namespace, controllers
@@ -13,6 +13,7 @@ def routes_for_subdomain namespace, controllers
     root :to => "#{ namespace }/home#index"
   end
   
+  match "/#{ namespace }" => "home##{ namespace }", :as => namespace
 end
 
 

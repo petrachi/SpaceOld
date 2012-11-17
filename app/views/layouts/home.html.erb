@@ -8,14 +8,33 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<header>
-			<!-- mettre le bandeau "SPACE" + deroulante ? + notice, alert -->
-		</header>
+		<%= one_col_container :element=>:header do %>
+			<h1>Space</h1>
+		<% end %>
 		
-		<%= render :partial=>"layouts/user" %>
 		
-		<%= flash[:alert] %>
-		<%= flash[:notice] %>
+		
+		
+		
+		<div>
+			<% if current_user %>
+				<%= current_user %> <%= link_to t(:sign_out), sign_out_path %>
+			<% else %>
+				<%= link_to t(:sign_in), sign_in_path %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path %>
+			<% end %>
+		</div>
+		
+				
+		<p class="notice"><%= notice %></p>
+		<p class="alert"><%= alert %></p>
+		
+		<%= content_tag(:div, nil, :id => "ko", :class => "no ok" ){ "jo"} %>
+		
+		
+		
+		
+		
+		
 		
 		
 		<%= yield %>	

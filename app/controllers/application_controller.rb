@@ -11,4 +11,9 @@ class ApplicationController < ActionController::Base
   #def discard_flash_if_xhr
   #  flash.discard if request.xhr?
   #end
+  
+  before_filter :set_current_user
+  def set_current_user
+    MainUser.current = MainUser.find_by_id session[:user_id]
+  end
 end

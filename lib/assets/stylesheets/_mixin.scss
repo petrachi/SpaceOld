@@ -1,6 +1,8 @@
 /* demo */
-@mixin gradient($color, $color_change: 7%) { 
-	background-color: $color; 
-	background: -webkit-linear-gradient(top, lighten($color, $color_change) 5%, darken($color, $color_change));
-	background: -moz-linear-gradient(top, lighten($color, $color_change) 5%, darken($color, $color_change));	
+@mixin background-image($image_url) { 
+	background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), image-url($image_url); 
+	background-position: center center;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	box-shadow: 0 0 45px 4px #000 inset;
 }

@@ -25,13 +25,14 @@ class MainUsersController < ApplicationController
   end
   
   def sign_up_errors params = params
-    @user = MainUser.new params.select_from_collection([:first_name, :name, :email, :password, :password_confirmation])
+    @user = MainUser.new params.extract [:first_name, :name, :email, :password, :password_confirmation]
     @user.valid?
     
     if params[:call] == "js"
         render :json => @user.errors.keys
     end
   end
+  
 
   def sign_in
     sign_in_errors params.merge(:call=>"ruby")
@@ -75,16 +76,6 @@ class MainUsersController < ApplicationController
     end
   end
 
-  
-  def current request
-    @_request = request
-    MainUser.find_by_id session[:user_id]
-  end
-  
-  def installed? application
-    eval("#{ application.classify }::UsersController").new.installed?(@_request).blank?
-  end
-  
   
   def sign_out
     session[:user_id], flash[:notice] = nil, "Logged out"
