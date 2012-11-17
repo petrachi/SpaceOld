@@ -28,14 +28,7 @@ Space::Application.routes.draw do
   routes_for_subdomain :private, [:home, :users]
   
   match "/:controller(/:action(/:id))"
-  
-  begin
-    ActiveAdmin.routes(self)
-  rescue Exception => e
-    puts "ActiveAdmin: #{e.class}: #{e}"
-  end
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  
+    
   root :to => "home#index"
   
   

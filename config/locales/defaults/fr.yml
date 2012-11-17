@@ -41,7 +41,3 @@ fr:
         send: "Envoyer"
         
         
-    private:
-        name: "Space Private"
-        brief: "Reproting de tes comptes"
-

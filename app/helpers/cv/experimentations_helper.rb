@@ -1,2 +1,0 @@
-module Cv::ExperimentationsHelper
-end
