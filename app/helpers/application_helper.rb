@@ -1,8 +1,9 @@
 module ApplicationHelper
-  include DynamicMethod
+#  include DynamicMethod
   
   include GridHelper
   include GridFormHelper
+ # include MergeFormHelper
     
     
   def remote_link_to *args

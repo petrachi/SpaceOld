@@ -17,8 +17,8 @@
 		
 		
 		<div>
-			<% if current_user %>
-				<%= current_user %> <%= link_to t(:sign_out), sign_out_path %>
+			<% if MainUser.current %>
+				<%= MainUser.current %> <%= link_to t(:sign_out), sign_out_path %>
 			<% else %>
 				<%= link_to t(:sign_in), sign_in_path %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path %>
 			<% end %>

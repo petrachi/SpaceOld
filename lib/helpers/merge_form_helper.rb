@@ -3,6 +3,61 @@ module MergeFormHelper
   module ClassMethods
     
     
+    
+    
+    def action_form action_name, options = {}
+      
+      
+      define_method action_name do
+        
+        p "in method"
+        p params
+        p options
+        p "end puts"
+        
+        
+        
+        case params.delete(:wish).try :to_sym
+        when :errors
+          
+          
+          p "error check => render list errors"
+          
+          
+          @object ||= options[:model].new(params.select_by options[:model].column_names.map(&:to_sym))
+          @object.valid?
+          
+          
+          p @object
+          p @object.errors.full_messages
+          
+          
+          render :json => @object.errors.keys
+          
+          
+          
+          
+        when :validate
+          p "validate form, redirect or raise"
+        end
+        
+        
+        
+        
+        
+        
+      end
+      
+      
+      
+      
+      
+    end
+    
+    
+    
+    
+    
     # U must can create / edit on the same method, by passing the id of the object
     # this render the action via http (like achievments), add option to init these actions base on a js render (like sign_up)
     def merge_form method_name, object_class, options = Hash.new, &block
@@ -20,8 +75,8 @@ module MergeFormHelper
       edit = options.delete(:edit)
       
       
-      
-      
+      p "ici"
+      p method_name
       
       # add your specific saves things (ex : create fake stats when create lms_ent) - must use object_name or pass in params of block
       define_method method_name do
@@ -45,6 +100,9 @@ module MergeFormHelper
         end
       end
       
+      p "iszszci"
+      p error_method_name
+      
       # select from coll must be all fields from table, or pass in params
       # U must can add specific values to params (ex user id)
       # add your specific validateions
@@ -57,10 +115,10 @@ module MergeFormHelper
           
           p method(:current_user)
           
-          @object = object_class.where( edit.call params ).first
+          @object = object_class.where(edit.call params).first
         end
         
-        @object ||= object_class.new(params.select_from_collection(column_names))
+        @object ||= object_class.new(params.select_by column_names)
         # obj = find or new
         # obj.assign_attributes
         # obj.valid?
@@ -142,7 +200,9 @@ module MergeFormHelper
     end
   end
   
-  def self.included(base)
-    base.extend(ClassMethods)
+  def self.included base
+    base.extend ClassMethods
+    
+    p "included"
   end
 end

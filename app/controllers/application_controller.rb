@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   clear_helpers
   include ApplicationHelper
   
+  include MergeFormHelper
+  
+  
   #after_filter :discard_flash_if_xhr
   #def discard_flash_if_xhr
   #  flash.discard if request.xhr?
