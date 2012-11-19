@@ -2,59 +2,36 @@ module MergeFormHelper
   
   module ClassMethods
     
-    
-    
-    
     def action_form action_name, options = {}
-      
-      
-      define_method action_name do
-        
-        p "in method"
-        p params
-        p options
-        p "end puts"
-        
-        
-        
+      define_method action_name, ->(params = params) do
         case params.delete(:wish).try :to_sym
         when :errors
-          
-          
-          p "error check => render list errors"
-          
-          
-          @object ||= options[:model].new(params.select_by options[:model].column_names.map(&:to_sym))
+          @object = options[:model].new(params.extract! *options[:model].column_names + [:password, :password_confirmation])
           @object.valid?
           
-          
-          p @object
-          p @object.errors.full_messages
-          
-          
-          render :json => @object.errors.keys
-          
-          
-          
+          if params.delete(:call) == :ruby
+            return @object.errors.keys
+          else
+            render :json => @object.errors.keys
+          end
           
         when :validate
-          p "validate form, redirect or raise"
+          @object.save if eval("#{ action_name }(params.merge :call=>:ruby, :wish=>:errors)").blank?
+          
+          if @object.id.present?  
+            flash[:notice] = "youpiyop"
+            render :js => "window.location = #{ root_path.to_json }"
+            
+          else
+            # raise correct error with message
+            raise
+          end
         end
-        
-        
-        
-        
-        
-        
       end
-      
-      
-      
-      
-      
     end
     
-    
+  end
+=begin    
     
     
     
@@ -135,7 +112,7 @@ module MergeFormHelper
       end
       
       
-      
+=end      
       
 =begin
       
@@ -196,13 +173,8 @@ module MergeFormHelper
 =end      
       
       
-      
-    end
-  end
   
   def self.included base
     base.extend ClassMethods
-    
-    p "included"
   end
 end
