@@ -34,10 +34,18 @@ h3{
 P{
 	margin: 1em 0;
 }
+
+#alert{
+	background-color: $red;
+}
+
+#notice{
+	background-color: $orange;
+}
 	
 .btn{ 
 	@include unstyled-link();
-	display: inline-block; padding: 8px 16px; background-color: $blue;
+	display: inline-block; padding: 0.5em 1em; background-color: $blue;
 	
 	&:hover{ background-color: rgba($blue, 0.7); }
 	

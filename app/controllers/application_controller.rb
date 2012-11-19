@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   clear_helpers
   include ApplicationHelper
   
-  include MergeFormHelper
+  include ActionForm
   
   
   #after_filter :discard_flash_if_xhr

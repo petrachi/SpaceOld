@@ -5,17 +5,18 @@
 	});
 </script>
 
+<%= container do %>
 
-<%= form_tag do %>
-	<%= hidden_field_tag :call, :js %>
+	<%= form_tag do %>
+		<%= hidden_field_tag :call, :js %>
 	
-	<%= form_row :first_name %>
-	<%= form_row :name %>
-	<%= form_row :email %>
-	<%= form_row :password %>
-	<%= form_row :password_confirmation %>
+		<%= form_row :first_name %>
+		<%= form_row :name %>
+		<%= form_row :email %>
+		<%= form_row :password %>
+		<%= form_row :password_confirmation %>
 
-	<%= js_merge_row %>	
+		<%= js_merge_row %>	
+	<% end %>
+
 <% end %>
-
-

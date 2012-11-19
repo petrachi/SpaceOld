@@ -8,28 +8,36 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<%= one_col_container :element=>:header do %>
+		<%= one_col_container :element => :header do %>
 			<h1>Space</h1>
+		<% end %>
+		
+		<!-- Flashs -->
+		<%= one_col_container :id => :alert do %>
+			<%= alert %>
+		<% end %>
+		
+		<%= one_col_container :id => :notice do %>
+			<%= notice %>
+		<% end %>
+		
+		<!-- User -->
+		<%= one_col_container :class => :center do %>
+			<% if MainUser.current %>
+				<%= MainUser.current %> <%= link_to t(:sign_out), sign_out_path, :class=>:btn %>
+				
+			<% else %>
+				<%= link_to t(:sign_in), sign_in_path, :class=>:btn %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path, :class=>:btn %>
+			<% end %>
 		<% end %>
 		
 		
 		
+		<%# for css_grid %>
+		<% x = {:id=>"ko", :class=>"nini", :data=>"flut"} %>
+		<%= content_tag(:div, nil, x){ "jo"} %>
 		
-		
-		<div>
-			<% if MainUser.current %>
-				<%= MainUser.current %> <%= link_to t(:sign_out), sign_out_path %>
-			<% else %>
-				<%= link_to t(:sign_in), sign_in_path %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path %>
-			<% end %>
-		</div>
-		
-				
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-		
-		<%= content_tag(:div, nil, :id => "ko", :class => "no ok" ){ "jo"} %>
-		
+		<%# need to delete min-height:1px %>
 		
 		
 		
