@@ -85,26 +85,5 @@ module GridFormHelper
   end
   
   
-  def check_errors_for attr, no_blank = false, &block
-    raise ArgumentError, "errors must be an Array" if @errors.class != Array
-    
-    case attr
-    when String, Symbol
-      unless @errors.include? attr
-        @errors << attr if case block.arity
-        when 0 then yield
-        when 1 then yield(attr)
-        else raise NotImplementedError, "block arity can be nil or 1"
-        end
-      end
-      
-    when Array
-      attr.each do |single_attr|
-        check_errors_for single_attr, &block
-      end
-      
-    else
-      raise ArgumentError, "attr must be a String, a Symbol or an Array"
-    end
-  end
+  
 end
