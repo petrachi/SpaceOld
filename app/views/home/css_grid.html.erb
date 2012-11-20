@@ -270,4 +270,15 @@
 		<% end %>
 	<% end %>
 <% end %>
+
+<%= three_cols_container :id=>"attributes", :collection=>@collection, :spans=>{:'data-name' => "Thomas"} do |elt| %>
+	Class : <%= elt[:name] %><br/>
+	Detail : <%= elt[:methods] %>
+<% end %>
+
+<%= three_cols_container :id=>"blocks", :collection=>@collection, :spans=>{:id=>lambda{ |x| x[:name] }, :'data-count' => lambda{ |x| x.length }} do |elt| %>
+	Class : <%= elt[:name] %><br/>
+	Detail : <%= elt[:methods] %>
+<% end %>
+
 </div>
