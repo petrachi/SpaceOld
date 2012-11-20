@@ -19,6 +19,13 @@ header h1{
 	
 	color: rgba(#fff, .65);
 	text-align: center;
+	
+	a{
+		@include unstyled-link();
+		&:hover{
+			color: rgba(#fff, .75);
+		}
+	}
 }
 
 h2{

@@ -14,14 +14,10 @@ module SelfGridHelper
     end
 
     def grid tag, options = {}, &block
-      if @elt.present?
-        options.map_values! do |value|        
-          value.class == Proc ? value.call(@elt) : value 
-        end
-        
-        @elt = nil
+      options.map_values! do |value|        
+        value.class == Proc ? value.call(@elt) : value 
       end
-    
+          
       prepend = if options[:prepend].present? 
         if options[:prepend] > 0
           TWELVE_STRING_INTS_INVERT[options.delete :prepend]
@@ -97,6 +93,7 @@ module SelfGridHelper
             end
           end
         end
+        @elt = nil
         
         grid(:row, options[:rows].clone){ cols.reduce(:safe_concat) }
       end

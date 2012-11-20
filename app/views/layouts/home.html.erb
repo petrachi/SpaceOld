@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<%= one_col_container :element => :header do %>
-			<h1>Space</h1>
+			<h1><%= link_to t(:space), root_path %></h1>
 		<% end %>
 		
 		<!-- Flashs -->
@@ -30,20 +30,6 @@
 				<%= link_to t(:sign_in), sign_in_path, :class=>:btn %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path, :class=>:btn %>
 			<% end %>
 		<% end %>
-		
-		
-		
-		<%# for css_grid %>
-		<% x = {:id=>"ko", :class=>"nini", :data=>"flut"} %>
-		<%= content_tag(:div, x){ "jo"} %>
-		
-		<%# need to delete min-height:1px %>
-		
-		
-		
-		
-		
-		
 		
 		<%= yield %>	
 	</body>

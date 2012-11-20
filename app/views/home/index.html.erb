@@ -1,6 +1,6 @@
-<%= four_cols_container :collection=>@applications, :spans=>{:id => -> x { x }} do |application| %>
+<%= four_cols_container :collection=>@applications, :spans=>{:id => -> app { app }} do |application| %>
 	<h2><%=t "#{ application }.name" %></h2>
 	<p><%=t "#{ application }.brief" %></p>
 	
-	<p><%= link_to t(:know_more), {:action=>application}, :class=>:btn %></p>
+	<p><%= link_to t(:know_more), eval("#{ application }_path"), :class=>:btn %></p>
 <% end %>

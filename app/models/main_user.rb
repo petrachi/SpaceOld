@@ -9,8 +9,15 @@ class MainUser < ActiveRecord::Base
   validates_presence_of :email, :first_name, :name
   
   validates_uniqueness_of :email
-    
+  
   def to_s
     "#{ first_name } #{ name }"
+  end
+  
+  
+  
+  def created_at
+    p "youpi"
+    self[:created_at]
   end
 end

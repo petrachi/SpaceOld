@@ -1,15 +1,36 @@
 
-<% namespace = "game" %>
+
+
+
+
+
 
 <%= one_col_container do %>
-	<h1><%=t "#{ namespace }.name" %></h1>
-	<p><%=t "#{ namespace }.description" %></p>
+	<h2><%=t :'game.name' %></h2>
+<% end %>
+
+<%= one_col_container :disable => :spans do %>
+	<%= ten_span do %>
+		<%=t :'game.description' %>
+	<% end %>
 	
-	<% if current_user.present? and eval("#{ namespace.classify }::UsersController").new.installed?(@_request).blank? %>
-		<p><%= pjax_skip_link_to t(:install), install_url(:subdomain=>namespace), :class=>"sign_out_sensitive" %></p>
-	<% elsif current_user.present? %>
-		<p><%= link_to "Go to space cv", root_url(:subdomain=>namespace), :class=>"sign_out_sensitive" %></p>
-	<% else %>
-		<p><%= remote_link_to "sign in", sign_in_url %></p>
+	<%= two_span do %>
+		<% if Game::User.current %>
+		
+		
+			<%= link_to t(:go_to), root_url(:subdomain=>:game), :class=>:btn %>
+		
+		
+		<% elsif MainUser.current %>
+		
+		
+			<%= link_to t(:install), install_url(:subdomain=>:game), :class=>:btn %>
+			
+		<% else %>
+		
+		
+			<%= link_to t(:sign_in), sign_in_url, :class=>:btn %>
+		
+		<% end %>
 	<% end %>
 <% end %>

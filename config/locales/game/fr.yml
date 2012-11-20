@@ -2,3 +2,4 @@ fr:
     game:
         name: "Space Game"
         brief: "Un jeu super fun"
+        description: "un jeu super fun avec une longue description"

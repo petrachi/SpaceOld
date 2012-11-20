@@ -1,7 +1,7 @@
 module ApplicationHelper
 #  include DynamicMethod
   
-  include SelfGridHelper
+  include GridHelper
   include GridFormHelper
  # include MergeFormHelper
     

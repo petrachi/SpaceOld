@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   end
   
   def game
+    @application = :game
   end
   
   
