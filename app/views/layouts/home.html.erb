@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<%= one_col_container :element => :header do %>
-			<h1><%= link_to t(:space), root_path %></h1>
+			<h1><%= link_to t(:space), root_url(:subdomain => false) %></h1>
 		<% end %>
 		
 		<!-- Flashs -->

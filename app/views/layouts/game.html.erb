@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Space</title>
+		<title>Space Game</title>
 		<%= stylesheet_link_tag "application", :media => "all" %>	
 		<%= javascript_include_tag "application" %>
 	
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<header>
-			<!-- mettre le bandeau "SPACE" + deroulante ? + notice, alert -->
-		</header>
+		<%= one_col_container :element => :header do %>
+			<h1><%= link_to t(:'game.name'), root_url %></h1>
+		<% end %>
 		
-		<%= render :partial=>"layouts/user" %>
+		<!-- Flashs -->
+		<%= one_col_container :id => :alert do %>
+			<%= alert %>
+		<% end %>
 		
-		<p class="notice"><%= notice %></p>
-		<p class="alert"><%= alert %></p>
-		
+		<%= one_col_container :id => :notice do %>
+			<%= notice %>
+		<% end %>
 		
 		<%= yield %>	
 	</body>
 </html>
-
-
-
-

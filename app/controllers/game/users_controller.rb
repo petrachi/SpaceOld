@@ -3,12 +3,12 @@ class Game::UsersController < Game::ApplicationController
   def install_authorize
     if MainUser.current and User.current.blank?
     else
-      redirect_to :subdomain=>false, :controller=>:home, :action=>:game #Turbolinks.visit(path)
+      redirect_to game_url(:subdomain => false)
     end
   end
   
   def install
     User.create :main_user => MainUser.current
-    redirect_to game_path(:subdomain => false)
+    redirect_to game_url(:subdomain => false)
   end
 end

@@ -9,8 +9,6 @@ def routes_for_subdomain namespace, controllers
     end
     
     match "/install", :controller => "#{ namespace }/users", :action=>"install", :as => "install"
-    
-    root :to => "#{ namespace }/home#index"
   end
   
   match "/#{ namespace }" => "home##{ namespace }", :as => namespace
