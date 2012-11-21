@@ -7,7 +7,7 @@
 	
 		<%= csrf_meta_tags %>
 	</head>
-	<body>
+	<body id="home" layout="main">
 		<%= one_col_container :element => :header do %>
 			<h1><%= link_to t(:space), root_url(:subdomain => false) %></h1>
 		<% end %>

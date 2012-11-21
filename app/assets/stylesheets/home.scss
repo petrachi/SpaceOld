@@ -1,9 +1,10 @@
 @import "defaults";
 
-header{
-	@include background-image("/assets/home/space.jpg");
+#home{
+	header{
+		@include background-image("/assets/home/space.jpg");
+	}
 }
-
 
 
 

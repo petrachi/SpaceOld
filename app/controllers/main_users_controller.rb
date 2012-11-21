@@ -33,6 +33,6 @@ class MainUsersController < ApplicationController
 
   def sign_out
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Logged out"
+    redirect_to root_url(:subdomain => false), :notice => "Logged out"
   end
 end

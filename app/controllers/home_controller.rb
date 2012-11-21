@@ -10,7 +10,6 @@ class HomeController < ApplicationController
   
   
   
-  
   #demo
   def sprite_demo
     @applications = [:game, :cv]

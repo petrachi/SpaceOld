@@ -24,9 +24,7 @@ Space::Application.routes.draw do
   match "/sign_in_errors" => "main_users#sign_in_errors"
   match "/sign_out" => "main_users#sign_out", :as=>:sign_out
   
-  routes_for_subdomain :cv, [:achievements ,:experimentations, :home, :users]
-  routes_for_subdomain :game, [:home, :users, :profil]
-  routes_for_subdomain :private, [:home, :users]
+  routes_for_subdomain :game, [:home, :users, :profil]  
   
   match "/:controller(/:action(/:id))"
     

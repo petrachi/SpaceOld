@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Space Game</title>
+		<%= stylesheet_link_tag "application", :media => "all" %>	
+		<%= javascript_include_tag "application" %>
+	
+		<%= csrf_meta_tags %>
+	</head>
+	<body id="game" layout="nav">
+		<%= one_col_container :element => :header, :disable => :spans do %>
+			<%= one_span :id => :return, :align => :center do %>
+				<h1><%= link_to :<, root_url %></h1>
+			<% end %>
+			
+			<%= ten_span :id => :title do %>
+				<h1>ARMEE</h1>
+			<% end %>
+			
+			<%= one_span :id => :options, :align => :center do %>
+				<h1>O</h1>
+				
+				<%= row :nested => true do %>
+					<%= two_span :prepend => -1 do %>
+						<ul>
+							<li>Paramètres</li>
+							<li>Space</li>
+							<li>CGU</li>
+						</ul>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		
+		
+		
+		
+		<!-- Flashs -->
+		<%= one_col_container :id => :alert do %>
+			<%= alert %>
+		<% end %>
+		
+		<%= one_col_container :id => :notice do %>
+			<%= notice %>
+		<% end %>
+		
+		<%= yield %>	
+	</body>
+</html>

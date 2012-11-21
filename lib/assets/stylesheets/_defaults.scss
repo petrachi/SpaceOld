@@ -7,13 +7,21 @@
 html{
 	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
 }
-	
+
+body{
+	margin: 0 0 20px;
+}
+
 h1{
 	font-size: 2em;
 	margin: 1em 0;
+	
+	a{
+		@include unstyled-link();
+	}
 }
 
-header h1{
+[layout=main] header h1{
 	font-size: 6em;
 	margin: 1em 0;
 	
@@ -21,11 +29,14 @@ header h1{
 	text-align: center;
 	
 	a{
-		@include unstyled-link();
 		&:hover{
 			color: rgba(#fff, .75);
 		}
 	}
+}
+
+[layout=nav] > .container{
+	margin: 2em 0;
 }
 
 h2{
@@ -47,7 +58,7 @@ P{
 }
 
 #notice{
-	background-color: $orange;
+	background-color: $green;
 }
 	
 .btn{ 

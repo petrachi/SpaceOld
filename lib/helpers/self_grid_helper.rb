@@ -17,14 +17,25 @@ module SelfGridHelper
       options.map_values! do |value|        
         value.class == Proc ? value.call(@elt) : value 
       end
-          
+      
+
+      p "prepend"
+      
       prepend = if options[:prepend].present? 
+        p "present"
         if options[:prepend] > 0
-          TWELVE_STRING_INTS_INVERT[options.delete :prepend]
+p "pos"
+          "#{ GRID_CONFIG[:classes][:prepend] }_#{ TWELVE_STRING_INTS_INVERT[options.delete :prepend] }"
+          
+          
+          
         else
-          "minus_#{ TWELVE_STRING_INTS_INVERT[options.delete :prepend] }"
+          p "negative"
+          
+          "minus_#{ TWELVE_STRING_INTS_INVERT[options.delete(:prepend).abs] }"
         end
       end
+
       append = TWELVE_STRING_INTS_INVERT[options.delete :append]
 
       warn "WARNING : argument ':nested' is not supported for '#{ tag }'" if options[:nested].present? and tag != :row
@@ -41,7 +52,7 @@ module SelfGridHelper
       end
 
       content_class = [GRID_CONFIG[:classes][tag], options.delete(:class)].compact
-      content_class << "#{ GRID_CONFIG[:classes][:prepend] }_#{ prepend }" if prepend
+      content_class << prepend
       content_class << "#{ GRID_CONFIG[:classes][:append] }_#{ append }" if append
       content_class << GRID_CONFIG[:classes][:nested] if options.delete(:nested)
       options.merge! :class => content_class.join(" ")
