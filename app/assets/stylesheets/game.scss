@@ -1,0 +1,7 @@
+@import "defaults";
+
+#game{
+	header{
+		@include background-image("/assets/tmp/93.jpeg");
+	}
+}

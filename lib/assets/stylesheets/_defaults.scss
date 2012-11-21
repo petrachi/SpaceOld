@@ -67,9 +67,11 @@ P{
 	}
 }
 
-.left{ text-align: left; }
-.center{ text-align: center; }
-.right{ text-align: right; }
+[align=left]{ text-align: left; }
+[align=center]{ text-align: center; }
+[align=right]{ text-align: right; }
 
-.f_left{ float: left; }
-.f_right{ float: right; }
+[float=left]{ float: left; }
+[float=right]{ float: right; }
+[float=none]{ float: none; }
+

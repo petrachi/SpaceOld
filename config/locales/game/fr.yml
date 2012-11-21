@@ -1,5 +1,9 @@
 fr:
     game:
-        name: "Space Game"
+        name: "SPACE GAME"
         brief: "Un jeu super fun"
-        description: "un jeu super fun avec une longue description"
+        description: "un jeu super fun avec une longue description."
+        
+        profil:
+            name: "PROFIL"
+            description: "L'onglet profil vous permet de personnaliser votre expériencede jeu."

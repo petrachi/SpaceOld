@@ -22,7 +22,7 @@
 		<% end %>
 		
 		<!-- User -->
-		<%= one_col_container :class => :center do %>
+		<%= one_col_container :align => :center do %>
 			<% if MainUser.current %>
 				<%= MainUser.current %> <%= link_to t(:sign_out), sign_out_path, :class=>:btn %>
 				

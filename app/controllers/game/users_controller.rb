@@ -1,10 +1,7 @@
 class Game::UsersController < Game::ApplicationController
-  before_filter :install_authorize, :only => :install
-  def install_authorize
-    if MainUser.current and User.current.blank?
-    else
-      redirect_to game_url(:subdomain => false)
-    end
+  before_filter :install_authorized?, :only => :install
+  def install_authorized?
+    redirect_to game_url(:subdomain => false) unless MainUser.current and User.current.blank?
   end
   
   def install

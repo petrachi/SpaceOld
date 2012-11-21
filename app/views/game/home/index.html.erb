@@ -1,5 +1,15 @@
-<h1>Game::Home#index</h1>
-<p>Find me in app/views/game/home/index.html.erb</p>
-
-<%= current_user %>
-
+<%= one_col_container :collection => @sections do |section| %>
+	<%= one_col_row do %>
+		<h2><%= t :"game.#{ section }.name" %></h2>
+	<% end %>
+	
+	<%= one_col_container :disable => [:spans, :container] do %>
+		<%= ten_span do %>
+			<%= t :"game.#{ section }.description" %>
+		<% end %>
+		
+		<%= two_span :align => :right do %>
+			<%= link_to t(:go_to), eval("#{ section }_url"), :class=>:btn %>
+		<% end %>
+	<% end %>
+<% end %>

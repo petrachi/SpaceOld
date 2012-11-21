@@ -1,5 +1,5 @@
 fr:
-    space: "Space"
+    space: "SPACE"
     
     sign_in: "Connexion"
     sign_up: "Créer un compte"
@@ -7,11 +7,15 @@ fr:
     
     or: "ou"
     
-    
-    
     know_more: "En savoir plus"
     install: "Installer"
-    go_to: "Accéder à l'application"
+    go_to: "Accéder"
+    
+    restricted: "Accès non authorisé"
+    
+    
+    
+    
     
     forms:
         labels:
