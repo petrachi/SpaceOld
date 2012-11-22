@@ -1,4 +1,4 @@
-class HomeController < ApplicationController  
+class SpaceController < ApplicationController  
   
   def index
     @applications = [:game]

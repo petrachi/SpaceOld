@@ -13,7 +13,7 @@ def routes_for_subdomain namespace, controllers
     root :to => "#{ namespace }/home#index"
   end
   
-  match "/#{ namespace }" => "home##{ namespace }", :as => namespace
+  match "/#{ namespace }" => "space##{ namespace }", :as => namespace
 end
 
 
@@ -28,7 +28,7 @@ Space::Application.routes.draw do
   
   match "/:controller(/:action(/:id))"
     
-  root :to => "home#index"
+  root :to => "space#index"
   
   
   
