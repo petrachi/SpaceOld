@@ -19,21 +19,14 @@ module SelfGridHelper
       end
       
 
-      p "prepend"
-      
-      prepend = if options[:prepend].present? 
-        p "present"
-        if options[:prepend] > 0
-p "pos"
-          "#{ GRID_CONFIG[:classes][:prepend] }_#{ TWELVE_STRING_INTS_INVERT[options.delete :prepend] }"
-          
-          
-          
+      prepend = if options[:prepend].present? and TWELVE_STRING_INTS_INVERT.has_key? (prepend = options.delete( :prepend)).abs
+        if prepend > 0
+          "#{ GRID_CONFIG[:classes][:prepend] }_#{ TWELVE_STRING_INTS_INVERT[prepend] }"
         else
-          p "negative"
-          
-          "minus_#{ TWELVE_STRING_INTS_INVERT[options.delete(:prepend).abs] }"
+          "#{ GRID_CONFIG[:classes][:minus] }_#{ TWELVE_STRING_INTS_INVERT[prepend.abs] }"
         end
+      elsif prepend
+        warn "WARNING : invalid value for ':prepend'"
       end
 
       append = TWELVE_STRING_INTS_INVERT[options.delete :append]
