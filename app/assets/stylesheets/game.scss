@@ -1,9 +1,12 @@
 @import "defaults";
 
+@import "game/sections/*.png";
+@include all-sections-sprites;
+
 #game{
 	&[layout=main]{
 		header{
-			@include background-image("/assets/game/main.jpg");
+			@include background-image-wide("/assets/game/main.jpg");
 		}
 	}
 	
@@ -18,13 +21,7 @@
 			}
 			
 			#options{
-				color: transparent;
-				
 				background-color: $blue; 
-				background-image: url(/assets/common/gear.png);
-				background-position: center center;
-				background-size: auto 100%;
-				background-repeat: no-repeat;
 				
 				.nested [class*=span]{ position: absolute; left: -9000em; background: $blue; }
 				&:hover .nested [class*=span]{ 
@@ -32,7 +29,6 @@
 					
 					ul{ margin: 0; padding: 0; list-style: none;
 						li{ 
-							color: #000;
 							padding: 12px 18px; 
 						
 							&:hover{ background-color: rgba(#fff, 0.3); }
@@ -43,55 +39,3 @@
 		}
 	}
 }
-
-
-/*
-
-.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
-&:hover .nested [class*=span]{ left: auto; 
-	li:hover{ background-color: rgba(#fff, 0.3); }
-}
-
-ul#params{ margin: 0; padding: 0; list-style: none;
-	li{ padding: 12px 18px; }
-}
-
-*/
-
-
-
-
-
-
-
-/* menu déroulant, faire un mixin 'dropdown' pour les menus déroulants, ne pas utiliser une hauteur fixe + bg-img, etc... */
-> .row {
-	position: relative;
-
-	#options{
-		position: absolute; top: 0; right: 0;
-
-		background-color: $blue; 
-		background-image: url(/assets/common/gear.png);
-		background-position: center center;
-		background-size: auto 100%;
-		background-repeat: no-repeat;
-
-		height: 39px;
-
-
-		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
-
-		&:hover .nested [class*=span]{ left: auto; 
-			li:hover{ background-color: rgba(#fff, 0.3); }
-		}
-
-		ul{ margin: 0; padding: 0; list-style: none;
-			li{ padding: 12px 18px; }
-		}
-	}
-}
-/* end bad css*/
-
-
-

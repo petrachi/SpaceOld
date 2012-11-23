@@ -1,5 +1,5 @@
 class Game::ApplicationController < ApplicationController
-  include Game; layout "game/nav"
+  include Game; layout "nav"
   include Game::ApplicationHelper
   
   before_filter :authorized?
@@ -7,6 +7,7 @@ class Game::ApplicationController < ApplicationController
     redirect_to game_url(:subdomain => false), :alert => t(:restricted) unless User.current
   end
   
-  # put in before filter or find a way to access in view
-  #SECTIONS = [:profil]
+  def get_location
+    @application, @sections = :game, [:profil]
+  end
 end

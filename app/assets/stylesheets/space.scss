@@ -1,8 +1,8 @@
 @import "defaults";
 
-#home{
+#space{
 	header{
-		@include background-image("/assets/space/main.jpg");
+		@include background-image-wide("/assets/space/main.jpg");
 	}
 }
 
@@ -18,17 +18,6 @@
 
 
 /* demos */
-
-
-@import "demo/*.png";
-
-@import "demobis/*.png";
-@include all-demobis-sprites;
-
-#sprite_demo{
-	#game{ @include demo-sprite(game); }
-	#cv{ @include demo-sprite(cv); }
-}
 
 
 

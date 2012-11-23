@@ -1,5 +1,5 @@
 /* demo */
-@mixin background-image($image_url) { 
+@mixin background-image-wide($image_url) { 
 	background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), image-url($image_url); 
 	background-position: center center;
 	background-size: 100% auto;

@@ -21,6 +21,24 @@ h1{
 	}
 }
 
+h2{
+	font-size: 1.5em;
+	margin: 1em 0 .75em;
+	
+	a{
+		@include unstyled-link();
+	}
+}
+
+h3{
+	font-size: 1.25em;
+	margin: 1em 0 .75em;
+}
+
+P{
+	margin: 1em 0;
+}
+
 [layout=main] header h1{
 	font-size: 6em;
 	margin: 1em 0;
@@ -35,30 +53,49 @@ h1{
 	}
 }
 
-[layout=nav] > .container{
-	margin: 2em 0;
-}
-
-h2{
-	font-size: 1.5em;
-	margin: 1em 0 .75em;
-}
-
-h3{
-	font-size: 1.25em;
-	margin: 1em 0 .75em;
-}
-
-P{
-	margin: 1em 0;
-}
+[layout=nav]{
+	> .container{
+		margin: 2em 0;
+	}
+	
+	h1{
+		margin: 0;
+		
+		a{
+			display: block;
+		}
+	}
+	
+	#return{
+		background-color: lightgrey;
+	}
+	
+	nav{
+		color: #fff;
+		
+		h2{	
+			margin: 0; 
+			padding: 0;
+			
+			a{
+				display: block;
+				padding: 3em 0.75em 0.5em;
+				@include background-image( linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%));
+				
+				&:hover{ @include box-shadow(0 0 0 0.2em $blue) }
+			}		
+		}
+	}
+} 
 
 #alert{
 	background-color: $red;
+	margin: 0;
 }
 
 #notice{
 	background-color: $green;
+	margin: 0;
 }
 	
 .btn{ 

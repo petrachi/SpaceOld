@@ -1,7 +1,6 @@
 class Game::HomeController < Game::ApplicationController
-  layout "game/main"
+  layout "main"
   
   def index
-    @sections = [:profil]
   end
 end

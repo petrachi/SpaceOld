@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Space Game</title>
+		<title><%= t(:"#{ @application }.name").titleize %></title>
 		<%= stylesheet_link_tag "application", :media => "all" %>	
 		<%= javascript_include_tag "application" %>
 	
 		<%= csrf_meta_tags %>
 	</head>
-	<body id="game" layout="nav">
+	<body id="<%= @application %>" layout="nav">
 		<%= one_col_container :element => :header, :disable => :spans do %>
 			<%= one_span :id => :return, :align => :center do %>
 				<h1><%= link_to :<, root_url %></h1>
 			<% end %>
 			
 			<%= ten_span :id => :title do %>
-				<h1>ARMEE</h1>
+				<h1><%= t :"#{ @application }.#{ @section }.name" %></h1>
 			<% end %>
 			
 			<%= one_span :id => :options, :align => :center do %>
@@ -32,9 +32,9 @@
 			<% end %>
 		<% end %>
 		
-		
-		
-		
+		<%= four_col_container :element => :nav, :collection => @sections, :spans => {:class => ->(section){ "sections-#{ section }" } } do |section| %>
+			<h2><%= link_to t(:"#{ @application }.#{ section }.name"), eval("#{ section }_url") %></h2>
+		<% end %>
 		
 		<!-- Flashs -->
 		<%= one_col_container :id => :alert do %>
