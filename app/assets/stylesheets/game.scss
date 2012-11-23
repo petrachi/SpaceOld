@@ -1,7 +1,7 @@
 @import "defaults";
 
-@import "game/sections/*.png";
-@include all-sections-sprites;
+@import "game/section/*.png";
+@include all-section-sprites;
 
 #game{
 	&[layout=main]{
@@ -35,7 +35,11 @@
 						}
 					}
 				}
-			}
+			}			
+		}
+		
+		#wide{
+			&.profil{ @include background-image-wide("/assets/game/wide/profil.jpg"); }
 		}
 	}
 }
