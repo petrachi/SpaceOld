@@ -12,7 +12,7 @@
 	
 	&[layout=nav]{
 		#wide{
-			&.profil{ @include background-image-wide("/assets/game/wide/profil.jpg"); }
+			&.profile{ @include background-image-wide("/assets/game/wide/profile.jpg"); }
 		}
 	}
 }
