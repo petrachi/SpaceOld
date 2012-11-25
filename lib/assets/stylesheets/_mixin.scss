@@ -1,8 +1,31 @@
+@import "compass";
+
 /* demo */
 @mixin background-image-wide($image_url) { 
 	background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), image-url($image_url); 
 	background-position: center center;
 	background-size: 100% auto;
 	background-repeat: no-repeat;
-	box-shadow: 0 0 45px 4px #000 inset;
+	box-shadow: 0 0 3em 0.25em #000 inset;
+}
+
+@mixin drop-down {
+	> .row [class*=span]{ 
+		position: absolute; 
+		left: -9000em; 
+		
+		padding: 0; 
+		list-style: none;
+		
+		li > *{
+			@include unstyled-link();
+			
+			display: block;
+			padding: .75em 1em; 
+		}
+	}
+	
+	&:hover > .row [class*=span]{ 
+		left: auto;
+	}
 }

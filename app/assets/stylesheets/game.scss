@@ -11,33 +11,6 @@
 	}
 	
 	&[layout=nav]{
-		header{
-			h1{
-				margin: 0;
-			}
-			
-			#return{
-				background-color: lightgrey;
-			}
-			
-			#options{
-				background-color: $blue; 
-				
-				.nested [class*=span]{ position: absolute; left: -9000em; background: $blue; }
-				&:hover .nested [class*=span]{ 
-					left: auto; 
-					
-					ul{ margin: 0; padding: 0; list-style: none;
-						li{ 
-							padding: 12px 18px; 
-						
-							&:hover{ background-color: rgba(#fff, 0.3); }
-						}
-					}
-				}
-			}			
-		}
-		
 		#wide{
 			&.profil{ @include background-image-wide("/assets/game/wide/profil.jpg"); }
 		}

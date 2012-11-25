@@ -5,11 +5,11 @@
 
 
 html{
-	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	font: 16px "Helvetica Neue","Helvetica","Arial", sans-serif;
 }
 
 body{
-	margin: 0 0 20px;
+	margin: 0 0 1em;
 }
 
 h1{
@@ -58,7 +58,7 @@ P{
 		margin: 2em 0;
 	}
 	
-	h1{
+	header h1{
 		margin: 0;
 		
 		a{
@@ -68,6 +68,19 @@ P{
 	
 	#return{
 		background-color: lightgrey;
+	}
+	
+	#options{
+		background-color: $blue; 
+		
+		@include drop-down;
+		
+		ul{ 
+			background-color: $blue; 
+		}
+		li > *:hover{
+			background-color: rgba(#fff, .3);
+		}
 	}
 	
 	nav{
@@ -104,7 +117,7 @@ P{
 	
 .btn{ 
 	@include unstyled-link();
-	display: inline-block; padding: 0.5em 1em; background-color: $blue;
+	display: inline-block; padding: .5em 1em; background-color: $blue;
 	
 	&:hover{ background-color: rgba($blue, 0.7); }
 	

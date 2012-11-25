@@ -22,12 +22,8 @@
 				<h1>O</h1>
 				
 				<%= row :nested => true do %>
-					<%= two_span :prepend => -1 do %>
-						<ul>
-							<li>Paramètres</li>
-							<li>Space</li>
-							<li>CGU</li>
-						</ul>
+					<%= two_span :element => :ul, :prepend => -1, :align => :left do %>
+						<%= render :partial => "layouts/#{ @application }/options" %>
 					<% end %>
 				<% end %>
 			<% end %>

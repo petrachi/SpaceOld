@@ -10,7 +10,7 @@
 	</head>
 	<body id="<%= @application %>" layout="main">
 		<%= one_col_container :element => :header do %>
-			<h1><%= link_to t(:"#{ @application }.name"), root_url(:subdomain => false) %></h1>
+			<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
 		<% end %>
 		
 		<!-- Flashs -->
