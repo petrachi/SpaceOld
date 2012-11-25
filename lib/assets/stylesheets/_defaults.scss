@@ -39,17 +39,26 @@ P{
 	margin: 1em 0;
 }
 
-[layout=main] header h1{
-	font-size: 6em;
-	margin: 1em 0;
+[layout=main]{
+	header h1{
+		font-size: 6em;
+		margin: 1em 0;
 	
-	color: rgba(#fff, .65);
-	text-align: center;
+		color: rgba(#fff, .65);
+		text-align: center;
 	
-	a{
-		&:hover{
-			color: rgba(#fff, .75);
+		a{
+			&:hover{
+				color: rgba(#fff, .75);
+			}
 		}
+	}
+	
+	#options_container{
+		position: absolute;
+		top: 0;
+		
+		width: 100%;
 	}
 }
 
@@ -69,20 +78,7 @@ P{
 	#return{
 		background-color: lightgrey;
 	}
-	
-	#options{
-		background-color: $blue; 
 		
-		@include drop-down;
-		
-		ul{ 
-			background-color: $blue; 
-		}
-		li > *:hover{
-			background-color: rgba(#fff, .3);
-		}
-	}
-	
 	nav{
 		color: #fff;
 		
@@ -104,6 +100,22 @@ P{
 		color: #fff;
 	}
 } 
+
+#options{
+	background-color: $blue; 
+	h1{
+		margin: 0;
+	}
+	
+	@include drop-down;
+	
+	ul{ 
+		background-color: $blue; 
+	}
+	li > *:hover{
+		background-color: rgba(#fff, .3);
+	}
+}
 
 #alert{
 	background-color: $red;
