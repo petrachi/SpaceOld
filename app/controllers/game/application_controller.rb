@@ -8,6 +8,6 @@ class Game::ApplicationController < ApplicationController
   end
   
   def get_location
-    @application, @sections = :game, [:profile]
+    @application, @sections = :game, [:building, :technology, :squad, :profile]
   end
 end

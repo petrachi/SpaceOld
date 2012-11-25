@@ -12,6 +12,9 @@
 	
 	&[layout=nav]{
 		#wide{
+			&.building{ @include background-image-wide("/assets/game/wide/building.jpg"); }
+			&.technology{ @include background-image-wide("/assets/game/wide/technology.jpg"); }
+			&.squad{ @include background-image-wide("/assets/game/wide/squad.jpg"); }			
 			&.profile{ @include background-image-wide("/assets/game/wide/profile.jpg"); }
 		}
 	}
