@@ -1,4 +1,4 @@
-class MainUsersController < ApplicationController 
+class MainUserController < ApplicationController 
   
   action_form :sign_up, :model => MainUser,
               :validation => -> do

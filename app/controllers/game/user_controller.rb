@@ -1,4 +1,4 @@
-class Game::UsersController < Game::ApplicationController
+class Game::UserController < Game::ApplicationController
   skip_before_filter :authorized?, :only => :install
   before_filter :install_authorized?, :only => :install
   

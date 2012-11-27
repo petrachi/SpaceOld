@@ -8,7 +8,7 @@ def routes_for_subdomain namespace, controllers
       namespaced_routes namespace, controller  
     end
     
-    match "/install", :controller => "#{ namespace }/users", :action=>"install", :as => "install"
+    match "/install", :controller => "#{ namespace }/user", :action=>"install", :as => "install"
     
     root :to => "#{ namespace }/home#index"
   end
@@ -18,13 +18,13 @@ end
 
 
 Space::Application.routes.draw do
-  match "/sign_up" => "main_users#sign_up", :as=>:sign_up
-  match "/sign_up_errors" => "main_users#sign_up_errors"
-  match "/sign_in" => "main_users#sign_in", :as=>:sign_in
-  match "/sign_in_errors" => "main_users#sign_in_errors"
-  match "/sign_out" => "main_users#sign_out", :as=>:sign_out
+  match "/sign_up" => "main_user#sign_up", :as=>:sign_up
+  match "/sign_up_errors" => "main_user#sign_up_errors"
+  match "/sign_in" => "main_user#sign_in", :as=>:sign_in
+  match "/sign_in_errors" => "main_user#sign_in_errors"
+  match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
-  routes_for_subdomain :game, [:home, :users, :building, :technology, :squad, :profile]  
+  routes_for_subdomain :game, [:home, :user, :building, :technology, :squad, :profile]  
   
   match "/:controller(/:action(/:id))"
     
