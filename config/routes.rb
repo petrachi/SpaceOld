@@ -13,7 +13,7 @@ def application_routes application, controllers
     root :to => "#{ application }/home#index"
   end
   
-  match "/#{ application }" => "space##{ application }", :as => application
+  match "/space_#{ application }" => "space##{ application }", :as => "space_#{ application }"
 end
 
 
@@ -25,7 +25,7 @@ Space::Application.routes.draw do
   match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
   application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
-  application_routes :super_user, [:home, :user]  
+  application_routes :super_user, [:home, :user, :game]  
   
   
   match "/:controller(/:action(/:id))"

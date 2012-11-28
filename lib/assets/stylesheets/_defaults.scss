@@ -6,10 +6,15 @@
 
 html{
 	font: 16px "Helvetica Neue","Helvetica","Arial", sans-serif;
+	-webkit-transform: translateZ(0); /* using GPU for render - webkit only */
 }
 
 body{
 	margin: 0 0 1em;
+	
+	> .container{
+		margin: 2em 0;
+	}
 }
 
 h1{
@@ -40,21 +45,27 @@ P{
 }
 
 [layout=main]{
-	header h1{
-		font-size: 6em;
-		margin: 1em 0;
+	header{
+		margin: 0;
+		
+		h1{
+			font-size: 6em;
+			margin: 1em 0;
 	
-		color: rgba(#fff, .65);
-		text-align: center;
+			color: rgba(#fff, .65);
+			text-align: center;
 	
-		a{
-			&:hover{
-				color: rgba(#fff, .75);
+			a{
+				&:hover{
+					color: rgba(#fff, .75);
+				}
 			}
 		}
 	}
 	
 	#options_container{
+		margin: 0;
+		
 		position: absolute;
 		top: 0;
 		
@@ -63,10 +74,6 @@ P{
 }
 
 [layout=nav]{
-	> .container{
-		margin: 2em 0;
-	}
-	
 	header h1{
 		margin: 0;
 		
@@ -156,3 +163,7 @@ P{
 [float=right]{ float: right; }
 [float=none]{ float: none; }
 
+[display=inline]{ display: inline; }
+[display=inline-block]{ display: inline-block; }
+[display=block]{ display: block; }
+[display=table]{ display: table; }

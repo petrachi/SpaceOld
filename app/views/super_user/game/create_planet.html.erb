@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		jsMergeForm("form", window.location, "<%= game_url %>");
+		initializeQtip("form");
+	});
+</script>
+
+
+<%= container do %>
+
+	<%= form_tag do %>
+		<%= hidden_field_tag :call, :js %>
+	
+		<%= form_row :width %>
+	
+		<%= js_merge_row %>	
+	<% end %>
+
+<% end %>
+

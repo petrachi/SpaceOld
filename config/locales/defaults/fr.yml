@@ -10,6 +10,7 @@ fr:
     know_more: "En savoir plus"
     install: "Installer"
     go_to: "Accéder"
+    super_use: "Administrer"
     
     restricted: "Accès non authorisé"
     installed: "L'application vient d'être installée"
