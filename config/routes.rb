@@ -1,19 +1,19 @@
-def namespaced_routes namespace, controller
-  match "/#{ controller }(/:action(/:id))", :controller => "#{ namespace }/#{ controller }", :as => controller
+def controller_route application, controller
+  match "/#{ controller }(/:action(/:id))", :controller => "#{ application }/#{ controller }", :as => controller
 end
 
-def routes_for_subdomain namespace, controllers
-  constraints :subdomain => namespace.to_s do
+def application_routes application, controllers
+  constraints :subdomain => application.to_s do
     controllers.each do |controller|
-      namespaced_routes namespace, controller  
+      controller_route application, controller  
     end
     
-    match "/install", :controller => "#{ namespace }/user", :action=>"install", :as => "install"
+    match "/install", :controller => "#{ application }/user", :action=>"install", :as => "install"
     
-    root :to => "#{ namespace }/home#index"
+    root :to => "#{ application }/home#index"
   end
   
-  match "/#{ namespace }" => "space##{ namespace }", :as => namespace
+  match "/#{ application }" => "space##{ application }", :as => application
 end
 
 
@@ -24,7 +24,9 @@ Space::Application.routes.draw do
   match "/sign_in_errors" => "main_user#sign_in_errors"
   match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
-  routes_for_subdomain :game, [:home, :user, :building, :technology, :squad, :profile]  
+  application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
+  application_routes :super_user, [:home, :user]  
+  
   
   match "/:controller(/:action(/:id))"
     

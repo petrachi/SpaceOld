@@ -1,0 +1,5 @@
+fr:
+    super_user:
+        name: "SUPER USER"
+        brief: "Interface d'admin"
+        description: "hey ! casse toi c'est privé ici !!!"
