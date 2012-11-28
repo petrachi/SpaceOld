@@ -1,0 +1,9 @@
+@import "defaults";
+
+#super_user{
+	&[layout=main]{
+		header{
+			@include background-image-wide("/assets/super_user/main.jpg");
+		}
+	}
+}
