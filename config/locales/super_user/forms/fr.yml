@@ -1,4 +1,4 @@
 fr:
     forms:
         labels:
-            width: "Taille"
+            size: "Taille"
