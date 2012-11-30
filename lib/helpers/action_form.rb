@@ -2,7 +2,7 @@ module ActionForm
   module ClassMethods
     
     def action_form action_name, options = {}
-      #object_name = "@#{ object_class.name.demodulize.underscore }"
+      object_name = "@#{ options[:model].name.demodulize.underscore }" if options[:model]
       
       define_method action_name, ->(params = params) do
         case params.delete(:wish).try :to_sym
@@ -36,7 +36,7 @@ module ActionForm
             
             @errors = @object.errors.keys
             
-            #eval "#{ object_name } = @object"
+            eval "#{ object_name } = @object"
           end
           
           instance_exec(params, &options[:errors]) if options[:errors].present?
