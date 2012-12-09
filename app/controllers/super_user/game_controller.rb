@@ -2,6 +2,11 @@ class SuperUser::GameController < SuperUser::ApplicationController
   include Game
   
   p User
+  
+  p Game.reachable?
+  p Planet.reachable?
+  p Game::Planet.reachable?
+  p Planet.reachable?
   p Game
   p Game::Planet # if not here, Planet doesn't work - why ???
   p Planet
