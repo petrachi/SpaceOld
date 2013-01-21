@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		jsMergeForm("form", "<%= sign_in_url %>", window.location);
+		initializeQtip("form");
+	});
+</script>
+
+
+<%= container do %>
+
+	<%= form_tag do %>
+		<%= hidden_field_tag :call, :js %>
+	
+		<%= form_row :email, :errors=>[:blank, :user_not_found] %>
+		<%= form_row :password, :errors=>[:blank, "password.authenticate"] %>
+	
+		<%= js_merge_row %>	
+	<% end %>
+
+<% end %>
+

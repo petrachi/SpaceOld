@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cv_user: 
+  name: MyString
+  brief: MyString
+  description: MyText
+  controller: MyText
+  view: MyText
+
+two:
+  cv_user: 
+  name: MyString
+  brief: MyString
+  description: MyText
+  controller: MyText
+  view: MyText

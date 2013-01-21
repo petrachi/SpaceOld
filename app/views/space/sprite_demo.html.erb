@@ -1,0 +1,16 @@
+<div id="sprite_demo">
+	<%= four_cols_container :collection=>@applications, :spans=>{:id => -> x { x }} do |application| %>
+		<h2><%=t "#{ application }.name" %></h2>
+		<p><%=t "#{ application }.brief" %></p>
+	
+		<p><%= link_to t(:know_more), {:action=>application}, :class=>:btn %></p>
+	<% end %>
+
+
+	<%= four_cols_container :collection=>@applications, :spans=>{:class => -> x { "demobis-#{ x }" }} do |application| %>
+		<h2><%=t "#{ application }.name" %></h2>
+		<p><%=t "#{ application }.brief" %></p>
+	
+		<p><%= link_to t(:know_more), {:action=>application}, :class=>:btn %></p>
+	<% end %>
+</div>

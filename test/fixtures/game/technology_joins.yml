@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  game_user_id: 1
+  game_province_id: 1
+  game_technology_id: 1
+  lvl: 1.5
+
+two:
+  game_user_id: 1
+  game_province_id: 1
+  game_technology_id: 1
+  lvl: 1.5

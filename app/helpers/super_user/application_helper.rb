@@ -1,0 +1,2 @@
+module SuperUser::ApplicationHelper
+end
