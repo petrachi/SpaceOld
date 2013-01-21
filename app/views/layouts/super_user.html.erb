@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= t(:"#{ @application }.name").titleize %></title>
+		
+		<%= stylesheet_link_tag "application", :media => "all" %>	
+		<%= javascript_include_tag "application" %>
+	
+		<%= csrf_meta_tags %>
+	</head>
+	<body id="<%= @application %>" layout="main">
+		<%= one_col_container :element => :header do %>
+			<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
+		<% end %>
+		
+		<% if @application != :space %>
+			<%= one_col_container :id => :options_container, :disable => :spans do %>
+				<%= one_span :id => :options, :prepend => 11, :align => :center do %>
+					<h1>O</h1>
+
+					<%= row :nested => true do %>
+						<%= two_span :element => :ul, :prepend => -1, :align => :left do %>
+							<%= render :partial => "layouts/#{ @application }/options" %>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<!-- Flashs -->
+		<%= one_col_container :id => :alert do %>
+			<%= alert %>
+		<% end %>
+		
+		<%= one_col_container :id => :notice do %>
+			<%= notice %>
+		<% end %>
+		
+		<%= render :partial => "layouts/user" if @application == :space %>
+		
+		<%= yield %>	
+	</body>
+</html>
+
+
+
+

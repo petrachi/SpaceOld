@@ -1,0 +1,49 @@
+fr:
+    space: "SPACE"
+    
+    sign_in: "Connexion"
+    sign_up: "Créer un compte"
+    sign_out: "Déconnexion"
+    
+    or: "ou"
+    
+    know_more: "En savoir plus"
+    install: "Installer"
+    go_to: "Accéder"
+    super_use: "Administrer"
+    
+    restricted: "Accès non authorisé"
+    installed: "L'application vient d'être installée"
+    
+    
+    
+    
+    
+    forms:
+        labels:
+            password: "Mot de passe"
+        
+        qtips:
+            email: "Votre identifiant globalisé"
+            
+        placeholders:
+            email: "exemple@email.com"
+        
+        errors:
+            blank: "ce champ ne peut pas être vide"
+            user_not_found: "doit correspondre a un utilisateur. insert???sign_up??? si vous ne vous êtes jamais connecté"
+            password:
+                authenticate: "doit correspondre au insert???forms.labels.password??? enregistré"
+            
+        merge_form:
+            init: "Préparation"
+            loading: "Chargement"
+            errors: "Ce formulaire contient des erreurs"
+            highlight_errors: "Montrer les erreurs"
+            bug: "Une erreur inattendue s'est produite"
+            validate: "Ce formulaire est valide"
+            save: "Cette action est irréversible.Voulez-vous continuer ?"
+            
+        send: "Envoyer"
+        
+        

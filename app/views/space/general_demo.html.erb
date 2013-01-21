@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Space</title>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	
+	<%= javascript_include_tag "application" %>
+	<%= javascript_tag do "$(document).ready(function(){ #{ resize_push } });".html_safe end if notice or alert %>	
+		
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="general_demo">
+		<%= container :id=>:main_title do %>
+			<%= row do %>
+				<%= twelve_span :class=>:center do %>
+					<h1>SPACE GAME</h1>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:abs do %>
+			<%= row do %>
+				<%= one_span :id=>:options, :prepend=>11 do %>
+					<%= row :nested=>true do %>
+						<%= two_span do %>
+							<ul id="params">
+								<li>Paramètres</li>
+								<li>Space</li>
+								<li>CGU</li>
+							</ul>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:monde, :class=>:sections do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h2>MONDE</h2>
+				<% end %>
+			<% end %>
+
+			<%= row do %>
+				<%= ten_span do %>
+					Maecenas nisi est, iaculis in eleifend sit amet, cursus vel mi. Quisque ut turpis ligula. Sed sit amet scelerisque nisl. Fusce mollis nisl ut est interdum id tempus justo ultricies. Vestibulum at justo dolor. Fusce vel dui non nunc gravida pulvinar.
+				<% end %>
+				
+				<%= two_span :class=>:right do %>
+					<span class="btn">Go To</span>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:empire, :class=>:sections do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h2>EMPIRE</h2>
+				<% end %>
+			<% end %>
+			
+			<%= row do %>
+				<%= ten_span do %>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo auctor dui et volutpat. Proin commodo vehicula congue. Sed viverra commodo justo, ut malesuada magna blandit adipiscing. Nulla facilisi. Maecenas quam est, luctus nec feugiat sit amet, rhoncus quis sapien.
+				<% end %>
+				
+				<%= two_span :class=>:right do %>
+					<span class="btn">Go To</span>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:armee, :class=>:sections do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h2>ARMEE</h2>
+				<% end %>
+			<% end %>
+
+			<%= row do %>
+				<%= ten_span do %>
+					Maecenas nisi est, iaculis in eleifend sit amet, cursus vel mi. Quisque ut turpis ligula. Sed sit amet scelerisque nisl. Fusce mollis nisl ut est interdum id tempus justo ultricies. Vestibulum at justo dolor. Fusce vel dui non nunc gravida pulvinar.
+				<% end %>
+				
+				<%= two_span :class=>:right do %>
+					<span class="btn">Go To</span>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<%= container :id=>:profil, :class=>:sections do %>
+			<%= row do %>
+				<%= twelve_span do %>
+					<h2>PROFIL</h2>
+				<% end %>
+			<% end %>
+
+			<%= row do %>
+				<%= ten_span do %>
+					Maecenas nisi est, iaculis in eleifend sit amet, cursus vel mi. Quisque ut turpis ligula. Sed sit amet scelerisque nisl. Fusce mollis nisl ut est interdum id tempus justo ultricies. Vestibulum at justo dolor. Fusce vel dui non nunc gravida pulvinar.
+				<% end %>
+				
+				<%= two_span :class=>:right do %>
+					<span class="btn">Go To</span>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= t(:"#{ @application }.name").titleize %></title>
+		
+		<%= stylesheet_link_tag "application", :media => "all" %>	
+		<%= javascript_include_tag "application" %>
+	
+		<%= csrf_meta_tags %>
+	</head>
+	<body id="<%= @application %>" layout="nav">
+		<%= one_col_container :element => :header, :disable => :spans do %>
+			<%= one_span :id => :return, :align => :center do %>
+				<h1><%= link_to :<, root_url %></h1>
+			<% end %>
+			
+			<%= ten_span :id => :title do %>
+				<h1><%= t :"#{ @application }.#{ @section }.name" %></h1>
+			<% end %>
+			
+			<%= one_span :id => :options, :align => :center do %>
+				<h1>O</h1>
+				
+				<%= row :nested => true do %>
+					<%= two_span :element => :ul, :prepend => -1, :align => :left do %>
+						<%= render :partial => "layouts/#{ @application }/options" %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<!-- Navigation trough sections -->
+		<%= four_col_container 	:element => :nav, 
+								:collection => @sections, 
+								:spans => {:class => ->(section){ "section-#{ section }" } } do |section| %>
+			<h2><%= link_to t(:"#{ @application }.#{ section }.name"), eval("#{ section }_url") %></h2>
+		<% end %>
+		
+		<!-- Wide -->
+		<%= container :id => :wide, :class => @section do %>
+			<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
+		<% end %>
+		
+		<!-- Flashs -->
+		<%= one_col_container :id => :alert do %>
+			<%= alert %>
+		<% end %>
+		
+		<%= one_col_container :id => :notice do %>
+			<%= notice %>
+		<% end %>
+		
+		<%= yield %>	
+	</body>
+</html>

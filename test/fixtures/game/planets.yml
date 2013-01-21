@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  game_province_id: 1
+  size: 1
+
+two:
+  game_province_id: 1
+  size: 1
