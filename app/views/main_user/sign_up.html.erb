@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		jsMergeForm("form", "<%= sign_up_url %>", window.location);
+		initializeQtip("form");
+	});
+</script>
+
+<%= container do %>
+
+	<%= form_tag do %>
+		<%= hidden_field_tag :call, :js %>
+	
+		<%= form_row :first_name %>
+		<%= form_row :name %>
+		<%= form_row :email %>
+		<%= form_row :password %>
+		<%= form_row :password_confirmation %>
+
+		<%= js_merge_row %>	
+	<% end %>
+
+<% end %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  object_type: MyString
+  object_id: 1
+  lvl: 1.5
+
+two:
+  object_type: MyString
+  object_id: 1
+  lvl: 1.5

@@ -1,0 +1,233 @@
+@import "defaults";
+
+#space{
+	header{
+		@include background-image-wide("/assets/space/main.jpg");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* demos */
+
+
+
+body{ margin: 0 0 20px !important; }
+#game_demo{
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	> .container{ margin: 36px 0; }
+	
+	#title h1{ font-size: 2em; margin: 0; }
+	#return h1{ font-size: 2em; margin: 0; text-align: center; background-color: lightgrey; }
+	#options{
+		background-color: $blue; 
+		background-image: url(/assets/common/gear.png);
+		background-position: center center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		
+		height: 39px;
+		
+		.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
+		&:hover .nested [class*=span]{ left: auto; 
+			li:hover{ background-color: rgba(#fff, 0.3); }
+		}
+		
+		ul#params{ margin: 0; padding: 0; list-style: none;
+			li{ padding: 12px 18px; }
+		}
+	}
+	
+	#sections{
+		color: #fff;
+		
+		[class*=span]{
+			background-position: center center;
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			
+			&#monde{ background-image: url(/assets/tmp/21.jpeg); }
+			&#empire{ background-image: url(/assets/tmp/3.jpeg); }
+			&#armee{ background-image: url(/assets/tmp/62.jpeg); }
+			&#profil{ background-image: url(/assets/tmp/30-2.png); }
+		}
+		
+		h2{	margin: 0;
+			padding: 72px 18px 12px;
+			background-image: -webkit-linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%);
+		}
+	}
+	
+	#content_first{
+		color: #fff;
+		
+		background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), url(/assets/tmp/2.jpeg);
+		background-position: center center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		box-shadow: 0 0 45px 4px #000 inset;
+		
+		img{ background: rgba(#fff, 0.1); }
+		
+		#progress{ background-image: -webkit-linear-gradient(left, rgba($blue, 0.7), rgba($blue, 0.4), rgba($blue, 0.7) 40%, transparent 40%); background-color: rgba(#fff, 0.3); margin-top: 6px; margin-bottom: 6px; }
+	}
+	
+	#content_after{
+		&.recrutement > .row{ margin-top: 6px; }
+		
+		&.action{ 
+			> .row{ margin-top: 6px; }
+			
+			.movement{ 
+				background-image: -webkit-linear-gradient(left, red, rgba(red, 0.7), red 75%, transparent 75%);
+				
+				height: 9px;
+				margin-top: 12px;
+				
+				&.bis{ background-image: -webkit-linear-gradient(left, red, rgba(red, 0.6), red 45%, transparent 45%); }
+				&.ter{ background-image: -webkit-linear-gradient(left, gold, rgba(gold, 0.6), gold 60%, transparent 60%); }
+				&.qua{ background-image: -webkit-linear-gradient(left, lightgreen, rgba(lightgreen, 0.6), lightgreen); }
+			}
+		}
+		
+		.unit{
+			&:hover{ background-color: lightgrey;
+				.profil{ box-shadow: 0 0 0 1px rgba(#000, 0.6) inset; }
+			}
+			
+			.descr{ margin-top: 31px; }
+			.profil{ 
+				height: 96px;
+				overflow: hidden;
+				
+				background-position: center center;
+				background-size: 100% auto;
+				background-repeat: no-repeat;
+				
+				box-shadow: 0 0 0 8px rgba(#000, 0.6) inset;
+				
+				&#img_5{ background-image: url(/assets/tmp/5.jpeg); }
+				&#img_26{ background-image: url(/assets/tmp/26.jpeg); }
+				&#img_27{ background-image: url(/assets/tmp/27.jpeg); }
+				&#img_8{ background-image: url(/assets/tmp/8.jpeg); }
+				&#img_19{ background-image: url(/assets/tmp/19.jpeg); }
+				&#img_36{ background-image: url(/assets/tmp/36.jpeg); }
+			}
+		}
+	}
+	
+	.btn{ display: inline-block; padding: 8px 16px; background-color: $blue;
+		&:hover{ background-color: rgba($blue, 0.7); }
+		
+		&.red{ background-color: red;
+			&:hover{ background-color: rgba(red, 0.7); }
+		}
+		&.orange{ background-color: gold;
+			&:hover{ background-color: rgba(gold, 0.7); }
+		}
+		&.green{ background-color: lightgreen;
+			&:hover{ background-color: rgba(lightgreen, 0.7); }
+		}
+	}
+}
+
+
+
+
+
+#general_demo{
+	font-family: "Helvetica Neue","Helvetica","Arial", sans-serif;
+	
+	h1{ font-size: 6em; margin: 1em 0; }
+	h2{ margin: 1em 0 .75em; }
+	
+	#main_title{
+		color: rgba(#fff, .65);
+		
+		background-image: -webkit-linear-gradient(left, #000, transparent 25%, transparent 75%, #000), url(/assets/tmp/93.jpeg); 
+		background-position: center center;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		box-shadow: 0 0 45px 4px #000 inset; 
+		
+		
+	}
+	
+	.btn{ display: inline-block; padding: 8px 16px; background-color: $blue;
+		&:hover{ background-color: rgba($blue, 0.7); }
+		
+		&.red{ background-color: red;
+			&:hover{ background-color: rgba(red, 0.7); }
+		}
+		&.orange{ background-color: gold;
+			&:hover{ background-color: rgba(gold, 0.7); }
+		}
+		&.green{ background-color: lightgreen;
+			&:hover{ background-color: rgba(lightgreen, 0.7); }
+		}
+	}
+	
+	
+	#descr{
+		background-image: url(/assets/tmp/21.jpeg); 
+		background-position: center center;
+		background-size: 90% auto;
+		background-repeat: no-repeat;
+		
+		[class*=span]{
+			background-color: #fff;
+		}
+	}
+	
+	
+	.sections{
+		margin: 1em 0;
+	}
+	
+	#abs{
+		width: 100%;
+		position: absolute;
+		top: 0;
+		
+		#options{
+			background-color: $blue; 
+			background-image: url(/assets/common/gear.png);
+			background-position: center center;
+			background-size: auto 100%;
+			background-repeat: no-repeat;
+
+			height: 39px;
+
+			.nested [class*=span]{ position: absolute; left: -9000em; margin: 39px 0 0 -84px; background: $blue; }
+			&:hover .nested [class*=span]{ left: auto; 
+				li:hover{ background-color: rgba(#fff, 0.3); }
+			}
+
+			ul#params{ margin: 0; padding: 0; list-style: none;
+				li{ padding: 12px 18px; }
+			}
+		}
+	}
+	
+	/*
+	.sections:hover{
+		&#monde{ background-image: url(/assets/tmp/21.jpeg); }
+		&#empire{ background-image: url(/assets/tmp/3.jpeg); }
+		&#armee{ background-image: -webkit-linear-gradient(left, transparent, lightgrey 5%), url(/assets/tmp/62.jpeg); }
+		
+		background-position: left center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+	}
+	*/	
+}
