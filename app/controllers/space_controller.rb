@@ -2,15 +2,17 @@ class SpaceController < ApplicationController
   
   
   def index
-    @applications = [:game, :super_user]
-  end
-  
-  def game
+    @applications = [:super_user, :game, :gems]
   end
   
   def super_user
   end
   
+  def game
+  end
+  
+  def gems
+  end
   
   
   #demo

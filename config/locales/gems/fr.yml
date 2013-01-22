@@ -1,0 +1,10 @@
+fr:
+    gems:
+        name: "SPACE GEMS"
+        brief: "Stats & Docs for El Petrachi's gems"
+        description: "Concerne CSS_GRID & future gem R_Extend"
+        
+        profile:
+            name: "PROFIL"
+            description: "L'onglet profil vous permet de personnaliser votre expériencede jeu."
+        

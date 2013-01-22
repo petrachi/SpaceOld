@@ -47,3 +47,6 @@ gem 'hash_extend'
 gem 'array_extend'
 
 gem 'css_grid'
+
+# For compass sprite
+gem 'oily_png' 

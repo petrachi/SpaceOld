@@ -1,7 +1,7 @@
 @import "defaults";
 
-@import "game/section/*.png";
-@include all-section-sprites;
+@import "game/game-section/*.png";
+@include all-game-section-sprites;
 
 #game{
 	&[layout=main]{
