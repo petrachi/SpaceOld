@@ -1,0 +1,23 @@
+<%= container do %>
+	<%= one_col_row do %>
+		<h2><%=t :'gems.name' %></h2>
+	<% end %>
+	
+	<%= row do %>
+		<%= ten_span do %>
+			<%=t :'gems.description' %>
+		<% end %>
+
+		<%= two_span :align => :right do %>
+			<% if Gems::User.current %>
+				<%= link_to t(:go_to), root_url(:subdomain=>:gems), :class=>:btn %>
+
+			<% elsif MainUser.current %>
+				<%= link_to t(:install), install_url(:subdomain=>:gems), :class=>:btn %>
+
+			<% else %>
+				<%= link_to t(:sign_in), sign_in_url, :class=>:btn %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,18 @@
+@import "defaults";
+
+@import "gems/gems-section/*.png";
+@include all-gems-section-sprites;
+
+#gems{
+	&[layout=main]{
+		header{
+			@include background-image-wide("/assets/gems/main.jpg");
+		}
+	}
+	
+	&[layout=nav]{
+		#wide{			
+			&.profile{ @include background-image-wide("/assets/gems/wide/profile.jpg"); }
+		}
+	}
+}

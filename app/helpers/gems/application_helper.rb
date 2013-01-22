@@ -1,0 +1,2 @@
+module Gems::ApplicationHelper
+end

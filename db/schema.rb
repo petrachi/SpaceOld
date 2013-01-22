@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127235138) do
+ActiveRecord::Schema.define(:version => 20130121232830) do
 
   create_table "game_building_joins", :force => true do |t|
     t.integer  "game_user_id"
@@ -133,6 +133,12 @@ ActiveRecord::Schema.define(:version => 20121127235138) do
   end
 
   create_table "game_users", :force => true do |t|
+    t.integer  "main_user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "gems_users", :force => true do |t|
     t.integer  "main_user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false

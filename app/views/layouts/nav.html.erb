@@ -32,7 +32,7 @@
 		<!-- Navigation trough sections -->
 		<%= four_col_container 	:element => :nav, 
 								:collection => @sections, 
-								:spans => {:class => ->(section){ "section-#{ section }" } } do |section| %>
+								:spans => {:class => ->(section){ "#{ @application }-section-#{ section }" } } do |section| %>
 			<h2><%= link_to t(:"#{ @application }.#{ section }.name"), eval("#{ section }_url") %></h2>
 		<% end %>
 		
