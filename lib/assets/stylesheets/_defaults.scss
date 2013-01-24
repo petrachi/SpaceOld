@@ -10,6 +10,9 @@ html{
 }
 
 body{
+	color: $light_black;
+	background-color: $light_grey;
+
 	margin: 0 0 1em;
 	
 	> .container{
@@ -99,8 +102,8 @@ P{
 			
 			a{
 				display: block;
-				padding: 3em 0.75em 0.5em;
-				@include background-image( linear-gradient(top, transparent 55%, rgba(#000, 0.4) 95%));
+				padding: 3.5em .5em .25em;
+				@include background-image( linear-gradient(top, transparent 3.25em, rgba(#000, 0.4) 3.25em));
 				
 				&:hover{ @include box-shadow(0 0 0 0.2em $blue) }
 			}		
@@ -152,6 +155,20 @@ P{
 	}
 	&.green{ background-color: lightgreen;
 		&:hover{ background-color: rgba($green, 0.7); }
+	}
+}
+
+.progress{
+	overflow: hidden;
+	height: 10px;
+	background-color: $light_grey;
+	@include border-radius(1px);
+	@include box-shadow(0 0 1px $grey inset);
+	
+	.bar{
+		height: 100%;
+		background-color: $blue;
+		@include box-shadow(0 -1px 0 rgba($black, .15) inset);
 	}
 }
 

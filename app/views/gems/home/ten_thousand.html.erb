@@ -1,0 +1,11 @@
+<%= container do %>
+	<%= one_col_row :spans => {:align => :center} do %>
+		<h2><%= 10000 - @gem.downloads %> Left</h2>
+	<% end %>
+	
+	<%= one_col_row do %>
+		<div class="progress">
+			<div class="bar" style="width: <%= @gem.downloads * 100 / 10000 %>%;"></div>
+		</div>
+	<% end %>
+<% end %>
