@@ -8,6 +8,6 @@ class Gems::ApplicationController < ApplicationController
   end
   
   def get_location
-    @application, @sections = :gems, [:profile]
+    @application, @sections = :gems, [:css_grid, :r_extend, :profile]
   end
 end
