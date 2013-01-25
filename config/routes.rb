@@ -26,7 +26,7 @@ Space::Application.routes.draw do
   
   application_routes :super_user, [:home, :user, :game]  
   application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
-  application_routes :gems, [:home, :user, :profile]  
+  application_routes :gems, [:home, :user, :css_grid, :r_extend, :profile]  
   
   match "/:controller(/:action(/:id))"
     

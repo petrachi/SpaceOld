@@ -50,3 +50,6 @@ gem 'css_grid'
 
 # For compass sprite
 gem 'oily_png' 
+
+# Code Highlight
+gem 'coderay'
