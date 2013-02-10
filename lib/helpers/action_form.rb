@@ -88,7 +88,7 @@ module ActionForm
               flash[:notice] = "youpiyop"
               render :js => "window.location = #{ root_path.to_json }"
             else
-              raise
+              raise "safe_validation wasn't safe"
             end
           else
             raise

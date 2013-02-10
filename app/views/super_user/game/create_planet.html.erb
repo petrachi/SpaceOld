@@ -10,7 +10,8 @@
 
 	<%= form_tag do %>
 		<%= hidden_field_tag :call, :js %>
-	
+		
+		<%= form_row :name %>
 		<%= form_row :size %>
 	
 		<%= js_merge_row %>	
