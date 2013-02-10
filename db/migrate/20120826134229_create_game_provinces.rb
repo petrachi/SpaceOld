@@ -3,7 +3,10 @@ class CreateGameProvinces < ActiveRecord::Migration
     create_table :game_provinces do |t|
       t.references :game_user
       t.references :game_planet
-      t.string :environment
+      t.references :game_ground
+      
+      t.integer :x
+      t.integer :y
 
       t.timestamps
     end

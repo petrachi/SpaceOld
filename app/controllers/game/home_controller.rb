@@ -3,4 +3,8 @@ class Game::HomeController < Game::ApplicationController
   
   def index
   end
+  
+  def puts_planet
+    @planet = Game::Planet.last
+  end
 end

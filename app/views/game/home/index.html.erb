@@ -13,3 +13,10 @@
 		<% end %>
 	<% end %>
 <% end %>
+
+<%= four_cols_container :collection => [:puts_planet] do |demo| %>
+	<h3><%= demo %></h3>
+	<p>
+		<%= link_to t(:go_to), home_url(:action => demo), :class=>:"btn orange" %>
+	</p>
+<% end %>
