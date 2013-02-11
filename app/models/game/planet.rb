@@ -9,7 +9,7 @@ class Game::Planet < ActiveRecord::Base
   
   def to_canvas
     t = Time.now
-    canvas_width = size * 10
+    canvas_width = 1152  #size * 10
     
       p "map"
       #str = "<MAP name='map' id='map'>"
