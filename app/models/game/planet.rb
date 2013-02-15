@@ -9,19 +9,20 @@ class Game::Planet < ActiveRecord::Base
   
   def to_canvas
     t = Time.now
-    canvas_width = 1152  #size * 10
+    canvas_width = 288  #size * 10
     
       p "map"
       #str = "<MAP name='map' id='map'>"
       str = "<canvas id='tutoriel' width='#{canvas_width}' height='#{canvas_width}'>"
       str2 = ""
       i = 0
-      j = provinces.count
+      j = provinces.size
+      
       
       max_x, max_y = provinces.map(&:x).max, provinces.map(&:y).max
       
       
-      provinces.each{ |province| str2 += province.to_canvas_script(max_x, max_y, canvas_width); p "#{i+= 1}/#{j}" }
+      
 
       #str += "</MAP>"
       str += "</canvas>"
@@ -36,16 +37,39 @@ class Game::Planet < ActiveRecord::Base
            ctx.lineWidth =1;
 
            "
+           
+           provinces.each{ |province| 
+             
+             str += province.to_canvas_script(max_x, max_y, canvas_width); 
+             
+             p "#{ i * 100 / j }% (#{ i }/#{ j })" if ((i += 1) % (j / 10)).zero?
+           
+           }
 
-           str += str2
+           
 
            str += "
+
+
+           requestAnimFrame(function() {
+                     animate();
+                   });
 
          }
 
 
-      </script> #{ Time.now - t }".html_safe
+      </script> #{ Time.now - t }"
 
     
+  end
+  
+  def to_3d_transform
+    max_x = (size * 2 - 1) / (Math::PI * 2)
+     
+    
+    max_y = provinces.map(&:y).max
+    
+    
+    "<div id=planet>#{ provinces.map{|x| x.to_3d_tranform(max_x, max_y) }.join }</div>"
   end
 end

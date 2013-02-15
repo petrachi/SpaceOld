@@ -1,0 +1,122 @@
+<html>
+	<head>
+		<title>uio</title>
+		
+		<%= stylesheet_link_tag "application", :media => "all" %>	
+		<%= javascript_include_tag "application" %>
+	
+	</head>
+	<body>
+
+
+<style type="text/css">
+	#planet{ background-color: rgba(200, 200, 0, 0); height: 388px; width: 388px; position: relative;
+		-webkit-transform: perspective(0px) rotateX(-30deg) rotateY(0deg);
+		-webkit-transform-style: preserve-3d;
+		
+		-webkit-transition: -webkit-transform 1s;
+		
+	
+		-webkit-transform-origin: 50% 50%;
+	/*	-webkit-transform: perspective(500px) translate3d(0px, 0px, 109px) rotate3d(0.51, 1, 0, 57deg);
+	*/
+	
+	
+	
+	
+	/*	-webkit-transform-style: preserve-3d;
+		-webkit-transform: translateZ(-100px) rotateX( -220deg ) rotateY( 45deg );*/
+		/*
+		-webkit-transform: rotateX(-45deg) perspective(288);
+		*/
+		/**/
+		}
+		
+		.province{ border: 2px solid blue; border-radius: 0px; height: 0px; width: 0px;
+			
+			-webkit-transform-origin: 50% 50%;
+			
+			
+			position: absolute;
+			left: 150px;
+			top: 150px;
+			
+			
+		/*	-webkit-transform: perspective(570px) rotateY(46deg) rotateX(44deg) translateZ(96px);*/
+			} 
+			
+			
+		/*	#planet:hover .province{ -webkit-transform: translateZ(100px); } */
+</style>
+
+<%= container do %>
+	<%= one_col_row do %>
+		<h2><%= @planet.name %></h2>
+	<% end %>
+	
+	<%= one_col_row do %>
+		<%= raw @planet.to_3d_transform %>
+	<% end %>
+<% end %>
+
+<span class="rotate30 btn orange">
+	rotate y +30
+</span>
+
+<span class="rotatem30 btn orange">
+	rotate y -30
+</span>
+
+<span class="rotatex30 btn orange">
+	rotate x +30
+</span>
+
+<span class="rotatexm30 btn orange">
+	rotate x -30
+</span>
+<br/>
+x:
+<span class="x">
+	-30
+</span>
+<br/>
+y:
+<span class="y">
+	0
+</span>
+<br/><br/>
+<span class="rotate btn">
+	GO !
+</span>
+
+<script>
+	rotay = 0
+	rotax = -30
+	$(".rotate30").click(function(){
+		rotay = rotay + 30;
+		
+		$(".y").html(rotay)
+	});
+	$(".rotatem30").click(function(){
+		rotay = rotay - 30;
+		$(".y").html(rotay)
+	});
+	$(".rotatex30").click(function(){
+		rotax = rotax + 30;
+		$(".x").html(rotax)
+	});
+	$(".rotatexm30").click(function(){
+		rotax = rotax - 30;
+		$(".x").html(rotax)
+	});
+	
+	
+	
+	$(".rotate").click(function(){
+		
+		$("#planet").css("-webkit-transform", "perspective(0px) rotateX(" + rotax + "deg) rotateY(" + rotay + "deg)")
+	});
+</script>
+
+</body>
+</html>
