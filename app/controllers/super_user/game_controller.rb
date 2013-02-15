@@ -10,6 +10,68 @@ class SuperUser::GameController < SuperUser::ApplicationController
   action_form :create_planet, :model => Game::Planet,
               :validation => -> do
                 
+                
+                # must be impair
+                nb = @planet.size * 2 - 1
+                half = nb / 2
+                
+                start_pos, end_pos = 0 - half, nb - half
+                
+                
+                
+                rayon = nb / (Math::PI * 2)
+                
+                
+                
+                p "-"*45
+                p "nb #{nb} / rayon #{rayon}"
+                
+                
+                
+                0.upto(rayon.to_i){ |x|
+                  
+                  
+                  
+                  
+                 p "x"*15
+                 p "   for x #{x}"
+                 
+                  p "section Math::sqrt( #{rayon**2} - #{x**2} )"
+                  p Math::sqrt( rayon**2 - x**2 )
+                  
+                  
+                  
+                  section_rayon = Math::sqrt( rayon**2 - x**2 )
+                
+                  
+                  
+                  section_perimetre = section_rayon * Math::PI * 2
+                  
+                  p "sec permi #{section_perimetre}"
+                  
+                  s_nb = section_perimetre.to_i / 2 * 2 + 1
+                  
+                  half = s_nb / 2
+                  
+                  start_pos, end_pos = 0 - half, s_nb - half
+                  
+                
+                p "start #{start_pos} .. end #{end_pos}"
+                
+                  (start_pos..end_pos).each{ |y|
+                  
+                  
+                    Game::Province.create(:x=>x, :y=>y, :planet=>@planet )
+                    
+                    Game::Province.create(:x=>-x, :y=>y, :planet=>@planet ) if x != 0
+                    
+                    
+                  
+                  }
+                }
+                
+                
+=begin                
                 planet_height = @planet.size
                 planet_width = planet_height / 2
                 
@@ -30,7 +92,8 @@ class SuperUser::GameController < SuperUser::ApplicationController
                       Game::Province.create(:x=>x, :y=>y, :planet=>@planet )
                     end
                   end
-                }                
+                }
+=end                                
               end#,
           #    :safe_validation => -> do
           #      @planet.provinces.size == @planet.size
