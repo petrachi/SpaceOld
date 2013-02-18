@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20130121232830) do
     t.integer  "game_user_id"
     t.integer  "game_planet_id"
     t.integer  "game_ground_id"
-    t.integer  "x"
-    t.integer  "y"
+    t.float    "x"
+    t.float    "y"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

@@ -5,8 +5,8 @@ class CreateGameProvinces < ActiveRecord::Migration
       t.references :game_planet
       t.references :game_ground
       
-      t.integer :x
-      t.integer :y
+      t.float :x
+      t.float :y
 
       t.timestamps
     end
