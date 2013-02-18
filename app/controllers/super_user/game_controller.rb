@@ -10,7 +10,66 @@ class SuperUser::GameController < SuperUser::ApplicationController
   action_form :create_planet, :model => Game::Planet,
               :validation => -> do
                 
+
+
+                nb = @planet.size
                 
+                
+                
+                half = nb / 2
+                
+                xstart = 0 - half
+                xend = nb + xstart
+                
+                
+                
+                x_rad_scale = Math::PI / nb.to_f
+                
+                p "<"*15
+                
+                (xstart..xend).each{ |x|  
+                  
+                  
+                  height = x / xend.to_f
+                  percent = Math::acos(height.abs) / (Math::PI / 2)
+                  nb_prov = nb * percent
+                  
+                  y_rad_scale = Math::PI * 2 / nb_prov.to_i.to_f
+                  
+                  p "calc values for x = #{x} => height was #{height} / percent was #{percent} / nb prov result is #{nb_prov} / y rad sclae is #{y_rad_scale}"
+                  
+                  (1..nb_prov).each{ |y|
+                    
+                    #saving pos in rads, should keep x,y for vision, and use proper convention naming
+                    
+=begin                    
+                    rayon-colatitude-longitude
+                    Étant donné un repère cartésien (O, x, y, z), les coordonnées sphériques (ρ, ϕ, θ) d'un point P sont définies par :
+                    ρ est la distance du point P au centre O et donc ρ > 0;
+                    ϕ est l'angle non orienté formé par les vecteurs z et OP, appelé angle zénithal ou colatitude ;
+                    θ est l'angle orienté formé par les demi-plans ayant pour frontière l'axe vertical et contenant respectivement la demi-droite [O, x) et le point P. Si H est le projeté orthogonal de P dans le plan horizontal (O, x, y), alors θ peut être défini comme l'angle formé par les vecteurs x et OH.
+                    Par convention, et pour assurer l'unicité de ρ, l'angle ϕ est compris entre 0 et π radians (0 et 180°) et θ entre 0 et 2π radians (0 et 360°)1 (pour le repérage, mais θ et ϕ peuvent parcourir un intervalle plus important pour une courbe paramétrée ρ(θ, ϕ) ). En conséquence la relation de passage aux coordonnées cartésiennes s'écrit :
+
+                    x = p cosθ sinϕ
+                    y = p sinθ sinϕ
+                    z = p cosϕ
+=end
+  
+  
+    p "creating prov for x #{ x  } - y #{y} / will be rad x #{x*x_rad_scale} - y #{y*y_rad_scale}"
+
+                    Game::Province.create(:x=>x*x_rad_scale, :y=>y*y_rad_scale, :planet=>@planet )
+                    
+                  }
+                  
+                }
+
+
+
+
+
+#for 3d with integer positions
+=begin                
                 # must be impair
                 nb = @planet.size * 2 - 1
                 half = nb / 2
@@ -69,8 +128,11 @@ class SuperUser::GameController < SuperUser::ApplicationController
                   
                   }
                 }
-                
-                
+=end
+
+
+    
+# for canvas
 =begin                
                 planet_height = @planet.size
                 planet_width = planet_height / 2
@@ -100,3 +162,9 @@ class SuperUser::GameController < SuperUser::ApplicationController
           #    end
   # Actions Links - Stop
 end
+
+
+
+
+
+  

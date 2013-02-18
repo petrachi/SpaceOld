@@ -10,14 +10,30 @@
 
 
 <style type="text/css">
-	#planet{ background-color: rgba(200, 200, 0, 0); height: 388px; width: 388px; position: relative;
-		-webkit-transform: perspective(0px) rotateX(-30deg) rotateY(0deg);
+
+	@-webkit-keyframes tournez{
+	  from {
+	   -webkit-transform: perspective(600px) rotateX(-15deg) rotateY(0deg);
+	  }
+	  to {
+	    -webkit-transform: perspective(600px) rotateX(-15deg) rotateY(360deg);
+	  }
+	}
+
+
+
+	.planet{ background-color: rgba(120, 255, 120, 0.85); height: 300px; width: 300px; position: relative;
+		/*-webkit-transform: perspective(200px) rotateX(-15deg) rotateY(0deg); */
 		-webkit-transform-style: preserve-3d;
 		
 		-webkit-transition: -webkit-transform 1s;
 		
 	
 		-webkit-transform-origin: 50% 50%;
+		
+		-webkit-animation: tournez 20s linear infinite;
+		
+		
 	/*	-webkit-transform: perspective(500px) translate3d(0px, 0px, 109px) rotate3d(0.51, 1, 0, 57deg);
 	*/
 	
@@ -32,7 +48,7 @@
 		/**/
 		}
 		
-		.province{ border: 2px solid blue; border-radius: 0px; height: 0px; width: 0px;
+		.province{ border: 1px solid blue; background:skyblue; border-radius: 0px; height: 14px; width: 14px;
 			
 			-webkit-transform-origin: 50% 50%;
 			
@@ -49,41 +65,206 @@
 		/*	#planet:hover .province{ -webkit-transform: translateZ(100px); } */
 </style>
 
-<%= container do %>
-	<%= one_col_row do %>
-		<h2><%= @planet.name %></h2>
-	<% end %>
+<%#= container do %>
+	<%#= one_col_row do %>
+		<%#= @planet.name %>
+	<%# end %>
 	
-	<%= one_col_row do %>
-		<%= raw @planet.to_3d_transform %>
+	<%#= one_col_row do %>
+		<%#= raw @planet.to_3d_transform %>
+	<%# end %>
+<%# end %>
+
+<%
+def point_on_sphere n
+  n = n.to_f
+  pts = []
+  
+  inc = Math::PI * (3 - Math::sqrt(5))
+  off = 2 / n
+  
+  (0...n).each do |k|
+    
+    
+    y = k * off - 1 + (off / 2)    
+    r = Math::sqrt(1 - y**2)
+    phi = k * inc
+    
+
+	p "intersting values : phi #{phi} / r #{r}, y #{y}"
+
+	p "cartesian in generation"
+	p [Math::cos(phi)*r, y, Math::sin(phi)*r]
+	
+	p "-------------"
+
+    pts << [Math::cos(phi)*r, y, Math::sin(phi)*r]
+  end
+  
+  pts
+end
+
+
+def point_on_sphere_for_sphere n
+  n = n.to_f
+  pts = []
+  
+  inc = Math::PI * (3 - Math::sqrt(5))
+  off = 2 / n
+  
+  (0...n).each do |k|
+    
+    
+    y = k * off - 1 + (off / 2)    
+    r = Math::sqrt(1 - y**2)
+    phi = k * inc
+    
+
+	p "intersting values : phi #{phi} / r #{r}, y #{y}"
+
+	p "cartesian in generation"
+	p [Math::cos(phi)*r, y, Math::sin(phi)*r]
+	
+	p "-------------"
+
+   # pts << [Math::cos(phi)*r, y, Math::sin(phi)*r]
+
+	x_phi = Math::PI/2 - Math::acos(y)
+
+	pts << [1.0, phi, x_phi]
+
+  end
+  
+  pts
+end
+
+
+
+
+
+def arcsin(x)
+	Math.atan2(x, Math.sqrt(1.0 - x**2))
+end
+
+def arccos(x)
+	Math.atan2(Math.sqrt(1.0 - x*x), x)	
+end
+
+def coord_cart_to_spher x, y, z
+	p = Math::sqrt(x**2 + y**2 + z**2)
+	ϕ = arccos(z / p)
+	
+	ϕ = 0 if ϕ.nan?
+	
+	θ = if y >= 0
+		arccos(x / Math::sqrt(x**2 + y**2))
+	else
+		(2 * Math::PI) - arccos(x / Math::sqrt(x**2 + y**2))
+	end
+	
+	θ = 0 if θ.nan?
+	
+	#p p, ϕ, θ
+	
+	return p, ϕ, θ
+end
+
+def special_for_3d p, ϕ, θ
+	return p, ϕ, θ
+end
+
+def spher_to_cart p, ϕ, θ
+	x = p * Math.cos(θ) * Math.sin(ϕ)
+	y = p * Math.sin(θ) * Math.sin(ϕ)
+	z = p * Math.cos(ϕ)
+	
+	return x,y,z
+end
+
+
+#def coord_cart_to_spher(x, y, z); p = Math::sqrt(x**2 + y**2 + z**2); ϕ = arccos(z / p); θ = if y >= 0; arccos(x / Math::sqrt(x**2 + y**2)); else; (2 * Math::PI) - arccos(x / Math::sqrt(x**2 + y**2)); end; return p, ϕ, θ; end
+
+n = 500
+a = point_on_sphere(n)
+r = 130
+
+#b = a.map{|x| coord_cart_to_spher(*x) }
+
+
+c = point_on_sphere_for_sphere(n)
+
+#p "ok"
+#p c==a
+#p a.first, b.first, c.first
+
+
+#a = [[-1,0,0]]
+b = a.map{|x| 
+	
+	p "cartesien #{x}"
+	p "sphere #{coord_cart_to_spher(*x)}"
+	p "------"
+	coord_cart_to_spher(*x) 
+	
+	
+	}
+
+a = b = [] 
+
+ %>
+
+<div class="planet" float="right">
+	<% b.each do |(p, ϕ, θ)| %>
+		<div class="province" style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= -θ %>rad) translateZ(<%= p * r %>px);"></div>
 	<% end %>
-<% end %>
+</div>
+
+<div class="planet" float="right">
+	<% a.each do |(x, y, z)| %>
+		<div class="province" style="-webkit-transform: translate3d(<%= x * r %>px, <%= y * r %>px, <%= z * r %>px)"></div>
+	<% end %>
+</div>
+
+
+<div class="planet">
+	<% c.each do |(p, ϕ, θ)| %>
+		<div class="province" style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= θ %>rad) translateZ(<%= p * r %>px);"></div>
+	<% end %>
+</div>
+
+
+
+<br/><br/><br/>
+---
+<br/><br/><br/>
+
 
 <span class="rotate30 btn orange">
-	rotate y +30
+	rotate y +10
 </span>
 
 <span class="rotatem30 btn orange">
-	rotate y -30
-</span>
-
-<span class="rotatex30 btn orange">
-	rotate x +30
-</span>
-
-<span class="rotatexm30 btn orange">
-	rotate x -30
-</span>
-<br/>
-x:
-<span class="x">
-	-30
+	rotate y -10
 </span>
 <br/>
 y:
 <span class="y">
 	0
 </span>
+<br/>
+<span class="rotatex30 btn orange">
+	rotate x +10
+</span>
+
+<span class="rotatexm30 btn orange">
+	rotate x -10
+</span>
+<br/>
+x:
+<span class="x">
+	-10
+</span>
+
 <br/><br/>
 <span class="rotate btn">
 	GO !
@@ -91,22 +272,22 @@ y:
 
 <script>
 	rotay = 0
-	rotax = -30
+	rotax = -10
 	$(".rotate30").click(function(){
-		rotay = rotay + 30;
+		rotay = rotay + 10;
 		
 		$(".y").html(rotay)
 	});
 	$(".rotatem30").click(function(){
-		rotay = rotay - 30;
+		rotay = rotay - 10;
 		$(".y").html(rotay)
 	});
 	$(".rotatex30").click(function(){
-		rotax = rotax + 30;
+		rotax = rotax + 10;
 		$(".x").html(rotax)
 	});
 	$(".rotatexm30").click(function(){
-		rotax = rotax - 30;
+		rotax = rotax - 10;
 		$(".x").html(rotax)
 	});
 	
@@ -114,9 +295,10 @@ y:
 	
 	$(".rotate").click(function(){
 		
-		$("#planet").css("-webkit-transform", "perspective(0px) rotateX(" + rotax + "deg) rotateY(" + rotay + "deg)")
+		$(".planet").css("-webkit-transform", "perspective(0px) rotateX(" + rotax + "deg) rotateY(" + rotay + "deg)")
 	});
 </script>
+
 
 </body>
 </html>

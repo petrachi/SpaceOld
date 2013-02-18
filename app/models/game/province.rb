@@ -75,6 +75,8 @@ class Game::Province < ActiveRecord::Base
   end
   
   def to_3d_tranform(max_x, max_y)
+  #for provinces saved with x/y pos in integers
+=begin
     max_y = planet.provinces.where(:x => x).map(&:y).max
 
     p "max y #{max_y}"
@@ -87,6 +89,10 @@ class Game::Province < ActiveRecord::Base
     x_deg = 180 * Math::asin(x/max_x) / Math::PI
     
     "<div class='province' posx='#{x}' posy='#{y}' max='#{max_x}_#{max_y}' style='-webkit-transform: perspective(0px) rotateY(#{y_deg}deg) rotateX(#{x_deg}deg) translateZ(125px);'></div>"
+=end
+
+
+  "<div class='province' posx='#{x}' posy='#{y}' max='#{max_x}_#{max_y}' style='-webkit-transform: perspective(0px) rotateY(#{y}rad) rotateX(#{x}rad) translateZ(125px);'></div>"
   end
   
 end
