@@ -12,18 +12,18 @@
 <style type="text/css">
 
 	@-webkit-keyframes tournez{
-	  from {
-	   -webkit-transform: perspective(600px) rotateX(-15deg) rotateY(0deg);
+	from{
+	   -webkit-transform: perspective(800px) rotateX(-15deg) rotateY(0deg);
 	  }
 	  to {
-	    -webkit-transform: perspective(600px) rotateX(-15deg) rotateY(360deg);
+	    -webkit-transform: perspective(800px) rotateX(-15deg) rotateY(360deg);
 	  }
 	}
 
 
 
 	.planet{ background-color: rgba(120, 255, 120, 0.85); height: 300px; width: 300px; position: relative;
-		/*-webkit-transform: perspective(200px) rotateX(-15deg) rotateY(0deg); */
+		-webkit-transform: perspective(600px) rotateX(-15deg) rotateY(0deg); 
 		-webkit-transform-style: preserve-3d;
 		
 		-webkit-transition: -webkit-transform 1s;
@@ -32,6 +32,8 @@
 		-webkit-transform-origin: 50% 50%;
 		
 		-webkit-animation: tournez 20s linear infinite;
+		
+		-webkit-animation-fill-mode: both;
 		
 		
 	/*	-webkit-transform: perspective(500px) translate3d(0px, 0px, 109px) rotate3d(0.51, 1, 0, 57deg);
@@ -47,8 +49,20 @@
 		*/
 		/**/
 		}
+		.cont{
+			height:300px;
+			width:300px;
+			margin: 1em;
+		}
+		.cont:hover .planet{
+			-webkit-animation-play-state:paused;
+			
+			
+		/*	-webkit-transform: perspective(600px) rotateX(0deg) rotateY(0deg) !important;  */
+			
+		}
 		
-		.province{ border: 1px solid blue; background:skyblue; border-radius: 0px; height: 14px; width: 14px;
+		.province{ border: 1px solid blue; background:skyblue; border-radius: 0px; height: 10px; width: 10px;
 			
 			-webkit-transform-origin: 50% 50%;
 			
@@ -60,6 +74,10 @@
 			
 		/*	-webkit-transform: perspective(570px) rotateY(46deg) rotateX(44deg) translateZ(96px);*/
 			} 
+			
+			.province:hover{
+				background:red;
+			}
 			
 			
 		/*	#planet:hover .province{ -webkit-transform: translateZ(100px); } */
@@ -184,7 +202,7 @@ end
 
 #def coord_cart_to_spher(x, y, z); p = Math::sqrt(x**2 + y**2 + z**2); ϕ = arccos(z / p); θ = if y >= 0; arccos(x / Math::sqrt(x**2 + y**2)); else; (2 * Math::PI) - arccos(x / Math::sqrt(x**2 + y**2)); end; return p, ϕ, θ; end
 
-n = 500
+n = 650
 a = point_on_sphere(n)
 r = 130
 
@@ -211,27 +229,19 @@ b = a.map{|x|
 
 a = b = [] 
 
+
+
+
+
  %>
 
-<div class="planet" float="right">
-	<% b.each do |(p, ϕ, θ)| %>
-		<div class="province" style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= -θ %>rad) translateZ(<%= p * r %>px);"></div>
-	<% end %>
-</div>
-
-<div class="planet" float="right">
-	<% a.each do |(x, y, z)| %>
-		<div class="province" style="-webkit-transform: translate3d(<%= x * r %>px, <%= y * r %>px, <%= z * r %>px)"></div>
-	<% end %>
-</div>
-
-
+<div class="cont">
 <div class="planet">
 	<% c.each do |(p, ϕ, θ)| %>
-		<div class="province" style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= θ %>rad) translateZ(<%= p * r %>px);"></div>
+		<div class="province" style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= θ %>rad) translateZ(<%= p * r %>px) rotate(-30deg);"></div>
 	<% end %>
 </div>
-
+</div>
 
 
 <br/><br/><br/>
@@ -295,7 +305,7 @@ x:
 	
 	$(".rotate").click(function(){
 		
-		$(".planet").css("-webkit-transform", "perspective(0px) rotateX(" + rotax + "deg) rotateY(" + rotay + "deg)")
+		$(".planet").css("-webkit-transform", "perspective(600px) rotateX(" + rotax + "deg) rotateY(" + rotay + "deg)")
 	});
 </script>
 
