@@ -12,7 +12,7 @@
 	
 	&[layout=nav]{
 		#wide{			
-			&.profile{ @include background-image-wide("/assets/gems/wide/profile.jpg"); }
+			&.css_grid{ @include background-image-wide("/assets/gems/wide/css_grid.jpg"); }
 		}
 	}
 }

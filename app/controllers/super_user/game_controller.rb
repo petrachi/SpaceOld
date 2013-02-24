@@ -1,15 +1,55 @@
 class SuperUser::GameController < SuperUser::ApplicationController
   
   def index
-    @actions = [:create_planet]
+    @action_links = [:create_planet]
   end
   
   # Action Links - Start
-  
-  # action form is actually realy specific to MainUser => finish it before use it !
-  action_form :create_planet, :model => Game::Planet,
-              :validation => -> do
+  action_form :create_planet, :model => Game::Planet#,
+     #         :validation => -> do
                 
+=begin
+                n = n.to_f
+                  pts = []
+
+                  inc = Math::PI * (3 - Math::sqrt(5))
+                  off = 2 / n
+
+                  (0...n).each do |k|
+
+
+                    y = k * off - 1 + (off / 2)    
+                    r = Math::sqrt(1 - y**2)
+                    phi = k * inc
+
+
+                	p "intersting values : phi #{phi} / r #{r}, y #{y}"
+
+                	p "cartesian in generation"
+                	p [Math::cos(phi)*r, y, Math::sin(phi)*r]
+
+                	p "-------------"
+
+                   # pts << [Math::cos(phi)*r, y, Math::sin(phi)*r]
+
+                	x_phi = Math::PI/2 - Math::acos(y)
+
+                	pts << [1.0, phi, x_phi]
+
+                  end
+
+                  pts
+
+
+
+
+
+
+
+
+
+
+
 
 
                 nb = @planet.size
@@ -41,7 +81,7 @@ class SuperUser::GameController < SuperUser::ApplicationController
                   (1..nb_prov).each{ |y|
                     
                     #saving pos in rads, should keep x,y for vision, and use proper convention naming
-                    
+=end                    
 =begin                    
                     rayon-colatitude-longitude
                     Étant donné un repère cartésien (O, x, y, z), les coordonnées sphériques (ρ, ϕ, θ) d'un point P sont définies par :
@@ -54,7 +94,7 @@ class SuperUser::GameController < SuperUser::ApplicationController
                     y = p sinθ sinϕ
                     z = p cosϕ
 =end
-  
+=begin  
   
     p "creating prov for x #{ x  } - y #{y} / will be rad x #{x*x_rad_scale} - y #{y*y_rad_scale}"
 
@@ -66,7 +106,7 @@ class SuperUser::GameController < SuperUser::ApplicationController
 
 
 
-
+=end
 
 #for 3d with integer positions
 =begin                
@@ -156,7 +196,7 @@ class SuperUser::GameController < SuperUser::ApplicationController
                   end
                 }
 =end                                
-              end#,
+           #   end#,
           #    :safe_validation => -> do
           #      @planet.provinces.size == @planet.size
           #    end
