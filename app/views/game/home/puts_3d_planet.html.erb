@@ -22,7 +22,7 @@
 
 
 
-	.planet{ background-color: rgba(120, 255, 120, 0.85); height: 300px; width: 300px; position: relative;
+	.planet{ background-color: rgba(120, 255, 120, 0); height: 300px; width: 300px; position: relative;
 		-webkit-transform: perspective(600px) rotateX(-15deg) rotateY(0deg); 
 		-webkit-transform-style: preserve-3d;
 		
@@ -31,7 +31,7 @@
 	
 		-webkit-transform-origin: 50% 50%;
 		
-		-webkit-animation: tournez 20s linear infinite;
+		-webkit-animation: tournez 45s linear infinite;
 		
 		-webkit-animation-fill-mode: both;
 		
@@ -65,7 +65,7 @@
 		.province{ border: 1px solid blue; background:skyblue; border-radius: 0px; height: 10px; width: 10px;
 			
 			-webkit-transform-origin: 50% 50%;
-			
+			-webkit-backface-visibility: hidden;
 			
 			position: absolute;
 			left: 150px;
@@ -202,7 +202,7 @@ end
 
 #def coord_cart_to_spher(x, y, z); p = Math::sqrt(x**2 + y**2 + z**2); ϕ = arccos(z / p); θ = if y >= 0; arccos(x / Math::sqrt(x**2 + y**2)); else; (2 * Math::PI) - arccos(x / Math::sqrt(x**2 + y**2)); end; return p, ϕ, θ; end
 
-n = 650
+n = 1000
 a = point_on_sphere(n)
 r = 130
 
