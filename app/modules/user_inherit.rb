@@ -5,9 +5,6 @@ module UserInherit
       self.class_eval "include TableInherit; inherit MainUser"
       
       [:password, :password_confirmation].each do |column|
-        
-        p "inherit #{column}"
-        
         self.class_eval %{
           attr_accessible :#{ column }
           

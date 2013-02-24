@@ -15,9 +15,7 @@ fr:
     restricted: "Accès non authorisé"
     installed: "L'application vient d'être installée"
     
-    
-    
-    
+    downloads: "Téléchargements"    
     
     forms:
         labels:

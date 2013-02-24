@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+user = MainUser.create :first_name => :thomas, 
+  :name => :petrachi, 
+  :email => :'thomas.petrachi@space.com', 
+  :password => :space,
+  :password_confirmation => :space
+  
+Game::User.create :main_user => user
+SuperUser::User.create :main_user => user

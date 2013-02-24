@@ -4,7 +4,7 @@ fr:
         brief: "Interface d'admin"
         description: "hey ! casse toi c'est privé ici !!!"
         
-        actions: "Actions"
+        action_links: "Action Links"
         action_link:
             create_planet: "Créer une planète"
         

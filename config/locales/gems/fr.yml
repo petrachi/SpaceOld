@@ -3,7 +3,7 @@ fr:
         name: "SPACE GEMS"
         brief: "Stats & Docs for El Petrachi's gems"
         description: "Concerne CSS_GRID & future gem R_Extend"
-        
+                
         css_grid:
             name: "CssGrid"
             description: "doc for css_grid"

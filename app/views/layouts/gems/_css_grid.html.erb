@@ -1,0 +1,12 @@
+<%= row do %>
+	<%= six_span do %>
+		<strong><%= t :downloads %></strong> -> <%= @gem.downloads %>
+	<% end %>
+	
+	<%= six_span do %>
+		<div class="progress">
+			<div class="bar"><%= @gem.downloads %></div>
+		</div>
+	<% end %>
+<% end %>
+
