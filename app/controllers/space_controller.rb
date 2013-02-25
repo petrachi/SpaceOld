@@ -2,7 +2,7 @@ class SpaceController < ApplicationController
   
   
   def index
-    @applications = [:super_user, :game, :gems]
+    @applications = [:gems]
   end
   
   def super_user
