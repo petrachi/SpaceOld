@@ -1,3 +1,1 @@
-Space::Application.config.session_store :active_record_store, 
-  :key => '_Space_session', 
-  :domain => Rails.env.production? ? '.space-a.fr' : '.space-a.local'
+Space::Application.config.session_store :cookie_store, :key => '_Space_session', :domain => :all
