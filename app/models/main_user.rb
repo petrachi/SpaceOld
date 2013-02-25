@@ -13,11 +13,4 @@ class MainUser < ActiveRecord::Base
   def to_s
     "#{ first_name } #{ name }"
   end
-  
-  
-  
-  def created_at
-    p "youpi"
-    self[:created_at]
-  end
 end

@@ -70,6 +70,7 @@ GEM
     mysql2 (0.3.11)
     oily_png (1.0.3)
       chunky_png (~> 1.2.1)
+    pg (0.14.1)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -132,6 +133,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   oily_png
+  pg
   rails (= 3.2.8)
   rails-i18n
   sass-rails (~> 3.2.3)
