@@ -48,6 +48,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'debugger'
 
+gem 'newrelic_rpm'
 
 gem 'hash_extend'
 gem 'array_extend'

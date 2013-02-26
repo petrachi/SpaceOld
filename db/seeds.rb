@@ -11,6 +11,7 @@ user = MainUser.create :first_name => :thomas,
   :email => :'thomas.petrachi@space.com', 
   :password => :space,
   :password_confirmation => :space
-  
+
+Gems::User.create :main_user => user
 Game::User.create :main_user => user
 SuperUser::User.create :main_user => user
