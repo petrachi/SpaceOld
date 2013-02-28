@@ -5,6 +5,6 @@ class Gems::CssGridController < Gems::ApplicationController
     super
   end
   
-  def index
+  def index    
   end
 end

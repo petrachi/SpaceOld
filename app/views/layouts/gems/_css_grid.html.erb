@@ -1,12 +1,23 @@
 <%= row do %>
 	<%= six_span do %>
-		<strong><%= t :downloads %></strong> -> <%= @gem.downloads %>
+		<p>
+			<strong>Github</strong> <%= link_to nil, @gem.homepage_uri %><br/>
+			<strong>RubyGem</strong> <%= link_to nil, @gem.project_uri %><br/>
+			<strong>Download</strong> <%= link_to nil, @gem.gem_uri %>
+		</p>
+		<p>
+			<strong>Bundle</strong> gem 'css_grid'<br/>
+			<strong>Install</strong> gem install css_grid
+		</p>
 	<% end %>
 	
-	<%= six_span do %>
-		<div class="progress">
-			<div class="bar"><%= @gem.downloads %></div>
-		</div>
+	<%= six_span :align => :right do %>
+		<p>
+			<strong><%= t :downloads %></strong> <%= @gem.downloads %><br/>
+			<strong>Version</strong> <%= @gem.version %><br/>
+			<strong>Supported Ruby</strong> ree-1.8.7 / 1.9.8<br/>
+			<strong>Supported Rails</strong> ree-1.8.7 / 1.9.8<br/>
+			<strong>Supported Navigateurs</strong> chrome / firefox / ie7+ ... (voir liste chez d'autres qui disent la même chose)<br/>
+		</p>
 	<% end %>
 <% end %>
-
