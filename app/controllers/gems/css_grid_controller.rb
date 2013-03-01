@@ -4,7 +4,7 @@ class Gems::CssGridController < Gems::ApplicationController
     @gem = Gems::Gem.find(:css_grid)
     super
   end
-  
+
   def index    
   end
 end
