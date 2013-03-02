@@ -17,15 +17,16 @@
 <%= container do %>
 	<%= row do %>
 		<%= three_span do %>
-			CSS<br/>
-			Basic helper<br/>
-			Advance helper<br/>
-			Examples
+			<ul nav-tabs>
+				<% [:css, :b_helper, :a_helper, :examples].each do |tab| %>
+					<li><%= link_to tab, "##{ tab }" %></li>
+				<% end %>
+			</ul>
 		<% end %>
 		
-		<%= nine_span do %>
+		<%= nine_span :'content-tabs' => "" do %>
 			
-			<%= one_col_container do %>
+			<%= one_col_container :id => :css do %>
 				<h2>CSS</h2>
 				
 				<p>description</p>
@@ -74,9 +75,56 @@
 					</li>
 				</ul>
 			<% end %>
+			
+			<%= one_col_container :id => :b_helper do %>
+				<h2>Basic helper</h2>
+				
+				<p>description</p>
+			<% end %>
+			
+			<%= one_col_container :id => :a_helper do %>
+				<h2>Advanced helper</h2>
+				
+				<p>description</p>
+			<% end %>
+			
+			<%= one_col_container :id => :examples do %>
+				<h2>EX </h2>
+				
+				<p>description</p>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>
+
+<script>
+	function reloadTabs(target){
+		if (!target) { var target = document.location.hash; };
+		
+		$("[content-tabs] [id]:not(" + target + ")").hide(0);
+		
+		var tab = $(target, "[content-tabs]");
+		
+		tab.show(100, function(){
+			var targetOffset = tab.offset().top;
+			var currentOffset = $(window).scrollTop();
+
+			var animationDuration = Math.abs(targetOffset - currentOffset) * 1.5;
+
+			$('html,body').animate({scrollTop: targetOffset}, animationDuration);	
+		});	
+	};
+	
+	reloadTabs();
+	
+	$("[nav-tabs] a[href^=#]").click(function(e){
+		e.preventDefault();
+		document.location.hash = $(this).attr('href');
+		
+		reloadTabs($(this).attr('href'));
+	});
+
+</script>
 
 <hr/>
 
@@ -102,5 +150,15 @@
 	
 	<%= content_tag :p do %>
 		go to github ask me that
+	<% end %>
+<% end %>
+
+
+<%= one_col_container do %>
+	<%= content_tag :h2, :Changelog %>
+	
+	<%= content_tag :p do %>
+		1.8 : Masse changements<br/>
+		1.7 : ok
 	<% end %>
 <% end %>

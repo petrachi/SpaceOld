@@ -1,4 +1,6 @@
-@import "defaults";
+@import "variables";
+@import "game/variables";
+@import "application";
 
 @import "game/game-section/*.png";
 @include all-game-section-sprites;

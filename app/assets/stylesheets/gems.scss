@@ -1,4 +1,6 @@
-@import "defaults";
+@import "variables";
+@import "gems/variables";
+@import "application";
 
 @import "gems/gems-section/*.png";
 @include all-gems-section-sprites;
@@ -12,7 +14,10 @@
 	
 	&[layout=nav]{
 		#wide{			
-			&.css_grid{ @include background-image-wide("/assets/gems/wide/css_grid.jpg"); }
+			&.css_grid{ 
+				background-color: $primary-color;
+				@include box-shadow(0 1px 3px rgba(0,0,0,0.3),0 1px 0 rgba(255,255,255,0.1) inset);
+			}
 		}
 	}
 }

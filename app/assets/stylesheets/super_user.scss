@@ -1,4 +1,6 @@
-@import "defaults";
+@import "variables";
+@import "super_user/variables";
+@import "application";
 
 #super_user{
 	&[layout=main]{
