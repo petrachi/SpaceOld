@@ -6,25 +6,26 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development, :test do
-  gem 'mysql2'
+	gem 'mysql2'
 end
 
 group :production do
-  gem 'pg'
+	gem 'pg'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+	gem 'sass-rails',   '~> 3.2.3'
+	gem 'coffee-rails', '~> 3.2.1'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+	# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+	# gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+	gem 'uglifier', '>= 1.0.3'
   
-  gem 'compass-rails'
+	gem 'compass-rails'
+	gem 'font-awesome-rails'
 end
 
 gem 'jquery-rails'
