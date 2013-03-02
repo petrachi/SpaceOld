@@ -8,7 +8,7 @@ class MainUserController < ApplicationController
   action_form :sign_in, 
               :errors => ->(params) do
                 @errors = Array.new
-                @user = MainUser.find_by_email params[:email]
+                @user = MainUser.where :email => params[:email]
                 
                 check_errors_for [:email, :password] do |attr|
                   params[attr].blank?

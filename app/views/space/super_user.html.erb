@@ -9,14 +9,12 @@
 		<% end %>
 
 		<%= two_span :align => :right do %>
-			<% if SuperUser::User.current %>
-				<%= link_to t(:go_to), root_url(:subdomain=>:super_user), :class=>:btn %>
-
-			<% elsif MainUser.current %>
-				<%= link_to t(:install), install_url(:subdomain=>:super_user), :class=>:btn %>
-
-			<% else %>
-				<%= link_to t(:sign_in), sign_in_url, :class=>:btn %>
+			<% if authorized? :super_user %>
+				<%= link_to t(:go_to), root_url(:subdomain => :super_user), :class => :btn %>
+			<% end %>
+			
+			<% if install_authorized? :super_user %>
+				<%= link_to t(:install), install_url(:subdomain => :super_user), :class => :btn %>
 			<% end %>
 		<% end %>
 	<% end %>

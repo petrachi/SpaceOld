@@ -3,11 +3,11 @@ class SuperUser::UserController < SuperUser::ApplicationController
   before_filter :install_authorized?, :only => :install
   
   def install_authorized?
-    redirect_to space_super_user_url(:subdomain => false), :alert => t(:restricted) unless MainUser.current and User.current.blank?
+    redirect_to space_super_user_url(:subdomain => false), :alert => t(:restricted) unless super @application
   end
   
   def install
-    User.create :main_user => MainUser.current
+    SuperUser::User.create :main_user => MainUser.current
     redirect_to space_super_user_url(:subdomain => false), :notice=>t(:installed)
   end
 end
