@@ -1,18 +1,103 @@
 <%= one_col_container do %>
-	Description (style spécial)
+	<p>
+		Cette gem fourni un layout CSS "grid", qui permet de standardiser la largeurs des blocs d'une page HTML. Et inclut plusieurs helpers pour faciliter l'utilisation du css dans une application rails.
+	</p>
+	
+	<p>
+		Le layout CSS "grid" divise la page en 12 colonnes. Vous pouvez ainsi décider de la largeur (le nombre de colonnes) à utiliser pour chaque bloc de votre page.<br/>
+		La division en 12 est motivé par le grand nombre de diviseur de 12. Vous pouvez équitablement partager la largeur en 2, 3, 4 ou 6.<br/>
+		Le CSS est "responsive". Il s'adapte aux différente résolutions d'écran en réduisant proportionnellement la largeur des colonnes et la taille du texte. Pour mobile, les différents blocs se superposent plutôt que de se positionner côte à côte.
+	</p>
+	
+	<p>
+		Les helpers permettent de créer facilement les éléments clés du layout, à la manière d'un "content_tag".<br/>
+		Ils fournisent également des méthodes qui permettent d'utiliser des collections pour créer un bloc complet en une fois.
+	</p>
 <% end %>
-
-<hr/>
 
 <%= one_col_container do %>
-	<%= content_tag :h2, :Install %>
-	
-	<%= content_tag :p do %>
-		comment on install ?
-	<% end %>
+	<hr/>
 <% end %>
 
-<hr/>
+<%= one_col_container do %>
+	<h2>Installation</h2>
+	
+	<p>
+		Ajouter la line suivante dans votre Gemfile :
+		
+		<%= coderay do %>
+gem 'css_grid'
+		<% end %>
+		
+		Puis exécuter :
+		
+		<%= coderay do %>
+$ bundle
+		<% end %>
+		
+		Ou installez directement via :
+		<%= coderay do %>
+$ gem install css_grid		
+		<% end %>
+	</p>
+<% end %>
+
+<%= one_col_container do %>	
+	<h2>Utilisation</h2>
+	
+	<h3>CSS GRID</h3>
+
+	<p>
+		Vous devez inclure le fichier 'grid.css' dans le "asset pipeline"<br/>
+		<br/>
+		
+		app/assets/stylesheets/application.css
+		<%= coderay :lang => :css do %>
+/*
+ *= require grid
+ */
+		<% end %>
+	</p>
+	
+	<h3>Rails <= 3.0 (ou si vous n'utilisez pas SASS)</h3>
+	
+	<p>
+		Ajoutez les lignes suivantes dans votre Rakefile
+		
+		<%= coderay do %>
+require 'css_grid'
+require 'css_grid/tasks'
+		<% end %>
+		
+		Puis exécutez la commande suivante pour copier le fichier 'grid.css' dans le dossier 'public/stylesheets'
+		
+		<%= coderay do %>
+rake css:grid:setup
+		<% end %>
+		
+		Vous devez finalement rajouter l'appel du ficher dans votre layout
+		
+		<%= coderay :lang => :erb do %>
+<%%= stylesheet_link_tag "grid" %>
+		<% end %>
+	</p>
+	
+	<h3>Grid Helpers</h3>
+	
+	<p>
+		Pour utiliser les helpers, vous devez inclure le module 'GridHelper'<br/>
+		<br/>
+		
+		app/helpers/application_helper.rb
+		<%= coderay :lang => :ruby do %>
+include GridHelper		
+		<% end %>
+	</p>
+<% end %>
+
+<%= one_col_container do %>
+	<hr/>
+<% end %>
 
 <%= container do %>
 	<%= row do %>
@@ -27,53 +112,54 @@
 		<%= nine_span :'content-tabs' => "" do %>
 			
 			<%= one_col_container :id => :css do %>
-				<h2>CSS</h2>
+				<h2>Css Grid Tags</h2>
 				
-				<p>description</p>
-				
-				<h3>Container</h3>
-				
-				<p>description</p>
-				
-				<%= container do %>
-					<%= row :nested => true do %>
-						<%= four_span :append => 1 do %>
-<!-- Coreday -->
-							<%= coderay :lang => :erb do %>
-<%%= content_tag :p do %>
-	Hello, world!
-<%% end %>
-							<% end %>
-						<% end %>
-						
-						<%= four_span do %>
-<!-- Coreday -->
-							<%= coderay :lang => :html do %>
-<%= content_tag :p do %>
-	Hello, world!
-<% end %>
-							<% end %>
-						<% end %>
-					<% end %>
-				<% end %>
-				
-				<p>options list</p>
+				<p>
+					Le layout "grid" utilise trois classes fondamentales
+				</p>
 				
 				<ul>
-					<li>
-						option 1
-						<ul>
-							<li>String</li>
-							<li>Ennumeration - :p, :li, :ul</li>
-						</ul>
-					</li>
-					<li>
-						option 2
-						<ul>
-							<li>Integer</li>
-						</ul>
-					</li>
+					<li>La classe "container" décrit l'élément englobant d'une zone. Il utilise toute la largeur disponible sur l'écran.</li>
+					<li>La classe "row", directement inclue dans un "container", décrit une ligne de contenu. Elle sera centrée sur l'écran et définie la largeur utilisable par le contenu.</li>
+					<li>La classe "*_span" défini le nombre de colonnes que vous voulez fusionner pour un bloc. Le "*" représente un nombre compris de un à douze, en anglais (ex : "one_span, two_span, four_span, twelve_span").</li>
 				</ul>
+				
+				<p>
+					Voici quelques exemples, sémantiquement corrects
+					
+					<%= coderay :lang => :html do %>
+<div class="container">
+	<div class="row">
+		<div class="six_span">
+			<!-- this is a half width column -->
+		</div>
+		<div class="six_span">
+			<!-- this is a half width column -->
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="three_span">
+			<!-- this is a quart width column -->
+		</div>
+		<div class="three_span">
+			<!-- this is a quart width column -->
+		</div>
+		<div class="six_span">
+			<!-- this is a half width column -->
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="twelve_span">
+			<!-- this is a full width column -->
+		</div>
+	</div>
+</div>
+					<% end %>
+				</p>
 			<% end %>
 			
 			<%= one_col_container :id => :b_helper do %>
@@ -162,3 +248,21 @@
 		1.7 : ok
 	<% end %>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
