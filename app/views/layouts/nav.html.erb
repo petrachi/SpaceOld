@@ -11,7 +11,7 @@
 	<body id="<%= @application %>" layout="nav">
 		<%= one_col_container :element => :header, :disable => :spans do %>
 			<%= one_span :id => :return, :align => :center do %>
-				<h1><%= link_to :<, root_url %></h1>
+				<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url %></h1>
 			<% end %>
 			
 			<%= ten_span :id => :title do %>

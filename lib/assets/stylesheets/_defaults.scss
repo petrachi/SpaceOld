@@ -110,8 +110,7 @@ P{
 	}
 } 
 
-#options{
-	background-color: $blue; 
+#options{	
 	h1{
 		margin: 0;
 	}
@@ -139,6 +138,7 @@ P{
 .btn{ 
 	@include unstyled-link();
 	display: inline-block; padding: .5em 1em; background-color: $blue;
+	color: $black;
 	
 	&:hover{ background-color: rgba($blue, 0.7); }
 	
