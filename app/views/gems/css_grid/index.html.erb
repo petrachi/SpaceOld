@@ -25,18 +25,18 @@
 	<p>
 		Ajouter la line suivante dans votre Gemfile :
 		
-		<%= coderay do %>
+		<%= coderay :lang => :ruby do %>
 gem 'css_grid'
 		<% end %>
 		
 		Puis exécuter :
 		
-		<%= coderay do %>
+		<%= coderay :lang => :shell do %>
 $ bundle
 		<% end %>
 		
 		Ou installez directement via :
-		<%= coderay do %>
+		<%= coderay :lang => :shell do %>
 $ gem install css_grid		
 		<% end %>
 	</p>
@@ -64,14 +64,14 @@ $ gem install css_grid
 	<p>
 		Ajoutez les lignes suivantes dans votre Rakefile
 		
-		<%= coderay do %>
+		<%= coderay :lang => :ruby do %>
 require 'css_grid'
 require 'css_grid/tasks'
 		<% end %>
 		
 		Puis exécutez la commande suivante pour copier le fichier 'grid.css' dans le dossier 'public/stylesheets'
 		
-		<%= coderay do %>
+		<%= coderay :lang => :shell do %>
 rake css:grid:setup
 		<% end %>
 		
@@ -186,6 +186,7 @@ include GridHelper
 <script>
 	function reloadTabs(target){
 		if (!target) { var target = document.location.hash; };
+		if (!target) { return; };
 		
 		$("[content-tabs] [id]:not(" + target + ")").hide(0);
 		
@@ -248,21 +249,3 @@ include GridHelper
 		1.7 : ok
 	<% end %>
 <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
