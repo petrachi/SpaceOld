@@ -1,0 +1,11 @@
+@import "variables";
+@import "variables/blog";
+@import "application";
+
+#blog{
+	&[layout=main]{
+		header{
+			@include background-image-wide("/assets/blog/main.jpg");
+		}
+	}
+}

@@ -24,9 +24,10 @@ Space::Application.routes.draw do
   match "/sign_in_errors" => "main_user#sign_in_errors"
   match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
-  application_routes :super_user, [:home, :user, :game]  
-  application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
+  application_routes :blog, [:home, :user]  
   application_routes :gems, [:home, :user, :css_grid, :r_extend, :profile]  
+  application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
+  application_routes :super_user, [:home, :user, :game]  
   
   match "/:controller(/:action(/:id))"
     

@@ -1,0 +1,69 @@
+html{
+	font: 16px "Helvetica Neue","Helvetica","Arial", sans-serif;
+	-webkit-transform: translateZ(0); /* using GPU for render - webkit only */
+}
+
+body{
+	background-color: $bg-color;
+	color: $color;
+
+	margin: 0 0 1em;
+	
+	> .container{
+		margin: 2em 0;
+	}
+}
+
+h1{
+	font-size: 2em;
+	margin: 1em 0;
+	
+	a{
+		@include unstyled-link();
+	}
+}
+
+h2{
+	font-size: 1.5em;
+	margin: 1em 0 .75em;
+	
+	a{
+		@include unstyled-link();
+	}
+}
+
+h3{
+	font-size: 1.25em;
+	margin: 1em 0 .75em;
+}
+
+P{
+	margin: 1em 0;
+}
+
+.progress{
+	overflow: hidden;
+	height: 10px;
+	background-color: $light_grey;
+	@include border-radius(1px);
+	@include box-shadow(0 0 1px $grey inset);
+	
+	.bar{
+		height: 100%;
+		background-color: $blue;
+		@include box-shadow(0 -1px 0 rgba($black, .15) inset);
+	}
+}
+
+[align=left]{ text-align: left; }
+[align=center]{ text-align: center; }
+[align=right]{ text-align: right; }
+
+[float=left]{ float: left; }
+[float=right]{ float: right; }
+[float=none]{ float: none; }
+
+[display=inline]{ display: inline; }
+[display=inline-block]{ display: inline-block; }
+[display=block]{ display: block; }
+[display=table]{ display: table; }

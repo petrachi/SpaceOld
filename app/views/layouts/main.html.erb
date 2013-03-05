@@ -13,35 +13,6 @@
 			<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
 		<% end %>
 		
-		<% if @application != :space %>
-			<%= one_col_container :id => :options_container, :disable => :spans do %>
-				<%= one_span :id => :options, :prepend => 11, :align => :center do %>
-					<h1><i class="icon-cog"></i></h1>
-
-					<%= row :nested => true do %>
-						<%= two_span :element => :ul, :prepend => -1, :align => :left do %>
-							<%= render :partial => "layouts/#{ @application }/options" %>
-						<% end %>
-					<% end %>
-				<% end %>
-			<% end %>
-		<% end %>
-		
-		<!-- Flashs -->
-		<%= one_col_container :id => :alert do %>
-			<%= alert %>
-		<% end %>
-		
-		<%= one_col_container :id => :notice do %>
-			<%= notice %>
-		<% end %>
-		
-		<%= render :partial => "layouts/user" if @application == :space %>
-		
-		<%= yield %>	
+		<%= yield %>
 	</body>
 </html>
-
-
-
-

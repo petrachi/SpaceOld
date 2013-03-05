@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224034653) do
+ActiveRecord::Schema.define(:version => 20130304214748) do
+
+  create_table "blog_users", :force => true do |t|
+    t.integer  "main_user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "blog_users", ["main_user_id"], :name => "index_blog_users_on_main_user_id"
 
   create_table "game_planets", :force => true do |t|
     t.string   "name"

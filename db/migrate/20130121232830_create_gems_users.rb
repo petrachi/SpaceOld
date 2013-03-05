@@ -5,5 +5,6 @@ class CreateGemsUsers < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index :gems_users, :main_user_id
   end
 end

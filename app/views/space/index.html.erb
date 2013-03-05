@@ -1,10 +1,7 @@
-<%= four_cols_container :collection=>@applications, :spans=>{:id => -> app { app }} do |application| %>
+<%= four_cols_container :collection => @applications do |application| %>
 	<h2><%=t "#{ application }.name" %></h2>
-	<p><%=t "#{ application }.brief" %></p>
 	
 	<p>
-		<%= link_to t(:know_more), eval("space_#{ application }_url"), :class => :btn %> 
-		
 		<% if authorized? application %>
 			<%= link_to t(:go_to), root_url(:subdomain => application), :class => :btn %>
 		<% end %>

@@ -5,5 +5,6 @@ class CreateGameUsers < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :game_users, :main_user_id
   end
 end
