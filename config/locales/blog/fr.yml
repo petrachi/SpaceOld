@@ -3,3 +3,6 @@ fr:
         name: "SPACE BLOG"
         brief: "El Petrachi's Blog"
         description: "Whaow ! Mon propre blog !"
+        
+        experiment:
+            name: "Expérimentations"

@@ -1,11 +1,9 @@
-<%= container :id => :game do %>
-	<%= row do %>
-		<%= two_span do %>
-			<h2><%= t :'game.name' %></h2>
-		<% end %>
-	<% end %>
+<%= four_col_container :collection => @sections do |section| %>
+	<h2>
+		<%= t :"#{ section }.name" %>
+	</h2>
 	
-	<%= one_col_row do %>
-		<%= link_to t(:super_use), game_url, :class => :btn %>
-	<% end %>
+	<p>
+		<%= link_to t(:super_use), eval("#{ section }_url"), :class => :btn %>
+	</p>
 <% end %>

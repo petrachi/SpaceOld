@@ -203,8 +203,3 @@ class SuperUser::GameController < SuperUser::ApplicationController
   # Actions Links - Stop
 end
 
-
-
-
-
-  

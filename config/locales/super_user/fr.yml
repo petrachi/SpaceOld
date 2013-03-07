@@ -6,7 +6,13 @@ fr:
         
         action_links: "Action Links"
         action_link:
-            create_planet: "Créer une planète"
+            blog:
+                experiment: "Nouvelle Expérimentaion"
+                
+        tables: "BDD"
+        table:
+            blog:
+                experiment: "Liste des Expérimentations"
         
-        game:
+        
             

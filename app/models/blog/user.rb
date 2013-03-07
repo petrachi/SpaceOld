@@ -1,4 +1,6 @@
 class Blog::User < ActiveRecord::Base
-  belongs_to :main_user
-  # attr_accessible :title, :body
+  include UserInherit
+  attr_protected
+  
+  has_many :experiments
 end

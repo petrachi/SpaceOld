@@ -1,0 +1,27 @@
+<%= container do %>
+	<%= row do %>
+		<%= six_span do %>
+			<h2>
+				<%= t :"#{ @application }.action_links" %>
+			</h2>
+		
+			<% @action_links.each do |action_link| %>
+				<p>
+					<%= t :"#{ @application }.action_link.#{ @section }.#{ action_link }" %>
+				</p>
+			<% end %>
+		<% end %>
+		
+		<%= six_span do %>
+			<h2>
+				<%= t :"#{ @application }.tables" %>
+			</h2>
+			
+			<% @tables.each do |table| %>
+				<p>
+					<%= t :"#{ @application }.table.#{ @section }.#{ table }" %>
+				</p>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>	

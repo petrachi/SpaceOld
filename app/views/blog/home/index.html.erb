@@ -1,0 +1,9 @@
+<%= three_col_container :collection => @sections do |section| %>
+	<h2>
+		<%= t :"#{ @application }.#{ section }.name" %>
+	</h2>
+	
+	<p>
+		<%= link_to t(:go_to), eval("#{ section }_url"), :class=>:btn %>
+	</p>
+<% end %>

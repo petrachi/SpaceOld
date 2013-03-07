@@ -1,0 +1,15 @@
+<%= four_cols_container :collection => @experiments do |experiment| %>
+	<h2>
+		<%= experiment.title %>
+	</h2>
+	
+	<p>
+		<%= experiment.summary %>
+	</p>
+	
+	<p>
+		<%= link_to t(:go_to), experiment_url(:action => :show, :id => experiment.id), :class=>:btn %>
+	</p>
+<% end %>
+
+<%= link_to "hard code", experiment_url(:action => :show, :id => 152), :class=>:btn %>

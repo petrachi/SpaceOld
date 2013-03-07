@@ -1,5 +1,4 @@
 class Game::User < ActiveRecord::Base
   include UserInherit
-  
-  has_many :provinces
+  attr_protected
 end
