@@ -7,7 +7,6 @@ class MainUser < ActiveRecord::Base
   
   validates_presence_of :password, :on => :create
   validates_presence_of :email, :first_name, :name
-  
   validates_uniqueness_of :email
   
   def to_s

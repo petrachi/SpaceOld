@@ -6,7 +6,7 @@ class CreateBlogExperiments < ActiveRecord::Migration
       t.string :summary
       t.text :block
       
-      t.boolean :published
+      t.boolean :published, :default => false
       t.timestamps
     end
     add_index :blog_experiments, :blog_user_id

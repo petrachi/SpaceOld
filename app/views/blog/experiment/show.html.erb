@@ -1,11 +1,3 @@
 <%= one_col_container do %>
-	
-	<% tmp_str = %q{
-		a = 2
-		a += 4
-		a
-	} %>
-	
-	<%= SerializableProc.new(tmp_str).call %>
-	
+	<%= eval("Proc.new{#{ @experiment.block }}").call %>
 <% end %>

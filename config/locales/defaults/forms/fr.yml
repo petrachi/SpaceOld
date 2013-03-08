@@ -1,8 +1,13 @@
 fr:
     forms:
         labels:
+            email: "Email"
             password: "Mot de passe"
-        
+            
+            title: "Titre"
+            summary: "Résumé"
+            block: "Code"
+            
         qtips:
             email: "Votre identifiant globalisé"
             

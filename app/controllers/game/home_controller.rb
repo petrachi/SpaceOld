@@ -4,13 +4,7 @@ class Game::HomeController < Game::ApplicationController
   def index
   end
   
-  def puts_planet
-    @planet = Game::Planet.last
-  end
-  
-  def puts_3d_planet
-    @planet = Game::Planet.last
-    
+  def puts_3d_planet    
     render :layout => false
   end
 end

@@ -7,6 +7,9 @@ module ActionForm
       define_method action_name, ->(params = params) do
         case params.delete(:wish).try :to_sym
         when :errors
+          if options[:default_params]
+            params.merge! instance_exec(params, &options[:default_params])
+          end
           
           if options[:model]
             @object = options[:model].new 

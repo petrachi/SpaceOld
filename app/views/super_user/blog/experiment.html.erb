@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		jsMergeForm("form", window.location, "<%= blog_url %>");
+		initializeQtip("form");
+	});
+</script>
+
+<%= container do %>
+	<%= form_tag do %>
+		<%= hidden_field_tag :call, :js %>
+		
+		<%= form_row :title %>
+		<%= form_row :summary %>
+		<%= form_row :block do %>
+			<%= text_area_tag :block %>
+		<% end %>
+	
+		<%= js_merge_row %>	
+	<% end %>
+<% end %>

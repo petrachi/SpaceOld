@@ -8,6 +8,7 @@
 			<% @action_links.each do |action_link| %>
 				<p>
 					<%= t :"#{ @application }.action_link.#{ @section }.#{ action_link }" %>
+					<%= link_to t(:go_to), blog_url(:action => action_link), :class => :btn %>
 				</p>
 			<% end %>
 		<% end %>
@@ -20,6 +21,8 @@
 			<% @tables.each do |table| %>
 				<p>
 					<%= t :"#{ @application }.table.#{ @section }.#{ table }" %>
+					<%= eval("Blog::#{ table.to_s.classify }").count %>
+					<%= link_to t(:go_to), blog_url(:action => table.to_s.pluralize), :class => :btn %>
 				</p>
 			<% end %>
 		<% end %>
