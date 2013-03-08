@@ -9,8 +9,18 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body id="<%= @application %>" layout="main">
-		<%= one_col_container :element => :header do %>
-			<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
+		<%= container :element => :header, :align => :center do %>
+			<%= row do %>
+				<% unless application_is? :space %>
+					<%= one_span do %>
+						<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url(:subdomain => false) %></h1>
+					<% end %>
+				<% end %>
+				
+				<%= ten_span :append => 1, :prepend => (application_is?(:space) ? 1 : 0) do %>
+					<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
+				<% end %>
+			<% end %>
 		<% end %>
 		
 		<%= yield %>

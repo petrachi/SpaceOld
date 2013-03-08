@@ -1,7 +1,7 @@
 class SpaceController < ApplicationController  
   
   def index
-    @applications = [:blog, :gems]
+    @applications = [:blog]
   end
   
   def blog

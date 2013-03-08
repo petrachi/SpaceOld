@@ -1,72 +1,96 @@
+/* All Layouts */
+header{
+	h1{
+		color: rgba($white, .65);
+		
+		a{
+			&:hover{
+				color: rgba($white, .5);
+			}
+		}
+	}
+}
+/* All Layouts - End */
+
+/* Main */
 [layout=main]{
 	header{
 		margin: 0;
 		
 		h1{
 			font-size: 6em;
-			margin: 1em 0;
-	
-			color: rgba($white, .65);
-			text-align: center;
-	
-			a{
-				&:hover{
-					color: rgba($white, .75);
-				}
-			}
+			margin: 1em 0; 
 		}
 	}
 }
 
+##{$application}{
+	&[layout=main]{
+		header{
+			background: {
+				position: center center;
+				size: 100% auto;
+				repeat: no-repeat;
+			};
+			@include background-image( 
+				linear-gradient(left, $bg-color, transparent 25%, transparent 75%, $bg-color),
+				image-url("/assets/#{$application}/main.jpg")
+			);
+			@include box-shadow(0 0 3em 0.25em $bg-color inset);
+		}
+	}
+}
+/* Main - End */
+
+/* Nav */
 [layout=nav]{
-	header h1{
-		margin: 0;
+	header{
+		h1{
+			margin: 0;
+			color: rgba($white, .65);
+			font-weight: 500;
 		
-		a{
-			display: block;
+			a{
+				display: block;
+			}
 		}
 	}
 		
 	nav{
-		color: $white;
-		
-		h2{	
-			margin: 0; 
-			padding: 0;
+		[class*=blog-section-]{
+			@include filter( grayscale(100%) );
+			@include box-shadow(0 0 1em 0px $bg-color inset);
 			
-			a{
-				display: block;
-				padding: 3.5em .5em .25em;
-				@include background-image( linear-gradient(top, transparent 3.25em, rgba($black, 0.4) 3.25em));
+			&:hover,
+			&.active{
+				@include filter( grayscale(0%) );
+			}
+			
+			h2{
+				margin: 0; 
+				padding: 0;
+				font-weight: 100;
 				
-				&:hover{ 
-					@include box-shadow(0 0 0 0.2em $blue) 
+				a{
+					display: block;
+					padding: 4.25em .5em .25em;
+					@include background-image( linear-gradient(top, transparent 4em, rgba($bg-color, .65) 4em));
+					
+					&:hover{ 
+						@include background-image( linear-gradient(top, transparent 4em, rgba($bg-color, .85) 4em));
+						
+					}
 				}
-			}		
+			}
 		}
 	}
 	
 	#wide{
-		color: $white;
-	}
-} 
-
-/*
-#options{	
-	h1{
-		margin: 0;
+		color: $bg-color;
+		background-color: $primary-color;
+		
+		padding: .25em 0;
+		@include box-shadow(0 1px 3px rgba(0,0,0,0.3),0 1px 0 rgba(255,255,255,0.1) inset);
 	}
 }
-
-#alert{
-	color: $black;
-	background-color: $red;
-	margin: 0;
-}
-
-#notice{
-	color: $black;
-	background-color: $green;
-	margin: 0;
-}
-*/
+/* Nav - End */

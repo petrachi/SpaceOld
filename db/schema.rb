@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(:version => 20130307003556) do
     t.string   "title"
     t.string   "summary"
     t.text     "block"
-    t.boolean  "published"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.boolean  "published",    :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "blog_experiments", ["blog_user_id"], :name => "index_blog_experiments_on_blog_user_id"
@@ -33,24 +33,21 @@ ActiveRecord::Schema.define(:version => 20130307003556) do
 
   add_index "blog_users", ["main_user_id"], :name => "index_blog_users_on_main_user_id"
 
-  create_table "game_planets", :force => true do |t|
-    t.string   "name"
-    t.integer  "size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "game_users", :force => true do |t|
     t.integer  "main_user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
+  add_index "game_users", ["main_user_id"], :name => "index_game_users_on_main_user_id"
+
   create_table "gems_users", :force => true do |t|
     t.integer  "main_user_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "gems_users", ["main_user_id"], :name => "index_gems_users_on_main_user_id"
 
   create_table "main_users", :force => true do |t|
     t.string   "first_name"
@@ -66,5 +63,7 @@ ActiveRecord::Schema.define(:version => 20130307003556) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "super_user_users", ["main_user_id"], :name => "index_super_user_users_on_main_user_id"
 
 end

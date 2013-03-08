@@ -11,18 +11,26 @@
 	<body id="<%= @application %>" layout="nav">
 		<%= one_col_container :element => :header, :disable => :spans do %>
 			<%= one_span :id => :return, :align => :center do %>
-				<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url %></h1>
+				<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url(:subdomain => false) %></h1>
 			<% end %>
 			
-			<%= ten_span :id => :title do %>
-				<h1><%= t :"#{ @application }.#{ @section }.name" %></h1>
+			<%= ten_span :id => :title, :append => 1 do %>
+				<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
 			<% end %>
 		<% end %>
 		
 		<!-- Navigation trough sections -->
 		<%= four_col_container 	:element => :nav, 
 								:collection => @sections, 
-								:spans => {:class => ->(section){ "#{ @application }-section-#{ section }" } } do |section| %>
+								:spans => {
+									:class => ->(section){ 
+										%W{
+											#{ @application }-section-#{ section } 
+											#{ :active if section == @section }
+										}.join " "
+									}
+								},
+								:align => :center do |section| %>
 			<h2><%= link_to t(:"#{ @application }.#{ section }.name"), eval("#{ section }_url") %></h2>
 		<% end %>
 		

@@ -24,4 +24,8 @@ module ApplicationHelper
     else false
     end
   end
+  
+  def application_is? application
+    application == instance_variable_get(:@application)
+  end
 end
