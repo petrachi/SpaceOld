@@ -98,7 +98,7 @@ Blog::Experiment.create :user => user.blog_user,
     n = 600
     r = 225
 
-    points = point_on_sphere_for_sphere(n)
+    points = point_on_sphere(n)
 
 
     safe_buffer += content_tag :div, :class => :'planet-container' do
