@@ -62,6 +62,7 @@ module Space
     config.assets.version = '1.0'
     
     # For heroku
+    config.assets.precompile = ["space.css", "blog.css", "application.js"]
     config.assets.initialize_on_precompile = false
   end
 end
