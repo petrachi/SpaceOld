@@ -21,8 +21,9 @@ Game::User.create :main_user => user
 SuperUser::User.create :main_user => user
 
 Blog::Experiment.create :user => user.blog_user,
-  :title => "Planet",
-  :summary => "Une planète, tout en algo et en CSS3",
+  :title => "Sphère",
+  :summary => "Comment créer et utiliser un globe planétaire dans l'internet ? Voici une réponse, en utilisant les transformations 3d de la nouvelle norme -CSS3-, et un algorithme basé sur le nombre d'or pour calculer la répartition des éléments et les valeurs des transformations à appliquer.<br/>
+    Attention, -webkit- only !",
   :block => %q{
     safe_buffer = content_tag :style, :type => "text/css" do
       %q{
@@ -55,16 +56,19 @@ Blog::Experiment.create :user => user.blog_user,
         .province{  
           height: 10px; 
           width: 10px;
+          
           box-shadow: 0 0 0 4px rgba(0, 0, 0, .6) inset;
           background-color: #b62b2b;
+          
           -webkit-backface-visibility: hidden;
-
+	        -webkit-transition: box-shadow .6s ease;
+          
           position: absolute;
           left: 50%;
           top: 50%;
         } 
 
-        .province:hover{
+        .planet-container:hover .province{
           box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
         }
       }
@@ -91,7 +95,7 @@ Blog::Experiment.create :user => user.blog_user,
       pts
     end
 
-    n = 1500
+    n = 600
     r = 225
 
     points = point_on_sphere_for_sphere(n)
