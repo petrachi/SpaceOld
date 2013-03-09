@@ -4,7 +4,7 @@ class CreateBlogExperiments < ActiveRecord::Migration
       t.references :blog_user
       t.string :title
       t.string :summary
-      t.text :block, :limit => nil
+      t.text :block
       
       t.boolean :published, :default => false
       t.timestamps
