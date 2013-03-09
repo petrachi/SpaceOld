@@ -12,8 +12,8 @@
 		<%= container :element => :header, :align => :center do %>
 			<%= row do %>
 				<% unless application_is? :space %>
-					<%= one_span do %>
-						<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url(:subdomain => false) %></h1>
+					<%= one_span :id => :return do %>
+						<h1><%= link_to "<i class=\"icon-globe\"></i>".html_safe, root_url(:subdomain => false) %></h1>
 					<% end %>
 				<% end %>
 				

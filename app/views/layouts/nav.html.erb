@@ -11,7 +11,7 @@
 	<body id="<%= @application %>" layout="nav">
 		<%= one_col_container :element => :header, :disable => :spans do %>
 			<%= one_span :id => :return, :align => :center do %>
-				<h1><%= link_to "<i class=\"icon-angle-left\"></i>".html_safe, root_url(:subdomain => false) %></h1>
+				<h1><%= link_to "<i class=\"icon-globe\"></i>".html_safe, root_url(:subdomain => false) %></h1>
 			<% end %>
 			
 			<%= ten_span :id => :title, :append => 1 do %>
@@ -35,7 +35,7 @@
 		<% end %>
 		
 		<!-- Wide -->
-		<%= container :id => :wide, :class => @section do %>
+		<%= one_col_container :id => :break, :class => @section do %>
 			<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
 		<% end %>
 		

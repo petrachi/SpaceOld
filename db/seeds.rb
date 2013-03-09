@@ -25,52 +25,49 @@ Blog::Experiment.create :user => user.blog_user,
   :summary => "Une planète, tout en algo et en CSS3",
   :block => %q{
     safe_buffer = content_tag :style, :type => "text/css" do
-    	%q{
-    		.planet-container{
-    			height: 300px;
-    			width: 300px;
-    			margin: 1em;
-    		}
+      %q{
+        .planet-container{
+          height: 450px;
+          width: 450px;
+          margin: 1em auto;
+        }
 
-    		@-webkit-keyframes tournez{
-    			from{ -webkit-transform: perspective(800px) rotateX(-15deg) rotateY(0deg); }
-    			to { -webkit-transform: perspective(800px) rotateX(-15deg) rotateY(360deg); }
-    		}
+        @-webkit-keyframes tournez{
+          from{ -webkit-transform: perspective(1800px) rotateX(0deg) rotateY(0deg); }
+          to { -webkit-transform: perspective(1800px) rotateX(0deg) rotateY(360deg); }
+        }
 
-    		.planet{ 
-    			background-color: rgba(120, 255, 120, 0); 
-    			height: 300px; 
-    			width: 300px; 
-    			position: relative;
+        .planet{ 
+          height: 100%;
+          width: 100%;
+          position: relative;
 
-    			-webkit-transform-style: preserve-3d;
-    			-webkit-transform-origin: 50% 50%;
-    			-webkit-transition: -webkit-transform 1s;
-    			-webkit-animation: tournez 45s linear infinite;
-    			-webkit-animation-fill-mode: both;	
-    		}
+          -webkit-transform-style: preserve-3d;
+          -webkit-transition: -webkit-transform 1s;
+          -webkit-animation: tournez 45s linear infinite;
+          -webkit-animation-fill-mode: both;	
+        }
 
-    		.planet-container:hover .planet{
-    			-webkit-animation-play-state: paused;
-    		}
+        .planet-container:hover .planet{
+          -webkit-animation-play-state: paused;
+        }
 
-    		.province{ 
-    			border: 1px solid blue; 
-    			background: skyblue; 
-    			border-radius: 0px; height: 10px; width: 10px;
+        .province{  
+          height: 10px; 
+          width: 10px;
+          box-shadow: 0 0 0 4px rgba(0, 0, 0, .6) inset;
+          background-color: #b62b2b;
+          -webkit-backface-visibility: hidden;
 
-    			-webkit-transform-origin: 50% 50%;
-    			-webkit-backface-visibility: hidden;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+        } 
 
-    			position: absolute;
-    			left: 150px;
-    			top: 150px;
-    		} 
-
-    		.province:hover{
-    			background:red;
-    		}
-    	}
+        .province:hover{
+          box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
+        }
+      }
     end
 
 
@@ -86,34 +83,34 @@ Blog::Experiment.create :user => user.blog_user,
         r = Math::sqrt(1 - y**2)
         phi = k * inc
 
-    	x_phi = Math::PI/2 - Math::acos(y)
+        x_phi = Math::PI/2 - Math::acos(y)
 
-    	pts << [1.0, phi, x_phi]
+        pts << [1.0, phi, x_phi]
       end
 
       pts
     end
 
-    n = 1000
-    r = 130
+    n = 1500
+    r = 225
 
     points = point_on_sphere_for_sphere(n)
 
 
     safe_buffer += content_tag :div, :class => :'planet-container' do
-    	content_tag :div, :class => :planet do
-    		points.map do |(p, ϕ, θ)|		
-    			content_tag :div, nil,
-    				:class => :province,
-    				:style => %Q{
-    					-webkit-transform: 
-    						rotateY(#{ ϕ }rad) 
-    						rotateX(#{ θ }rad) 
-    						translateZ(#{ p * r }px) 
-    						rotate(-30deg);
-    				}
-    		end.reduce(:safe_concat)
-    	end
+      content_tag :div, :class => :planet do
+        points.map do |(p, ϕ, θ)|
+          content_tag :div, nil,
+            :class => :province,
+            :style => %Q{
+              -webkit-transform: 
+              rotateY(#{ ϕ }rad) 
+              rotateX(#{ θ }rad) 
+              translateZ(#{ p * r }px) 
+              rotate(-30deg);
+            }
+        end.reduce(:safe_concat)
+      end
     end
   },
   :published => true
