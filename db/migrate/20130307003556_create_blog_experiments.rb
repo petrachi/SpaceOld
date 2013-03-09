@@ -3,7 +3,7 @@ class CreateBlogExperiments < ActiveRecord::Migration
     create_table :blog_experiments do |t|
       t.references :blog_user
       t.string :title
-      t.string :summary
+      t.text :summary
       t.text :block
       
       t.boolean :published, :default => false
