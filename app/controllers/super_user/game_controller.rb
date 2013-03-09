@@ -1,11 +1,11 @@
 class SuperUser::GameController < SuperUser::ApplicationController
   
   def index
-    @action_links = [:create_planet]
+  #  @action_links = [:create_planet]
   end
   
   # Action Links - Start
-  action_form :create_planet, :model => Game::Planet#,
+ # action_form :create_planet, :model => Game::Planet#,
      #         :validation => -> do
                 
 =begin
