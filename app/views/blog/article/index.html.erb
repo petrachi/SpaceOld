@@ -1,0 +1,13 @@
+<%= four_cols_container :collection => @articles do |article| %>
+	<h2>
+		<%= article.title %>
+	</h2>
+	
+	<p>
+		<%= article.summary.html_safe %>
+	</p>
+	
+	<p>
+		<%= link_to t(:see), article_url(:action => :show, :id => article.id), :class=>:btn %>
+	</p>
+<% end %>

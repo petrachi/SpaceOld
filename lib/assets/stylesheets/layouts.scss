@@ -70,7 +70,7 @@ header{
 	}
 		
 	nav{
-		[class*=blog-section-]{
+		[class*=#{$application}-section-]{
 			@include filter( grayscale(100%) );
 			@include box-shadow(0 0 1em 0px $bg-color inset);
 			
@@ -93,6 +93,16 @@ header{
 						@include background-image( linear-gradient(top, transparent 4em, rgba($bg-color, .85) 4em));
 						
 					}
+				}
+			}
+		}
+		
+		> .row:hover{
+			[class*=#{$application}-section-]{
+				@include filter( grayscale(100%) );
+				
+				&:hover{
+					@include filter( grayscale(0%) );
 				}
 			}
 		}

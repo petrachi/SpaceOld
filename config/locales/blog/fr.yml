@@ -4,5 +4,8 @@ fr:
         brief: "El Petrachi's Blog"
         description: "Whaow ! Mon propre blog !"
         
+        article:
+            name: "Articles"
+        
         experiment:
             name: "Expérimentations"

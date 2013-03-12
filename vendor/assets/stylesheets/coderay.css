@@ -139,18 +139,19 @@ table.CodeRay td { padding: 2px 4px; vertical-align: top; }
 
 
 .CodeRay {
-  background-color: #232323;
-  border: 1px solid black;
-  font-family: 'Courier New', 'Terminal', monospace;
-  color: #E6E0DB;
-  padding: 3px 5px;
-  overflow: auto;
-  font-size: 12px;
-  margin: 12px 0;
+  	background-color: #232323;
+  	border: 1px solid black;
+  	font-family: 'Courier New', 'Terminal', monospace;
+  	color: #E6E0DB;
+  	padding: .5em 1em;
+  	overflow: auto;
+  	font-size: .9em;
+  	margin: .75em 1em;
+	border-radius: 1px;
 }
 .CodeRay pre {
-  margin: 0px;
-  padding: 0px;
+  	margin: 0px;
+  	padding: 0px;
 }
 
 .CodeRay .attribute-name { color:#E7BE69 }                      /* html attribute */

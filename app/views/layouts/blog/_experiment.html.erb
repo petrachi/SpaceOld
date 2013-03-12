@@ -1,5 +1,15 @@
-<%= one_col_container do %>
-	<p>
-		<strong>-webkit-</strong> (Chrome, safari)
-	</p>
+<%= container do %>
+	<%= row do %>
+		<%= ten_span :nested => true do %>
+			<p>
+				<strong>-webkit-</strong> (Chrome, safari)
+			</p>
+		<% end %>
+		
+		<%= one_span :prepend => 1, :align => :center do %>
+			<p>
+				<%= link_to "<i class=\"icon-home\"></i>".html_safe, experiment_url %>
+			</p>
+		<% end %>
+	<% end %>
 <% end %>

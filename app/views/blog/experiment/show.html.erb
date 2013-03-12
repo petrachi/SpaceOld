@@ -1,3 +1,3 @@
 <%= one_col_container do %>
-	<%= eval("Proc.new{#{ @experiment.block }}").call %>
+	<%= erb @experiment.block %>
 <% end %>
