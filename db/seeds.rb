@@ -27,8 +27,9 @@ Blog::Article.create :user => user.blog_user,
   },
   :content => %q{
     <p>
-      Faire des sphère c'est cool. check it out.
+      Crée une sphére n'est pas une tâche facile, et le faire en utilisant uniquement des éléments html et les nouvelles propriétés CSS 'transform' ne facilite pas la tâche. Mais pour commencer, pourquoi faire une sphére.
     </p>
+    
     
     <%= coderay :lang => :ruby do %>
 p "Hello World"

@@ -1,3 +1,147 @@
 <%= one_col_container do %>
 	<%= erb @article.content %>
 <% end %>
+
+<style type="text/css">
+	.demo-transform .demo{
+		position: relative;
+		
+		margin: auto;
+		height: 10em;
+		width: 10em;
+	}
+	
+	.demo-transform .demo div{
+		position: absolute;
+		top: 0;
+		left : 0;
+		
+		height: 100%;
+		width : 100%;
+        background-color: #b62b2b;
+		
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
+		opacity: .25;
+		border-radius: 1px;
+	}
+	
+	.demo-transform .demo div p{
+		color: #fbfbfb;
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin: 0 .1em;
+	}
+	
+	.demo-transform .demo div.final{
+		opacity: 1;
+	}
+	
+	.demo-transform .demo .rotation{
+		-webkit-transform: perspective(800px) rotateY(1.05rad);
+	}
+	
+	.demo-transform .demo .translation{
+		-webkit-transform: perspective(800px) rotateY(1.05rad) translateZ(60px);
+	}
+</style>
+
+<p>
+	Créer une sphére n'est pas une tâche facile, et le faire en utilisant uniquement des éléments html et les nouvelles propriétés CSS 'transform' ne facilite pas la tâche. Mais pour commencer, pourquoi faire une sphére.
+</p>
+
+<p>
+	Imaginons que l'auteur de cet article veuille créer un jeu, sur l'internet. Ce jeu se déroulerait dans l'espace, et la mécanique principale serait de conquérir des planètes, provinces par provinces.<br/>
+	L'auteur de cette article devrait pouvoir représenter une planète, et être capable d'interagir avec. L'idée est de positionner chaque province afin de donner une forme sphérique à l'ensemble, qui créera l'illusion de former un tout.
+</p>
+
+<h3>
+	Provinces et coordonées sphériques
+</h3>
+
+<p>
+	Pour représenter les provinces, j'utilise des 'div'. Simples, élégantes, elles ont l'avantage d'être hyper interactives. On peut y mettre des liens, des effets ':hover', etc.<br/>
+	Là où cela se complique, c'est de les positionner, en 3d, sur une sphère. La nouvelle norme CSS3 nous aide beaucoup ici car elle implémente des transformations 3d.
+</p>
+
+<p>
+	Les transformations, ce sont les fonctions de géométrie qu'on apprends au collège. Rotations, translations, etc.<br/>
+	Pour la sphére, je commence d'abord par effectuer une rotation, afin d'aligner la div dans la bonne direction, puis j'effectue une translation. Hum... Je pense qu'une démo (-webkit- only) sera plus explicite.
+</p>
+
+<%= container :class => :'demo-transform' do %>
+	<%= row do %>
+		<%= three_span :class => :base do %>
+			<h4 align="center">Pas de transformation</h4>
+			
+			<div class="demo">
+				<div class="origin final">
+					<p>Final</p>
+				</div>
+			</div>
+		<% end %>
+		
+		<%= three_span :class => :intermediate do %>
+			<h4 align="center">J'ajoute la rotation</h4>
+						
+			<div class="demo">
+				<div class="origin">
+					<p>1</p>
+				</div>
+				<div class="rotation final">
+					<p>Final</p>
+				</div>
+			</div>
+		<% end %>
+		
+		<%= three_span :class => :final do %>
+			<h4 align="center">Puis la translation</h4>
+			
+			<div class="demo">
+				<div class="origin">
+					<p>1</p>
+				</div>
+				<div class="rotation">
+					<p>2</p>
+				</div>
+				<div class="translation final">
+					<p>Final</p>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= coderay :lang => :css do %>
+.demo{
+	-webkit-transform: perspective(800px) rotateY(1.1rad) translateZ(60px);
+}
+<% end %>
+
+<p>
+	Mieux non ? Jettez donc un oeil au site de microsoft qui permet de bien s'amuser avec les transform - http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm
+</p>
+
+<h3>
+	Algorithme de répartition des points sur une sphére
+</h3>
+
+<p>
+	Something cool
+</p>
+
+<h3>
+	La démo
+</h3>
+
+<p>
+	link to experiment
+</p>
+
+<h3>
+	Les limites & retour d'expérience
+</h3>
+
+<p>
+	whaow !
+</p>
+
