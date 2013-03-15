@@ -1,0 +1,11 @@
+@include keyframes(faster-load){
+	from{
+		margin: {
+			left: 4em;
+			right: -4em;
+		}
+	}
+	to {
+		margin: 0;
+	}
+}

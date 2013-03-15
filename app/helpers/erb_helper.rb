@@ -13,4 +13,25 @@ module ErbHelper
     action_view.class_eval "include ApplicationHelper"
     action_view.render :inline => code
   end
+  
+  require 'sass'
+  require 'sass/plugin'
+  def scss code
+    content_tag :style, Sass::Engine.new(
+      %Q{
+        @import "variables";
+        @import "variables/#{ instance_variable_get(:@application) }";
+        @import "compass";
+        @import "r_kit";
+        @import "mixins";
+        @import "animations";
+      } + code, 
+      :syntax => :scss,
+      :load_paths => [
+        File.join(Rails.root, "lib/assets/stylesheets"),
+        File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
+        File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")
+      ]
+    ).render, :type => :'text/css'
+  end
 end

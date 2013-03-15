@@ -2,6 +2,17 @@
 	<%= erb @article.content %>
 <% end %>
 
+<%= scss %q{
+	body {
+		background-color: $blue;
+		.container .row{
+			background: $green;
+			@include border-radius(50px);
+		}
+	}
+}
+ %>
+
 <style type="text/css">
 	.demo-transform .demo{
 		position: relative;
@@ -122,26 +133,111 @@
 </p>
 
 <h3>
-	Algorithme de répartition des points sur une sphére
+	Répartition des points sur une sphére
 </h3>
 
 <p>
-	Something cool
+	Maintenant qu'on sait comment positionner nos provinces, il va falloir calculer les positions pour chaqu'une, en faisant en sorte que la distance entre chaque province soit égale.
+</p>
+
+<p>
+	C'est un vrai problème de math, qui reste encore irrésolu pour un nombre de points variable (il existe des solutions pour 3, 4, 6 et 12 points). Il existe, en cherchant bien, des modéles mathématiques très compliqué basé sur la répulsion afin de << maximiser la distance la plus courte entre deux points >>.<br/>
+	Ce genre d'algorithme est assez compliqué, le principe et de positionner les points, puis de re-calculer récursivement les positions en fonction d'une valeur de répulsion.<br/>
+	J'ai opté pour un algo plus simple qui se base sur le nombre d'or. 
+</p>
+
+<%= container :class => :'demo-transform' do %>
+	<%= row do %>
+		<%= four_span do %>
+			<h4>Code original -en python-</h4>
+			
+			<%= coderay :lang => :python do %>
+def pointsOnSphere(N):
+    N = float(N) # in case we got an int which we surely got
+    pts = []
+
+    inc = math.pi * (3 - math.sqrt(5))
+    off = 2 / N
+    for k in range(0, N):
+        y = k * off - 1 + (off / 2)
+        r = math.sqrt(1 - y*y)
+        phi = k * inc
+        pts.append([math.cos(phi)*r, y, math.sin(phi)*r])
+
+    return pts
+			<% end %>
+		<% end %>
+		
+		<%= four_span :prepend => 1 do %>
+			<h4>Code traduit en ruby</h4>
+
+			<%= coderay :lang => :python do %>
+def point_on_sphere n
+	n = n.to_f
+	pts = []
+
+	inc = Math::PI * (3 - Math::sqrt(5))
+	off = 2 / n
+
+	(0...n).each do |k|
+		y = k * off - 1 + (off / 2)    
+		r = Math::sqrt(1 - y**2)
+		phi = k * inc
+
+		x_phi = Math::PI/2 - Math::acos(y)
+
+		pts << [1.0, phi, x_phi]
+	end
+
+	pts
+end
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<p>
+	Ne me demandez pas de vous expliquer les détails. je l'ai traduit de python pour ruby. J'ai aussi adapté les valeurs de retour car le code python retourne des coordonnées cartésiennes, et je veux utiliser des coordonnées sphériques (http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques).
 </p>
 
 <h3>
-	La démo
+	Tout ça mis ensemble, ça donne quoi ?
 </h3>
 
 <p>
-	link to experiment
+	Une simple boucle suffit à produire le HTML.
+</p>
+
+<%= coderay :lang => :erb do %>
+<div class="planet-container">
+	<div class="planet">
+		<%% points.each do |(p, ϕ, θ)| %>
+  			<div class="province"
+    			style="-webkit-transform: rotateY(<%%= ϕ %>rad) rotateX(<%%= θ %>rad) translateZ(<%%= p * r %>px) rotate(-30deg);" />
+  			</div>
+		<%% end %>
+	</div>
+</div>
+<% end %>
+<p>
+	Vous pouvez retrouver la démo live dans la section expériment : <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :class => :btn, :target => :_blank %>
+	
 </p>
 
 <h3>
-	Les limites & retour d'expérience
+	Alors, prêt à faire des transition tout le temps ?
 </h3>
 
 <p>
-	whaow !
+	Faire une sphére, c'est compliqué si on n'utilise que HTML/CSS. Ça a néanmoins le mérite d'exister, et d'être accessible sans plugins, flash ou autre -à condition d'avoir un navigateur moderne-.<br/>
+	Côté optimisation, le processeur monte vite en charge. Les transforms ne semblent pas utiliser les ressources GPU mais CPU. Vous avez vous-même pu voir votre process prendre un coup sur la page de démo. Notez tout de même qu'on anime 600 provinces dans la démo.<br/>
+	Je me pencherais peut-être sur des librairies 3D javascript, comme trre.js -http://mrdoob.github.com/three.js/-, qui semblent plus performantes pour l'instant. (D'ailleurs, voici une démo dont je pourrais m'inspirer http://mrdoob.github.com/three.js/examples/css3d_periodictable.html (cliquez sur "sphére" en bas))
 </p>
 
+<p>
+	Voilà, je me suis beaucoup amusé au cours de cette expérience. Je vous parlerais prochainement d'une autre solution que j'avais élaboré pour représenté une sphére, basé sur SVG.
+</p>
+
+<p>
+	À la prochaine les loulous !
+</p>
