@@ -1,6 +1,6 @@
 namespace :db do
   desc "run db:drop, db:create, db:migrate and db:seed tasks in a row."
-  task :build => :environment do
+  task :rebuild => :environment do
     if Rails.env == "production"
       system "heroku pg:reset DATABASE_URL --confirm afternoon-plateau-3851"
       system "heroku run rake db:migrate"

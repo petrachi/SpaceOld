@@ -11,7 +11,7 @@ module ErbHelper
   def erb code
     action_view = ActionView::Base.new
     action_view.class_eval "include ApplicationHelper"
-    action_view.render :inline => code
+    action_view.render(:inline => code.gsub(/<--%|%-->/, '<--%' => '<%', '%-->' => '%>')
   end
   
   require 'sass'

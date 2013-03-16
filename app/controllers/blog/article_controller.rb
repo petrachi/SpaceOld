@@ -10,5 +10,8 @@ class Blog::ArticleController < Blog::ApplicationController
   
   def show
     @article = Blog::Article.published.where(:id => params[:id]).first
+    
+    
+    @x = "Hello <%= @planet name %>"
   end
 end
