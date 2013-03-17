@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(:version => 20130311210236) do
     t.integer  "blog_user_id"
     t.string   "title"
     t.text     "summary"
-    t.text     "content",      :limit => 2147483647
-    t.boolean  "published",                          :default => false
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.text     "content"
+    t.boolean  "published",    :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "blog_articles", ["blog_user_id"], :name => "index_blog_articles_on_blog_user_id"

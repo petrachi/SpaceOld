@@ -1,5 +1,5 @@
 module ApplicationHelper
-  include GridHelper
+  include SelfGridHelper
   include GridFormHelper
   include ErbHelper
   

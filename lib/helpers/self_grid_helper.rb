@@ -42,7 +42,6 @@ module SelfGridHelper
     
     if tag.to_s =~ /(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)_span$/
       @nested_stack << $1
-        
       unstack = true
     else
       warn "WARNING : argument ':prepend' is not supported for '#{ tag }'" if prepend.present?

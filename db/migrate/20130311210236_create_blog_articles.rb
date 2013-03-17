@@ -4,7 +4,7 @@ class CreateBlogArticles < ActiveRecord::Migration
       t.references :blog_user
       t.string :title
       t.text :summary
-      t.text :content, :limit => 4.gigabytes - 1
+      t.text :content
       
       t.boolean :published, :default => false
       t.timestamps
