@@ -6,8 +6,35 @@ Blog::Article.create :user => @user.blog_user,
   :summary => %q{
     De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
   },
-  :content => %q{  
-    <%= scss %q{
+  :content => %q{ 
+    <%
+      def point_on_sphere n
+        n = n.to_f
+        pts = []
+
+        inc = Math::PI * (3 - Math::sqrt(5))
+        off = 2 / n
+
+        (0...n).each do |k|
+          y = k * off - 1 + (off / 2)    
+          r = Math::sqrt(1 - y**2)
+          phi = k * inc
+
+          x_phi = Math::PI/2 - Math::acos(y)
+
+          pts << [1.0, phi, x_phi]
+        end
+
+        pts
+      end
+
+      n = 150
+      r = 130
+
+      points = point_on_sphere(n)
+    %>
+     
+    <%= scss %Q{
     	.demo-transform{
     		.demo{
     			position: relative;
@@ -23,7 +50,7 @@ Blog::Article.create :user => @user.blog_user,
 
     				height: 100%;
     				width : 100%;
-    		        background-color: $primary-color;
+    		    background-color: $primary-color;
 
     				@include box-shadow(0 0 0 1px rgba(0, 0, 0, .6) inset);
     				opacity: .25;
@@ -51,29 +78,63 @@ Blog::Article.create :user => @user.blog_user,
     			}
     		}
     	}
+    	
+    	.demo-planet{
+    	  .planet{
+  		    height: 300px;
+  		    width: 300px;
+  				position: relative;
+  		    margin: 1em auto;
+  		    @include transform-style(preserve-3d);
+          @include transform(perspective(800px) rotateY(15deg));
+          background-color: rgba($black, .85);
+          
+  				.province{  
+  			    height: 14px; 
+  			    width: 14px;
+  			    background-color: $primary-color;
+
+  			    position: absolute;
+  			    left: 50%;
+  			    top: 50%;
+  			    
+  			    #{ 
+              scss_points = Array.new
+  			      points.each_with_index do |(p, ϕ, θ), i|
+  			        scss_points << "&#province-#{ i }{
+    	            @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
+    	          }"
+  			      end
+  			      scss_points.join("
+  			      ")
+  			    }
+  			  }
+  			}
+    	}
     } %>
 
     <p>
-    	Créer une sphére n'est pas une tâche facile, et le faire en utilisant uniquement des éléments html et les nouvelles propriétés CSS 'transform' ne facilite pas la tâche. Mais pour commencer, pourquoi faire une sphére.
+    	Comment créer une sphère en utilisant seulement les technologies de l'internet, et pourquoi ?
     </p>
 
     <p>
-    	Imaginons que l'auteur de cet article veuille créer un jeu, sur l'internet. Ce jeu se déroulerait dans l'espace, et la mécanique principale serait de conquérir des planètes, provinces par provinces.<br/>
-    	L'auteur de cette article devrait pouvoir représenter une planète, et être capable d'interagir avec. L'idée est de positionner chaque province afin de donner une forme sphérique à l'ensemble, qui créera l'illusion de former un tout.
+      Le but de cette expérimentation est de représenter une planète, qui sera contruite à partir de multiple provinces. La planète sera utilisé dans un jeu où le joueur pourra conquérir chaque province, y contruire des bâtiments et recruter une armée.
     </p>
 
     <h3>
-    	Provinces et coordonées sphériques
+    	Transformations
     </h3>
 
     <p>
-    	Pour représenter les provinces, j'utilise des 'div'. Simples, élégantes, elles ont l'avantage d'être hyper interactives. On peut y mettre des liens, des effets ':hover', etc.<br/>
-    	Là où cela se complique, c'est de les positionner, en 3d, sur une sphère. La nouvelle norme CSS3 nous aide beaucoup ici car elle implémente des transformations 3d.
+      Chaque province sera représentée par une 'div', ce qui permettra une interaction facile avec l'utilisateur.
     </p>
-
+    
     <p>
-    	Les transformations, ce sont les fonctions de géométrie qu'on apprends au collège. Rotations, translations, etc.<br/>
-    	Pour la sphére, je commence d'abord par effectuer une rotation, afin d'aligner la div dans la bonne direction, puis j'effectue une translation. Hum... Je pense qu'une démo (-webkit- only) sera plus explicite.
+      Afin de créer une planète, nous allons utiliser la propriété 'transform'. En fonction des coordonnées de chaque 'div', nous appliquerons d'abord une rotation, afin de positionner l'élément dans direction voulue, puis une translation, afin de projetter l'élément sur la surface de la planète.
+    </p>
+    
+    <p>
+    	Une petite démonstration s'impose, voilà ce que cela donne. (si la démo ne fonctionne pas, c'est parceque votre navigateur est trop vieux, pensez à le mettre à jour !)
     </p>
 
     <%= container :class => :'demo-transform' do %>
@@ -89,7 +150,7 @@ Blog::Article.create :user => @user.blog_user,
     		<% end %>
 
     		<%= three_span :class => :intermediate do %>
-    			<h4 align="center">J'ajoute la rotation</h4>
+    			<h4 align="center">D'abord la rotation</h4>
 
     			<div class="demo">
     				<div class="origin">
@@ -120,33 +181,48 @@ Blog::Article.create :user => @user.blog_user,
     <% end %>
 
     <%= coderay :lang => :css do %>
-.demo{
-  -webkit-transform: perspective(800px) rotateY(1.1rad) translateZ(60px);
+.demo {
+  transform: perspective(800px) rotateY(1.05rad) translateZ(60px); 
 }
     <% end %>
 
     <p>
-    	Mieux non ? Jettez donc un oeil au site de microsoft qui permet de bien s'amuser avec les transform - http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm
+    	C'est tout de suite plus clair !<br/>
+    	Allez donc faire un tour sur ce site de microsoft pour faire joujou avec 'transform' -  http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm
     </p>
 
     <h3>
-    	Répartition des points sur une sphére
+    	Calcul des coordonnées
     </h3>
 
     <p>
-    	Maintenant qu'on sait comment positionner nos provinces, il va falloir calculer les positions pour chaqu'une, en faisant en sorte que la distance entre chaque province soit égale.
+      Maintenant qu'on sait utiliser les transforms, il ne nous reste plus qu'à apprendre comment calculer les valeurs de transform.
     </p>
 
     <p>
-    	C'est un vrai problème de math, qui reste encore irrésolu pour un nombre de points variable (il existe des solutions pour 3, 4, 6 et 12 points). Il existe, en cherchant bien, des modéles mathématiques très compliqué basé sur la répulsion afin de << maximiser la distance la plus courte entre deux points >>.<br/>
-    	Ce genre d'algorithme est assez compliqué, le principe et de positionner les points, puis de re-calculer récursivement les positions en fonction d'une valeur de répulsion.<br/>
-    	J'ai opté pour un algo plus simple qui se base sur le nombre d'or. 
+      Pour les coordonnées, j'ai choisi d'utiliser des coordonnées sphériques - http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques. Ces ont celles qui correspondent le mieux aux valeurs qu'utilise 'transform'. Pour l'algo, j'ai choisi ... hem ... en fait, je n'ai pas choisi grand chose.
+    </p>
+    
+    <h3>
+      Maximiser la distance la plus courte entre deux points
+    </h3>
+    
+    <p>
+      La répartition des points sur une sphère, c'est un vrai problème de math, qui occupe les scientifiques et les les plus grands cerveaux de france depuis des siècles et des sciècles !
+    </p>
+    
+    <p>
+      La meilleure solution dont nous disposons aujourd'hui est de "maximiser la distance la plus courte entre deux points". C'est faire en sorte que la distance entre deux provinces soit toujours la plus grande distance possible. Le second rpoblème c'est que ... je n'ai pas bien compris toute les explications sur les fait d'associer des charges électriques sur les points, puis de calculer la valeur de répulsion...
+    </p>
+    
+    <p>
+    	L'algorithme que nous utiliserons ici se base sur le nombre d'or, afin de répartir les provinces tout autour de notre planète. Je l'ai traduit du python et adapté pour récupérer des données directement utilisables dans les transforms.
     </p>
 
     <%= container :class => :'demo-transform' do %>
     	<%= row :nested => true do %>
     		<%= four_span do %>
-    			<h4>Code original -en python-</h4>
+    			<h4>Le 'Golden Section Spiral' original</h4>
 
     			<%= coderay :lang => :python do %>
 def pointsOnSphere(N):
@@ -162,14 +238,18 @@ def pointsOnSphere(N):
       pts.append([math.cos(phi)*r, y, math.sin(phi)*r])
 
   return pts
-  		<% end %>
-  	<% end %>
+      		<% end %>
+      		
+      		<p>
+      		  Voir le code original dans son contexte - http://www.xsi-blog.com/archives/115
+      		</p>
+      	<% end %>
 
-  	<%= four_span :prepend => 1 do %>
-  		<h4>Code traduit en ruby</h4>
+      	<%= five_span do %>
+      		<h4>La traduction rubyiste</h4>
 
-  		<%= coderay :lang => :python do %>
-def point_on_sphere n
+      		<%= coderay :lang => :python do %>
+def points_on_sphere n
   n = n.to_f
   pts = []
 
@@ -193,50 +273,64 @@ end
     	<% end %>
     <% end %>
 
-    <p>
-    	Ne me demandez pas de vous expliquer les détails. je l'ai traduit de python pour ruby. J'ai aussi adapté les valeurs de retour car le code python retourne des coordonnées cartésiennes, et je veux utiliser des coordonnées sphériques (http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques).
-    </p>
-
     <h3>
-    	Tout ça mis ensemble, ça donne quoi ?
+    	Le résultat planétaire !
     </h3>
 
     <p>
-    	Une simple boucle suffit à produire le HTML.
+    	Une simple boucle suffit à produire notre HTML.
     </p>
 
-    <%= coderay :lang => :erb do %>
+    <%= container do %>
+    	<%= row :nested => true do %>
+    		<%= four_span do %>
+    		  <%= coderay :lang => :erb do %>
 <div class="planet-container">
 	<div class="planet">
 		<%% points.each do |(p, ϕ, θ)| %>
   			<div class="province"
-    			style="-webkit-transform: rotateY(<%%= ϕ %>rad) rotateX(<%%= θ %>rad) translateZ(<%%= p * r %>px) rotate(-30deg);" />
+    			style="transform: 
+    			  rotateY(<%%= ϕ %>rad) 
+    			  rotateX(<%%= θ %>rad) 
+    			  translateZ(<%%= p * r %>px);" />
   			</div>
 		<%% end %>
 	</div>
 </div>
-    <% end %>
-    <p>
-    	Vous pouvez retrouver la démo live dans la section expériment : <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :class => :btn, :target => :_blank %>
+    		  <% end %>
+    		<% end %>
 
+    		<%= five_span :class => 'demo-planet' do %>
+  	      <div class="planet">
+  	        <% points.each_with_index do |_, i| %>
+  	          <div class="province" id="province-<%= i %>" />
+      			</div>
+    	      <% end %>
+    	    </div>
+
+    		<% end %>
+    	<% end %>
+    <% end %>
+    
+    <p>
+    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations" : <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :class => :btn, :target => :_blank %>
     </p>
 
     <h3>
-    	Alors, prêt à faire des transition tout le temps ?
+    	Conclusion
     </h3>
 
     <p>
-    	Faire une sphére, c'est compliqué si on n'utilise que HTML/CSS. Ça a néanmoins le mérite d'exister, et d'être accessible sans plugins, flash ou autre -à condition d'avoir un navigateur moderne-.<br/>
-    	Côté optimisation, le processeur monte vite en charge. Les transforms ne semblent pas utiliser les ressources GPU mais CPU. Vous avez vous-même pu voir votre process prendre un coup sur la page de démo. Notez tout de même qu'on anime 600 provinces dans la démo.<br/>
-    	Je me pencherais peut-être sur des librairies 3D javascript, comme trre.js -http://mrdoob.github.com/three.js/-, qui semblent plus performantes pour l'instant. (D'ailleurs, voici une démo dont je pourrais m'inspirer http://mrdoob.github.com/three.js/examples/css3d_periodictable.html (cliquez sur "sphére" en bas))
+      C'était vraiment très rigolo de faire cette planète avec vous les copains, mais faut quand même dire que c'était pas d'la tarte.
     </p>
-
+    
     <p>
-    	Voilà, je me suis beaucoup amusé au cours de cette expérience. Je vous parlerais prochainement d'une autre solution que j'avais élaboré pour représenté une sphére, basé sur SVG.
+      La nouvelle propriété 'transition' que nous apporte CSS3 est très sympatique, mais je ne suis pas sûr qu'elle soit complètement adapté ici. Nous allons vouloir transformer, et même, animiner plusieurs centaines de provinces. Jettez un coup d'oeil sur votre processeur pendant que vous êtes sur la page de démo et vous comprendrez pourquoi je me fait du souci.
     </p>
-
+    
     <p>
-    	À la prochaine les loulous !
+      Je jetterais sûrement un oeil sur des librairies 3D en javascript, comme "tree.js" - http://mrdoob.github.com/three.js/.<br/>
+      D'ailleur, 'transform' n'est pas mon premier amour. J'avais déjà réalisé le même exercice en utilisant SVG, mais ça, c'est une autre histoire ... toire ... toire ...
     </p>
   },
   :published => true

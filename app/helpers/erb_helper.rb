@@ -20,9 +20,8 @@ module ErbHelper
         @import "variables";
         @import "variables/#{ instance_variable_get(:@application) }";
         @import "compass";
-        @import "r_kit";
+        @import "r_kit/mixins";
         @import "mixins";
-        @import "animations";
       } + code, 
       :syntax => :scss,
       :load_paths => [
