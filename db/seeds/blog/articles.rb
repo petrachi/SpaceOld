@@ -35,6 +35,27 @@ Blog::Article.create :user => @user.blog_user,
     %>
      
     <%= scss %Q{
+      @include keyframes(rotation){
+    		from{ 
+    			@include transform( perspective(600px) rotateY(0rad) ); 
+    		}
+    		45%{ 
+    			@include transform( perspective(600px) rotateY(.85rad) ); 
+    		}
+    	}
+
+    	@include keyframes(translation){
+    		from { 
+    			@include transform( perspective(600px) rotateY(.85rad) ); 
+    		}
+    		45%{ 
+    			@include transform( perspective(600px) rotateY(.85rad) ); 
+    		}
+    		90%{ 
+    			@include transform( perspective(600px) rotateY(.85rad) translateZ(80px) ); 
+    		}
+    	}
+
     	.demo-transform{
     		.demo{
     			position: relative;
@@ -68,14 +89,24 @@ Blog::Article.create :user => @user.blog_user,
     					margin: 0 .1em;
     				}
     			}
-
-    			.rotation{
-    				@include transform( perspective(800px) rotateY(1.05rad) );
+          
+  			  .rotation{
+    				@include transform( perspective(600px) rotateY(.85rad) );
     			}
 
     			.translation{
-    				@include transform( perspective(800px) rotateY(1.05rad) translateZ(60px) );
+    				@include transform( perspective(600px) rotateY(.85rad) translateZ(80px) );
     			}
+    			
+    			.final{
+        		&.rotation{
+      				@include animation(rotation 4s ease-out infinite);
+      			}
+
+      			&.translation{
+      				@include animation(translation 4s ease-out infinite);
+      			}
+      		}
     		}
     	}
     	
@@ -182,7 +213,7 @@ Blog::Article.create :user => @user.blog_user,
 
     <%= coderay :lang => :css do %>
 .demo {
-  transform: perspective(800px) rotateY(1.05rad) translateZ(60px); 
+  transform: perspective(600px) rotateY(.85rad) translateZ(80px); 
 }
     <% end %>
 
@@ -208,7 +239,7 @@ Blog::Article.create :user => @user.blog_user,
     </h3>
     
     <p>
-      La répartition des points sur une sphère, c'est un vrai problème de math, qui occupe les scientifiques et les les plus grands cerveaux de france depuis des siècles et des sciècles !
+      La répartition des points sur une sphère, c'est un vrai problème de maths, qui occupe les scientifiques et les les plus grands cerveaux de france depuis des siècles et des sciècles !
     </p>
     
     <p>
@@ -281,37 +312,27 @@ end
     	Une simple boucle suffit à produire notre HTML.
     </p>
 
-    <%= container do %>
-    	<%= row :nested => true do %>
-    		<%= four_span do %>
-    		  <%= coderay :lang => :erb do %>
+    <%= coderay :lang => :erb do %>
 <div class="planet-container">
 	<div class="planet">
 		<%% points.each do |(p, ϕ, θ)| %>
   			<div class="province"
-    			style="transform: 
-    			  rotateY(<%%= ϕ %>rad) 
-    			  rotateX(<%%= θ %>rad) 
-    			  translateZ(<%%= p * r %>px);" />
+    			style="transform: rotateY(<%%= ϕ %>rad) rotateX(<%%= θ %>rad) translateZ(<%%= p * r %>px);" />
   			</div>
 		<%% end %>
 	</div>
 </div>
-    		  <% end %>
-    		<% end %>
-
-    		<%= five_span :class => 'demo-planet' do %>
-  	      <div class="planet">
-  	        <% points.each_with_index do |_, i| %>
-  	          <div class="province" id="province-<%= i %>" />
-      			</div>
-    	      <% end %>
-    	    </div>
-
-    		<% end %>
-    	<% end %>
     <% end %>
     
+		<div class="demo-planet">
+      <div class="planet">
+        <% points.each_with_index do |_, i| %>
+          <div class="province" id="province-<%= i %>" />
+  			</div>
+	      <% end %>
+	    </div>
+		</div>
+
     <p>
     	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations" : <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :class => :btn, :target => :_blank %>
     </p>
