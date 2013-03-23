@@ -2,6 +2,17 @@
 	<%= row do %>
 		<%= three_span do %>
 			<h2><%= @article.title %></h2>
+			
+			<% if @article.ressources.present? %>
+				<hr/>
+				<h3>Ressources</h3>
+				
+				<% @article.ressources.each	do |ressource| %>
+					<p>
+						<%= ressource.title %> - <%= link_to t(:see), ressource.link, :target => :_blank, :class => :btn %>
+					</p>
+				<% end %>
+			<% end %>
 		<% end %>
 
 		<%= nine_span do %>

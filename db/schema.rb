@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311210236) do
+ActiveRecord::Schema.define(:version => 20130319194654) do
 
   create_table "blog_articles", :force => true do |t|
     t.integer  "blog_user_id"
@@ -36,6 +36,20 @@ ActiveRecord::Schema.define(:version => 20130311210236) do
   end
 
   add_index "blog_experiments", ["blog_user_id"], :name => "index_blog_experiments_on_blog_user_id"
+
+  create_table "blog_ressources", :force => true do |t|
+    t.integer  "blog_user_id"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.string   "title"
+    t.text     "summary"
+    t.string   "link"
+    t.string   "pool"
+    t.boolean  "public",       :default => false
+    t.boolean  "published",    :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
 
   create_table "blog_users", :force => true do |t|
     t.integer  "main_user_id"

@@ -1,0 +1,13 @@
+<%= two_cols_container :collection => @ressources do |ressource| %>
+	<h2>
+		<%= ressource.title %>
+	</h2>
+	
+	<p>
+		<%= ressource.summary.html_safe %>
+	</p>
+	
+	<p>
+		<%= link_to t(:see), ressource.link, :target => :_blank, :class => :btn %>
+	</p>
+<% end %>

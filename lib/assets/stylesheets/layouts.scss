@@ -47,7 +47,7 @@ header{
 				linear-gradient(left, $bg-color, transparent 25%, transparent 75%, $bg-color),
 				image-url("/assets/#{$application}/main.jpg")
 			);
-			@include box-shadow(0 0 3em 0.25em $bg-color inset);
+			@include box-shadow(0 0 3em .25em $bg-color inset);
 		}
 	}
 }

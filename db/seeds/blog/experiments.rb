@@ -1,8 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-
-Blog::Experiment.create :user => @user.blog_user,
+@sphere_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
   :title => "Sphère",
   :summary => %q{
     Comment créer et utiliser un globe planétaire dans l'internet ? Voici une réponse, en utilisant les transformations 3d de la nouvelle norme -CSS3-, et un algorithme basé sur le nombre d'or pour calculer la répartition des éléments et les valeurs des transformations à appliquer.<br/>

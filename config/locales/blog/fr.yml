@@ -9,3 +9,6 @@ fr:
         
         experiment:
             name: "Expérimentations"
+            
+        ressource:
+            name: "Ressources"

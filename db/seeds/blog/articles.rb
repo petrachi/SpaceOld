@@ -1,7 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-Blog::Article.create :user => @user.blog_user,
+@sphere_article = Blog::Article.create :user => @primal_user.blog_user,
   :title => "De l'histoire d'une boule",
   :summary => %q{
     De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
@@ -73,7 +73,7 @@ Blog::Article.create :user => @user.blog_user,
     				width : 100%;
     		    background-color: $primary-color;
 
-    				@include box-shadow(0 0 0 1px rgba(0, 0, 0, .6) inset);
+    				@include box-shadow(0 0 0 1px $black-shadow inset);
     				opacity: .25;
     				@include border-radius(1px);
 
@@ -124,7 +124,8 @@ Blog::Article.create :user => @user.blog_user,
   			    height: 14px; 
   			    width: 14px;
   			    background-color: $primary-color;
-
+            @include box-shadow(0 0 0 1px $black-shadow inset);
+            
   			    position: absolute;
   			    left: 50%;
   			    top: 50%;
