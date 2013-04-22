@@ -59,7 +59,7 @@ header{
 		h1{
 			margin: 0;
 			color: rgba($white, .65);
-			font-weight: 200;
+			font-size: 2em;
 		}
 		
 		#return{
@@ -79,7 +79,7 @@ header{
 				@include filter( grayscale(0%) );
 			}
 			
-			h2{
+			h3{
 				margin: 0; 
 				padding: 0;
 				font-weight: 100;

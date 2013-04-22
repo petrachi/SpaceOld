@@ -1,9 +1,13 @@
-<%= three_col_container :collection => @sections do |section| %>
-	<h2>
+<%= four_col_container :collection => @sections do |section| %>
+	<h2 align="center">
 		<%= t :"#{ @application }.#{ section }.name" %>
 	</h2>
 	
-	<p>
+	<p align="justify">
+		<%= t :"#{ @application }.#{ section }.summary" %>
+	</p>
+	
+	<p align="center">
 		<%= link_to t(:go_to), eval("#{ section }_url"), :class=>:btn %>
 	</p>
 <% end %>

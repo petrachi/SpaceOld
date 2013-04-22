@@ -1,7 +1,13 @@
 <%= four_cols_container :collection => @applications do |application| %>
-	<h2><%=t "#{ application }.name" %></h2>
+	<h2 align="center">
+		<%=t :"#{ application }.name" %>
+	</h2>
 	
-	<p>
+	<p align="justify">
+		<%=t :"#{ application }.summary" %>
+	</p>
+	
+	<p align="center">
 		<% if authorized? application %>
 			<%= link_to t(:go_to), root_url(:subdomain => application), :class => :btn %>
 		<% end %>
