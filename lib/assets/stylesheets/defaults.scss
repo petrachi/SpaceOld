@@ -8,22 +8,20 @@ body{
 	color: $color;
 
 	margin: 0 0 1em;
-	/*
-	-webkit-animation: faster-load .08s ease-out;
-	*/
-	> .container{
-		margin: 2em 0;
-	}
 }
 
 h1,
 h2,
 h3{
 	font-weight: 200;
-	margin: 1em 0;
+	margin: 1em 0 .75em;
 	
 	a{
 		@include unstyled-link();
+		
+		&:hover{
+			text-decoration: none;
+		}
 	}
 }
 
@@ -41,7 +39,19 @@ h3{
 
 P{
 	font-weight: 200;
-	margin: 1.5em 0;
+	line-height: 1.4em;
+	text-align: justify;
+	
+	margin: 1.75em 0;
+}
+
+a{
+	color: $blue;
+	text-decoration: none;
+	
+	&:hover{
+		text-decoration: underline;
+	}
 }
 
 .progress{
@@ -61,6 +71,7 @@ P{
 [align=left]{ text-align: left; }
 [align=center]{ text-align: center; }
 [align=right]{ text-align: right; }
+[align=justify]{ text-align: justify; }
 
 [float=left]{ float: left; }
 [float=right]{ float: right; }
@@ -70,3 +81,10 @@ P{
 [display=inline-block]{ display: inline-block; }
 [display=block]{ display: block; }
 [display=table]{ display: table; }
+
+[sharp=top]{ margin-top: 0; }
+[sharp=bottom]{ margin-bottom: 0; }
+[sharp=all]{
+	@extend [sharp=top];
+	@extend [sharp=bottom];
+}

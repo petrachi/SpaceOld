@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @sphere_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "De l'histoire d'une boule",
+  :title => "C'est l'histoire d'une boule",
   :summary => %q{
     De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
   },
@@ -220,7 +220,7 @@
 
     <p>
     	C'est tout de suite plus clair !<br/>
-    	Allez donc faire un tour sur ce site de microsoft pour faire joujou avec 'transform' -  http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm
+    	Allez donc faire un tour sur ce site de microsoft pour faire joujou avec 'transform' - <%= link_to t(:link), "http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm", :target => :_blank %> 
     </p>
 
     <h3>
@@ -232,7 +232,7 @@
     </p>
 
     <p>
-      Pour les coordonnées, j'ai choisi d'utiliser des coordonnées sphériques - http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques. Ces ont celles qui correspondent le mieux aux valeurs qu'utilise 'transform'. Pour l'algo, j'ai choisi ... hem ... en fait, je n'ai pas choisi grand chose.
+      Pour les coordonnées, j'ai choisi d'utiliser des coordonnées sphériques - <%= link_to t(:wikilink), "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques", :target => :_blank %>. Ces ont celles qui correspondent le mieux aux valeurs qu'utilise 'transform'. Pour l'algo, j'ai choisi ... hem ... en fait, je n'ai pas choisi grand chose.
     </p>
     
     <h3>
@@ -273,7 +273,7 @@ def pointsOnSphere(N):
       		<% end %>
       		
       		<p>
-      		  Voir le code original dans son contexte - http://www.xsi-blog.com/archives/115
+      		  Voir le code original dans son contexte - <%= link_to t(:link), "http://www.xsi-blog.com/archives/115", :target => :_blank %>
       		</p>
       	<% end %>
 
@@ -335,7 +335,7 @@ end
 		</div>
 
     <p>
-    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations" : <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :class => :btn, :target => :_blank %>
+    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations" - <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :target => :_blank %>
     </p>
 
     <h3>
@@ -351,7 +351,7 @@ end
     </p>
     
     <p>
-      Je jetterais sûrement un oeil sur des librairies 3D en javascript, comme "tree.js" - http://mrdoob.github.com/three.js/.<br/>
+      Je jetterais sûrement un oeil sur des librairies 3D en javascript, comme "tree.js" - <%= link_to t(:link), "http://mrdoob.github.com/three.js/", :target => :_blank %><br/>
       D'ailleur, 'transform' n'est pas mon premier amour. J'avais déjà réalisé le même exercice en utilisant SVG, mais ça, c'est une autre histoire ... toire ... toire ...
     </p>
   },

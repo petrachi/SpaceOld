@@ -1,21 +1,28 @@
 <%= container do %>
 	<%= row do %>
-		<%= three_span do %>
-			<h2><%= @article.title %></h2>
-			
+		<%= three_span :element => :sidebar do %>
 			<% if @article.ressources.present? %>
-				<hr/>
-				<h3>Ressources</h3>
+				<h3><%=t :"#{ @application }.experiment.name" %></h3>
 				
-				<% @article.ressources.each	do |ressource| %>
-					<p>
-						<%= ressource.title %> - <%= link_to t(:see), ressource.link, :target => :_blank, :class => :btn %>
-					</p>
-				<% end %>
+				<p>
+					<% @article.experiments.each do |experiment| %>
+						<%= link_to experiment.title, experiment_url(:action => :show, :id => experiment.id), :target => :_blank, :class => :btn %>
+					<% end %>
+				</p>
+				
+				<h3><%=t :"#{ @application }.ressource.name" %></h3>
+				
+				<p>
+					<% @article.ressources.each	do |ressource| %>
+						<%= link_to ressource.title, ressource.link, :target => :_blank, :class => :btn %>
+					<% end %>
+				</p>
 			<% end %>
 		<% end %>
 
-		<%= nine_span do %>
+		<%= nine_span :element => :article do %>
+			<h2><%= @article.title %></h2>
+			
 			<%= erb @article.content %>
 		<% end %>
 	<% end %>

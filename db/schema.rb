@@ -27,14 +27,16 @@ ActiveRecord::Schema.define(:version => 20130319194654) do
 
   create_table "blog_experiments", :force => true do |t|
     t.integer  "blog_user_id"
+    t.integer  "blog_article_id"
     t.string   "title"
     t.text     "summary"
     t.text     "block"
-    t.boolean  "published",    :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "published",       :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
+  add_index "blog_experiments", ["blog_article_id"], :name => "index_blog_experiments_on_blog_article_id"
   add_index "blog_experiments", ["blog_user_id"], :name => "index_blog_experiments_on_blog_user_id"
 
   create_table "blog_ressources", :force => true do |t|

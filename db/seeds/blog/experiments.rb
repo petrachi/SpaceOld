@@ -92,4 +92,5 @@
       </div>
     </div>
   },
+  :article => @sphere_article,
   :published => true

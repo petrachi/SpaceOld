@@ -9,6 +9,10 @@ fr:
     install: "Installer"
     go_to: "Accéder"
     see: "Voir"
+    discover: "Découvrir"
+    test: "Tester"
+    link: "Lien"
+    wikilink: "Wikilien"
     super_use: "Administrer"
     
     restricted: "Accès non authorisé"

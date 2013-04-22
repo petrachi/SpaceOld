@@ -1,13 +1,13 @@
 <%= two_cols_container :collection => @articles do |article| %>
-	<h2>
+	<h2 align="center">
 		<%= article.title %>
 	</h2>
 	
-	<p align="justify">
+	<p>
 		<%= article.summary.html_safe %>
 	</p>
 	
-	<p>
-		<%= link_to t(:see), article_url(:action => :show, :id => article.id), :class => :btn %>
+	<p align="center">
+		<%= link_to t(:discover), article_url(:action => :show, :id => article.id), :class => :btn %>
 	</p>
 <% end %>
