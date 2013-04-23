@@ -9,7 +9,7 @@
 	
 	<p align="center">
 		<% if authorized? application %>
-			<%= link_to t(:go_to), root_url(:subdomain => application), :class => :btn %>
+			<%= link_to t(:see), root_url(:subdomain => application), :class => :btn %>
 		<% end %>
 	</p>
 <% end %>

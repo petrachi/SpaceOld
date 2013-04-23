@@ -1,5 +1,5 @@
 <%= two_cols_container :collection => @ressources do |ressource| %>
-	<h2>
+	<h2 align="center">
 		<%= ressource.title %>
 	</h2>
 	
@@ -7,7 +7,7 @@
 		<%= ressource.summary.html_safe %>
 	</p>
 	
-	<p>
-		<%= link_to t(:see), ressource.link, :target => :_blank, :class => :btn %>
+	<p align="center">
+		<%= link_to t(:link), ressource.link, :target => :_blank, :class => :btn %>
 	</p>
 <% end %>

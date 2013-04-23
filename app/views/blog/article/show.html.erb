@@ -5,17 +5,17 @@
 				<h3><%=t :"#{ @application }.experiment.name" %></h3>
 				
 				<p>
-					<% @article.experiments.each do |experiment| %>
-						<%= link_to experiment.title, experiment_url(:action => :show, :id => experiment.id), :target => :_blank, :class => :btn %>
-					<% end %>
+					<% @article.experiments.each do |experiment| %><%= 
+						link_to experiment.title, experiment_url(:action => :show, :id => experiment.id), :class => :btn 
+					%><% end %>
 				</p>
 				
 				<h3><%=t :"#{ @application }.ressource.name" %></h3>
 				
 				<p>
-					<% @article.ressources.each	do |ressource| %>
-						<%= link_to ressource.title, ressource.link, :target => :_blank, :class => :btn %>
-					<% end %>
+					<% @article.ressources.each	do |ressource| %><%= 
+						link_to ressource.title, ressource.link, :target => :_blank, :class => :btn 
+					%><% end %>
 				</p>
 			<% end %>
 		<% end %>
