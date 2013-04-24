@@ -9,6 +9,21 @@ class Blog::ArticleController < Blog::ApplicationController
   end
   
   def show
-    @article = Blog::Article.published.where(:id => params[:id]).first
+    @article = Blog::Article.published
+      .where(:id => params[:id])
+      .includes(:experiments)
+      .includes(:ressources)
+      .first
   end
+  
+  
+  
+  
+  #### Dev zone
+  def secret_1
+  end
+  
+  def secret_2
+  end
+  ####
 end
