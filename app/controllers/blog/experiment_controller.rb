@@ -25,5 +25,8 @@ class Blog::ExperimentController < Blog::ApplicationController
   
   def secret_2
   end
+  
+  def secret_tmp
+  end
   ####
 end
