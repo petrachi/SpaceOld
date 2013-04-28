@@ -30,7 +30,7 @@
 
   	  n = 589
   	  r = 232
-  	  h = 8
+  	  h = 10
 
   	  points = point_on_sphere(n)
   	%>
@@ -71,19 +71,6 @@
   				    position: absolute;
   				    left: #{ r - (h/2) }px;
   				    top: #{ r - (h/2) }px;
-  				}
-  			}
-
-  			&:hover{
-  				.planet{
-  					.province{
-  						left: #{ r - (h * 2) }px;
-  						top: #{ r - (h * 2) }px;
-
-  						height: #{ h * 4 }px;
-  						width: #{ h * 4 }px;
-  						box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
-  					}
   				}
   			}
   		}
