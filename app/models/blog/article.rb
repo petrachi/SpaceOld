@@ -7,7 +7,6 @@ class Blog::Article < ActiveRecord::Base
   
   scope :published, where(:published => true)
   
-  validates_presence_of :blog_user_id, :title, :summary, :content
+  validates_presence_of :blog_user_id, :title, :summary, :code
   validates_uniqueness_of :title
-  validates_length_of :content, :maximum => 64.kilobytes - 1
 end

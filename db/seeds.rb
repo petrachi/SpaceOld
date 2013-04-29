@@ -12,4 +12,5 @@
 load File.join(File.dirname(__FILE__), 'seeds', 'users.rb')
 load File.join(File.dirname(__FILE__), 'seeds', 'blog', 'articles.rb')
 load File.join(File.dirname(__FILE__), 'seeds', 'blog', 'experiments.rb')
+load File.join(File.dirname(__FILE__), 'seeds', 'blog', 'versions.rb')
 load File.join(File.dirname(__FILE__), 'seeds', 'blog', 'ressources.rb')

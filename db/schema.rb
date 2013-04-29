@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319194654) do
+ActiveRecord::Schema.define(:version => 20130429224324) do
 
   create_table "blog_articles", :force => true do |t|
     t.integer  "blog_user_id"
     t.string   "title"
     t.text     "summary"
-    t.text     "content"
+    t.text     "code"
     t.boolean  "published",    :default => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20130319194654) do
     t.integer  "blog_article_id"
     t.string   "title"
     t.text     "summary"
-    t.text     "block"
+    t.text     "code"
     t.boolean  "published",       :default => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(:version => 20130319194654) do
   end
 
   add_index "blog_users", ["main_user_id"], :name => "index_blog_users_on_main_user_id"
+
+  create_table "blog_versions", :force => true do |t|
+    t.integer  "blog_experiment_id"
+    t.string   "title"
+    t.text     "code"
+    t.boolean  "published",          :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
 
   create_table "game_users", :force => true do |t|
     t.integer  "main_user_id"

@@ -5,7 +5,7 @@ class CreateBlogArticles < ActiveRecord::Migration
       
       t.string :title
       t.text :summary
-      t.text :content
+      t.text :code
       
       t.boolean :published, :default => false
       

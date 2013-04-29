@@ -6,7 +6,7 @@
   :summary => %q{
     Une sphère tout en web :). Pas de flash, pas de librairies javascript, juste des <i>div</i> et des <i>transforms</i>. 
   },
-  :block => %q{
+  :code => %q{
     <%
   	  def point_on_sphere n
   	    n = n.to_f
@@ -28,7 +28,7 @@
   	    pts
   	  end
 
-  	  n = 589
+  	  n = 989
   	  r = 232
   	  h = 10
 
@@ -95,7 +95,7 @@
   :summary => %q{
     Préparez-vous à être éblouis par cette sphère 2d !
   },
-  :block => %q{
+  :code => %q{
     <%	
     	def point_on_sphere n
     		points = Array.new

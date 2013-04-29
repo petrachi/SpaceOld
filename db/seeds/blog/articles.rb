@@ -6,7 +6,7 @@
   :summary => %q{
     De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
   },
-  :content => %q{ 
+  :code => %q{ 
     <%
       def point_on_sphere n
         n = n.to_f
