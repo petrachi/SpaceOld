@@ -10,4 +10,13 @@ class Blog::Experiment < ActiveRecord::Base
   
   validates_presence_of :blog_user_id, :title, :summary, :code
   validates_uniqueness_of :title
+  
+  def code
+    if versions.present?
+      read_attribute(:code).gsub "<%# version %>", versions.first.code
+    else
+      read_attribute(:code)
+    end
+  end
+  
 end

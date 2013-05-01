@@ -27,12 +27,6 @@
 
   	    pts
   	  end
-
-  	  n = 989
-  	  r = 232
-  	  h = 10
-
-  	  points = point_on_sphere(n)
   	%>
 
   	<%= scss %Q{
@@ -46,35 +40,29 @@
   		}
 
   		.planet-container{
-  			height: #{ r * 2 }px;
-  			width: #{ r * 2 }px;
-  		    margin: 1em auto;
+  		  margin: 1em auto;
 
   			.planet{ 
-  		    	height: 100%;
-  			    width: 100%;
-  			    position: relative;
+  		  	height: 100%;
+			    width: 100%;
+			    position: relative;
 
-  			    @include transform-style(preserve-3d);
-  			    @include animation(planet-rotation 270s linear infinite);
+			    @include transform-style(preserve-3d);
+			    @include animation(planet-rotation 270s linear infinite);
 
   				.province{  
-  					height: #{ h }px; 
-  				    width: #{ h }px;
-
-  				    box-shadow: 0 0 0 #{ (h/2) - 1 }px rgba(0, 0, 0, .6) inset;
-  				    background-color: $primary-color;
-
-  				    @include backface-visibility(hidden);
-  				    @include transition(all .15s ease);
-
-  				    position: absolute;
-  				    left: #{ r - (h/2) }px;
-  				    top: #{ r - (h/2) }px;
-  				}
+  				  background-color: $primary-color;
+            
+				    @include backface-visibility(hidden);
+				    @include transition(all .15s ease);
+            
+				    position: absolute;  
+				  }
   			}
   		}
   	} %>
+    
+    <%# version %>
     
     <div class="planet-container">
       <div class="planet">
