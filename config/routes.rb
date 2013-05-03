@@ -17,6 +17,7 @@ def application_routes application, controllers
 end
 
 
+
 Space::Application.routes.draw do
   match "/sign_up" => "main_user#sign_up", :as=>:sign_up
   match "/sign_up_errors" => "main_user#sign_up_errors"
@@ -24,10 +25,33 @@ Space::Application.routes.draw do
   match "/sign_in_errors" => "main_user#sign_in_errors"
   match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
-  application_routes :blog, [:home, :user, :article, :experiment, :ressource]
-  constraints :subdomain => :blog.to_s do
-    match "/experiment/show/:id/:version_id" => "blog/experiment#show"
+  
+  
+  #application_routes :blog, [:home, :user, :article, :experiment, :ressource]
+  constraints :subdomain => "blog" do
+    match "/install" => "blog/user#install", :as => "install"
+    
+    controller "blog/article" do
+      match "/articles" => :index, :as => :articles
+      match "/article/:id" => :show, :as => :article
+    end
+    
+    controller "blog/experiment" do
+      match "/experiments" => :index, :as => :experiments
+      match "/experiment/:id" => :show, :as => :experiment
+      match "/experiment/:id/v/:version_id" => :show, :as => :experiment_version
+    end
+    
+    controller "ressource" do
+      match "/ressources" => :index, :as => :ressources
+    end
+    
+    root :to => "blog/home#index"
   end
+  match "/space_blog" => "space#blog", :as => "space_blog"
+  
+  
+  
   
   application_routes :gems, [:home, :user, :css_grid, :r_extend, :profile]  
   application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  

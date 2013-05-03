@@ -1,3 +1,9 @@
 <%= one_col_container do %>
 	<%= erb @experiment.code %>
 <% end %>
+
+<%= one_col_container do %>
+	<% @experiment.reload.versions.each do |version| %>
+		<%= link_to version.title, experiment_version_url(@experiment, :version_id => version.id), :class => :btn %>
+	<% end %>
+<% end %>

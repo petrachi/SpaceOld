@@ -13,11 +13,6 @@ class Blog::ExperimentController < Blog::ApplicationController
       .where(:id => params[:id])
       .includes(:versions).where(:blog_versions => {:id => params[:version_id]})
       .first
-      
-      
-      
-      p @experiment
-      p @experiment.versions
   end
   
   

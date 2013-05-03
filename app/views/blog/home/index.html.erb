@@ -8,6 +8,6 @@
 	</p>
 	
 	<p align="center">
-		<%= link_to t(:go_to), eval("#{ section }_url"), :class=>:btn %>
+		<%= link_to t(:go_to), eval("#{ section.to_s.pluralize }_url"), :class=>:btn %>
 	</p>
 <% end %>

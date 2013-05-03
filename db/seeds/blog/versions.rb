@@ -37,7 +37,7 @@ Blog::Version.create :experiment => @sphere_experiment,
     <%
 	    n = 589
 	    r = 232
-	    h = 10
+	    h = 35
 
 	    points = point_on_sphere(n)
 	  %>
@@ -51,7 +51,7 @@ Blog::Version.create :experiment => @sphere_experiment,
 					height: #{ h }px; 
 				  width: #{ h }px;
 
-			    box-shadow: 0 0 0 #{ (h/2) - 1 }px rgba(0, 0, 0, .6) inset;
+			    box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
 
 			    left: #{ r - (h/2) }px;
 			    top: #{ r - (h/2) }px;
