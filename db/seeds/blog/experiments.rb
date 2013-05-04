@@ -34,8 +34,8 @@
   			from{
   				@include transform(rotateZ(23deg) rotateY(360deg)); 
   			}
-  		    to {
-  				-webkit-transform: rotateZ(23deg) rotateY(0deg); 
+  		  to {
+  				@include transform(rotateZ(23deg) rotateY(0deg));
   			}
   		}
 

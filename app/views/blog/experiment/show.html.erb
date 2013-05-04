@@ -1,9 +1,25 @@
-<%= one_col_container do %>
-	<%= erb @experiment.code %>
-<% end %>
-
-<%= one_col_container do %>
-	<% @experiment.reload.versions.each do |version| %>
-		<%= link_to version.title, experiment_version_url(@experiment, :version_id => version.id), :class => :btn %>
+<%= container do %>
+	<%= row do %>
+		<%= three_span do %>
+			<% if @experiment.article %>
+				<h3><%=t :"#{ @application }.article.name" %></h3>
+			
+				<p>
+					<%= link_to @experiment.article.title, article_url(@experiment.article), :class => :btn  %>
+				</p>
+			<% end %>
+			
+			<h3><%=t :"#{ @application }.experiment.version.name" %></h3>
+		
+			<p>
+				<% Blog::Version.where(:blog_experiment_id => @experiment.id).each do |version| %><%= 
+					link_to version.title, experiment_url(@experiment, :version_id => version.id), :class => :btn 
+				%><% end %>
+			</p>
+		<% end %>
+		
+		<%= nine_span do %>
+			<%= erb @experiment.code %>
+		<% end %>
 	<% end %>
 <% end %>

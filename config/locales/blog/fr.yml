@@ -11,6 +11,17 @@ fr:
             name: "Expérimentations"
             summary: "Le petit chimiste appliqué aux technologies web. Attention, la compagnie ne pourra pas être tenue responsable des graves sévices auquels vous vous exposez."
             
+            version: 
+                name: "Versions"
+            
         ressource:
             name: "Ressources"
-            summary: "Une collection de liens externes, pas très malin je sais, mais on fait avec c'qu'on a..."
+            summary: "Ici gît tout mon savoir. Venez à la source, si vous pensez en avoir le courage."
+            
+            pool:
+                technology_watch: "Veille"
+                demo: "Démos"
+                blog: "Blogs"
+                documentation: "Docs"
+                tutorial: "Tutos"
+                

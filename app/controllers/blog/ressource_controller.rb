@@ -5,6 +5,9 @@ class Blog::RessourceController < Blog::ApplicationController
   end
   
   def index
-    @ressources = Blog::Ressource.published.public
+    @ressources = Blog::Ressource.published
+      .public
+      .group_by(&:pool)
+      
   end
 end

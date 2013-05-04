@@ -9,6 +9,22 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :pool => :technology_watch,
   :public => true,
   :published => true
+
+Blog::Ressource.create :user => @primal_user.blog_user,
+  :title => "Railscasts",
+  :summary => "Des Screencasts qui parlent de rails ... d'où le nom ... c'est une contraction ... astucieux vous trouvez pas ?",
+  :link => "http://railscasts.com/",
+  :pool => :technology_watch,
+  :public => true,
+  :published => true
+
+Blog::Ressource.create :user => @primal_user.blog_user,
+  :title => "TryRuby",
+  :summary => "Testez Ruby sans l'installer ! Grâce à une 'console like' et une série de petits chalenges, découvrez les bases du langage.",
+  :link => "http://tryruby.org/levels/1/challenges/0",
+  :pool => :tutorial,
+  :public => true,
+  :published => true  
 # Publics End
   
 # Article 'Sphère'
@@ -24,7 +40,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Coordonnées Sphériques",
   :summary => "C'est quoi les coordonnées sphériques ? Non mais dis donc ! Explique moi tout !",
   :link => "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques",
-  :pool => :wiki,
+  :pool => :documentation,
   :source => @sphere_article,
   :published => true
 

@@ -5,7 +5,7 @@
 			
 			<p>
 				<% @article.experiments.each do |experiment| %><%= 
-					link_to experiment.title, experiment_url(experiment), :class => :btn 
+					link_to experiment.title, experiment_url(experiment, experiment.versions.try(:first)), :class => :btn 
 				%><% end %>
 			</p>
 			
