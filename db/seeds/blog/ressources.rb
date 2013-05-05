@@ -40,7 +40,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Coordonnées Sphériques",
   :summary => "C'est quoi les coordonnées sphériques ? Non mais dis donc ! Explique moi tout !",
   :link => "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques",
-  :pool => :documentation,
+  :pool => :doc,
   :source => @sphere_article,
   :published => true
 

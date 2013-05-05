@@ -9,5 +9,5 @@ class Blog::Ressource < ActiveRecord::Base
   
   validates_presence_of :blog_user_id, :title, :summary, :link, :pool
   validates_uniqueness_of :title, :link
-  validates_inclusion_of :pool, :in => [:technology_watch, :demo, :blog, :wiki, :tutorial]
+  validates_inclusion_of :pool, :in => [:technology_watch, :demo, :blog, :doc, :tutorial]
 end
