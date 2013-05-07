@@ -1,15 +1,15 @@
 <%= container do %>
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
-			<h3><%=t :"#{ @application }.experiment.name" %></h3>
+			<h3><%=t 'blog.experiment.name' %></h3>
 			
 			<p>
 				<% @article.experiments.each do |experiment| %><%= 
-					link_to experiment.title, experiment_url(experiment, experiment.versions.try(:first)), :class => :btn 
+					link_to experiment.title, experiment.to_url, :class => :btn 
 				%><% end %>
 			</p>
 			
-			<h3><%=t :"#{ @application }.ressource.name" %></h3>
+			<h3><%=t 'blog.ressource.name' %></h3>
 			
 			<p>
 				<% @article.ressources.each	do |ressource| %><%= 
@@ -17,7 +17,7 @@
 				%><% end %>
 			</p>
 		<% end %>
-
+		
 		<%= nine_span :element => :article do %>
 			<h2><%= @article.title %></h2>
 			

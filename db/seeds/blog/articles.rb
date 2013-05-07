@@ -335,7 +335,7 @@ end
 		</div>
 
     <p>
-    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations" - <%= link_to t(:see), experiment_url(:action => :show, :id => 1), :target => :_blank %>
+    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations"
     </p>
 
     <h3>

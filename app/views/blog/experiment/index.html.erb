@@ -8,6 +8,6 @@
 	</p>
 	
 	<p align="center">
-		<%= link_to t(:test), experiment_url(experiment, experiment.versions.try(:first)), :class => :btn %>
+		<%= link_to t(:test), experiment.to_url, :class => :btn %>
 	</p>
 <% end %>

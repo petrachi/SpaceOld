@@ -10,4 +10,5 @@ Space::Application.initialize! do |config|
   config.autoload_paths += %W(#{ Rails.root }/app/super_user)
 end
 
-
+# constants
+URL = Rails.application.routes.url_helpers

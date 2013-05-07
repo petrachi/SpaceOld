@@ -1,12 +1,21 @@
 class Blog::Article < ActiveRecord::Base
   attr_protected
   
-  belongs_to :user, :foreign_key => :blog_user_id
-  has_many :experiments, :foreign_key => :blog_article_id
-  has_many :ressources, :as => :source
+  belongs_to :user
+  has_many :experiments
+  has_many :ressources
   
   scope :published, where(:published => true)
   
-  validates_presence_of :blog_user_id, :title, :summary, :code
+  validates_presence_of :user_id, :title, :summary, :code
   validates_uniqueness_of :title
+  
+  def self.to_url
+    URL.articles_path
+  end
+  
+  def to_url
+    URL.article_path self
+  end
 end
+

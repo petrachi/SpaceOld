@@ -11,7 +11,7 @@ class Blog::ExperimentController < Blog::ApplicationController
   def show
     @experiment = Blog::Experiment.published
       .where(:id => params[:id])
-      .includes(:versions).where(:blog_versions => {:id => params[:version_id]})
+      .with_version(params[:version_id])
       .first
   end
   

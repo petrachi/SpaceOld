@@ -7,7 +7,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "HCN (Human Coders News) est un des incontournables sites de veille info en français.",
   :link => "http://news.humancoders.com/",
   :pool => :technology_watch,
-  :public => true,
+  :primal => true,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -15,7 +15,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Des Screencasts qui parlent de rails ... d'où le nom ... c'est une contraction ... astucieux vous trouvez pas ?",
   :link => "http://railscasts.com/",
   :pool => :technology_watch,
-  :public => true,
+  :primal => true,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -23,7 +23,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Testez Ruby sans l'installer ! Grâce à une 'console like' et une série de petits chalenges, découvrez les bases du langage.",
   :link => "http://tryruby.org/levels/1/challenges/0",
   :pool => :tutorial,
-  :public => true,
+  :primal => true,
   :published => true  
 # Publics End
   
@@ -33,7 +33,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Site de démo des propriétés CSS3 les plus \"trendy\"",
   :link => "http://ie.microsoft.com/testdrive/graphics/hands-on-css3",
   :pool => :demo,
-  :source => @sphere_article,
+  :article => @sphere_article,
   :published => true
   
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -41,7 +41,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "C'est quoi les coordonnées sphériques ? Non mais dis donc ! Explique moi tout !",
   :link => "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques",
   :pool => :doc,
-  :source => @sphere_article,
+  :article => @sphere_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -49,7 +49,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Répartir des points équitablement sur une sphére (en anglais)",
   :link => "http://www.xsi-blog.com/archives/115",
   :pool => :blog,
-  :source => @sphere_article,
+  :article => @sphere_article,
   :published => true
   
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -57,6 +57,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Librairie Javascript",
   :link => "http://mrdoob.github.com/three.js/",
   :pool => :technology_watch,
-  :source => @sphere_article,
+  :article => @sphere_article,
   :published => true
 # Article Sphère End

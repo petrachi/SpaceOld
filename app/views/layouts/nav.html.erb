@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= t(:"#{ @application }.name").titleize %></title>
+		<title><%= t("#{ @application }.name").titleize %></title>
 		
-		<%= stylesheet_link_tag :"#{ @application }", :media => "all" %>	
-		<%= javascript_include_tag "application" %>
+		<%= stylesheet_link_tag @application, :media => 'all' %>	
+		<%= javascript_include_tag 'application' %>
 	
 		<%= csrf_meta_tags %>
 	</head>
@@ -15,7 +15,7 @@
 			<% end %>
 			
 			<%= ten_span :id => :title, :append => 1 do %>
-				<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
+				<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
 			<% end %>
 		<% end %>
 		
@@ -27,18 +27,17 @@
 										%W{
 											#{ @application }-section-#{ section } 
 											#{ :active if section == @section }
-										}.join " "
+										}.join ' '
 									}
 								},
 								:align => :center do |section| %>
-			<h3><%= link_to t(:"#{ @application }.#{ section }.name"), eval("#{ section.to_s.pluralize }_url") %></h3>
+			<h3><%= link_to t("#{ @application }.#{ section }.name"), "#{ @application }/#{ section }".classify.constantize.to_url %></h3>
 		<% end %>
 		
 		<!-- Wide -->
 		<%= one_col_container :id => :break, :class => @section do %>
 			<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
 		<% end %>
-		
 		
 		<%= yield %>	
 	</body>

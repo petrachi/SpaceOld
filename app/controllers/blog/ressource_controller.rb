@@ -6,8 +6,7 @@ class Blog::RessourceController < Blog::ApplicationController
   
   def index
     @ressources = Blog::Ressource.published
-      .public
+      .primal
       .group_by(&:pool)
-      
   end
 end

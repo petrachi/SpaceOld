@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= t(:"#{ @application }.name").titleize %></title>
+		<title><%= t("#{ @application }.name").titleize %></title>
 		
-		<%= stylesheet_link_tag :"#{ @application }", :media => "all" %>	
-		<%= javascript_include_tag "application" %>
+		<%= stylesheet_link_tag @application, :media => 'all' %>	
+		<%= javascript_include_tag 'application' %>
 	
 		<%= csrf_meta_tags %>
 	</head>
@@ -18,7 +18,7 @@
 				<% end %>
 				
 				<%= ten_span :append => 1, :prepend => (application_is?(:space) ? 1 : 0) do %>
-					<h1><%= link_to t(:"#{ @application }.name"), root_url %></h1>
+					<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
 				<% end %>
 			<% end %>
 		<% end %>
