@@ -28,31 +28,43 @@ class Blog::Version < ActiveRecord::Base
   def erb
     super || primal.erb
   end
+  
+  def js
+    super || primal.js
+  end
+  
+  
+  #must validate codes blocks if primal (tous obligatoires)
+  #if no primal, must validate primal_id + mutation
 #mutation concern end
 
-  default_scope order('rank ASC')
+#must validate only one primal by experiment
+
+
   scope :published, where(:published => true)
   scope :by_experiment, ->(experiment) do 
     where(:experiment_id => experiment)
   end
   
-  validates_presence_of :user_id, :experiment_id, :rank
-  validates_uniqueness_of :rank, :scope => :experiment_id
+  validates_presence_of :user_id, :experiment_id
+  validates_uniqueness_of :mutation, :scope => :experiment_id
   
   
-  #must validate codes blocks if primal
-  #if no primal, must validate primal_id
   
   def code
     %Q{
       <%
-        #{ params }
         #{ ruby }
+        #{ params }
       %>
       
       <%= scss %Q{#{ scss }} %>
       
       #{ erb }
+      
+      <script type='text/javascript'>
+        #{ js }
+      </script>
     }
   end
 end

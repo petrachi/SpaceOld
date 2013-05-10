@@ -13,7 +13,7 @@
 		
 			<p>
 				<% Blog::Version.by_experiment(@experiment).each do |version| %><%= 
-					link_to version.rank, version.to_url, :class => :btn 
+					link_to version.mutation, version.to_url, :class => :btn 
 				%><% end %>
 			</p>
 		<% end %>

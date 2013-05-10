@@ -12,11 +12,6 @@
 
 @sphere_version = Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @sphere_experiment,
-  :params => %q{
-    n = 989
-    r = 232
-    h = 10
-  },
   :ruby => %q{
     def point_on_sphere n
 	    n = n.to_f
@@ -37,6 +32,11 @@
 
 	    pts
 	  end
+  },
+  :params => %q{
+    n = 989
+    r = 232
+    h = 10
   },
   :scss => %q{
     @include keyframes(planet-rotation){
@@ -64,7 +64,6 @@
 
 				.province{  
 			    @include backface-visibility(hidden);
-			    @include transition(all .15s ease);
 
 			    position: absolute;
 			    left: #{ r - (h/2) }px;
@@ -91,18 +90,46 @@
       </div>
     </div>
   },
+  :js => "// No JS",
   :published => true
 
+Blog::Version.create :user => @primal_user.blog_user,
+  :experiment => @sphere_experiment,
+  :primal => @sphere_version,
+  :params => %q{
+    n = 389
+    r = 132
+    h = 6
+  },
+  :scss => %q{
+		.planet-container{
+		  margin: 1em auto;
 
+      height: #{ r * 2 }px;
+			width: #{ r * 2 }px;
 
+			.planet{ 
+		  	height: 100%;
+		    width: 100%;
+		    position: relative;
 
-  Blog::Version.create :user => @primal_user.blog_user,
-    :experiment => @sphere_experiment,
-    :params => %q{
-      n = 389
-      r = 132
-      h = 6
-    },
-    :rank => 2,
-    :primal => @sphere_version,
-    :published => true
+		    @include transform-style(preserve-3d);
+
+				.province{  
+			    @include backface-visibility(hidden);
+
+			    position: absolute;
+			    left: #{ r - (h/2) }px;
+			    top: #{ r - (h/2) }px;
+
+			    height: #{ h }px; 
+				  width: #{ h }px;
+
+          background-color: $primary-color;
+			    box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
+			  }
+			}
+		}
+  },
+  :mutation => :article,
+  :published => true

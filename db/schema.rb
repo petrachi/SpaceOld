@@ -70,7 +70,8 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
     t.text     "ruby"
     t.text     "scss"
     t.text     "erb"
-    t.integer  "rank",          :default => 1
+    t.text     "js"
+    t.string   "mutation"
     t.boolean  "published",     :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
