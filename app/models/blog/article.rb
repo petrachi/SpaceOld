@@ -2,7 +2,7 @@ class Blog::Article < ActiveRecord::Base
   attr_protected
   
   belongs_to :user
-  has_many :experiments
+  has_one :experiment
   has_many :ressources
   
   scope :published, where(:published => true)

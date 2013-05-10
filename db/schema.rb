@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
     t.integer  "article_id"
     t.string   "title"
     t.text     "summary"
-    t.text     "code"
     t.boolean  "published",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
@@ -66,8 +65,12 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   create_table "blog_versions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "experiment_id"
-    t.string   "title"
-    t.text     "code"
+    t.integer  "version_id"
+    t.text     "params"
+    t.text     "ruby"
+    t.text     "scss"
+    t.text     "erb"
+    t.integer  "rank",          :default => 1
     t.boolean  "published",     :default => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
@@ -75,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
 
   add_index "blog_versions", ["experiment_id"], :name => "index_blog_versions_on_experiment_id"
   add_index "blog_versions", ["user_id"], :name => "index_blog_versions_on_user_id"
+  add_index "blog_versions", ["version_id"], :name => "index_blog_versions_on_version_id"
 
   create_table "game_users", :force => true do |t|
     t.integer  "main_user_id"

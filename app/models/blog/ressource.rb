@@ -5,7 +5,7 @@ class Blog::Ressource < ActiveRecord::Base
   belongs_to :article
   
   scope :published, where(:published => true)
-  scope :primal, where(:prime => true)
+  scope :primal, where(:primal => true)
   
   validates_presence_of :user_id, :title, :summary, :link, :pool
   validates_uniqueness_of :title, :link

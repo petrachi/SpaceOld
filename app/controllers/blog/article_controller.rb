@@ -11,7 +11,7 @@ class Blog::ArticleController < Blog::ApplicationController
   def show
     @article = Blog::Article.published
       .where(:id => params[:id])
-      .includes(:experiments)
+      .includes(:experiment)
       .includes(:ressources)
       .first
   end
