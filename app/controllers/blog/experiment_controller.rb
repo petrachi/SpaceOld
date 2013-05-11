@@ -5,7 +5,7 @@ class Blog::ExperimentController < Blog::ApplicationController
   end
   
   def index
-    @experiments = Blog::Experiment.all
+    @experiments = Blog::Experiment.with_primal_version
   end
   
   def show

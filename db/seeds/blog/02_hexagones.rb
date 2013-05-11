@@ -1,7 +1,6 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-
 @hexagones_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
   :title => "Hexagones",
   :summary => %q{
