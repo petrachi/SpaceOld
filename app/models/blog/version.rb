@@ -33,9 +33,12 @@ class Blog::Version < ActiveRecord::Base
     super || primal.js
   end
   
+  def primal?
+    primal.blank?
+  end
   
-  #must validate codes blocks if primal (tous obligatoires)
-  #if no primal, must validate primal_id + mutation
+  validates_presence_of :params, :ruby, :scss, :erb, :js, if: :primal?
+  validates_presence_of :primal_id, :mutation, unless: :primal?
 #mutation concern end
 
 #must validate only one primal by experiment
