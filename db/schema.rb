@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   create_table "blog_versions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "experiment_id"
-    t.integer  "version_id"
+    t.integer  "primal_id"
     t.text     "params"
     t.text     "ruby"
     t.text     "scss"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   end
 
   add_index "blog_versions", ["experiment_id"], :name => "index_blog_versions_on_experiment_id"
+  add_index "blog_versions", ["primal_id"], :name => "index_blog_versions_on_primal_id"
   add_index "blog_versions", ["user_id"], :name => "index_blog_versions_on_user_id"
-  add_index "blog_versions", ["version_id"], :name => "index_blog_versions_on_version_id"
 
   create_table "game_users", :force => true do |t|
     t.integer  "main_user_id"

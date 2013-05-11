@@ -10,8 +10,8 @@ class Blog::Version < ActiveRecord::Base
   delegate :to_url, to: :experiment
   
 #mutation concern begin
-  has_many :mutations, :class_name => "Blog::Version", :foreign_key => "version_id"
-  belongs_to :primal, :class_name => "Blog::Version", :foreign_key => "version_id"
+  has_many :mutations, :class_name => "Blog::Version", :foreign_key => "primal_id"
+  belongs_to :primal, :class_name => "Blog::Version", :foreign_key => "primal_id"
   
   def params
     super || primal.params

@@ -3,7 +3,7 @@ class CreateBlogVersions < ActiveRecord::Migration
     create_table :blog_versions do |t|
       t.references :user
       t.references :experiment
-      t.references :version
+      t.references :primal
       
       t.text :params
       t.text :ruby
@@ -19,6 +19,6 @@ class CreateBlogVersions < ActiveRecord::Migration
     end
     add_index :blog_versions, :user_id
     add_index :blog_versions, :experiment_id
-    add_index :blog_versions, :version_id
+    add_index :blog_versions, :primal_id
   end
 end
