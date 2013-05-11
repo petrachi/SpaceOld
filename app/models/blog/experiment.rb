@@ -9,7 +9,7 @@ class Blog::Experiment < ActiveRecord::Base
     end
   end
   def version
-    versions.first
+    @version || versions.first
   end
   delegate :code, to: :version
   
@@ -25,12 +25,12 @@ class Blog::Experiment < ActiveRecord::Base
   end
   
   def with_mutant_version mutation
-    self.versions = self.versions.mutant mutation
+    @version = self.versions.mutant(mutation).first
     self
   end
   
   def with_primal_version
-    self.versions = self.versions.mutant nil
+    @versions = self.versions.mutant(nil).first
     self
   end
   

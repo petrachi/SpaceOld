@@ -1,19 +1,13 @@
-<%= one_col_container :collection => @ressources.to_a do |(pool, ressources)| %>
-	<h2 align="center">
-		<%=t "blog.ressource.pool.#{ pool }" %>
-	</h2>
+<%= four_cols_container :collection => @ressources do |ressource| %>
+	<h3 align="center">
+		<%= ressource.title %>
+	</h3>
 	
-	<%= four_cols_container :collection => ressources do |ressource| %>
-		<h3 align="center">
-			<%= ressource.title %>
-		</h3>
-		
-		<p>
-			<%= ressource.summary %>
-		</p>
-		
-		<p align="center">
-			<%= link_to t(:link), ressource.link, :target => :_blank, :class => :btn %>
-		</p>
-	<% end %>
+	<p>
+		<%= ressource.summary %>
+	</p>
+	
+	<p align="center">
+		<%= link_to t(:link), ressource.link, :target => :_blank, :class => :btn %>
+	</p>
 <% end %>

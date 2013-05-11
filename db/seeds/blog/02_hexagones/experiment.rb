@@ -2,15 +2,15 @@
 # encoding: utf-8
 
 
-@sphere_svg_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
-  :title => "Sphère SVG",
+@hexagones_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+  :title => "Hexagones",
   :summary => %q{
     Préparez-vous à être éblouis par cette sphère 2d !
   },
   :published => true
 
 Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @sphere_svg_experiment,
+  :experiment => @hexagones_experiment,
   :ruby => %q{
     def point_on_sphere n
   		points = Array.new
@@ -36,7 +36,7 @@ Blog::Version.create :user => @primal_user.blog_user,
   				if x % 2 == y % 2
                   	points << point.new(x, y)
   				end
-            	end
+        end
   		end
 
   		points

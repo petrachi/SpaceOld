@@ -42,7 +42,7 @@ Space::Application.routes.draw do
     end
     
     controller "blog/ressource" do
-      match "/ressources" => :index, :as => :ressources
+      match "/ressources(/p/:pool)" => :index, :as => :ressources
     end
     
     root :to => "blog/home#index"

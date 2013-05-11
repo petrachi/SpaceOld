@@ -6,6 +6,7 @@ class Blog::Article < ActiveRecord::Base
   has_many :ressources
   
   scope :published, where(:published => true)
+  default_scope published
   
   validates_presence_of :user_id, :title, :summary, :code
   validates_uniqueness_of :title

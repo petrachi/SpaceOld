@@ -5,12 +5,11 @@ class Blog::ArticleController < Blog::ApplicationController
   end
   
   def index
-    @articles = Blog::Article.published
+    @articles = Blog::Article.all
   end
   
   def show
-    @article = Blog::Article.published
-      .where(:id => params[:id])
+    @article = Blog::Article.where(:id => params[:id])
       .includes(:experiment)
       .includes(:ressources)
       .first

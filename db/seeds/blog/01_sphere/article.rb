@@ -7,33 +7,6 @@
     De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
   },
   :code => %q{ 
-    <%
-      def point_on_sphere n
-        n = n.to_f
-        pts = []
-
-        inc = Math::PI * (3 - Math::sqrt(5))
-        off = 2 / n
-
-        (0...n).each do |k|
-          y = k * off - 1 + (off / 2)    
-          r = Math::sqrt(1 - y**2)
-          phi = k * inc
-
-          x_phi = Math::PI/2 - Math::acos(y)
-
-          pts << [1.0, phi, x_phi]
-        end
-
-        pts
-      end
-
-      n = 150
-      r = 130
-
-      points = point_on_sphere(n)
-    %>
-     
     <%= scss %Q{
       @include keyframes(rotation){
     		from{ 
@@ -108,40 +81,6 @@
       			}
       		}
     		}
-    	}
-    	
-    	.demo-planet{
-    	  .planet{
-  		    height: 300px;
-  		    width: 300px;
-  				position: relative;
-  		    margin: 1em auto;
-  		    @include transform-style(preserve-3d);
-          @include transform(perspective(800px) rotateY(15deg));
-          background-color: rgba($black, .85);
-          
-  				.province{  
-  			    height: 14px; 
-  			    width: 14px;
-  			    background-color: $primary-color;
-            @include box-shadow(0 0 0 1px $black-shadow inset);
-            
-  			    position: absolute;
-  			    left: 50%;
-  			    top: 50%;
-  			    
-  			    #{ 
-              scss_points = Array.new
-  			      points.each_with_index do |(p, ϕ, θ), i|
-  			        scss_points << "&#province-#{ i }{
-    	            @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
-    	          }"
-  			      end
-  			      scss_points.join("
-  			      ")
-  			    }
-  			  }
-  			}
     	}
     } %>
 
@@ -325,14 +264,7 @@ end
 </div>
     <% end %>
     
-		<div class="demo-planet">
-      <div class="planet">
-        <% points.each_with_index do |_, i| %>
-          <div class="province" id="province-<%= i %>" />
-  			</div>
-	      <% end %>
-	    </div>
-		</div>
+    <%= erb @article.experiment.with_mutant_version(:article).code %>
 
     <p>
     	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations"
