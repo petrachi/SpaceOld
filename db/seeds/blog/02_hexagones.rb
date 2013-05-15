@@ -99,8 +99,8 @@ Blog::Version.create :user => @primal_user.blog_user,
   	end
   },
   :params => %q{
-    n = 58
-    width = 8
+    n = 46
+    width = 10
     
     points = point_on_sphere n
   	max_x, max_y = points.map(&:x).max, points.map(&:y).max

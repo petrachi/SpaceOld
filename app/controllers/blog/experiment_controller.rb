@@ -23,13 +23,7 @@ class Blog::ExperimentController < Blog::ApplicationController
   #### Dev zone
   if Rails.env == "development"
   
-    def secret_1
-    end
-  
-    def secret_2
-    end
-  
-    def secret_tmp
+    def tmp
     end
   
   end

@@ -1,0 +1,242 @@
+<%= container do %>
+	<%= row do %>
+		<%= three_span :element => :sidebar do %>
+			1
+		<% end %>
+
+		<%= nine_span :element => :article do %>
+		
+			<h2>Blocks</h2>
+		
+			<p>
+				Les blocks. C'est quoi les blocks dans ruby ?
+			</p>
+		
+			<p>
+				Vous utilisez probablement déjà les blocks si vous faîtes du ruby, encore plus si vous faîtes du rails, mais peut-être sans les connaître, et sans doute sans en tirer le plein potentiel.<br/>
+				Petit questionnaire pour savoir si vous avez besoin de lire la suite de l'article : 
+			</p>
+		
+			<ol>
+				<li>Vous utilisez les <i>each</i> et les <i>map</i> tous les jours</li>
+				<li>Vous comprenez ce que <i>yield</i> veut dire</li>
+				<li>Vous savez que <i>&</i> == <i>to_proc</i></li>
+				<li>Vous avez déjà écrit une fonction qui prends un argument du style <i>&block</i></li>
+			</ol>
+		
+			<p>Bien ! Maintenant qu'on n'est plus qu'entres noobs, on va pouvoir commencer à voir ce que c'est, un block.</p>
+		
+			<h3>
+				C'est quoi, et à quoi ça sert
+			</h3>
+		
+			<p>
+				Un block, c'est une fonction qui n'a pas besoin de contexte pour être définie. Comme les fonctions anonymes en javascript. btw, on les appelle parfois <i>procs</i> ou <i>lambda</i>, la différence et subtile et n'a pas besoin d'être explicitée ici.<br/> 
+				À quoi ça sert ? À passer du code en argument d'une fonction.<br/>
+				Il paraît que j'ai déjà utilisé ça dans ma vie de codeur rails sans le savoir ? Oui, le dernière fois que t'as utilisé un <i>each</i>. <br/>
+				J'utilise des blocks quand je fais un each ? Oui, on va voir ça avec un exemple.
+			</p>
+		
+			<%= coderay :lang => :ruby do %>
+	@array = [1, 2, 3, 4, 5] %>
+	@array.each do |i|
+		puts i
+	end
+			<% end %>
+		
+			<p>
+				C'est quoi l'arnaque ? Tu viens juste d'écrire le <i>each</i> le plus simple de l'histoire du monde.<br/>
+				Oui, mais j'ai passé un block en argument. La méthode <i>each</i> va en fait exécuter le code passé en paramétre pour chacune des valeurs contenues dans mon tableau.<br/>
+				Le code passé en paramètre de la fonction <i>each</i>, défini entre le <i>do</i> et le <i>end</i>, c'est ça le block.
+			</p>
+		
+			<h3>
+				Écrire ses propres fonctions à blocks
+			</h3>
+		
+			<p>
+				Bon, c'est très bien quand c'est les autres qui le font. Je comprends l'utilité des blocks dans l'utilisation, mais est-ce que je peux m'en servir pour améliorer mes propres fonctions, et est-ce que j'en ai vraiment besoin ?<br/>
+				Oui. On va entamer une série d'exemple pour répondre à ces questions absolument passionantes. Pour commencer, la fonction à block la plus simple du monde.
+			</p>
+		
+			<%= coderay :lang => :ruby do %>
+	def simple
+		p "Start of my very simple function"
+		yield
+		p "End of my very simple function"
+	end
+
+	?> simple{ p "I'm alive !" }
+	=> "Start of my very simple function"
+	"I'm alive !"
+	"End of my very simple function"
+			<% end %>
+		
+			<p>
+				Le mot clé <i>yield</i> nous permet d'indiquer à quel moment exécuter le code passé en paramètre.<br/>
+				Passons à du code un peu plus complexe maintenant, disons du niveau ... un !
+			</p>
+		
+			<%= container do %>
+	    		<%= row :nested => true do %>
+		    		<%= four_span :append => 1 do %>
+		    			<h4>Block Optionnel</h4>
+
+		    			<%= coderay :lang => :ruby do %>
+	def optional
+		p "In my optionnal block function"
+		if block_given?
+			yield
+		else
+			p "No block given, so sad :("
+		end
+	end
+
+	?> optional{ p "I'm alive" }
+	=> "In my optionnal block function"
+	"I'm alive"
+
+	?> optional
+	=> "In my optionnal block function"
+	"No block given, so sad :("
+						<% end %>
+					
+						<p>
+							La fonction <i>block_given?</i> permet de savoir si oui ou non un block à été passé en paramètre. Si un <i>yield</i> est appelé sans block, ruby renvoie l'erreur <i>LocalJumpError: no block given (yield)</i>
+						</p>
+		      		<% end %>
+
+			      	<%= four_span do %>
+			      		<h4>Block avec paramètres</h4>
+
+			      		<%= coderay :lang => :ruby do %>
+	def parameters
+		p "Here, have two random numbers."
+		yield rand(10), rand(50)
+		p "Now say thank you!"
+	end
+
+	?> parameters { |x, y| p "#{ x }, #{ y }" }
+	=> "Here, have two random numbers."
+	"8, 21"
+	"Now say thank you!"
+			   			<% end %>
+				
+						<p>
+							Le <i>yield</i> à été appelé avec deux arguments. C'est un comportement qui peut être déroutant, il faut passer les valeurs dans la fonction, sans savoir comment elles seront utilisées. C'est lors de l'appel que ce comportement sera définit.
+						</p>
+			   		<% end %>
+			   	<% end %>
+		  	<% end %>
+		
+			<h3>
+				More ! 
+			</h3>
+		
+			<p>
+				Bon d'accord, c'est vraiment très chouette et on peut déjà s'imaginer en train de réécrire la fonction <i>each</i> grâce à toutes ces nouvelles connaissances; mais j'ai l'impression que tu garde encore quequechose pour toi...<br/>
+				Oui, le c'est le <i>arity</i>. Cette fonction de la classe <i>Proc</i> permet de connaitre de nombre d'argument demandé par le block. Exemple : 
+			</p>
+	
+			<%= coderay :lang => :ruby do %>
+	def arity &block
+		p "Arity function has begun"
+		case block.arity
+		when 1 then yield "one"
+		when 2 then yield "one", "two"
+		when 3 then yield "one", "two", "three"
+		end
+		p "Arity has ended"
+	end
+
+	?> arity{}
+	=> "Arity function has begun"
+	"Arity has ended"
+
+	?> arity{ |x| p x }
+	=> "Arity function has begun"
+	"one"
+	"Arity has ended"
+
+	?> arity{ |x, y| p x, y }
+	=> "Arity function has begun"
+	"one"
+	"two"
+	"Arity has ended"
+
+	?> arity{ |x, y, z| p x, y, z }
+	=> "Arity function has begun"
+	"one"
+	"two"
+	"three"
+	"Arity has ended"
+			<% end %>
+
+			<p>
+				Ça c'est vraiment super !<br/>
+				Vous avez dû remarqué que j'ai mis un <i>&block</i> dans les arguments de la fonction. Je suis obligé car si je veux utiliser une méthode de la classe <i>Proc</i>, je doit placer l'objet dans une variable. L'esperluette (&) permet d'indiquer que l'argument sera un block, l'argument doit être placé en fin de la définition de la fonction, et enfin, une fonction ne peut prendre qu'un seul argument de type block.
+			</p>
+		
+			<h3>
+				Exemple réel
+			</h3>
+		
+			<p>
+				Voilà un itérateur, un peu inutile, que vous pourriez avoir envie de coder :
+			</p>
+		
+			<%= coderay :lang => :ruby do %>
+	class Array
+		def each_but_not_all range
+			range.each do |i|
+				yield self[i]
+			end
+		end
+	end
+
+	?> array = [1, 2, 3, 4, 5]
+	=> [1, 2, 3, 4, 5]
+
+	?> array.each_but_not_all (1..3) { |x| p x }
+	=> 2
+	3
+	4
+			<% end %>
+		
+			<p>
+				Assez cool en même temps que d'être assez nul, non ?<br/>
+				Allez, un autre exemple plus sexy pour la peine, que vous pourriez vraiment avoir envie d'ajouter à votre projet rails si ça n'avait pas déjà été fait par rails :
+			</p>
+		
+			<%= coderay :lang => :ruby do %>
+	def box_link_to link, &block
+		link_to yield, link
+	end
+			<% end %>
+		
+			<p>
+				Mais bon, on va pas s'embêtez pas à faire ça quand on sait que le link_to prends déjà un block en argument depuis la version 2.1.0 de rails - doc here - http://apidock.com/rails/v3.2.13/ActionView/Helpers/UrlHelper/link_to
+			</p>
+		
+			<h3>
+				Conclusion
+			</h3>
+		
+			<p>
+				Les blocks, c'est le bien.<br/>
+				Allez donc checker les ProTips -pas encore publiés- liés à cet article si quelques syntaxe de code vous ont échapées.
+			</p>
+		
+			<p>
+				Non sérieusement, les blocks, c'est le bien ! Utilisez-les, et pensez à eux lorsque vous écrivez des fonctions, surtout pour des itérateurs ou des templates. Inspirez-vous des fonctions déjà existantes dans ruby et dans rails comme le <i>each</i>, <i>sort</i>, <i>group_by</i>, <i>find_each</i>, les layouts, etc.<br/>
+				Les blocks vont littéralement rendre votre vie meilleure.
+			</p>
+		
+			<p>
+				On se fait des bisous, et la prochaine fois, on parlera probablement d'un article que j'ai encore à lire : "Programming from nothing", et qui utilise uniquement les blocks pour recréer tout le langage.<br/>
+				Je vous fait des bisous et on se dit à la prochaine !
+			</p>
+		
+		<% end %>
+	<% end %>
+<% end %>

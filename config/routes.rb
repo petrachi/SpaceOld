@@ -34,11 +34,15 @@ Space::Application.routes.draw do
     controller "blog/article" do
       match "/articles" => :index, :as => :articles
       match "/article/:id" => :show, :as => :article
+      
+      match "/tmp_a" => :tmp
     end
     
     controller "blog/experiment" do
       match "/experiments" => :index, :as => :experiments
       match "/experiment/:id(/v/:version_id)" => :show, :as => :experiment
+      
+      match "/tmp_e" => :tmp
     end
     
     controller "blog/ressource" do
