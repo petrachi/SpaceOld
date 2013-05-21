@@ -6,57 +6,28 @@
 
 		<%= nine_span :element => :article do %>
 		
-			<h2>Blocks</h2>
+			<h2>Blocks, Procs, Lambda. Que sait-on d'eux ?</h2>
 		
 			<p>
-				Les blocks. C'est quoi les blocks dans ruby ?
+				Ils ont des noms abrutissants : blocks, procs et lambda. Ils permettent au développeur de passer du code en paramètre d'une fonction. Ce sont une composante fondamentale du code ruby le plus évolué. Pour certains, ce sont des compagnons méconnus. Mais que savons-nous vraiment à propos des blocks, des procs, et des lambda.
 			</p>
-		
+			
+			<h3>Entrée dans l'univers</h3>
+			
 			<p>
-				Vous utilisez probablement déjà les blocks si vous faîtes du ruby, encore plus si vous faîtes du rails, mais peut-être sans les connaître, et sans doute sans en tirer le plein potentiel.<br/>
-				Petit questionnaire pour savoir si vous avez besoin de lire la suite de l'article : 
+				Block, proc et lambda sont trois noms qui désignent la même chose : un bout de code définit anonymement. C'est à dire qu'il n'est lié à aucune déclaration, dans aucun contexte.
 			</p>
-		
-			<ol>
-				<li>Vous utilisez les <i>each</i> et les <i>map</i> tous les jours</li>
-				<li>Vous comprenez ce que <i>yield</i> veut dire</li>
-				<li>Vous savez que <i>&</i> == <i>to_proc</i></li>
-				<li>Vous avez déjà écrit une fonction qui prends un argument du style <i>&block</i></li>
-			</ol>
-		
-			<p>Bien ! Maintenant qu'on n'est plus qu'entres noobs, on va pouvoir commencer à voir ce que c'est, un block.</p>
-		
-			<h3>
-				C'est quoi, et à quoi ça sert
-			</h3>
-		
+			
 			<p>
-				Un block, c'est une fonction qui n'a pas besoin de contexte pour être définie. Comme les fonctions anonymes en javascript. btw, on les appelle parfois <i>procs</i> ou <i>lambda</i>, la différence et subtile et n'a pas besoin d'être explicitée ici.<br/> 
-				À quoi ça sert ? À passer du code en argument d'une fonction.<br/>
-				Il paraît que j'ai déjà utilisé ça dans ma vie de codeur rails sans le savoir ? Oui, le dernière fois que t'as utilisé un <i>each</i>. <br/>
-				J'utilise des blocks quand je fais un each ? Oui, on va voir ça avec un exemple.
-			</p>
-		
-			<%= coderay :lang => :ruby do %>
-	@array = [1, 2, 3, 4, 5] %>
-	@array.each do |i|
-		puts i
-	end
-			<% end %>
-		
-			<p>
-				C'est quoi l'arnaque ? Tu viens juste d'écrire le <i>each</i> le plus simple de l'histoire du monde.<br/>
-				Oui, mais j'ai passé un block en argument. La méthode <i>each</i> va en fait exécuter le code passé en paramétre pour chacune des valeurs contenues dans mon tableau.<br/>
-				Le code passé en paramètre de la fonction <i>each</i>, défini entre le <i>do</i> et le <i>end</i>, c'est ça le block.
+				Les développeurs ruby et rails utilisent souvent des blocks, plusieurs fonction, comme le <i>Array#each</i> <code>Array#each</code> <%= CodeRay.scan("Array#each", :ruby).span.html_safe %> prennent un block en paramètre. Mais plus rare sont ceux qui pensent aux blocks lorsqu'il s'agit de créer leurs propres fonctions.
 			</p>
 		
 			<h3>
-				Écrire ses propres fonctions à blocks
+				Commencer avec les blocks
 			</h3>
 		
 			<p>
-				Bon, c'est très bien quand c'est les autres qui le font. Je comprends l'utilité des blocks dans l'utilisation, mais est-ce que je peux m'en servir pour améliorer mes propres fonctions, et est-ce que j'en ai vraiment besoin ?<br/>
-				Oui. On va entamer une série d'exemple pour répondre à ces questions absolument passionantes. Pour commencer, la fonction à block la plus simple du monde.
+				Voici un exemple d'une fonction simple, qui utilise un block
 			</p>
 		
 			<%= coderay :lang => :ruby do %>
@@ -73,15 +44,35 @@
 			<% end %>
 		
 			<p>
-				Le mot clé <i>yield</i> nous permet d'indiquer à quel moment exécuter le code passé en paramètre.<br/>
-				Passons à du code un peu plus complexe maintenant, disons du niveau ... un !
+				L'instruction <code>yield</code> <%= CodeRay.scan("yield", :ruby).span.html_safe %> indique à la fonction d'exécuter le code passé en paramètre, lors de l'appel.
 			</p>
+			
+			<p>
+				Notez que la syntaxe peut aussi varier, afin de bénéficier d'une déclaration plus explicite.
+			</p>
+			
+			<%= coderay :lang => :ruby do %>
+	def simple &block
+		p "Start of my very simple function"
+		block.call
+		p "End of my very simple function"
+	end
+
+	?> simple{ p "I'm alive !" }
+	=> "Start of my very simple function"
+	"I'm alive !"
+	"End of my very simple function"
+			<% end %>
+			
+			<h3>
+				Suite ... le niveau 1
+			</h3>
 		
 			<%= container do %>
 	    		<%= row :nested => true do %>
 		    		<%= four_span :append => 1 do %>
-		    			<h4>Block Optionnel</h4>
-
+		    			<h4>Block optionnel - Tu vas dessus ou je vais dessus ?</h4>
+						
 		    			<%= coderay :lang => :ruby do %>
 	def optional
 		p "In my optionnal block function"
@@ -100,14 +91,14 @@
 	=> "In my optionnal block function"
 	"No block given, so sad :("
 						<% end %>
-					
+						
 						<p>
-							La fonction <i>block_given?</i> permet de savoir si oui ou non un block à été passé en paramètre. Si un <i>yield</i> est appelé sans block, ruby renvoie l'erreur <i>LocalJumpError: no block given (yield)</i>
+							L'appel à <code>block_given?</code> permet de s'assurer de la présence d'un block à l'appel de la fonction.
 						</p>
 		      		<% end %>
 
 			      	<%= four_span do %>
-			      		<h4>Block avec paramètres</h4>
+			      		<h4>Des paramètres au block</h4>
 
 			      		<%= coderay :lang => :ruby do %>
 	def parameters
@@ -121,21 +112,20 @@
 	"8, 21"
 	"Now say thank you!"
 			   			<% end %>
-				
+						
 						<p>
-							Le <i>yield</i> à été appelé avec deux arguments. C'est un comportement qui peut être déroutant, il faut passer les valeurs dans la fonction, sans savoir comment elles seront utilisées. C'est lors de l'appel que ce comportement sera définit.
+							Je donne à l'appel de la fonction des valeurs qui seront traitées dans le block, sans savoir ce que le développeur décidera d'en faire. C'est ici que ce joue la magie d'un <code>Array#each</code> par exemple.
 						</p>
 			   		<% end %>
 			   	<% end %>
 		  	<% end %>
 		
 			<h3>
-				More ! 
+				La fin de l'apprentissage
 			</h3>
 		
 			<p>
-				Bon d'accord, c'est vraiment très chouette et on peut déjà s'imaginer en train de réécrire la fonction <i>each</i> grâce à toutes ces nouvelles connaissances; mais j'ai l'impression que tu garde encore quequechose pour toi...<br/>
-				Oui, le c'est le <i>arity</i>. Cette fonction de la classe <i>Proc</i> permet de connaitre de nombre d'argument demandé par le block. Exemple : 
+				Il ne me reste qu'une seule chose à vous dire.
 			</p>
 	
 			<%= coderay :lang => :ruby do %>
@@ -173,19 +163,25 @@
 			<% end %>
 
 			<p>
-				Ça c'est vraiment super !<br/>
-				Vous avez dû remarqué que j'ai mis un <i>&block</i> dans les arguments de la fonction. Je suis obligé car si je veux utiliser une méthode de la classe <i>Proc</i>, je doit placer l'objet dans une variable. L'esperluette (&) permet d'indiquer que l'argument sera un block, l'argument doit être placé en fin de la définition de la fonction, et enfin, une fonction ne peut prendre qu'un seul argument de type block.
+				La méthode <code>Proc#arity</code> permet de connaitre le nombre d'argument demandé lors de l'appel. Vous pourrez adapter le code de votre fonction afin de permettre différentes utilisations (utiliser un <code>Array</code> ou un <code>Hash</code> par exemple)
 			</p>
 		
 			<h3>
-				Exemple réel
+				IRL
 			</h3>
 		
 			<p>
-				Voilà un itérateur, un peu inutile, que vous pourriez avoir envie de coder :
+				Et dans la vraie vie, on s'en sert quand de blocks ? Pricipalement lorsqu'il s'agit d'itérateurs (each, map, in_groups_of), ou de templates (link_to, content_for)
 			</p>
-		
-			<%= coderay :lang => :ruby do %>
+			
+			<%= container do %>
+	    		<%= row :nested => true do %>
+		    		<%= four_span :append => 1 do %>
+						<h3>
+							Un itérateur inutile
+						</h3>
+						
+						<%= coderay :lang => :ruby do %>
 	class Array
 		def each_but_not_all range
 			range.each do |i|
@@ -201,40 +197,41 @@
 	=> 2
 	3
 	4
+						<% end %>
+					<% end %>
+					
+					<%= four_span do %>
+						<h3>
+							Une template inutile
+						</h3>
+						
+						<p>
+							<%= coderay :lang => :ruby do %>
+					def my_box_tag &block
+						"<div>" << yield << "</div>"
+					end
+							<% end %>
+						</p>
+					<% end %>
+				<% end %>
 			<% end %>
-		
-			<p>
-				Assez cool en même temps que d'être assez nul, non ?<br/>
-				Allez, un autre exemple plus sexy pour la peine, que vous pourriez vraiment avoir envie d'ajouter à votre projet rails si ça n'avait pas déjà été fait par rails :
-			</p>
-		
-			<%= coderay :lang => :ruby do %>
-	def box_link_to link, &block
-		link_to yield, link
-	end
-			<% end %>
-		
-			<p>
-				Mais bon, on va pas s'embêtez pas à faire ça quand on sait que le link_to prends déjà un block en argument depuis la version 2.1.0 de rails - doc here - http://apidock.com/rails/v3.2.13/ActionView/Helpers/UrlHelper/link_to
-			</p>
+			
 		
 			<h3>
 				Conclusion
 			</h3>
 		
 			<p>
-				Les blocks, c'est le bien.<br/>
-				Allez donc checker les ProTips -pas encore publiés- liés à cet article si quelques syntaxe de code vous ont échapées.
+				Les blocks, c'est bien. C'est surtout un bon moyen de s'amuser et de rendre du code générique (ou bien, de rendre une partie du code spécifique).
 			</p>
-		
+			
 			<p>
-				Non sérieusement, les blocks, c'est le bien ! Utilisez-les, et pensez à eux lorsque vous écrivez des fonctions, surtout pour des itérateurs ou des templates. Inspirez-vous des fonctions déjà existantes dans ruby et dans rails comme le <i>each</i>, <i>sort</i>, <i>group_by</i>, <i>find_each</i>, les layouts, etc.<br/>
-				Les blocks vont littéralement rendre votre vie meilleure.
+				Je n'ai pas parlé de la différence entre proc et lambda.
 			</p>
-		
+			
 			<p>
-				On se fait des bisous, et la prochaine fois, on parlera probablement d'un article que j'ai encore à lire : "Programming from nothing", et qui utilise uniquement les blocks pour recréer tout le langage.<br/>
-				Je vous fait des bisous et on se dit à la prochaine !
+				La prochaine fois, on parlera probablement d'un article que j'ai encore à lire : "Programming from nothing", et qui utilise uniquement les blocks pour recréer tout le langage.<br/>
+				Je vous fait des bisous !
 			</p>
 		
 		<% end %>
