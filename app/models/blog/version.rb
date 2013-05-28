@@ -57,8 +57,8 @@ class Blog::Version < ActiveRecord::Base
   def code
     %Q{
       <%
-        #{ ruby }
         #{ params }
+        #{ ruby }
       %>
       
       <%= scss %Q{#{ scss }} %>

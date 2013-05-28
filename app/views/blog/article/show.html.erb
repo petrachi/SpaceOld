@@ -1,7 +1,7 @@
 <%= container do %>
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
-			<h3><%=t 'blog.experiment.name' %></h3>
+			<h3><%=t :'blog.experiment.name' %></h3>
 			
 			<p>
 				<% [@article.experiment.with_primal_version].each do |experiment| %><%= 
@@ -9,12 +9,18 @@
 				%><% end %>
 			</p>
 			
-			<h3><%=t 'blog.ressource.name' %></h3>
+			<h3><%=t :'blog.ressource.name' %></h3>
 			
 			<p>
 				<% @article.ressources.each	do |ressource| %><%= 
 					link_to ressource.title, ressource.link, :target => :_blank, :class => :btn 
 				%><% end %>
+			</p>
+			
+			<h3><%=t :'blog.article.pool' %></h3>
+			
+			<p>
+				<%= link_to @article.pool, @article.pool_url, :class => :btn %>
 			</p>
 		<% end %>
 		

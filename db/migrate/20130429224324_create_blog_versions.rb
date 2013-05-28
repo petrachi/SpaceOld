@@ -3,7 +3,6 @@ class CreateBlogVersions < ActiveRecord::Migration
     create_table :blog_versions do |t|
       t.references :user
       t.references :experiment
-      t.references :primal
       
       t.text :params
       t.text :ruby
@@ -11,6 +10,7 @@ class CreateBlogVersions < ActiveRecord::Migration
       t.text :erb
       t.text :js
       
+      t.references :primal
       t.string :mutation
       
       t.boolean :published, :default => false

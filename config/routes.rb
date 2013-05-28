@@ -32,7 +32,7 @@ Space::Application.routes.draw do
     match "/install" => "blog/user#install", :as => "install"
     
     controller "blog/article" do
-      match "/articles" => :index, :as => :articles
+      match "/articles(/p/:pool)" => :index, :as => :articles
       match "/article/:id" => :show, :as => :article
       
       match "/tmp_a" => :tmp

@@ -5,7 +5,11 @@ class Blog::ArticleController < Blog::ApplicationController
   end
   
   def index
-    @articles = Blog::Article.all
+    if params[:pool]
+      @articles = Blog::Article.pool params[:pool]
+    else
+      @articles = Blog::Article.all
+    end
   end
   
   def show
@@ -15,7 +19,9 @@ class Blog::ArticleController < Blog::ApplicationController
       .first
   end
   
-  
+  def pool
+    @articles = Blog::Article.pool params[:pool]
+  end
   
   
   #### Dev zone

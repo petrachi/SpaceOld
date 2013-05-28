@@ -6,7 +6,8 @@ fr:
         article:
             name: "Articles"
             summary: "Laissez vous entrainer par de fantastiques aventures techniques en tous genres !"
-        
+            pool: "Catégorie"
+            
         experiment:
             name: "Expérimentations"
             summary: "Le petit chimiste appliqué aux technologies web. Attention, la compagnie ne pourra pas être tenue responsable des graves sévices auquels vous vous exposez."

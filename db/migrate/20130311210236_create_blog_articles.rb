@@ -7,6 +7,7 @@ class CreateBlogArticles < ActiveRecord::Migration
       t.text :summary
       t.text :code
       
+      t.string :pool
       t.boolean :published, :default => false
       
       t.timestamps

@@ -5,6 +5,10 @@ class Blog::RessourceController < Blog::ApplicationController
   end
   
   def index
-    @ressources = Blog::Ressource.primal
+    if params[:pool]
+      @ressources = Blog::Ressource.pool params[:pool]
+    else
+      @ressources = Blog::Ressource.primal
+    end
   end
 end

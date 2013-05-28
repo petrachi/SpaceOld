@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
     t.string   "title"
     t.text     "summary"
     t.text     "code"
+    t.string   "pool"
     t.boolean  "published",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
@@ -65,12 +66,12 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   create_table "blog_versions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "experiment_id"
-    t.integer  "primal_id"
     t.text     "params"
     t.text     "ruby"
     t.text     "scss"
     t.text     "erb"
     t.text     "js"
+    t.integer  "primal_id"
     t.string   "mutation"
     t.boolean  "published",     :default => false
     t.datetime "created_at",                       :null => false

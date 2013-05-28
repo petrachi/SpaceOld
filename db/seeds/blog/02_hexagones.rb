@@ -10,6 +10,10 @@
 
 Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @hexagones_experiment,
+  :params => %q{
+    n = 46
+    width = 10
+  },
   :ruby => %q{
     def point_on_sphere n
   		points = Array.new
@@ -97,12 +101,8 @@ Blog::Version.create :user => @primal_user.blog_user,
 	      ctx.stroke();
 	    }
   	end
-  },
-  :params => %q{
-    n = 46
-    width = 10
-    
-    points = point_on_sphere n
+  	
+  	points = point_on_sphere n
   	max_x, max_y = points.map(&:x).max, points.map(&:y).max
   },
   :scss => %q{

@@ -287,6 +287,7 @@ end
       D'ailleur, 'transform' n'est pas mon premier amour. J'avais déjà réalisé le même exercice en utilisant SVG, mais ça, c'est une autre histoire ... toire ... toire ...
     </p>
   },
+  :pool => :experiment,
   :published => true
 
 
@@ -301,6 +302,11 @@ end
 
 @sphere_version = Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @sphere_experiment,
+  :params => %q{
+    n = 789
+    r = 230
+    h = 8
+  },
   :ruby => %q{
     def point_on_sphere n
 	    n = n.to_f
@@ -321,11 +327,8 @@ end
 
 	    pts
 	  end
-  },
-  :params => %q{
-    n = 789
-    r = 230
-    h = 10
+	  
+	  points = point_on_sphere(n)
   },
   :scss => %q{
     @include keyframes(planet-rotation){
@@ -362,8 +365,18 @@ end
 				  width: #{ h }px;
 
           background-color: $primary-color;
-			    box-shadow: 0 0 0 #{ (h/2) - 1 }px rgba(0, 0, 0, .6) inset;
 			    @include border-radius(50%);
+			    
+			    #{
+			      points.each_with_index.map do |(p, ϕ, θ), i|
+			        %Q{
+			          &#province-#{ i }{
+                  @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
+    	          }
+			        } 
+			      end.join "
+			      "
+			    }
 			  }
 			}
 		}
@@ -371,9 +384,8 @@ end
   :erb => %q{
     <div class="planet-container">
       <div class="planet">
-        <% point_on_sphere(n).each do |(p, ϕ, θ)| %>
-          <div class="province"
-            style="-webkit-transform: rotateY(<%= ϕ %>rad) rotateX(<%= θ %>rad) translateZ(<%= p * r %>px);" />
+        <% points.each_index do |i| %>
+          <div class="province" id="province-<%= i %>">
           </div>
         <% end %>
       </div>
@@ -388,7 +400,7 @@ Blog::Version.create :user => @primal_user.blog_user,
   :params => %q{
     n = 389
     r = 132
-    h = 6
+    h = 4
   },
   :scss => %q{
 		.planet-container{
@@ -415,7 +427,17 @@ Blog::Version.create :user => @primal_user.blog_user,
 				  width: #{ h }px;
 
           background-color: $primary-color;
-			    box-shadow: 0 0 0 1px rgba(0, 0, 0, .6) inset;
+          
+          #{
+			      points.each_with_index.map do |(p, ϕ, θ), i|
+			        %Q{
+			          &#province-#{ i }{
+                  @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
+    	          }
+			        } 
+			      end.join "
+			      "
+			    }
 			  }
 			}
 		}

@@ -14,6 +14,8 @@ class Blog::Experiment < ActiveRecord::Base
   delegate :code, to: :version
   
   scope :published, where(:published => true)
+  default_scope published
+  
   scope :with_version, ->(version) do
     includes(:versions).where(:blog_versions => {:id => version})
   end
@@ -42,6 +44,6 @@ class Blog::Experiment < ActiveRecord::Base
   end
   
   def to_url
-    URL.experiment_path self, self.version
+    URL.experiment_path self, :version_id => self.version
   end
 end

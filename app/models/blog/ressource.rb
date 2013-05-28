@@ -5,7 +5,10 @@ class Blog::Ressource < ActiveRecord::Base
   belongs_to :article
   
   scope :published, where(:published => true)
+  default_scope published
+  
   scope :primal, where(:primal => true)
+  scope :pool, ->(pool){ where(:pool => pool) }
   
   validates_presence_of :user_id, :title, :summary, :link, :pool
   validates_uniqueness_of :title, :link
@@ -13,5 +16,9 @@ class Blog::Ressource < ActiveRecord::Base
   
   def self.to_url
     URL.ressources_path
+  end
+  
+  def pool_url
+    URL.ressources_path :pool => pool
   end
 end
