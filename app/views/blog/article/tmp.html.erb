@@ -6,24 +6,24 @@
 
 		<%= nine_span :element => :article do %>
 		
-			<h2>Blocks, Procs, Lambda. Que sait-on d'eux ?</h2>
-		
+			<h2>Blocks</h2>
+			
+			<p>summary : <i>En ruby, les blocks permettent de définir un bout de code sans contexte, une fonction anonyme. Le dévellopeur rails en utilise fréquement dans des fonctions comme le 'each'. Nous allons voir comment les utiliser en paramètres de nos propres fonctions</i></p>
+			
 			<p>
-				Ils ont des noms abrutissants : blocks, procs et lambda. Ils permettent au développeur de passer du code en paramètre d'une fonction. Ce sont une composante fondamentale du code ruby le plus évolué. Pour certains, ce sont des compagnons méconnus. Mais que savons-nous vraiment à propos des blocks, des procs, et des lambda.
+				Un block (ou proc, ou lambda) c'est un bout de code, une fonction sans définition. Ils peuvent être utilisés pour passer du code en argument d'une fonction, et nous allons découvrir comment.
 			</p>
 			
-			<h3>Entrée dans l'univers</h3>
+			<h3>
+				Les blocks comme on les connait
+			</h3>
 			
 			<p>
-				Block, proc et lambda sont trois noms qui désignent la même chose : un bout de code définit anonymement. C'est à dire qu'il n'est lié à aucune déclaration, dans aucun contexte.
-			</p>
-			
-			<p>
-				Les développeurs ruby et rails utilisent souvent des blocks, plusieurs fonction, comme le <i>Array#each</i> <code>Array#each</code> <%= CodeRay.scan("Array#each", :ruby).span.html_safe %> prennent un block en paramètre. Mais plus rare sont ceux qui pensent aux blocks lorsqu'il s'agit de créer leurs propres fonctions.
+				Seul un NulDeveloppeur en ruby/rails ne connaitrait pas les blocks, beaucoup de fonctions utilisent des blocks, <i>Array#each</i> pour n'en citer qu'une. Les blocks, c'est ce bout de code définit entre deux accolade à l'appel d'une fonction (note : les accolades peuvent aussi être troqués contre un do..end).
 			</p>
 		
 			<h3>
-				Commencer avec les blocks
+				Écrire une fonction avec un block
 			</h3>
 		
 			<p>
@@ -48,7 +48,7 @@
 			</p>
 			
 			<p>
-				Notez que la syntaxe peut aussi varier, afin de bénéficier d'une déclaration plus explicite.
+				Notez que la syntaxe peut être plus explicite.
 			</p>
 			
 			<%= coderay :lang => :ruby do %>
@@ -65,13 +65,13 @@
 			<% end %>
 			
 			<h3>
-				Suite ... le niveau 1
+				Suite ... Développement de niveau 1
 			</h3>
 		
 			<%= container do %>
 	    		<%= row :nested => true do %>
 		    		<%= four_span :append => 1 do %>
-		    			<h4>Block optionnel - Tu vas dessus ou je vais dessus ?</h4>
+		    			<h4>Block optionnel - Tu fais quelque chose ou c'est moi !</h4>
 						
 		    			<%= coderay :lang => :ruby do %>
 	def optional
@@ -93,7 +93,7 @@
 						<% end %>
 						
 						<p>
-							L'appel à <code>block_given?</code> permet de s'assurer de la présence d'un block à l'appel de la fonction.
+							L'appel à <code>block_given?</code> permet de savoir si un block à été passé en paramètre à l'appel de la fonction.
 						</p>
 		      		<% end %>
 
@@ -121,12 +121,8 @@
 		  	<% end %>
 		
 			<h3>
-				La fin de l'apprentissage
+				Boss de fin
 			</h3>
-		
-			<p>
-				Il ne me reste qu'une seule chose à vous dire.
-			</p>
 	
 			<%= coderay :lang => :ruby do %>
 	def arity &block
@@ -171,7 +167,7 @@
 			</h3>
 		
 			<p>
-				Et dans la vraie vie, on s'en sert quand de blocks ? Pricipalement lorsqu'il s'agit d'itérateurs (each, map, in_groups_of), ou de templates (link_to, content_for)
+				Et dans la vraie vie ? On utilise les blocks souvent lorsqu'il s'agit de fonction d'itération (Array#each) ou de templating (link_to, content_tag)
 			</p>
 			
 			<%= container do %>
@@ -222,18 +218,69 @@
 			</h3>
 		
 			<p>
-				Les blocks, c'est bien. C'est surtout un bon moyen de s'amuser et de rendre du code générique (ou bien, de rendre une partie du code spécifique).
+				Les blocks peuvent être très utile lorsque vous cherchez à rendre votre code plus modulable, à condition de penser à les utiliser ;)
 			</p>
 			
 			<p>
-				Je n'ai pas parlé de la différence entre proc et lambda.
+				Bisous les copains !
+			</p>
+			
+			
+			<hr/>
+			
+			<h2>Positionnement relatif d'un sprite</h2>
+			
+			<p>summary : <i>Le positionnement dans un sprite (cette technique CSS qui permet de condenser toutes ses images dans un seul fichier)</i> est souvent exprimé en 'px', mais nous pouvons améliorer la flexibilité des sprites en utilisant un positionnement en '%'</p>
+			
+			<p>
+				Prérequis pour une lecture sereine : connaitre Sass, Compass et la technique des sprites.
+			</p>
+			for me : mettre sass et compass en 'ressources'
+			<p>
+				Sass, allié avec Compass permettent facilement de créer et d'utiliser les sprites dans votre appli web, mais, avec l'émergence des icon-font (RTFMN - ici lien vers font-awesome), la rigidité du modéle des sprites me dérange.
 			</p>
 			
 			<p>
-				La prochaine fois, on parlera probablement d'un article que j'ai encore à lire : "Programming from nothing", et qui utilise uniquement les blocks pour recréer tout le langage.<br/>
-				Je vous fait des bisous !
+				Nous ne pouvons pas agir simplement sur les propriétés des texte, via le CSS, d'une image géré en sprite, à l'inverse de ce que permet une icon-font. Mais je vous propose une technique qui permettra de se débarrasser de la contrainte de taille des images d'un sprite.
 			</p>
-		
+			
+			<h3>
+				Création d'un sprite
+			</h3>
+			
+			<p>
+				Je vous laisse lire la doc (mettre lien vers doc sprite de compass) mais voici le code le plus simple qui permet de créer un sprite avec Compass
+			</p>
+			
+			for me : mettre code sprite simple
+			
+			
+			for me : mettre code css pour une image dans le sprite
+			
+			
+			<p>
+				Le code CSS généré utilise des valeurs en pixels pour le positionnement et la taille du background. Ce qui pose de légers problémes si je m'aventure à changer les propri!tés de taille de l'émément. (for me : link to expériment '4 tailles de sprite' en mode 'px')
+			</p>
+			
+			<h3>
+				Repositionnement relatif
+			</h3>
+			
+			<p>
+				Imaginons que le positionnement soit exprimé en '%', et que la largeur du sprite soit égale à 100% de la largeur de l'élément, alors, à condition de respecter les proportions, nous serions en mesure d'imposer n'importe quelle taille à nos images spritées.
+			</p>
+			
+			<p>
+				Attention ! Pour pouvoir utiliser cette technique sans risques, il faut que la taille (hauteur et largeur) des images du sprite soient identiques !
+			</p>
+			
+			
+			
+			la suite : mixin re-positionnement sprite
+			apparté : extend ruby d'une fonction sass
+			suite : fin du mixin repo
+			démo : experiment working
+			conclusion
 		<% end %>
 	<% end %>
 <% end %>

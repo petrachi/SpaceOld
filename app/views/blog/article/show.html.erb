@@ -4,7 +4,7 @@
 			<h3><%=t :'blog.experiment.name' %></h3>
 			
 			<p>
-				<% [@article.experiment.with_primal_version].each do |experiment| %><%= 
+				<% ([@article.experiment.with_primal_version] rescue []).each do |experiment| %><%= 
 					link_to experiment.title, experiment.to_url, :class => :btn 
 				%><% end %>
 			</p>

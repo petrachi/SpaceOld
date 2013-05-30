@@ -13,7 +13,7 @@ class Blog::Article < ActiveRecord::Base
   
   validates_presence_of :user_id, :title, :summary, :code, :pool
   validates_uniqueness_of :title
-  validates_inclusion_of :pool, :in => [:experiment]
+  validates_inclusion_of :pool, :in => [:experiment, :ruby]
   
   def self.to_url
     URL.articles_path
