@@ -15,7 +15,7 @@ module ErbHelper
   require 'sass'
   require 'sass/plugin'
   def scss code
-    content_tag :style, Sass::Engine.new(
+    to_css = raw Sass::Engine.new(
       %Q{
         @import "variables";
         @import "variables/#{ instance_variable_get(:@application) }";
@@ -29,6 +29,8 @@ module ErbHelper
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")
       ]
-    ).render, :type => :'text/css'
+    ).render
+    
+    content_tag :style, to_css, :type => :'text/css'
   end
 end
