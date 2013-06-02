@@ -6,228 +6,6 @@
 
 		<%= nine_span :element => :article do %>
 		
-			<h2>Blocks</h2>
-			
-			<p>summary : <i>En ruby, les blocks permettent de définir un bout de code sans contexte, une fonction anonyme. Le dévellopeur rails en utilise fréquement dans des fonctions comme le 'each'. Nous allons voir comment les utiliser en paramètres de nos propres fonctions</i></p>
-			
-			<p>
-				Un block (ou proc, ou lambda) c'est un bout de code, une fonction sans définition. Ils peuvent être utilisés pour passer du code en argument d'une fonction, et nous allons découvrir comment.
-			</p>
-			
-			<h3>
-				Les blocks comme on les connait
-			</h3>
-			
-			<p>
-				Seul un NulDeveloppeur en ruby/rails ne connaitrait pas les blocks, beaucoup de fonctions utilisent des blocks, <i>Array#each</i> pour n'en citer qu'une. Les blocks, c'est ce bout de code définit entre deux accolade à l'appel d'une fonction (note : les accolades peuvent aussi être troqués contre un do..end).
-			</p>
-		
-			<h3>
-				Écrire une fonction avec un block
-			</h3>
-		
-			<p>
-				Voici un exemple d'une fonction simple, qui utilise un block
-			</p>
-		
-			<%= coderay :lang => :ruby do %>
-	def simple
-		p "Start of my very simple function"
-		yield
-		p "End of my very simple function"
-	end
-
-	?> simple{ p "I'm alive !" }
-	=> "Start of my very simple function"
-	"I'm alive !"
-	"End of my very simple function"
-			<% end %>
-		
-			<p>
-				L'instruction <code>yield</code> <%= CodeRay.scan("yield", :ruby).span.html_safe %> indique à la fonction d'exécuter le code passé en paramètre, lors de l'appel.
-			</p>
-			
-			<p>
-				Notez que la syntaxe peut être plus explicite.
-			</p>
-			
-			<%= coderay :lang => :ruby do %>
-	def simple &block
-		p "Start of my very simple function"
-		block.call
-		p "End of my very simple function"
-	end
-
-	?> simple{ p "I'm alive !" }
-	=> "Start of my very simple function"
-	"I'm alive !"
-	"End of my very simple function"
-			<% end %>
-			
-			<h3>
-				Suite ... Développement de niveau 1
-			</h3>
-		
-			<%= container do %>
-	    		<%= row :nested => true do %>
-		    		<%= four_span :append => 1 do %>
-		    			<h4>Block optionnel - Tu fais quelque chose ou c'est moi !</h4>
-						
-		    			<%= coderay :lang => :ruby do %>
-	def optional
-		p "In my optionnal block function"
-		if block_given?
-			yield
-		else
-			p "No block given, so sad :("
-		end
-	end
-
-	?> optional{ p "I'm alive" }
-	=> "In my optionnal block function"
-	"I'm alive"
-
-	?> optional
-	=> "In my optionnal block function"
-	"No block given, so sad :("
-						<% end %>
-						
-						<p>
-							L'appel à <code>block_given?</code> permet de savoir si un block à été passé en paramètre à l'appel de la fonction.
-						</p>
-		      		<% end %>
-
-			      	<%= four_span do %>
-			      		<h4>Des paramètres au block</h4>
-
-			      		<%= coderay :lang => :ruby do %>
-	def parameters
-		p "Here, have two random numbers."
-		yield rand(10), rand(50)
-		p "Now say thank you!"
-	end
-
-	?> parameters { |x, y| p "#{ x }, #{ y }" }
-	=> "Here, have two random numbers."
-	"8, 21"
-	"Now say thank you!"
-			   			<% end %>
-						
-						<p>
-							Je donne à l'appel de la fonction des valeurs qui seront traitées dans le block, sans savoir ce que le développeur décidera d'en faire. C'est ici que ce joue la magie d'un <code>Array#each</code> par exemple.
-						</p>
-			   		<% end %>
-			   	<% end %>
-		  	<% end %>
-		
-			<h3>
-				Boss de fin
-			</h3>
-	
-			<%= coderay :lang => :ruby do %>
-	def arity &block
-		p "Arity function has begun"
-		case block.arity
-		when 1 then yield "one"
-		when 2 then yield "one", "two"
-		when 3 then yield "one", "two", "three"
-		end
-		p "Arity has ended"
-	end
-
-	?> arity{}
-	=> "Arity function has begun"
-	"Arity has ended"
-
-	?> arity{ |x| p x }
-	=> "Arity function has begun"
-	"one"
-	"Arity has ended"
-
-	?> arity{ |x, y| p x, y }
-	=> "Arity function has begun"
-	"one"
-	"two"
-	"Arity has ended"
-
-	?> arity{ |x, y, z| p x, y, z }
-	=> "Arity function has begun"
-	"one"
-	"two"
-	"three"
-	"Arity has ended"
-			<% end %>
-
-			<p>
-				La méthode <code>Proc#arity</code> permet de connaitre le nombre d'argument demandé lors de l'appel. Vous pourrez adapter le code de votre fonction afin de permettre différentes utilisations (utiliser un <code>Array</code> ou un <code>Hash</code> par exemple)
-			</p>
-		
-			<h3>
-				IRL
-			</h3>
-		
-			<p>
-				Et dans la vraie vie ? On utilise les blocks souvent lorsqu'il s'agit de fonction d'itération (Array#each) ou de templating (link_to, content_tag)
-			</p>
-			
-			<%= container do %>
-	    		<%= row :nested => true do %>
-		    		<%= four_span :append => 1 do %>
-						<h3>
-							Un itérateur inutile
-						</h3>
-						
-						<%= coderay :lang => :ruby do %>
-	class Array
-		def each_but_not_all range
-			range.each do |i|
-				yield self[i]
-			end
-		end
-	end
-
-	?> array = [1, 2, 3, 4, 5]
-	=> [1, 2, 3, 4, 5]
-
-	?> array.each_but_not_all (1..3) { |x| p x }
-	=> 2
-	3
-	4
-						<% end %>
-					<% end %>
-					
-					<%= four_span do %>
-						<h3>
-							Une template inutile
-						</h3>
-						
-						<p>
-							<%= coderay :lang => :ruby do %>
-					def my_box_tag &block
-						"<div>" << yield << "</div>"
-					end
-							<% end %>
-						</p>
-					<% end %>
-				<% end %>
-			<% end %>
-			
-		
-			<h3>
-				Conclusion
-			</h3>
-		
-			<p>
-				Les blocks peuvent être très utile lorsque vous cherchez à rendre votre code plus modulable, à condition de penser à les utiliser ;)
-			</p>
-			
-			<p>
-				Bisous les copains !
-			</p>
-			
-			
-			<hr/>
-			
 			<h2>Positionnement relatif d'un sprite</h2>
 			
 			<p>summary : <i>Le positionnement dans un sprite (cette technique CSS qui permet de condenser toutes ses images dans un seul fichier)</i> est souvent exprimé en 'px', mais nous pouvons améliorer la flexibilité des sprites en utilisant un positionnement en '%'</p>
@@ -268,19 +46,248 @@
 			
 			<p>
 				Imaginons que le positionnement soit exprimé en '%', et que la largeur du sprite soit égale à 100% de la largeur de l'élément, alors, à condition de respecter les proportions, nous serions en mesure d'imposer n'importe quelle taille à nos images spritées.
-			</p>
+			</p>sur le sprite ci
 			
 			<p>
 				Attention ! Pour pouvoir utiliser cette technique sans risques, il faut que la taille (hauteur et largeur) des images du sprite soient identiques !
 			</p>
 			
+			for me : mettre code du mixin
+			
+			<p>
+				Et voilà ! Ce mixin fait maison va recalculer les positions de chaque image et les exprimer en '%'. Mais si vous êtes fins observateurs, vous verrez que les calculs sont fait dans la méthode 'x', qui nous donne l'occasion d'un petit aparté.
+			</p>
+			
+			<h3>
+				Du ruby dans Sass
+			</h3>
+			
+			<p>
+				Il est relativement simple d'étendre Sass avec ses propres fonctions, une fois qu'on sait où écrire le code et compris les structures de données à retourner.
+			</p>
+			
+			for me : mettre code d'extend
+			
+			<p>
+				Voilà, l'intérieur est en ruby, l'appel est dans Sass, le retour se fait dans Sass. Ce bout de code est sorti d'un fichier "x", dans le dossier "lib" à la racine de mon app rails. Et j'avoue que je suis bien plus à l'aise pour manipuler des données en ruby qu'en Sass.
+			</p>
+			
+			<h3>
+				Du nain au géant, mon srite est infini !
+			</h3>
+			
+			<p>
+				La magie opère sur le sprite en démo juste en dessous. Grâce à une petite boucle afin de définir un set de tailles personnalisées, j'affiche mes icônes dans toute les tailles aussi facilement qu'avec une icon-font !
+			</p>
+			
+			for me : code boucle taille prédéfinies (+ mixin je crois)
+			
+			for me : demo sprite %
+			
+			<h3>
+				Conclusion
+			</h3>
+			
+			<p>
+				J'adore re-positionner mes sprite en '%', afin de gagner en flexibilité et en maintenabilité (1 seul fichier de sprite à gérer). L'inconvénient c'est que les utilisateurs doivent toujours télécharger l'image en taille maximale, et qu'il est généralement déconseillé de retailler ses images via du CSS (questions de performances surtout).
+			</p>
+			
+			<p>
+				Voilà, j'espère que vous vous êtes bien amusé (et aussi que ça vous servira un peu), et je vous fais des bisous !
+			</p>
 			
 			
-			la suite : mixin re-positionnement sprite
-			apparté : extend ruby d'une fonction sass
-			suite : fin du mixin repo
-			démo : experiment working
-			conclusion
+			
+			---
+			
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			
+			<% Object.class_eval %q{
+				module Sass::Script::Functions
+				
+				
+						remove_method :custom_percentage if defined? custom_percentage
+
+				def custom_percentage(value, total)
+				    value = value.to_i
+				    total = total.to_i
+
+				    percentage = value * 100.0 / total
+
+				    Sass::Script::String.new("#{ percentage }%")
+				  end
+				  declare :int, :args => [:string]
+				end
+
+			}	
+			%>
+			
+			<%= scss %q{
+				
+				$sc-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png");
+				.sc-icon-sprite{
+				    background-image: inline-sprite($sc-icon-sprites);
+				}
+				@include sprites($sc-icon-sprites, protoss terran zerg);
+				@each $sprite in sprite_names($sc-icon-sprites) {
+					.sc-icon-#{$sprite}{
+						@extend .sc-icon-sprite;
+						
+						display: inline-block;
+						width: image-width(sprite_file($sc-icon-sprites, $sprite));
+						height: image-height(sprite_file($sc-icon-sprites, $sprite));
+						
+						
+					}
+				}
+				
+				/*
+				équivaut à ça : 
+				
+				$v-icon-sprite-dimensions: true;
+				
+				@import "v-icon/*.png";
+				@include all-v-icon-sprites;
+				
+				
+				*/
+				
+				
+				
+				
+				
+				/* start first mixin resize */
+				@mixin resize-sprite($width) {
+
+					width: $width;
+					height: $width;
+					
+					box-shadow: inset 0 0 $width/2 black;
+				}
+				
+				@each $sprite in sprite_names($sc-icon-sprites) {
+
+					.sc-icon-#{$sprite}{
+						@include resize-sprite(66px);
+					}
+
+					.sc-icon-#{$sprite}.icon-x2{
+						@include resize-sprite(132px);
+					}
+
+
+					.sc-icon-#{$sprite}.icon-x3{
+						@include resize-sprite(198px);
+					}
+
+
+					.sc-icon-#{$sprite}.icon-x4{
+						@include resize-sprite(264px);
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				/*
+				mixin reposition
+				*/
+				
+				
+
+				@mixin sprite-reposition-percent($map, $space-between){
+					$mapHeight: image-height(sprite-path($map)) - $space-between;
+
+					@each $sprite in sprite_names($map) {
+						$spriteHeight: nth(sprite-position($map, $sprite), 2);
+						$spriteHeight: -$spriteHeight;
+
+						.#{sprite_map_name($map)}-#{$sprite}{
+							background-size: 100%;
+							background-position: 50% custom_percentage($spriteHeight, $mapHeight);
+
+							display: inline-block;
+						}
+
+
+					}
+				}
+
+				@include sprite-reposition-percent($sc-icon-sprites, 240px);
+				
+				
+				
+				
+				
+				
+				/* for experiment */
+				#sc-demo{
+					line-height: 0;
+					
+					.row{
+						width: 864px;
+					}
+				}
+			} %>
+			
+			
+			
+			<i class="sc-icon-protoss icon-x3"></i>
+			
+			<i class="sc-icon-terran"></i>
+			
+			<i class="sc-icon-zerg"></i>
+			
+			<br/><br/>
+			
+			<i class="sc-icon-zerg"></i>
+			
+			<i class="sc-icon-zerg icon-x2"></i>
+			
+			<i class="sc-icon-zerg icon-x3"></i>
+			
+			<i class="sc-icon-zerg icon-x4"></i>
+			
+			<br/><br/>
+			
+			
+			
+			
+			
+			<br/><br/>
+			
+			
+			
+			
+			
 		<% end %>
+	<% end %>
+<% end %>
+
+
+<%= container :id => :'sc-demo' do %>
+	<%= row do %>
+	
+		<%= three_span do %>
+			<%= raw '<i class="sc-icon-zerg"></i>' * 16 %>
+		<% end %>
+		
+		<%= three_span do %>
+			<i class="sc-icon-protoss icon-x4"></i>
+		<% end %>
+		
+		<%= three_span do %>
+			<%= raw '<i class="sc-icon-terran icon-x2"></i>' * 4 %>
+		<% end %>
+	
 	<% end %>
 <% end %>

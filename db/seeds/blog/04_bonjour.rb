@@ -4,7 +4,7 @@
 @bonjour_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
   :title => "Bonjour",
   :summary => %q{
-    Parceque écrire "bonjour" c'est stylé ! ... Et que j'aime bien écrire "bonjour" de toute façon ! 
+    Parceque écrire "bonjour" c'est stylé ! ... Et que j'aime bien écrire "bonjour" de toute façon ! (full HTML/CSS)
   },
   :published => true
 
