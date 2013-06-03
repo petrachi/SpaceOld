@@ -25,7 +25,6 @@ module ErbHelper
       } + code, 
       :syntax => :scss,
       :load_paths => [
-        File.join(Rails.root, "app/assets"),
         File.join(Rails.root, "lib/assets/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")

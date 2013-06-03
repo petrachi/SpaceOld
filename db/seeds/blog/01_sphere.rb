@@ -264,7 +264,7 @@ end
 </div>
     <% end %>
     
-    <%= erb @article.experiment.with_mutant_version(:article).code %>
+    <%= erb @article.experiment.with_mutant_version(:mini).code %>
 
     <p>
     	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations"
@@ -442,7 +442,7 @@ Blog::Version.create :user => @primal_user.blog_user,
 			}
 		}
   },
-  :mutation => :article,
+  :mutation => :mini,
   :published => true
 
 
