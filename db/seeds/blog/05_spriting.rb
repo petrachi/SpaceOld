@@ -175,7 +175,7 @@ end
     Un sprite pour toutes les tailles.
   },
   :article => @spriting_article,
-  :published => false#true
+  :published => true
 
 @spriting_version = Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @spriting_experiment,
@@ -295,7 +295,7 @@ end
     <% end %>
   },
   :js => "// No JS",
-  :published => false#true
+  :published => true
 
 Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @spriting_experiment,

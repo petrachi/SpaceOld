@@ -45,6 +45,8 @@ class Blog::Version < ActiveRecord::Base
 
 
   scope :published, where(:published => true)
+  default_scope published
+  
   scope :by_experiment, ->(experiment) do 
     where(:experiment_id => experiment)
   end
