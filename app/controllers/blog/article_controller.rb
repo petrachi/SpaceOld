@@ -25,13 +25,13 @@ class Blog::ArticleController < Blog::ApplicationController
   
   
   #### Dev zone
-  if Rails.env == "development"
+  #if Rails.env == "development"
   
     def tmp
     end
   
   
   
-  end
+  #end
   ####
 end

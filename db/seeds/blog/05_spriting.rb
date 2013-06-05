@@ -209,7 +209,7 @@ end
 		@include sprites($sc-icon-sprites, protoss terran zerg);
 		
 		@each $sprite in sprite_names($sc-icon-sprites) {
-			.sc-icon-\#{$sprite}{
+			.sc-icon-#{$sprite}{
 				@extend .sc-icon-sprite;
 				
 				display: inline-block;
@@ -225,7 +225,7 @@ end
 				$spriteHeight: nth(sprite-position($map, $sprite), 2);
 				$spriteHeight: -$spriteHeight;
         
-				.\#{sprite_map_name($map)}-\#{$sprite}{
+				.#{sprite_map_name($map)}-#{$sprite}{
 					background-size: 100%;
 					background-position: 50% custom_percentage($spriteHeight, $mapHeight);
           
@@ -244,19 +244,19 @@ end
 		}
 			
 		@each $sprite in sprite_names($sc-icon-sprites) {
-		  .sc-icon-\#{$sprite}{
+		  .sc-icon-#{$sprite}{
 				@include resize-sprite(66px);
 			}
       
-			.sc-icon-\#{$sprite}.icon-x2{
+			.sc-icon-#{$sprite}.icon-x2{
 				@include resize-sprite(132px);
 			}
       
-    	.sc-icon-\#{$sprite}.icon-x3{
+    	.sc-icon-#{$sprite}.icon-x3{
 				@include resize-sprite(198px);
 			}
       
-			.sc-icon-\#{$sprite}.icon-x4{
+			.sc-icon-#{$sprite}.icon-x4{
 				@include resize-sprite(264px);
 			}
 		}

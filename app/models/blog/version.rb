@@ -55,7 +55,6 @@ class Blog::Version < ActiveRecord::Base
   validates_uniqueness_of :mutation, :scope => :experiment_id
   
   
-  
   def code
     %Q{
       <%
@@ -63,7 +62,7 @@ class Blog::Version < ActiveRecord::Base
         #{ ruby }
       %>
       
-      <%= scss %Q{#{ scss }} %>
+      <%= scss %q{#{ scss }} %>
       
       #{ erb }
       
