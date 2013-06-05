@@ -62,7 +62,7 @@ class Blog::Version < ActiveRecord::Base
         #{ ruby }
       %>
       
-      <%= scss %q{#{ scss }} %>
+      <%= scss %Q{#{ scss }} %>
       
       #{ erb }
       
