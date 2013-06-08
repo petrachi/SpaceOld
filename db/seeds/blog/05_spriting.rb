@@ -166,7 +166,7 @@ end
 		</p>
   },
   :pool => :css,
-  :published => false#true
+  :published => true
 
 
 @spriting_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
@@ -304,7 +304,7 @@ Blog::Version.create :user => @primal_user.blog_user,
 	  <i class="sc-icon-protoss icon-x4"></i>
   },
   :mutation => :protoss_big,
-  :published => false#true
+  :published => true
 
 Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @spriting_experiment,
@@ -362,7 +362,7 @@ Blog::Version.create :user => @primal_user.blog_user,
 	  </div>
   },
   :mutation => :pixels,
-  :published => false#true
+  :published => true
 
 Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @spriting_experiment,
@@ -376,7 +376,7 @@ Blog::Version.create :user => @primal_user.blog_user,
 	  </div>
   },
   :mutation => :percent,
-  :published => false#true
+  :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Sass",
@@ -384,7 +384,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html",
   :pool => :doc,
   :article => @spriting_article,
-  :published => false#true
+  :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Compass",
@@ -392,7 +392,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://compass-style.org/",
   :pool => :doc,
   :article => @spriting_article,
-  :published => false#true
+  :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Font Awesome",
@@ -400,4 +400,4 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://fortawesome.github.io/Font-Awesome/",
   :pool => :doc,
   :article => @spriting_article,
-  :published => false#true
+  :published => true

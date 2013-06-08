@@ -13,7 +13,9 @@ group :production do
 	gem 'pg'
 end
 
-
+# Out of :assets because of the scss herper (use scss inline)
+gem 'sass-rails',   '~> 3.2.3'
+gem 'compass-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,9 +27,6 @@ group :assets do
 
 	gem 'uglifier', '>= 1.0.3'
   	
-	gem 'sass-rails',   '~> 3.2.3'
-	gem 'compass-rails'
-
 	gem 'font-awesome-rails'
 end
 
