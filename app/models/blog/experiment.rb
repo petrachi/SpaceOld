@@ -32,7 +32,7 @@ class Blog::Experiment < ActiveRecord::Base
   end
   
   def with_primal_version
-    @versions = self.versions.mutant(nil).first
+    @version = self.versions.mutant(nil).first
     self
   end
   

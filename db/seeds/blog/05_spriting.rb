@@ -378,6 +378,7 @@ Blog::Version.create :user => @primal_user.blog_user,
   :mutation => :percent,
   :published => true
 
+
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Sass",
   :summary => "Précompileur CSS écrit en ruby. Incontournable pour tout projet rails.",
