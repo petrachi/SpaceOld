@@ -1,0 +1,100 @@
+@import "compass/utilities/sprites/base";
+
+// General Sprite Defaults
+// You can override them before you import this file.
+$sc-icon-sprite-base-class: ".sc-icon-sprite" !default;
+$sc-icon-sprite-dimensions: false !default;
+$sc-icon-position: 0% !default;
+$sc-icon-spacing: 0 !default;
+$sc-icon-repeat: no-repeat !default;
+$sc-icon-prefix: '' !default;
+$sc-icon-clean-up: true !default;
+$sc-icon-layout:vertical !default;
+$sc-icon-inline: false !default;
+
+  
+ // These variables control the generated sprite output
+ // You can override them selectively before you import this file.
+ 
+   $sc-icon-protoss-position: $sc-icon-position !default;
+   $sc-icon-protoss-spacing:  $sc-icon-spacing !default;
+   $sc-icon-protoss-repeat:   $sc-icon-repeat !default;
+ 
+   $sc-icon-terran-position: $sc-icon-position !default;
+   $sc-icon-terran-spacing:  $sc-icon-spacing !default;
+   $sc-icon-terran-repeat:   $sc-icon-repeat !default;
+ 
+   $sc-icon-zerg-position: $sc-icon-position !default;
+   $sc-icon-zerg-spacing:  $sc-icon-spacing !default;
+   $sc-icon-zerg-repeat:   $sc-icon-repeat !default;
+ 
+
+ $sc-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png",
+ 
+   $sc-icon-protoss-position: $sc-icon-protoss-position, 
+   $sc-icon-protoss-spacing:  $sc-icon-protoss-spacing, 
+   $sc-icon-protoss-repeat:   $sc-icon-protoss-repeat,
+ 
+   $sc-icon-terran-position: $sc-icon-terran-position, 
+   $sc-icon-terran-spacing:  $sc-icon-terran-spacing, 
+   $sc-icon-terran-repeat:   $sc-icon-terran-repeat,
+ 
+   $sc-icon-zerg-position: $sc-icon-zerg-position, 
+   $sc-icon-zerg-spacing:  $sc-icon-zerg-spacing, 
+   $sc-icon-zerg-repeat:   $sc-icon-zerg-repeat,
+ 
+ $layout: $sc-icon-layout,
+ $cleanup: $sc-icon-clean-up
+ );
+
+
+// All sprites should extend this class
+// The sc-icon-sprite mixin will do so for you.
+@if $sc-icon-inline {
+  #{$sc-icon-sprite-base-class} {
+    background-image: inline-sprite($sc-icon-sprites);
+  } 
+} @else {
+  #{$sc-icon-sprite-base-class} {
+    background: $sc-icon-sprites no-repeat;
+  }
+}
+//sass functions to return the dimensions of a sprite image as units
+
+  @function sc-icon-sprite-width($name) {
+    $file: sprite_file($sc-icon-sprites, $name);
+    @return image-width($file);
+  }
+
+  @function sc-icon-sprite-height($name) {
+    $file: sprite_file($sc-icon-sprites, $name);
+    @return image-height($file);
+  }
+
+
+// Use this to set the dimensions of an element
+// based on the size of the original image.
+@mixin sc-icon-sprite-dimensions($name) {
+  @include sprite-dimensions($sc-icon-sprites, $name)
+}
+
+// Move the background position to display the sprite.
+@mixin sc-icon-sprite-position($name, $offset-x: 0, $offset-y: 0) {
+  @include sprite-background-position($sc-icon-sprites, $name, $offset-x, $offset-y)
+}
+
+// Extends the sprite base class and set the background position for the desired sprite.
+// It will also apply the image dimensions if $dimensions is true.
+@mixin sc-icon-sprite($name, $dimensions: $sc-icon-sprite-dimensions, $offset-x: 0, $offset-y: 0) {
+  @extend #{$sc-icon-sprite-base-class};
+  @include sprite($sc-icon-sprites, $name, $dimensions, $offset-x, $offset-y)
+}
+
+@mixin sc-icon-sprites($sprite-names, $dimensions: $sc-icon-sprite-dimensions, $prefix: sprite-map-name($sc-icon-sprites), $offset-x: 0, $offset-y: 0) {
+  @include sprites($sc-icon-sprites, $sprite-names, $sc-icon-sprite-base-class, $dimensions, $prefix, $offset-x, $offset-y)
+}
+
+// Generates a class for each sprited image.
+@mixin all-sc-icon-sprites($dimensions: $sc-icon-sprite-dimensions, $prefix: sprite-map-name($sc-icon-sprites), $offset-x: 0, $offset-y: 0) {
+  @include sc-icon-sprites(protoss terran zerg, $dimensions, $prefix, $offset-x, $offset-y);
+}
