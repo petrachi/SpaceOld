@@ -29,6 +29,8 @@ class Blog::ExperimentController < Blog::ApplicationController
 	      		.first
 	    
 	    scss = %q{
+	      
+	      
 
 		.sc-icon-sprite{
 		    background-image: inline-sprite($youpi-sprites);

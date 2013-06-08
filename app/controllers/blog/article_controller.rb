@@ -33,6 +33,8 @@ class Blog::ArticleController < Blog::ApplicationController
 	      		.first
 	    
 	    scss = %q{
+	      @import "compass/utilities/sprites/base";
+	      
 		$sc-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png");
 
 		.sc-icon-sprite{
