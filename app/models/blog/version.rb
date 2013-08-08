@@ -70,5 +70,38 @@ class Blog::Version < ActiveRecord::Base
         #{ js }
       </script>
     }
+
+# mode track time
+# reveal today => scss is 0.3s min (vs .8e-07 for all others)
+# ruby can jump to .003 (big calc "sphere" style)
+# scss can jump to 3s !!! (on "sphere") 
+=begin    
+    %Q{
+      <%
+      t1 = Time.now
+        #{ params }
+        t2=Time.now
+        #{ ruby }
+        t3=Time.now
+      %>
+      
+      <%= scss %Q{#{ scss }} %>
+      <% t4=Time.now %>
+      #{ erb }
+      <% t5=Time.now %>
+      <script type='text/javascript'>
+        #{ js }
+      </script>
+      <% t6=Time.now 
+      
+      p "param " + (t2 - t1).to_s
+      p "ruby " + (t3 - t2).to_s
+      p "scss " + (t4 - t3).to_s
+      p "erb " + (t5 - t4).to_s
+      p "js " + (t6 - t5).to_s
+      
+      %>
+    }
+=end
   end
 end
