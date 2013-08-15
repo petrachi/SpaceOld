@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @sphere_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "Construction d'un sphère",
+  :title => "Construction d'une sphère",
   :summary => %q{
     Répartition équitable de <i>n</i> points sur une sphére et rendu graphique avec les technologies web natives.
   },
@@ -85,7 +85,7 @@
     } %>
 
     <p>
-    	Pour représenter notre sphère, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis de positionner une <%= coderay({:inline => true}, :div) %> pour chaque point, afin de pouvoir afficher graphiquement l'ensemble des points.
+    	Pour représenter notre sphère, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis de positionner une <%= coderay({:inline => true, :lang => :html}, "<div>") %> pour chaque point, afin de pouvoir afficher graphiquement l'ensemble des points.
     </p>
     
     <h3>
@@ -154,7 +154,7 @@ end
     </h3>
     
     <p>
-      Chaque point sera représenté par une <%= coderay({:inline => true}, :div) %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci aux nouvelles technologies !
+      Chaque point sera représenté par une <%= coderay({:inline => true, :lang => :html}, "<div>") %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true, :lang => :css}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true, :lang => :css}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci aux nouvelles technologies !
     </p>
     
     <%= container :class => :'demo-transform' do %>
@@ -211,7 +211,7 @@ end
     </h3>
 
     <p>
-    	En appliquant ces propriétés de <%= coderay({:inline => true}, :transform) %> aux valeurs des coordonnées sphériques calculées précédement, nous allons afficher notre sphère assez simplement.
+    	En appliquant ces propriétés de <%= coderay({:inline => true, :lang => :css}, :transform) %> aux valeurs des coordonnées sphériques calculées précédement, nous allons afficher notre sphère assez simplement.
     </p>
 
     <%= coderay :lang => :erb do %>

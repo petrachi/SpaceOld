@@ -2,224 +2,159 @@
 # encoding: utf-8
 
 @sphere_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "Blocks",
+  :title => "Blocks, Procs, Lambdas",
   :summary => %q{
-    En ruby, les blocks permettent de définir un bout de code sans contexte, une fonction anonyme. Le dévellopeur rails en utilise fréquement dans des fonctions comme le 'each'. Nous allons voir comment les utiliser en paramètres de nos propres fonctions.
+    Rapide 'walkthrough' de l'utilisation des blocks dans l'implémentation de fonctions en ruby.
   },
   :code => %q{ 
 		<p>
-			Un block (ou proc, ou lambda) c'est un bout de code, une fonction sans définition. Ils peuvent être utilisés pour passer du code en argument d'une fonction, et nous allons découvrir comment.
+		  Les blocks, procs ou lambda, c'est tout la même chose : une instance de la classe <%= coderay({:inline => true}, :Proc) %> qui sert à stocker du code. Ils sont utilisés fréquement en ruby, dans la méthode <%= coderay({:inline => true}, "Enumerable#each") %> par exemple (le block c'est ce code entré entre les accolades - ou le do..end).<br/>
+		  Je vais tenter d'expliquer ici comment implémenter des méthodes qui prennet un block en paramètre.
 		</p>
 		
 		<h3>
-			Les blocks comme on les connait
+			Avant de savoir comment, dis-moi pourquoi ?
 		</h3>
 		
 		<p>
-			Seul un NulDeveloppeur en ruby/rails ne connaitrait pas les blocks, beaucoup de fonctions utilisent des blocks, <i>Array#each</i> pour n'en citer qu'une. Les blocks, c'est ce bout de code définit entre deux accolade à l'appel d'une fonction (note : les accolades peuvent aussi être troqués contre un do..end).
+		  Les blocks sont utiles pour injecter du code au coeur d'une méthode. La méthode <%= coderay({:inline => true}, "Enumerable#each") %> est un exemple d'itérateur parfait, elle va parcourir tous les éléments de votre collection et vous laisse la liberté d'en faire ce que vous voulez via le block.<br/>
+		  On se sert aussi des blocks lorsqu'on veut réaliser une méthode de 'template'. Dans rails par exemple, la méthode <%= coderay({:inline => true}, "ActionView::Helpers::UrlHelper#link_to") %> accepte un block, la méthode va 'entourer' le résultat de l'exécution du block dans une balise <%= coderay({:inline => true, :lang => :html}, "<a>") %>.
 		</p>
-	
+		
 		<h3>
-			Écrire une fonction avec un block
+			Ma première méthode
 		</h3>
 	
 		<p>
-			Voici un exemple d'une fonction simple, qui utilise un block
+		  Juste pour apprécier la syntaxe, voici la méthode la plus basique qu'on puisse imaginer utilisant un block (c'est simple, la méthode ne fait rien sauf exécuter le block). Deux approches, utiliser l'instruction <%= coderay({:inline => true}, :yield) %> qui va excuter le block directement, ou expliciter la présence du block en utilisant une '&' devant le nom du paramètre, puis en utilisant la méthode <%= coderay({:inline => true}, "Proc#call") %> pour lancer l'exécution du block.
 		</p>
 	
-		<%= coderay :lang => :ruby do %>
-def simple
-	p "Start of my very simple function"
+		<%= coderay do %>
+def easy
 	yield
-	p "End of my very simple function"
 end
 
-?> simple{ p "I'm alive !" }
-=> "Start of my very simple function"
-"I'm alive !"
-"End of my very simple function"
-		<% end %>
-	
-		<p>
-			L'instruction <code>yield</code> <%= CodeRay.scan("yield", :ruby).span.html_safe %> indique à la fonction d'exécuter le code passé en paramètre, lors de l'appel.
-		</p>
-		
-		<p>
-			Notez que la syntaxe peut être plus explicite.
-		</p>
-		
-		<%= coderay :lang => :ruby do %>
-def simple &block
-	p "Start of my very simple function"
-	block.call
-	p "End of my very simple function"
+#or
+def easy &block
+  block.call
 end
 
-?> simple{ p "I'm alive !" }
-=> "Start of my very simple function"
-"I'm alive !"
-"End of my very simple function"
+?> easy{ "I'm in a block !" }
+=> "I'm in a block !"
+
+#or
+?> easy do
+  "I'm in a block !"
+end
+=> "I'm in a block !"
 		<% end %>
 		
 		<h3>
-			Suite ... Développement de niveau 1
+			Block optionnel
 		</h3>
-	
-		<%= container do %>
-    		<%= row :nested => true do %>
-	    		<%= four_span :append => 1 do %>
-	    			<h4>Block optionnel - Tu fais quelque chose ou c'est moi !</h4>
-					
-	    			<%= coderay :lang => :ruby do %>
+	  
+	  <p>
+	    Comme les arguments, les blocks peuvent être optionnels. En rails, la méthode <%= coderay({:inline => true}, "ActionView::Helpers::UrlHelper#link_to") %> fonctionne très bien si l'on ne passe aucun block en argument, ce prodige est rélisé grâce à la méthode <%= coderay({:inline => true}, "Kernel#block_given?") %> qui va nous indiquer si oui ou non, un block à été passé en argument. Exemple : 
+	  </p>
+	  
+	  <%= coderay do %>
 def optional
-	p "In my optionnal block function"
 	if block_given?
 		yield
 	else
-		p "No block given, so sad :("
+		"No block here :("
 	end
 end
 
-?> optional{ p "I'm alive" }
-=> "In my optionnal block function"
-"I'm alive"
+?> optional{ "I'm in a block again ! :)" }
+=> "I'm in a block again ! :)"
 
 ?> optional
-=> "In my optionnal block function"
-"No block given, so sad :("
-					<% end %>
-					
-					<p>
-						L'appel à <code>block_given?</code> permet de savoir si un block à été passé en paramètre à l'appel de la fonction.
-					</p>
-	      		<% end %>
-
-		      	<%= four_span do %>
-		      		<h4>Des paramètres au block</h4>
-
-		      		<%= coderay :lang => :ruby do %>
-def parameters
-	p "Here, have two random numbers."
-	yield rand(10), rand(50)
-	p "Now say thank you!"
+=> "No block here :("
+		<% end %>
+		
+		<h3>
+		  Passages de paramètres au block
+		</h3>
+    
+    <p>
+      Exécuter un block dans une méthode, c'est bien, mais ça pourrait être interressant de faire passer des valeurs dans notre block. Le <%= coderay({:inline => true}, "Enumerable#each") %> serait bien inutile sy on n'avait pas accés aux valeurs à l'intérieur de notre block.<br/>
+      Allez c'est tellement simple que la démo suffit pour comprendre que le block peut être appelé avec des arguments, comme n'importe quelle autre méthode : 
+    </p>
+		
+		<%= coderay do %>
+def with_params
+	yield 18
 end
 
-?> parameters { |x, y| p "#{ x }, #{ y }" }
-=> "Here, have two random numbers."
-"8, 21"
-"Now say thank you!"
-		   			<% end %>
-					
-					<p>
-						Je donne à l'appel de la fonction des valeurs qui seront traitées dans le block, sans savoir ce que le développeur décidera d'en faire. C'est ici que ce joue la magie d'un <code>Array#each</code> par exemple.
-					</p>
-		   		<% end %>
-		   	<% end %>
-	  	<% end %>
-	
-		<h3>
-			Boss de fin
-		</h3>
-
-		<%= coderay :lang => :ruby do %>
+?> with_params{ |i| "I'm over #{ i }" }
+=> "I'm over 18"
+    <% end %>
+		
+		<p>
+		  On peut également jouer sur le nombre de paramètres attendu par le block. La méthode <%= coderay({:inline => true}, "Proc#arity") %> nous renvoie justement cette information. À noter que cette méthode renverra un résultat négatif si le block déclare un argumnt optionnel, dans ce cas le résulata sera -[nombre de paramètres oblogatoires]-1.
+		</p>
+		
+		<%= coderay do %>
 def arity &block
-	p "Arity function has begun"
-	case block.arity
-	when 1 then yield "one"
-	when 2 then yield "one", "two"
-	when 3 then yield "one", "two", "three"
-	end
-	p "Arity has ended"
+  block.arity
 end
 
 ?> arity{}
-=> "Arity function has begun"
-"Arity has ended"
+=> 0
 
-?> arity{ |x| p x }
-=> "Arity function has begun"
-"one"
-"Arity has ended"
+?> arity{ |a| }
+=> 1
 
-?> arity{ |x, y| p x, y }
-=> "Arity function has begun"
-"one"
-"two"
-"Arity has ended"
+?> arity{ |a, b| }
+=> 2
 
-?> arity{ |x, y, z| p x, y, z }
-=> "Arity function has begun"
-"one"
-"two"
-"three"
-"Arity has ended"
-		<% end %>
+?> arity{ |*a| }
+=> -1
 
-		<p>
-			La méthode <code>Proc#arity</code> permet de connaitre le nombre d'argument demandé lors de l'appel. Vous pourrez adapter le code de votre fonction afin de permettre différentes utilisations (utiliser un <code>Array</code> ou un <code>Hash</code> par exemple)
-		</p>
+?> arity{ |a, b, *c| }
+=> -3
+    <% end %>
 	
 		<h3>
-			IRL
+			Final
 		</h3>
 	
 		<p>
-			Et dans la vraie vie ? On utilise les blocks souvent lorsqu'il s'agit de fonction d'itération (Array#each) ou de templating (link_to, content_tag)
+		  Exceptionnellement, je vais vous donner une méthode <%= coderay({:inline => true}, "Hash#compact") %>, c'est cadeau, c'est gratuit, c'est de l'amour :
 		</p>
 		
-		<%= container do %>
-    		<%= row :nested => true do %>
-	    		<%= four_span :append => 1 do %>
-					<h3>
-						Un itérateur inutile
-					</h3>
-					
-					<%= coderay :lang => :ruby do %>
-class Array
-	def each_but_not_all range
-		range.each do |i|
-			yield self[i]
-		end
+		<%= coderay do %>
+class Hash
+	def compact &block
+	  block ||= :blank?.to_proc
+	  
+		each do |key, value|
+      delete key if block.call key, value
+    end
 	end
 end
 
-?> array = [1, 2, 3, 4, 5]
-=> [1, 2, 3, 4, 5]
+?> {:a => 100, :b => 200, :c => nil}.compact
+=> {:a=>100, :b=>200}
 
-?> array.each_but_not_all (1..3) { |x| p x }
-=> 2
-3
-4
-					<% end %>
-				<% end %>
-				
-				<%= four_span do %>
-					<h3>
-						Une template inutile
-					</h3>
-					
-					<p>
-						<%= coderay :lang => :ruby do %>
-def my_box_tag &block
-	"<div>" << yield << "</div>"
-end
-						<% end %>
-					</p>
-				<% end %>
-			<% end %>
+?> {:a => 100, :b => 200, :c => nil}.compact{ |_, value| value.to_i > 150 }
+=> {:a=>100, :c=>nil}
+
+?> {:a => 100, :b => 200, "c" => nil}.compact{ |key, _| key.is_a? String }
+=> {:a=>100, :b=>200}
 		<% end %>
-		
 	
 		<h3>
 			Conclusion
 		</h3>
 	
 		<p>
-			Les blocks peuvent être très utile lorsque vous cherchez à rendre votre code plus modulable, à condition de penser à les utiliser ;)
+			Tout à fait personnellement, j'adore les blocks. Je les utilises dés que je peux (un peu trop souvent), pour rendre une méthode un plus flexible, pour définir des comportements spécifiques et quelquefois pour me faciliter la vie sur des blocks récurents. Un inconvénient des blocks, à mon goût, c'est qu'on ne peut en passer qu'un seul 'proprement' par méthode. Bien entendu on peut envoyer des instances de <%= coderay({:inline => true}, :Proc) %> dans les paramètres classiques, mais c'est moins joli. Aussi, j'aimerais bien pouvoir accéder au code écrit à l'intérieur d'un block, j'imagine que ça pourrait être utile.
 		</p>
 		
 		<p>
-			Bisous les copains !
+			Allez, bisous les copains ! Faut partir maintenant, y'a plus l'temps !
 		</p>
   },
   :pool => :ruby,
