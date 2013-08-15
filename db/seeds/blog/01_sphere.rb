@@ -2,9 +2,9 @@
 # encoding: utf-8
 
 @sphere_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "C'est l'histoire d'une boule",
+  :title => "Construction d'un sphère",
   :summary => %q{
-    De l'idée de représenter une planète, à la réalisation en CSS3 via la propriété 'transform', en passant par un algorithme de répartition des points sur une sphére. 
+    Répartition équitable de <i>n</i> points sur une sphére et rendu graphique avec les technologies web natives.
   },
   :code => %q{ 
     <%= scss %Q{
@@ -85,33 +85,82 @@
     } %>
 
     <p>
-    	Comment créer une sphère en utilisant seulement les technologies de l'internet, et pourquoi ?
+    	Pour représenter notre sphère, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis de positionner une <%= coderay({:inline => true}, :div) %> pour chaque point, afin de pouvoir afficher graphiquement l'ensemble des points.
     </p>
-
-    <p>
-      Le but de cette expérimentation est de représenter une planète, qui sera contruite à partir de multiple provinces. La planète sera utilisé dans un jeu où le joueur pourra conquérir chaque province, y contruire des bâtiments et recruter une armée.
-    </p>
-
+    
     <h3>
-    	Transformations
+    	Répartition de <i>n</i> points à la surface d'une sphère
     </h3>
 
     <p>
-      Chaque province sera représentée par une 'div', ce qui permettra une interaction facile avec l'utilisateur.
+      Il y a plusieurs définitions possibles lorsqu'on parle de répartir équitablement <i>n</i> points à la surface d'une sphère. Une définition possible est  de choisir la position des points de telle sorte que le polyèdre formé par ceux-ci soit un polyèdre régulier. Malheureusement, on ne connait pas beaucoup de polyèdre réguliers et cette semble être une sans-issue.<br/>
+      Une autre définition possible est de chercher à maximiser la distance la plus courte entre deux points. Plusieurs méthodes sont disponibles pour arriver à ce résultat. On peut par exemple positionner les points d'abord aléatoirement, puis les repositionner par itération en faisant s'appliquer une force de répulsion entre les points.
     </p>
     
     <p>
-      Afin de créer une planète, nous allons utiliser la propriété 'transform'. En fonction des coordonnées de chaque 'div', nous appliquerons d'abord une rotation, afin de positionner l'élément dans direction voulue, puis une translation, afin de projetter l'élément sur la surface de la planète.
+      En cherchant bien sur l'internet, j'ai trouvé un algorithme fiable et rapide basé sur le nombre d'or. Rapidement traduit en ruby, cet algorithme renvoie un tableau de points, représentés par leurs coordonnées sphériques ([distance, angle horizontal, angle vertical] - noté [p, ϕ, θ] - les angles sont exprimés en radians). Voilà ce que ça donne : 
     </p>
     
-    <p>
-    	Une petite démonstration s'impose, voilà ce que cela donne. (si la démo ne fonctionne pas, c'est parceque votre navigateur est trop vieux, pensez à le mettre à jour !)
-    </p>
+    <%= container :class => :'demo-transform' do %>
+    	<%= row :nested => true do %>
+    		<%= five_span do %>
+      		<%= coderay do %>
+def points_on_sphere n
+  n = n.to_f
+  pts = Array.new
 
+  inc = Math::PI * (3 - Math::sqrt(5))
+  off = 2 / n
+
+  (0...n).each do |k|
+    y = k * off - 1 + (off / 2)    
+    r = Math::sqrt(1 - y**2)
+    phi = k * inc
+
+    x_phi = Math::PI/2 - Math::acos(y)
+
+    pts << [1.0, phi, x_phi]
+  end
+
+  pts
+end
+    			<% end %>
+      	<% end %>
+
+      	<%= four_span do %>
+      	  <%= coderay do %>
+>> points_on_sphere 6
+=>[
+  [1.0, 0.0, -1.1596584], 
+  [1.0, 2.3999632, -0.848062], 
+  [1.0, 4.7999264, -0.6228265], 
+  [1.0, 7.1998896, -0.4297754], 
+  [1.0, 9.5998529, -0.2526802], 
+  [1.0, 11.9998161, -0.08343], 
+  [1.0, 14.3997793, 0.08343], 
+  [1.0, 16.7997426, 0.2526802], 
+  [1.0, 19.1997058, 0.4297754], 
+  [1.0, 21.599669, 0.6228265], 
+  [1.0, 23.9996322, 0.848062], 
+  [1.0, 26.3995955, 1.1596584]
+]
+          <% end %>
+    		<% end %>
+    	<% end %>
+    <% end %>
+    
+    <h3>
+    	Rendu graphique
+    </h3>
+    
+    <p>
+      Chaque point sera représenté par une <%= coderay({:inline => true}, :div) %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci aux nouvelles technologies !
+    </p>
+    
     <%= container :class => :'demo-transform' do %>
     	<%= row :nested => true do %>
     		<%= three_span :class => :base do %>
-    			<h4 align="center">Pas de transformation</h4>
+    			<h4 align="center">Aucune transformation</h4>
 
     			<div class="demo">
     				<div class="origin final">
@@ -121,7 +170,7 @@
     		<% end %>
 
     		<%= three_span :class => :intermediate do %>
-    			<h4 align="center">D'abord la rotation</h4>
+    			<h4 align="center">Une rotation</h4>
 
     			<div class="demo">
     				<div class="origin">
@@ -134,7 +183,7 @@
     		<% end %>
 
     		<%= three_span :class => :final do %>
-    			<h4 align="center">Puis la translation</h4>
+    			<h4 align="center">Suivie d'une translation</h4>
 
     			<div class="demo">
     				<div class="origin">
@@ -150,106 +199,19 @@
     		<% end %>
     	<% end %>
     <% end %>
-
+    
     <%= coderay :lang => :css do %>
 .demo {
   transform: perspective(600px) rotateY(.85rad) translateZ(80px); 
 }
     <% end %>
 
-    <p>
-    	C'est tout de suite plus clair !<br/>
-    	Allez donc faire un tour sur ce site de microsoft pour faire joujou avec 'transform' - <%= link_to t(:link), "http://ie.microsoft.com/testdrive/graphics/hands-on-css3/hands-on_3d-transforms.htm", :target => :_blank %> 
-    </p>
-
     <h3>
-    	Calcul des coordonnées
+    	Application aux coordonnées sphériques
     </h3>
 
     <p>
-      Maintenant qu'on sait utiliser les transforms, il ne nous reste plus qu'à apprendre comment calculer les valeurs de transform.
-    </p>
-
-    <p>
-      Pour les coordonnées, j'ai choisi d'utiliser des coordonnées sphériques - <%= link_to t(:wikilink), "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques", :target => :_blank %>. Ces ont celles qui correspondent le mieux aux valeurs qu'utilise 'transform'. Pour l'algo, j'ai choisi ... hem ... en fait, je n'ai pas choisi grand chose.
-    </p>
-    
-    <h3>
-      Maximiser la distance la plus courte entre deux points
-    </h3>
-    
-    <p>
-      La répartition des points sur une sphère, c'est un vrai problème de maths, qui occupe les scientifiques et les les plus grands cerveaux de france depuis des siècles et des sciècles !
-    </p>
-    
-    <p>
-      La meilleure solution dont nous disposons aujourd'hui est de "maximiser la distance la plus courte entre deux points". C'est faire en sorte que la distance entre deux provinces soit toujours la plus grande distance possible. Le second rpoblème c'est que ... je n'ai pas bien compris toute les explications sur les fait d'associer des charges électriques sur les points, puis de calculer la valeur de répulsion...
-    </p>
-    
-    <p>
-    	L'algorithme que nous utiliserons ici se base sur le nombre d'or, afin de répartir les provinces tout autour de notre planète. Je l'ai traduit du python et adapté pour récupérer des données directement utilisables dans les transforms.
-    </p>
-
-    <%= container :class => :'demo-transform' do %>
-    	<%= row :nested => true do %>
-    		<%= four_span do %>
-    			<h4>Le 'Golden Section Spiral' original</h4>
-
-    			<%= coderay :lang => :python do %>
-def pointsOnSphere(N):
-  N = float(N) # in case we got an int which we surely got
-  pts = []
-
-  inc = math.pi * (3 - math.sqrt(5))
-  off = 2 / N
-  for k in range(0, N):
-      y = k * off - 1 + (off / 2)
-      r = math.sqrt(1 - y*y)
-      phi = k * inc
-      pts.append([math.cos(phi)*r, y, math.sin(phi)*r])
-
-  return pts
-      		<% end %>
-      		
-      		<p>
-      		  Voir le code original dans son contexte - <%= link_to t(:link), "http://www.xsi-blog.com/archives/115", :target => :_blank %>
-      		</p>
-      	<% end %>
-
-      	<%= five_span do %>
-      		<h4>La traduction rubyiste</h4>
-
-      		<%= coderay :lang => :python do %>
-def points_on_sphere n
-  n = n.to_f
-  pts = []
-
-  inc = Math::PI * (3 - Math::sqrt(5))
-  off = 2 / n
-
-  (0...n).each do |k|
-  y = k * off - 1 + (off / 2)    
-  r = Math::sqrt(1 - y**2)
-  phi = k * inc
-
-  x_phi = Math::PI/2 - Math::acos(y)
-
-  pts << [1.0, phi, x_phi]
-  end
-
-  pts
-end
-    			<% end %>
-    		<% end %>
-    	<% end %>
-    <% end %>
-
-    <h3>
-    	Le résultat planétaire !
-    </h3>
-
-    <p>
-    	Une simple boucle suffit à produire notre HTML.
+    	En appliquant ces propriétés de <%= coderay({:inline => true}, :transform) %> aux valeurs des coordonnées sphériques calculées précédement, nous allons afficher notre sphère assez simplement.
     </p>
 
     <%= coderay :lang => :erb do %>
@@ -266,25 +228,20 @@ end
     
     <%= erb @article.experiment.with_mutant_version(:mini).code %>
 
-    <p>
-    	Vous pouvez voir une démo encore plus impressionnante dans la section "Expérimentations"
-    </p>
-
     <h3>
     	Conclusion
     </h3>
 
     <p>
-      C'était vraiment très rigolo de faire cette planète avec vous les copains, mais faut quand même dire que c'était pas d'la tarte.
+      J'ai eu beaucoup de difficultés à faire l'algorithme de répartition de points sur une sphére, à tel point que j'ai fini par un récupérer un que je n'ai pas complètement compris sur l'internet. L'utilisation des propriètés CSS liés à la 3D à par contre été plutôt simple, même si elles ont l'air assez consomatrices en ressources et en temps de rendu DOM.
     </p>
     
     <p>
-      La nouvelle propriété 'transition' que nous apporte CSS3 est très sympatique, mais je ne suis pas sûr qu'elle soit complètement adapté ici. Nous allons vouloir transformer, et même, animiner plusieurs centaines de provinces. Jettez un coup d'oeil sur votre processeur pendant que vous êtes sur la page de démo et vous comprendrez pourquoi je me fait du souci.
+      Je pense me replonger un jour dans la réalisation de sphère, via SVG, WebGL ou des librairies javascript. Mais je vous présenterais une autre expérimentation avant ça où j'essaie de donner une illusion 3D à une sphére déssinée dans un canvas 2D.
     </p>
     
     <p>
-      Je jetterais sûrement un oeil sur des librairies 3D en javascript, comme "tree.js" - <%= link_to t(:link), "http://mrdoob.github.com/three.js/", :target => :_blank %><br/>
-      D'ailleur, 'transform' n'est pas mon premier amour. J'avais déjà réalisé le même exercice en utilisant SVG, mais ça, c'est une autre histoire ... toire ... toire ...
+      Allez, bisous les copains ! Ouste !
     </p>
   },
   :pool => :experiment,

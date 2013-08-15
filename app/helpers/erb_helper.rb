@@ -4,8 +4,12 @@ module ErbHelper
     link_to *args, :remote => true
   end
 
-  def coderay options = {}, &block
-    CodeRay.scan(options.delete(:str) || capture(&block), options.delete(:lang) || :ruby).div(:css => :class, :tab_width => 2).html_safe
+  def coderay options = {}, code = nil, &block
+    if options.delete(:inline)
+      CodeRay.scan(code, options.delete(:lang) || :ruby).span.html_safe
+    else
+      CodeRay.scan(code || capture(&block), options.delete(:lang) || :ruby).div(:css => :class, :tab_width => 2).html_safe
+    end
   end
   
   def erb code
