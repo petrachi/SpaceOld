@@ -9,7 +9,7 @@ module ApplicationHelper
     #when :game then Game::User.current
     #when :gems then true
     when :space then true
-    when :super_user then SuperUser::User.current
+    #when :super_user then SuperUser::User.current
     else false
     end
   end
@@ -20,7 +20,7 @@ module ApplicationHelper
     #when :game then MainUser.current and Game::User.current.blank?
     #when :gems then MainUser.current and Gems::User.current.blank?
     when :space then false
-    when :super_user then false
+    #when :super_user then false
     else false
     end
   end

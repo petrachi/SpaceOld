@@ -1,33 +1,5 @@
-def controller_route application, controller
-  match "/#{ controller }(/:action(/:id))", :controller => "#{ application }/#{ controller }", :as => controller
-end
-
-def application_routes application, controllers
-  constraints :subdomain => application.to_s do
-    controllers.each do |controller|
-      controller_route application, controller  
-    end
-    
-    match "/install", :controller => "#{ application }/user", :action=>"install", :as => "install"
-    
-    root :to => "#{ application }/home#index"
-  end
-  
-  match "/space_#{ application }" => "space##{ application }", :as => "space_#{ application }"
-end
-
-
-
 Space::Application.routes.draw do
-  match "/sign_up" => "main_user#sign_up", :as=>:sign_up
-  match "/sign_up_errors" => "main_user#sign_up_errors"
-  match "/sign_in" => "main_user#sign_in", :as=>:sign_in
-  match "/sign_in_errors" => "main_user#sign_in_errors"
-  match "/sign_out" => "main_user#sign_out", :as=>:sign_out
   
-  
-  
-  #application_routes :blog, [:home, :user, :article, :experiment, :ressource]
   constraints :subdomain => "blog" do
     match "/install" => "blog/user#install", :as => "install"
     
@@ -54,16 +26,8 @@ Space::Application.routes.draw do
   match "/space_blog" => "space#blog", :as => "space_blog"
   
   
-  
-  
-  application_routes :gems, [:home, :user, :css_grid, :r_extend, :profile]  
-  application_routes :game, [:home, :user, :building, :technology, :squad, :profile]  
-  application_routes :super_user, [:home, :user, :blog]  
-  
-  match "/:controller(/:action(/:id))"
-    
+  match "/:controller(/:action(/:id))"  
   root :to => "space#index"
-  
   
   
   # The priority is based upon order of creation:

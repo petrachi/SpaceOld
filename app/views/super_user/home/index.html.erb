@@ -1,9 +1,0 @@
-<%= four_col_container :collection => @sections do |section| %>
-	<h2>
-		<%= t :"#{ section }.name" %>
-	</h2>
-	
-	<p>
-		<%= link_to t(:super_use), eval("#{ section }_url"), :class => :btn %>
-	</p>
-<% end %>

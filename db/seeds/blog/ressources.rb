@@ -23,4 +23,4 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://tryruby.org/levels/1/challenges/0",
   :pool => :tutorial,
   :primal => true,
-  :published => true  
+  :published => false  

@@ -8,6 +8,3 @@
   :password_confirmation => :space
 
 Blog::User.create :main_user => @primal_user
-Gems::User.create :main_user => @primal_user
-Game::User.create :main_user => @primal_user
-SuperUser::User.create :main_user => @primal_user

@@ -82,22 +82,6 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   add_index "blog_versions", ["primal_id"], :name => "index_blog_versions_on_primal_id"
   add_index "blog_versions", ["user_id"], :name => "index_blog_versions_on_user_id"
 
-  create_table "game_users", :force => true do |t|
-    t.integer  "main_user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "game_users", ["main_user_id"], :name => "index_game_users_on_main_user_id"
-
-  create_table "gems_users", :force => true do |t|
-    t.integer  "main_user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "gems_users", ["main_user_id"], :name => "index_gems_users_on_main_user_id"
-
   create_table "main_users", :force => true do |t|
     t.string   "first_name"
     t.string   "name"
@@ -106,13 +90,5 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
-
-  create_table "super_user_users", :force => true do |t|
-    t.integer  "main_user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "super_user_users", ["main_user_id"], :name => "index_super_user_users_on_main_user_id"
 
 end

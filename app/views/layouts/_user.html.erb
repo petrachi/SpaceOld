@@ -1,9 +1,0 @@
-<!-- User -->
-<%= one_col_container :align => :center do %>
-	<% if MainUser.current %>
-		<%= MainUser.current %> <%= link_to t(:sign_out), sign_out_path, :class=>:btn %>
-		
-	<% else %>
-		<%= link_to t(:sign_in), sign_in_path, :class=>:btn %> <%=t :or %> <%= link_to t(:sign_up), sign_up_path, :class=>:btn %>
-	<% end %>
-<% end %>
