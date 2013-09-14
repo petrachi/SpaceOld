@@ -8,17 +8,14 @@
 			
 			
 			<%
-=begin
-				class PCB
-					attr_accessor :p
 				
-					def initialize p
-						@p = !!p || true
-					end
-=end				
+					
 
 
-	
+
+
+
+
 
 
 
@@ -206,6 +203,33 @@
 			<%= r_lookup[parallel_adder_4bit(*setup_15)] %>
 			<%= r_lookup[parallel_adder_4bit(*setup_24)] %>
 			<%= r_lookup[parallel_adder_4bit(*setup_31)] %>
+			
+			
+			
+			<hr/>
+			<h1>Using class</h1>
+			<hr/>
+			
+			<h3>parallel adder 4bit</h3>
+			<%	lookup = Hash.new{ |h, k| h[k] = to_4bit k }
+				r_lookup = Hash.new{ |h, k| h[k] = from_4bit k }# need une fonction rfetch pour les hash -> idée pour r_extend
+			
+				setup_2 = (lookup[1] + lookup[1]).flatten << false
+				setup_5 = (lookup[2] + lookup[3]).flatten << false
+				setup_7 = (lookup[2] + lookup[5]).flatten << false
+				setup_15 = (lookup[9] + lookup[6]).flatten << false
+				setup_24 = (lookup[15] + lookup[9]).flatten << false
+				setup_31 = (lookup[15] + lookup[15]).flatten << true
+				
+			%>
+			
+			2 5 7 15 24 31<br/>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_2)] %>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_5)] %>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_7)] %>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_15)] %>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_24)] %>
+			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_31)] %>
 			
 			
 		<% end %>

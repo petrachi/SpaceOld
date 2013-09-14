@@ -9,11 +9,14 @@
   :code => %q{ 
 		<p>
 		  Les blocks, procs ou lambda, c'est tout la même chose : une instance de la classe <%= coderay({:inline => true}, :Proc) %> qui sert à stocker du code. Ils sont utilisés fréquement en ruby, dans la méthode <%= coderay({:inline => true}, "Enumerable#each") %> par exemple (le block c'est ce code entré entre les accolades - ou le do..end).<br/>
+		</p>
+		
+		<p>
 		  Je vais tenter d'expliquer ici comment implémenter des méthodes qui prennet un block en paramètre.
 		</p>
 		
 		<h3>
-			Avant de savoir comment, dis-moi pourquoi ?
+			Avant de savoir comment, dis moi pourquoi ?
 		</h3>
 		
 		<p>
