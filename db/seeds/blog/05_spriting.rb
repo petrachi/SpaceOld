@@ -166,7 +166,7 @@ end
 		</p>
   },
   :pool => :css,
-  :published => true
+  :published => false
 
 
 @spriting_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
@@ -175,7 +175,7 @@ end
     Un sprite pour toutes les tailles.
   },
   :article => @spriting_article,
-  :published => true
+  :published => false
 
 @spriting_version = Blog::Version.create :user => @primal_user.blog_user,
   :experiment => @spriting_experiment,

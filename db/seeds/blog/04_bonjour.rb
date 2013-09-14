@@ -6,7 +6,7 @@
   :summary => %q{
     Parceque écrire "bonjour" c'est stylé ! ... Et que j'aime bien écrire "bonjour" de toute façon ! (full HTML/CSS)
   },
-  :published => true
+  :published => false
 
 
 @bonjour_version = Blog::Version.create :user => @primal_user.blog_user,
