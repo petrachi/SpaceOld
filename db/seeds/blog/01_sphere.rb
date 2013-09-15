@@ -85,7 +85,8 @@
     } %>
 
     <p>
-    	Pour représenter notre sphère, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis de positionner une <%= coderay({:inline => true, :lang => :html}, "<div>") %> pour chaque point, afin de pouvoir afficher graphiquement l'ensemble des points.
+    	Allez, salut les p'tit amis, <br/>
+    	Aujourd'hui, on va tenter de faire une sphére tout en html. Pour ce faire, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis créer une <%= coderay({:inline => true, :lang => :html}, "<div>") %> pour chaque point que nous allons positionner grâce aux nouvelles propriétés 3D de CSS3.
     </p>
     
     <h3>
@@ -93,8 +94,8 @@
     </h3>
 
     <p>
-      Il y a plusieurs définitions possibles lorsqu'on parle de répartir équitablement <i>n</i> points à la surface d'une sphère. Une définition possible est  de choisir la position des points de telle sorte que le polyèdre formé par ceux-ci soit un polyèdre régulier. Malheureusement, on ne connait pas beaucoup de polyèdre réguliers et cette semble être une sans-issue.<br/>
-      Une autre définition possible est de chercher à maximiser la distance la plus courte entre deux points. Plusieurs méthodes sont disponibles pour arriver à ce résultat. On peut par exemple positionner les points d'abord aléatoirement, puis les repositionner par itération en faisant s'appliquer une force de répulsion entre les points.
+      Il y a plusieurs définitions possibles lorsqu'on parle de répartir équitablement <i>n</i> points à la surface d'une sphère. On peut choisir de positionner les points de telle façon que le polyèdre formé par ceux-ci soit un polyèdre régulier. Malheureusement, on ne connait aujourd'hui qu'un nombre très limité de polyèdre réguliers.<br/>
+      Nous allons choisir une autre définition qui consite à tenter de maximiser la distance la plus courte entre deux points. Plusieurs méthodes sont disponibles pour arriver à ce résultat. On peut par exemple positionner les points d'abord aléatoirement, puis les repositionner par itération en faisant s'appliquer une force de répulsion entre les points.
     </p>
     
     <p>
@@ -150,11 +151,11 @@ end
     <% end %>
     
     <h3>
-    	Rendu graphique
+    	Représentation graphique
     </h3>
     
     <p>
-      Chaque point sera représenté par une <%= coderay({:inline => true, :lang => :html}, "<div>") %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true, :lang => :css}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true, :lang => :css}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci aux nouvelles technologies !
+      Chaque point sera représenté par une <%= coderay({:inline => true, :lang => :html}, "<div>") %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true, :lang => :css}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true, :lang => :css}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci les nouvelles technologies !
     </p>
     
     <%= container :class => :'demo-transform' do %>
@@ -211,7 +212,7 @@ end
     </h3>
 
     <p>
-    	En appliquant ces propriétés de <%= coderay({:inline => true, :lang => :css}, :transform) %> aux valeurs des coordonnées sphériques calculées précédement, nous allons afficher notre sphère assez simplement.
+    	En appliquant ces propriétés de <%= coderay({:inline => true, :lang => :css}, :transform) %> aux valeurs des coordonnées sphériques calculées précédement, nous pouvons afficher notre sphère très simplement.
     </p>
 
     <%= coderay :lang => :erb do %>
@@ -233,11 +234,11 @@ end
     </h3>
 
     <p>
-      J'ai eu beaucoup de difficultés à faire l'algorithme de répartition de points sur une sphére, à tel point que j'ai fini par un récupérer un que je n'ai pas complètement compris sur l'internet. L'utilisation des propriètés CSS liés à la 3D à par contre été plutôt simple, même si elles ont l'air assez consomatrices en ressources et en temps de rendu DOM.
+      J'ai eu beaucoup de difficultés à faire l'algorithme de répartition de points sur une sphére, à tel point que j'ai fini par un récupérer un sur l'internet (dont le fonctionnement me reste un peu obscur). L'utilisation des propriètés CSS liés à la 3D à par contre été plutôt simple, même si elles ont l'air assez consomatrices en ressources et en temps de rendu DOM.
     </p>
     
     <p>
-      Je pense me replonger un jour dans la réalisation de sphère, via SVG, WebGL ou des librairies javascript. Mais je vous présenterais une autre expérimentation avant ça où j'essaie de donner une illusion 3D à une sphére déssinée dans un canvas 2D.
+      Je pense me replonger un jour dans la réalisation d'une sphère en 3D, via SVG, WebGL ou des librairies javascript.
     </p>
     
     <p>

@@ -57,7 +57,7 @@ end
 		</h3>
 	  
 	  <p>
-	    Comme les arguments, les blocks peuvent être optionnels. En rails, la méthode <%= coderay({:inline => true}, "ActionView::Helpers::UrlHelper#link_to") %> fonctionne très bien si l'on ne passe aucun block en argument, ce prodige est rélisé grâce à la méthode <%= coderay({:inline => true}, "Kernel#block_given?") %> qui va nous indiquer si oui ou non, un block à été passé en argument. Exemple : 
+	    Comme les arguments, les blocks peuvent être optionnels. En rails, la méthode <%= coderay({:inline => true}, "ActionView::Helpers::UrlHelper#link_to") %> fonctionne très bien si l'on ne passe aucun block en argument, ce comportement est rendu possible grâce à la méthode <%= coderay({:inline => true}, "Kernel#block_given?") %> qui va nous indiquer si oui ou non, un block à été passé en argument. Exemple : 
 	  </p>
 	  
 	  <%= coderay do %>
@@ -95,7 +95,7 @@ end
     <% end %>
 		
 		<p>
-		  On peut également jouer sur le nombre de paramètres attendu par le block. La méthode <%= coderay({:inline => true}, "Proc#arity") %> nous renvoie justement cette information. À noter que cette méthode renverra un résultat négatif si le block déclare un argumnt optionnel, dans ce cas le résulata sera -[nombre de paramètres oblogatoires]-1.
+		  On peut également jouer sur le nombre de paramètres attendu par le block. La méthode <%= coderay({:inline => true}, "Proc#arity") %> nous renvoie justement cette information. À noter que cette méthode renverra un résultat négatif si le block déclare un argument optionnel, dans ce cas le résulata sera -[nombre de paramètres oblogatoires]-1.
 		</p>
 		
 		<%= coderay do %>
@@ -130,7 +130,7 @@ end
 		<%= coderay do %>
 class Hash
 	def compact &block
-	  block ||= :blank?.to_proc
+	  block ||= Proc.new{ |_, value| value.nil? }
 	  
 		each do |key, value|
       delete key if block.call key, value
@@ -153,7 +153,8 @@ end
 		</h3>
 	
 		<p>
-			Tout à fait personnellement, j'adore les blocks. Je les utilises dés que je peux (un peu trop souvent), pour rendre une méthode un plus flexible, pour définir des comportements spécifiques et quelquefois pour me faciliter la vie sur des blocks récurents. Un inconvénient des blocks, à mon goût, c'est qu'on ne peut en passer qu'un seul 'proprement' par méthode. Bien entendu on peut envoyer des instances de <%= coderay({:inline => true}, :Proc) %> dans les paramètres classiques, mais c'est moins joli. Aussi, j'aimerais bien pouvoir accéder au code écrit à l'intérieur d'un block, j'imagine que ça pourrait être utile.
+			J'aime beaucoup cette feature de ruby. J'aime utiliser les blocks pour rendre une méthode plus flexible, ou pour définir un comportement spécifique dans un appel particulier.<br/>
+			Le seul reproche que je porrais faire, c'est qu'on ne peut passer qu'un seul block 'proprement' à une méthode. Je dis 'proprement' car on peut envoyer des instances de <%= coderay({:inline => true}, :Proc) %> dans les paramètres classiques, mais c'est moins joli.
 		</p>
 		
 		<p>
