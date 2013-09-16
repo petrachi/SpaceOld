@@ -85,7 +85,7 @@
     } %>
 
     <p>
-    	Allez, salut les p'tit amis, <br/>
+    	Allez, salut les p'tit amis !<br/>
     	Aujourd'hui, on va tenter de faire une sphére tout en html. Pour ce faire, nous allons 'répartir' équitablement un nombre <i>n</i> de points à la surface de la sphère, puis créer une <%= coderay({:inline => true, :lang => :html}, "<div>") %> pour chaque point que nous allons positionner grâce aux nouvelles propriétés 3D de CSS3.
     </p>
     

@@ -7,6 +7,463 @@
 		<%= nine_span :element => :article do %>
 			
 			
+			
+			<h2>Gaulois cherche Gauloise</h2>
+			
+			<em>
+				Chez les gaulois, l'amour triomphe toujours ! Comment ça se passe en ruby ? C'est justement le sujet de cet article.
+			</em>
+			
+			<h2>Gaulois cherche Gauloise</h2>
+			
+			<p>
+				Salut les p'tit amis.<br/>
+				Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre sa gauloise. On va d'abord créer une carte, placer nos deux amoureux aléatoirement, et faire bouger notre gaulois jusqu'à ce qu'il rejoigne sa chérie. Et tout ça en ruby !
+			</p>
+			
+			<h3>Le Monde</h3>
+			
+			<p>
+				Pour représenter la carte du monde, on va d'abord créer un classe <%= coderay({:inline => true}, "Province") %>, qui représentera une position. Puis une classe <%= coderay({:inline => true}, "World") %>, qui regroupera toutes les provinces.
+			</p>
+			
+			<p>
+				On veut créer une carte où les positions sont des hexagones. Pourquoi des hexagones et pas des carrés ? Parcequ'ils représentent mieux la réalité, à cause des diagonales. Si chaque province était un carré, la distance pour aller sur le carré à droite serait de 1, mais comment calculer la distance pour aller sur le carré en diagonale ? Représenter les positions par des hexagones nous évite de nous poser cette question, puisque chaque case aura une frontière tangible avec les cases adjacentes.
+			</p>
+			
+			<p>
+				Afin de définir une position pour chaque case, nous allons choisir trois coordonnées. Bien qu'il soit possible de ne définir que deux coordonnées, en utiliser trois simplifiera les calculs liés aux coordonnées. Ces trois coordonnées seront notés <%= coderay({:inline => true}, ":x, :y, :z") %>, et la règle de validité de la position d'une province sera <%= coderay({:inline => true}, "-x + y + z == 0") %>.
+			</p>
+			
+			<p>
+				Je vous donne directement le code de ces deux classes, ainsi que l'initialisation du monde.
+			</p>
+			
+			<%= coderay do %>
+class World
+	attr_accessor :provinces
+
+	def initialize size
+		@provinces = Array.new
+
+		(-size..size).each do |x|
+			(-size..size).each do |y|
+				@provinces << Province.new(x, y, (x - y))
+			end
+		end
+	end
+end
+
+class Province
+	attr_accessor :x, :y, :z
+
+	def initialize x, y, z
+		@x, @y, @z = x, y, z
+	end
+end
+			<% end %>
+			
+			<p>
+				Si on rajoute une méthode <%= coderay({:inline => true}, "World#show") %> et <%= coderay({:inline => true}, "Province#show") %>, on pourra apprécier le résultat.
+			</p>
+			
+			<%= coderay do %>
+class World
+	def show
+		@provinces.map do |province|
+			province.show
+		end
+	end
+end
+
+class Province
+	def show
+		[@x, @y, @z]
+	end
+end
+
+
+?> world = World.new 2
+?> world.show
+=> [
+	[-1, -1, 0], 
+	[-1, 0, -1], 
+	[-1, 1, -2], 
+	[0, -1, 1], 
+	[0, 0, 0], 
+	[0, 1, -1], 
+	[1, -1, 2], 
+	[1, 0, 1], 
+	[1, 1, 0]
+]
+			<% end %>
+			
+			<h3>Les Gaulois</h3>
+			
+			<p>
+				Pour représente les gaulois, rien de plus simple, on va créer une classe <%= coderay({:inline => true}, "Gaulois") %>, et lui donner un attribut <%= coderay({:inline => true}, ":province") %>, afin de déterminer la position de nos gaulois. Je vais aussi ajouter la création de deux gaulois dans la méthode <%= coderay({:inline => true}, "World#initialize") %>.
+			</p>
+			
+			<%= coderay do %>
+class Gaulois
+	attr_accessor :province
+
+	def initialize province
+		@province = province
+	end
+
+	def show
+		@province.show
+	end
+end
+			
+			
+class World
+	attr_accessor :provinces, :gaulois, :gauloise
+
+	def initialize size
+		@provinces = Array.new
+
+		(-size..size).each do |x|
+			(-size..size).each do |y|
+				@provinces << Province.new(x, y, (x - y))
+			end
+		end
+		
+		@gaulois = Gaulois.new(self, @provinces.sample)
+	    @gauloise = Gaulois.new(self, (@provinces.except(@gaulois.province)).sample)
+	end
+end
+			
+			<% end %>
+			
+			<p>
+				Au passage, j'ai crée deux méthodes : <%= coderay({:inline => true}, "Array#except") %>, qui exclu les valeurs passés en paramètre du tableau. Et <%= coderay({:inline => true}, "Array#sample") %>, qui sélectionne une valeur aléatoirement. À noter que ces extends n'étaient pas obligatoires, la méthode sample existe en rails, et il y a une méthode reject en ruby, qui fait presque la même chose que mon except.
+			</p>
+			
+			<%= coderay do %>
+class Array
+	def except *value
+		self - [*value]
+	end
+
+	def sample
+		shuffle.first
+	end
+end
+			<% end %>
+			
+			<h3>Conclusion</h3>
+			
+			<p>
+				Allez, on a fait un monde et deux gaulois, je pense qu'il est temps de se reposer. Mais cet article n'est pas fini, dans le prochain épisode, on verra comment faire bouger notre gentil gaulois.
+			</p>
+			
+			
+			<hr/>
+			
+			<em>
+				On va se bouger aujourd'hui ! Enfin, nous on va rester devant notre clavier, mais on va faire bouger des trucs dans cet article.
+			</em>
+			
+			<h2>Gaulois cherche gauloise (part 2)</h2>
+			
+			<p>
+				Coucou les copains, comment ça va aujourd'hui ?<br/>
+				Dans l'article précédent, on a crée un monde. Notre monde, c'est une collection de provinces, et chaque provinces possède une position. On a ensuite posé un gaulois et une gauloise quelque part dans le monde. On va maintenant tenter de faire se déplacer le gaulois, afin qu'il retrouve sa chère gauloise.
+			</p>
+			
+			<h3>La vie, c'est le mouvement</h3>
+			
+			<p>
+				Prenons notre gaulois, et appelons le <i>Gérôme</i>. Gérôme le gaulois va devoir se déplacer, mais avant ça, il doit savoir où il va mettre les pieds. Pour cela, nous allons créer une méthode <%= coderay({:inline => true}, "Province#vision(distance)") %>, qui nous renverra la liste de toutes les provinces visibles à une certaine distance. Tant qu'on y est, on va aussi créer une méthode <%= coderay({:inline => true}, "Province#distance(province)") %>, qui nous donnera la distance jusqu'à la province passé en paramètre.
+			</p>
+			
+			<p>
+				Afin d'avoir accès aux provinces qui existent dans le monde, nous allons devoir modifer la méthode <%= coderay({:inline => true}, "Province#initialize") %>, afin de lui faire passer l'instance de la classe <%= coderay({:inline => true}, "World") %> à laquelle elle appartient.
+			</p>
+			
+			<%= coderay do %>
+			
+class Province
+	attr_accessor :x, :y, :z
+
+	def initialize x, y, z, world
+		@x, @y, @z, @world = x, y, z, world
+	end
+
+	def vision distance
+		@world.provinces.select do |province|
+			(@x - distance..@x + distance) === province.x and
+			(@y - distance..@y + distance) === province.y and
+			(@z - distance..@z + distance) === province.z
+		end
+	end
+end
+
+
+class World
+	attr_accessor :provinces, :gaulois, :gauloise
+
+	def initialize size
+		@provinces = Array.new
+
+		(-size..size).each do |x|
+			(-size..size).each do |y|
+				@provinces << Province.new(x, y, (x - y), self)
+			end
+		end
+
+		@gaulois = Gaulois.new(self, @provinces.sample)
+		@gauloise = Gaulois.new(self, (@provinces.except(@gaulois.province)).sample)
+	end
+end
+			<% end %>
+			
+			<h3>Gaulois#move</h3>
+			
+			<p>
+				Enfin, on va pouvoir faire se déplacer notre gaulois. À chaque "tour", Gérôme le gaulois va regarder toutes les provinces autour de lui, à une distance de 1, et se déplacer sur l'une d'entre-elles aléatoirement. Il va faire ça jusqu'à arriver à rejoindre sa gauloise.
+			</p>
+			
+			<p>
+				Pour ça, une nouvelle méthode <%= coderay({:inline => true}, "Gaulois#move(province)") %> qui fera se déplacer notre bon Gérôme le gaulois sur la province désignée. Et une méthode <%= coderay({:inline => true}, "World#play_turn") %> qui permettra de fair passer un tour.
+			</p>
+			
+			<%= coderay do %>
+class Gaulois
+	def move province
+		@province = province
+	end
+end
+
+
+class World
+	def play_turn
+		province = @gaulois.province.vision(1).except(@gaulois.province)
+		@gaulois.move(province)
+	end
+end
+			<% end %>
+			
+			<p>
+				Volontairement, je vais choisir un monde assez petit pour cette fois. C'est vrai que vu comment on l'a codé, Gérôme le gaulois, il est pas très très malin encore.
+			</p>
+			
+			<%= coderay do %>		
+?> world = World.new 2
+puts "Gauloise stands on #{ world.gauloise.province.show.inspect }"
+
+begin
+	puts "Gaulois stands on #{ world.gaulois.province.show.inspect }"
+	world.play_turn
+end until world.gaulois.province == world.gauloise.province
+
+puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.gaulois.province.show.inspect }"
+
+=> "Gauloise stands on [2, -1, 3]"
+"Gaulois stands on [0, 1, -1]"
+"Gaulois stands on [-1, 0, -1]"
+"Gaulois stands on [-2, -1, -1]"
+"Gaulois stands on [-1, 0, -1]"
+"Gaulois stands on [0, 0, 0]"
+"Gaulois stands on [1, 0, 1]"
+"Gaulois stands on [1, -1, 2]"
+"Gaulois stands on [0, -1, 1]"
+"Gaulois stands on [1, 0, 1]"
+"Gaulois stands on [2, 0, 2]"
+"L'amour triomphe toujours chez les gaulois ! Gaulois has reach [2, -1, 3]"
+			<% end %>
+
+			<h3>Conclusion</h3>
+			
+			<p>
+				Et voilà ! On a donné des yeux et des jambes à Gérôme le gaulois, et ensuite il s'est débrouillé tout seul pour rejoindre sa gauloise. Mais bon ... C'est pas encore gagné, parce que Gérôme il tourne pas en rond encore. La prochaine fois, on va s'occuper de l'intelligence de notre gaulois. Et surtout, on va le faire regarder un peu plus loin que le bout de ses pieds, afin de rejoindre un peu plus rapidement sa copine.
+			</p>
+			
+			<p>
+				Allez, c'est fini maintenant, il faut me débarrasser le plancher !
+			</p>
+			
+			
+			
+			<hr/>
+			
+			<em>
+				Épisode final où l'amour triomphe pour Gérôme le gaulois et sa copine gauloise. Aujourd'hui, on fait de l'intelligence artificielle ! (Enfin, pas vraiment mais on va dire que oui).
+			</em>
+			
+			<h2>Gaulois cherche gauloise (part 3)</h2>
+			
+			<p>
+				Trés bien.<br/>
+				On a déjà vu comment faire bouger notre gaulois dans l'article précédent. Maintenant, on va essayer de lui donner un brin d'intelligence. On va dire que notre gaulois, qui s'appelle Gérôme rappelons-le, va regarder loin autour de lui à chaque fois qu'il bouge, pour repérer sa gauloise. On ira aussi lui greffer une mémoire, pour qu'il arrête de revenir sur ses pas l'air surpris de n'y trouver point de gauloise.
+			</p>
+			
+			<h3>Savoir regarder autour de soi</h3>
+			
+			<p>
+				Donc, on ajoute un attribut <i>vision</i> sur notre classe <%= coderay({:inline => true}, "Gaulois") %>. On va aussi faire en sorte qu'avant de bouger, notre gaulois regarde dans toutes les directions, aussi loin que sa vision ne lui permet, s'il n'y aurait pas une gauloise qui traine par là.
+			</p>
+			
+			<%= coderay do %>
+class Gaulois
+	attr_accessor :world, :province
+
+	def initialize world, province
+		@world, @province = world, province
+		@vision = 4
+	end
+
+	def find_a_way
+		province_gauloise = look{ |province| province == @world.gauloise.province }
+    
+		if province_gauloise
+			if province_gauloise.distance(@province) == 1
+				province_gauloise
+			else
+				closest_distance = province_gauloise.distance(@province)
+				closest_province = nil
+
+				@province.vision(1).each do |province|
+					if province_gauloise.distance(province) < closest_distance
+						closest_province = province
+						closest_distance = province_gauloise.distance(province)
+					end
+				end
+
+				closest_province
+			end
+		else
+			@province.vision(1).except(@province)
+		end
+	end
+end
+
+class World
+	def play_turn
+		province = @gaulois.find_a_way
+		@gaulois.move(province)
+	end
+end
+			<% end %>
+			
+			<p>
+				Notre ami gaulois va donc regarder autour de lui, sur une distance de 3, s'il voit son amie gauloise. Si oui, et que la gauloise et juste à côté de luis, il va simplement se déplacer sur la province où elle se trouve. Si la province où se trouve sa petite copine n'est pas juste à côté, il se déplacera dans une province qui le rapprochera le plus de son amie. Et s'il n'a pas vu de gauloise, il continuera à se déplacer vers n'importe où.
+			</p>
+			
+			<h3>Plus de RAM</h3>
+			
+			<p>
+				Une autre amélioration de l'intellect de Gérôme le gaulois à laquelle on peut penser, serait d'éviter de revenir sur ses pas. Pour ça, on va lui fournir une mémoire de toutes les provinces qu'il a déjà visité.
+			</p>
+			
+			<%= coderay do %>
+class Gaulois
+	def initialize world, province
+		@world, @province = world, province
+		@vision = 4
+
+		@seen = Array.new
+	end
+
+	def move province
+		@province = province
+		@seen << @province
+	end
+
+	def find_a_way
+		province_gauloise = look{ |province| province == @world.gauloise.province }
+    
+		if province_gauloise
+			if province_gauloise.distance(@province) == 1
+				province_gauloise
+			else
+				closest_distance = province_gauloise.distance(@province)
+				closest_province = nil
+
+				@province.vision(1).each do |province|
+					if province_gauloise.distance(province) < closest_distance
+						closest_province = province
+						closest_distance = province_gauloise.distance(province)
+					end
+				end
+
+				closest_province
+			end
+		else
+
+			possible_provinces = @province.vision(1).except(@province).except(@seen)
+			possible_provinces = @province.vision(1).except(@province) if possible_provinces.empty?
+			possible_provinces.sample
+		end
+	end
+end
+			<% end %>
+			
+			<p>
+				Hop, notre bon Gérôme va pouvoir se souvenir de tout le chemin parcouru, et éviter, au possible, de retourner sur ses pas. Allez, je lance le script, et je vous rajoute des <%= coderay({:inline => true}, "puts") %> pour bien comprendre tout ce qui se passe.
+			</p>
+			
+			<%= coderay do %>		
+?> world = World.new 7
+puts "Gauloise stands on #{ world.gauloise.province.show.inspect }"
+
+begin
+	world.play_turn
+end until world.gaulois.province == world.gauloise.province
+
+puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.gaulois.province.show.inspect }"
+
+=> "Gauloise stands on "[5, -4, 9]"
+"Exploring new path -> Gaulois stands on [6, 3, 3]"
+"Exploring new path -> Gaulois stands on [6, 2, 4]"
+"Gauloise is unreachable (distance : 5) -> Gaulois stands on [5, 1, 4]"
+"Gauloise is unreachable (distance : 4) -> Gaulois stands on [5, 0, 5]"
+"Gauloise is unreachable (distance : 3) -> Gaulois stands on [5, -1, 6]"
+"Gauloise is unreachable (distance : 2) -> Gaulois stands on [5, -2, 7]"
+"Gauloise is close -> Gaulois stands on [5, -3, 8]"
+"L'amour triomphe toujours chez les gaulois ! Gaulois has reach [5, -4, 9]"
+			<% end %>
+			
+			<h3>Conclusion</h3>
+			
+			<p>
+				Ça y est, l'amour triomphe chez les gaulois, et Gérôme nous remercie vraiment de l'avoir aidé à récupérer sa gauloise. Ce dernier article conclut la série, j'espère que vous vous êtes régalés. En tout cas moi, j'ai bien aimé faire ça.
+			</p>
+			
+			<p>
+				J'ai l'habitude de rails et jouer sur la portée des objets en ruby pur m'oblige à de nouvelles mécaniques d'esprit, comme faire passer le monde dans l'instance d'une province qui est elle-même incluse dans le monde. C'est vrai qu'une association <%= coderay({:inline => true}, "has_many") %> aurait été bien utile, d'ailleurs, il y a probablement une meilleure façon de coder tout ça.
+			</p>
+			
+			<p>
+				Allez, je vous laisse les amis. C'est tout pour aujourd'hui. Non mais allez-vous en, ça commence à devenir gênant.
+			</p>
+			
+			
+			<hr/>
+			<hr/>
+			<hr/>
+			
+			
+			
+			
+			
+			
+			
+			def distance province
+			    [
+			    	(@x - province.x).abs,
+			    	(@y - province.y).abs,
+			    	(@z - province.z).abs,
+			    ].max
+		    end
+			
+			
+			
+			
+			
+			
 			<%
 				
 					
@@ -224,12 +681,23 @@
 			%>
 			
 			2 5 7 15 24 31<br/>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_2)] %>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_5)] %>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_7)] %>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_15)] %>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_24)] %>
-			<%= r_lookup[Adder.new.parallel_adder_4bit(*setup_31)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_2)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_5)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_7)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_15)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_24)] %>
+			<%#= r_lookup[Adder.new.parallel_adder_4bit(*setup_31)] %>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		<% end %>
