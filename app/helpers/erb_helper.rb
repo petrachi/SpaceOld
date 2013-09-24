@@ -22,13 +22,14 @@ module ErbHelper
     to_css = raw Sass::Engine.new(
       %Q{
         @import "variables";
-        @import "variables/#{ instance_variable_get(:@application) }";
+        @import "#{ instance_variable_get(:@application) }/variables";
         @import "compass";
         @import "r_kit/mixins";
-        @import "mixins";
+        @import "r_kit/animations";
       } + code, 
       :syntax => :scss,
       :load_paths => [
+        File.join(Rails.root, "app/assets/stylesheets"),
         File.join(Rails.root, "lib/assets/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")

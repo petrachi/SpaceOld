@@ -1,0 +1,88 @@
+.CodeRay{
+background-color: #232323;
+	border: 1px solid black;
+	font-family: 'Courier New', 'Terminal', monospace;
+	color: #E6E0DB;
+	padding: .5em 1em;
+	overflow: auto;
+	font-size: .9em;
+	margin: .75em 1em;
+	border-radius: 1px;
+	
+	pre{
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	.attribute-name{
+		color: #E7BE69;
+	}
+	
+	.comment{
+		color: #BC9358;
+		font-style: italic;
+	}
+	
+	.escape{
+		color: #509E4F;
+	}
+	
+	.class{
+		color: #FFF;
+	}
+	
+	.constant{
+		color: #FFF;
+	}
+	.float{
+		color: #A4C260;
+	}
+	
+	.function{
+		color: #FFC56D;
+	}
+	
+	.global-variable{
+		color: #D0CFFE;
+	}
+	
+	.integer{
+		color: #A4C260;
+	}
+	
+	.inline{
+		background: #151515;
+	}
+	
+	.instance-variable{
+		color: #D0CFFE;
+	}
+	
+	.doctype{
+		color: #E7BE69;
+	}
+	
+	.keyword{
+		color: #CB7832;
+	}
+	
+	.regexp{
+		color: #A4C260;
+	}
+	
+	.string{
+		color: #A4C260;
+	}
+	
+	.symbol{
+		color: #6C9CBD;
+	}
+	
+	.tag{
+		color: #E7BE69;
+	}
+	
+	.binary{
+		color: #6C9CBD;
+	}
+}

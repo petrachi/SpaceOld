@@ -1,2 +1,8 @@
-@import "merge_form"; // to delete if not used, to finish gem -> action form
-@import "r_kit"
+/*
+ *= require grid
+ *= require font-awesome
+ *= require coderay
+ *= require_tree .
+ */
+
+@import "compass";
