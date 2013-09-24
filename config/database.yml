@@ -1,3 +1,17 @@
+# To connect at Vodeclic (with boxen)
+<%
+  socket = [
+    ENV["BOXEN_MYSQL_SOCKET"],
+    "/var/run/mysql5/mysqld.sock",
+    "/tmp/mysql.sock"
+  ].detect { |f| f && File.exist?(f) }
+
+  port = ENV["BOXEN_MYSQL_PORT"] || "3306"
+%>
+
+
+
+
 # MySQL.  Versions 4.1 and 5.0 are recommended.
 # 
 # Install the MYSQL driver
@@ -16,7 +30,8 @@ development:
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
+  socket: <%= socket %>
+  # socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,8 +44,9 @@ test:
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
-
+  socket: <%= socket %>
+  # socket: /tmp/mysql.sock
+  
 production:
   adapter: mysql2
   encoding: utf8
@@ -39,4 +55,5 @@ production:
   pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
+  socket: <%= socket %>
+  # socket: /tmp/mysql.sock
