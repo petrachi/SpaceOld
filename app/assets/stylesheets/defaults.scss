@@ -4,8 +4,8 @@ html{
 }
 
 body{
-	background-color: $bg-color;
-	color: $color;
+	background-color: $background-color;
+	color: $text-color;
 
 	margin: 0 0 1em;
 }
@@ -46,7 +46,7 @@ P{
 }
 
 a{
-	color: $blue;
+	color: $link-color;
 	text-decoration: none;
 	
 	&:hover{
@@ -54,20 +54,13 @@ a{
 	}
 }
 
-.progress{
-	overflow: hidden;
-	height: 10px;
-	background-color: $light_grey;
-	@include border-radius(1px);
-	@include box-shadow(0 0 1px $grey inset);
-	
-	.bar{
-		height: 100%;
-		background-color: $blue;
-		@include box-shadow(0 -1px 0 rgba($black, .15) inset);
-	}
-}
 
+
+
+
+
+
+/* to move or delete */
 [align=left]{ text-align: left; }
 [align=center]{ text-align: center; }
 [align=right]{ text-align: right; }

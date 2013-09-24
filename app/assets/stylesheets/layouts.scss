@@ -1,11 +1,11 @@
 /* All Layouts */
 header{
 	h1{
-		color: rgba($white, .65);
+		color: rgba($title-color, .65);
 		
 		a{
 			&:hover{
-				color: rgba($white, .5);
+				color: rgba($title-color, .5);
 			}
 		}
 	}
@@ -44,10 +44,10 @@ header{
 				repeat: no-repeat;
 			};
 			@include background-image( 
-				linear-gradient(left, $bg-color, transparent 25%, transparent 75%, $bg-color),
+				linear-gradient(left, $background-color, transparent 25%, transparent 75%, $background-color),
 				image-url("/assets/#{$application}/main.jpg")
 			);
-			@include box-shadow(0 0 3em .25em $bg-color inset);
+			@include box-shadow(0 0 3em .25em $background-color inset);
 		}
 	}
 }
@@ -62,7 +62,7 @@ header{
 			margin: 0;
 			padding: 0;
 			
-			color: rgba($white, .65);
+			color: rgba($title-color, .65);
 			font-size: 2em;
 		}
 		
@@ -78,7 +78,7 @@ header{
 		
 		[class*=#{$application}-section-]{
 			@include filter( grayscale(100%) );
-			@include box-shadow(0 0 1em 0px $bg-color inset);
+			@include box-shadow(0 0 1em 0px $background-color inset);
 			
 			&:hover,
 			&.active{
@@ -97,10 +97,10 @@ header{
 				a{
 					display: block;
 					padding: 4.25em .5em .25em;
-					@include background-image( linear-gradient(top, transparent 4em, rgba($bg-color, .65) 4em));
+					@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em));
 					
 					&:hover{ 
-						@include background-image( linear-gradient(top, transparent 4em, rgba($bg-color, .85) 4em));
+						@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em));
 						
 					}
 				}
@@ -120,7 +120,7 @@ header{
 	
 	#break{
 		.container{	
-			color: $bg-color;
+			color: $background-color;
 			background-color: $primary-color;
 			
 			@include box-shadow(

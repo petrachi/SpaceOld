@@ -7,7 +7,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://news.humancoders.com/",
   :pool => :technology_watch,
   :primal => true,
-  :published => true
+  :published => false
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Railscasts",
@@ -15,7 +15,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://railscasts.com/",
   :pool => :technology_watch,
   :primal => true,
-  :published => true
+  :published => false
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "TryRuby",
