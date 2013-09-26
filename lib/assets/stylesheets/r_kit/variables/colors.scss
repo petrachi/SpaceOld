@@ -3,10 +3,7 @@
 // for each of : classic - text - background
 
 // constants
-$white: #fbfbfb;
-$black: #111;
+$white: #fbfbfb !default;
+$black: #111 !default;
 
-$real-white: #fff;
-$real-black: #000;
-
-$shadow: rgba($real-black, .6);
+$shadow: rgba(black, .6) !default;
