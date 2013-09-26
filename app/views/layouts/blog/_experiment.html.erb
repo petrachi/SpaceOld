@@ -6,9 +6,11 @@
 			</p>
 		<% end %>
 		
-		<%= one_span :prepend => 1, :align => :center do %>
+		<%= one_span :prepend => 1 do %>
 			<p>
-				<%= link_to "<i class=\"icon-home\"></i>".html_safe, experiments_url %>
+				<%= link_to experiments_url do %>
+					<i class="icon-home"></i>
+				<% end %>
 			</p>
 		<% end %>
 	<% end %>

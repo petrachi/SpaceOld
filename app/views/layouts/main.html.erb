@@ -9,11 +9,15 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body id="<%= @application %>" layout="main">
-		<%= container :element => :header, :align => :center do %>
+		<%= container :element => :header do %>
 			<%= row do %>
 				<% unless application_is? :space %>
 					<%= one_span :id => :return do %>
-						<h1><%= link_to "<i class=\"icon-globe\"></i>".html_safe, root_url(:subdomain => false) %></h1>
+						<h1>
+							<%= link_to root_url(:subdomain => false) do %>
+								<i class="icon-globe"></i>
+							<% end %>
+						</h1>
 					<% end %>
 				<% end %>
 				

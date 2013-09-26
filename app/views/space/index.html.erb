@@ -1,5 +1,5 @@
 <%= four_cols_container :collection => @applications do |application| %>
-	<h2 align="center">
+	<h2 class="text-center">
 		<%=t "#{ application }.name" %>
 	</h2>
 	
@@ -7,7 +7,7 @@
 		<%=t "#{ application }.summary" %>
 	</p>
 	
-	<p align="center">
+	<p class="text-center">
 		<% if authorized? application %>
 			<%= link_to t(:see), root_url(:subdomain => application), :class => :btn %>
 		<% end %>

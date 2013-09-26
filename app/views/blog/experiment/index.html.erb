@@ -1,5 +1,5 @@
 <%= four_cols_container :collection => @experiments do |experiment| %>
-	<h2 align="center">
+	<h2 class="text-center">
 		<%= experiment.title %>
 	</h2>
 	
@@ -7,7 +7,7 @@
 		<%= experiment.summary.html_safe %>
 	</p>
 	
-	<p align="center">
+	<p class="text-center">
 		<%= link_to t(:test), experiment.to_url, :class => :btn %>
 	</p>
 <% end %>

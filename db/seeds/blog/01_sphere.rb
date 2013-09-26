@@ -46,7 +46,7 @@
     				width : 100%;
     		    background-color: $primary-color;
 
-    				@include box-shadow(0 0 0 1px $black-shadow inset);
+    				@include box-shadow(0 0 0 1px $shadow inset);
     				opacity: .25;
     				@include border-radius(1px);
 
@@ -161,7 +161,7 @@ end
     <%= container :class => :'demo-transform' do %>
     	<%= row :nested => true do %>
     		<%= three_span :class => :base do %>
-    			<h4 align="center">Aucune transformation</h4>
+    			<h4 class="text-center">Aucune transformation</h4>
 
     			<div class="demo">
     				<div class="origin final">
@@ -171,7 +171,7 @@ end
     		<% end %>
 
     		<%= three_span :class => :intermediate do %>
-    			<h4 align="center">Une rotation</h4>
+    			<h4 class="text-center">Une rotation</h4>
 
     			<div class="demo">
     				<div class="origin">
@@ -184,7 +184,7 @@ end
     		<% end %>
 
     		<%= three_span :class => :final do %>
-    			<h4 align="center">Suivie d'une translation</h4>
+    			<h4 class="text-center">Suivie d'une translation</h4>
 
     			<div class="demo">
     				<div class="origin">

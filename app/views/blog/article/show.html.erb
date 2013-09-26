@@ -27,7 +27,9 @@
 		<% end %>
 		
 		<%= nine_span :element => :article do %>
-			<h2><%= @article.title %></h2>
+			<h2>
+				<%= @article.title %>
+			</h2>
 			
 			<%= erb @article.code %>
 		<% end %>

@@ -1,5 +1,5 @@
 <%= four_col_container :collection => @sections do |section| %>
-	<h2 align="center">
+	<h2 class="text-center">
 		<%= t "blog.#{ section }.name" %>
 	</h2>
 	
@@ -7,7 +7,7 @@
 		<%= t "blog.#{ section }.summary" %>
 	</p>
 	
-	<p align="center">
+	<p class="text-center">
 		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize.to_url, :class=>:btn %>
 	</p>
 <% end %>

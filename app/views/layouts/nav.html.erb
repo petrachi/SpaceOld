@@ -10,8 +10,12 @@
 	</head>
 	<body id="<%= @application %>" layout="nav">
 		<%= one_col_container :element => :header, :disable => :spans do %>
-			<%= one_span :id => :return, :align => :center do %>
-				<h1><%= link_to "<i class=\"icon-globe\"></i>".html_safe, root_url(:subdomain => false) %></h1>
+			<%= one_span :id => :return do %>
+				<h1 class="text-center">
+					<%= link_to root_url(:subdomain => false) do %>
+						<i class="icon-globe"></i>
+					<% end %>
+				</h1>
 			<% end %>
 			
 			<%= ten_span :id => :title, :append => 1 do %>
@@ -29,8 +33,7 @@
 											#{ :active if section == @section }
 										}.join ' '
 									}
-								},
-								:align => :center do |section| %>
+								} do |section| %>
 			<h3><%= link_to t("#{ @application }.#{ section }.name"), "#{ @application }/#{ section }".classify.constantize.to_url %></h3>
 		<% end %>
 		

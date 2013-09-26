@@ -6,7 +6,7 @@
 			margin: 0;
 			padding: 0;
 			
-			color: rgba($title-color, .65);
+			color: rgba($white, .65);
 			font-size: 2em;
 		}
 		
@@ -22,7 +22,7 @@
 		
 		[class*=#{$application}-section-]{
 			@include filter( grayscale(100%) );
-			@include box-shadow(0 0 1em 0px $background-color inset);
+			@include box-shadow(0 0 1em 0px $application-background-color inset);
 			
 			&:hover,
 			&.active{
@@ -38,13 +38,15 @@
 				
 				border: none;
 				
+				text-align: center;
+				
 				a{
 					display: block;
 					padding: 4.25em .5em .25em;
-					@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em));
+					@include background-image( linear-gradient(top, transparent 4em, rgba($application-background-color, .65) 4em));
 					
 					&:hover{ 
-						@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em));
+						@include background-image( linear-gradient(top, transparent 4em, rgba($application-background-color, .85) 4em));
 						
 					}
 				}
@@ -64,12 +66,12 @@
 	
 	#break{
 		.container{	
-			color: $background-color;
+			color: $application-background-color;
 			background-color: $primary-color;
 			
 			@include box-shadow(
-				0 1px 3px rgba(black, .3),
-				0 1px 0 rgba(white, .1) inset);
+				0 1px 3px rgba($real-black, .3),
+				0 1px 0 rgba($real-white, .1) inset);
 			@include border-radius(1px);
 			
 			p{

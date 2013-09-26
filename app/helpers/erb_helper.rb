@@ -1,8 +1,4 @@
 module ErbHelper
-  
-  def remote_link_to *args
-    link_to *args, :remote => true
-  end
 
   def coderay options = {}, code = nil, &block
     if options.delete(:inline)
@@ -21,11 +17,12 @@ module ErbHelper
   def scss code
     to_css = raw Sass::Engine.new(
       %Q{
-        @import "variables";
-        @import "#{ instance_variable_get(:@application) }/variables";
-        @import "compass";
+        @import "r_kit/variables";
         @import "r_kit/mixins";
         @import "r_kit/animations";
+        
+        @import "#{ instance_variable_get(:@application) }/variables";
+        @import "compass";
       } + code, 
       :syntax => :scss,
       :load_paths => [
