@@ -1,0 +1,80 @@
+[layout=nav]{
+	header{
+		margin: 2em 0;
+		
+		h1{
+			margin: 0;
+			padding: 0;
+			
+			color: rgba($title-color, .65);
+			font-size: 2em;
+		}
+		
+		#return{
+			h1{
+				border-right: 1px solid;
+			}
+		}
+	}
+		
+	nav{
+		margin: 2em 0;
+		
+		[class*=#{$application}-section-]{
+			@include filter( grayscale(100%) );
+			@include box-shadow(0 0 1em 0px $background-color inset);
+			
+			&:hover,
+			&.active{
+				@include filter( grayscale(0%) );
+			}
+			
+			h3{
+				margin: 0; 
+				padding: 0;
+				
+				font-size: 1.5em;
+				font-weight: 100;
+				
+				border: none;
+				
+				a{
+					display: block;
+					padding: 4.25em .5em .25em;
+					@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em));
+					
+					&:hover{ 
+						@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em));
+						
+					}
+				}
+			}
+		}
+		
+		> .row:hover{
+			[class*=#{$application}-section-]{
+				@include filter( grayscale(100%) );
+				
+				&:hover{
+					@include filter( grayscale(0%) );
+				}
+			}
+		}
+	}
+	
+	#break{
+		.container{	
+			color: $background-color;
+			background-color: $primary-color;
+			
+			@include box-shadow(
+				0 1px 3px rgba(black, .3),
+				0 1px 0 rgba(white, .1) inset);
+			@include border-radius(1px);
+			
+			p{
+				margin: .5em 1em;
+			}
+		}
+	}
+}

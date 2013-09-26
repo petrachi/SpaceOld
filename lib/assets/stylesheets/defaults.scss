@@ -1,58 +1,7 @@
-html{
-	font: 16px "Helvetica Neue","Helvetica","Arial", sans-serif;
-	-webkit-transform: translateZ(0); /* using GPU for render - webkit only */
-}
-
-body{
-	background-color: $background-color;
-	color: $text-color;
-
-	margin: 0 0 1em;
-}
-
-h1,
-h2,
-h3{
-	font-weight: 200;
-	margin: 1em 0 .75em;
-	
-	a{
-		@include unstyled-link();
-		
-		&:hover{
-			text-decoration: none;
-		}
-	}
-}
-
-h1{
-	font-size: 4em;
-}
-
-h2{
-	font-size: 2em;
-}
-
-h3{
-	font-size: 1.75em;
-}
-
-P{
-	font-weight: 200;
-	line-height: 1.4em;
-	text-align: justify;
-	
-	margin: 1.75em 0;
-}
-
-a{
-	color: $link-color;
-	text-decoration: none;
-	
-	&:hover{
-		text-decoration: underline;
-	}
-}
+@import "defaults/html";
+@import "defaults/links";
+@import "defaults/titles";
+@import "defaults/texts";
 
 
 
@@ -60,7 +9,10 @@ a{
 
 
 
-/* to move or delete */
+
+
+
+/* to move or delete - prefer delete */
 [align=left]{ text-align: left; }
 [align=center]{ text-align: center; }
 [align=right]{ text-align: right; }
