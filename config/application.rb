@@ -65,12 +65,15 @@ module Space
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    # For heroku
+    # List manually which assets needs to be precompiled
     config.assets.precompile = [
-      Proc.new{ |path| !File.extname(path).in?(['.js', '.css']) },
+      Proc.new{ |path| !File.extname(path).in?(['.js', '.css']) }, # All files excluding *.js and *.css
       "application.js",
       "space.css", "blog.css"
     ]
+    
+    # Do not load the entire application when precompiling assets
+    # Heroku require this to be false
     config.assets.initialize_on_precompile = false
   end
 end
