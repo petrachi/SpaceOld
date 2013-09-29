@@ -1,5 +1,5 @@
 .CodeRay{
-background-color: #232323;
+	background-color: #181818;
 	border: 1px solid black;
 	font-family: 'Courier New', 'Terminal', monospace;
 	color: #E6E0DB;
@@ -14,6 +14,31 @@ background-color: #232323;
 		padding: 0px;
 	}
 	
+	1-16
+	2-32
+	3-48
+	4-64
+	5-80
+	6-96
+	7-112
+	8-128
+	9-144
+	a-160
+	b-176
+	c-192
+	d-208
+	e-224
+	f-240
+	
+	
+	8f 9c 6a
+	
+	cc a8 69
+	
+	9b703f
+	
+	7587a6
+	
 	.attribute-name{
 		color: #E7BE69;
 	}
@@ -27,27 +52,21 @@ background-color: #232323;
 		color: #509E4F;
 	}
 	
-	.class{
-		color: #C73;
+	.class,
+	.function{
+		color: #9b703f; //ok
 	}
 	
 	.constant{
-		color: #C73;
+		color: #9b859d; // ok 
 	}
+	
 	.float{
 		color: #A4C260;
 	}
 	
-	.function{
-		color: #FFC56D;
-	}
-	
 	.global-variable{
 		color: #D0CFFE;
-	}
-	
-	.integer{
-		color: #A4C260;
 	}
 	
 	.inline{
@@ -55,7 +74,7 @@ background-color: #232323;
 	}
 	
 	.instance-variable{
-		color: #D0CFFE;
+		color: #7587a6; //ok
 	}
 	
 	.doctype{
@@ -63,7 +82,7 @@ background-color: #232323;
 	}
 	
 	.keyword{
-		color: #C93;
+		color: #cca869; //ok
 	}
 	
 	.regexp{
@@ -71,11 +90,13 @@ background-color: #232323;
 	}
 	
 	.string{
-		color: #A4C260;
+		color: #8f9c6a; //ok 
 	}
 	
+	.integer,
+	.predefined-constant,
 	.symbol{
-		color: #6C9CBD;
+		color: #cf6a4c; // ok
 	}
 	
 	.tag{
