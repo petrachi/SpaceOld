@@ -291,10 +291,10 @@ end
   :scss => %q{
     @include keyframes(planet-rotation){
 			from{
-				@include transform(rotateZ(23deg) rotateY(360deg)); 
+				@include transform(rotateZ(23deg) rotateY(-180deg)); 
 			}
 		  to {
-				@include transform(rotateZ(23deg) rotateY(0deg));
+				@include transform(rotateZ(23deg) rotateY(180deg));
 			}
 		}
 
