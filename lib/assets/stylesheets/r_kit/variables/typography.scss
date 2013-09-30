@@ -1,2 +1,5 @@
-$typography-text-color: #888 !default;
-$typography-link-color: skyblue !default;
+$typography-text-color: $text-color !default;
+$typography-link-color: $secondary-color !default;
+
+// typo color = text color
+// link color = secondary color

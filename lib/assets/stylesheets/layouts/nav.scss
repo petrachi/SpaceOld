@@ -22,7 +22,7 @@
 		
 		[class*=#{$application}-section-]{
 			@include filter( grayscale(100%) );
-			@include box-shadow(0 0 1em 0 $application-background-color inset);
+			@include box-shadow(0 0 1em 0 $background-color inset);
 			
 			&:hover,
 			&.active{
@@ -43,10 +43,10 @@
 				a{
 					display: block;
 					padding: 4.25em .5em .25em;
-					@include background-image( linear-gradient(top, transparent 4em, rgba($application-background-color, .65) 4em));
+					@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em));
 					
 					&:hover{ 
-						@include background-image( linear-gradient(top, transparent 4em, rgba($application-background-color, .85) 4em));
+						@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em));
 						
 					}
 				}
@@ -66,7 +66,7 @@
 	
 	#break{
 		.container{	
-			color: $application-background-color;
+			color: $background-color;
 			background-color: $primary-color;
 			
 			@include box-shadow(
