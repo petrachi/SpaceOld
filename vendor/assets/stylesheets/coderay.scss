@@ -8,37 +8,12 @@
 	font-size: .9em;
 	margin: .75em 1em;
 	border-radius: 1px;
-	
+		
 	pre{
 		margin: 0px;
 		padding: 0px;
 	}
-	
-	1-16
-	2-32
-	3-48
-	4-64
-	5-80
-	6-96
-	7-112
-	8-128
-	9-144
-	a-160
-	b-176
-	c-192
-	d-208
-	e-224
-	f-240
-	
-	
-	8f 9c 6a
-	
-	cc a8 69
-	
-	9b703f
-	
-	7587a6
-	
+		
 	.attribute-name{
 		color: #E7BE69;
 	}
@@ -106,4 +81,14 @@
 	.binary{
 		color: #6C9CBD;
 	}
+}
+
+span.CodeRay{
+	font-family: inherit;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	font-size: .9em;
+	border: none;
+	font-style: italic;
 }

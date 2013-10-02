@@ -8,8 +8,8 @@
   },
   :code => %q{
 		<p>
-			Salut les p'tit amis.<br/>
-			Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre sa gauloise. On va d'abord créer une carte, y placer nos deux personnages, et faire bouger notre gaulois jusqu'à ce qu'il rejoigne sa chérie. Tout ça grâce à la puissance et à la beauté de ruby !
+			Salut les p'tit amis !<br/>
+			Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre sa gauloise. On va d'abord créer une carte, y placer nos deux personnages, et faire bouger notre gaulois jusqu'à ce qu'il rejoigne sa chére et tendre. Tout ça grâce à la puissance et à la beauté de ruby !
 		</p>
 
 		<h3>'M' pour afficher la carte</h3>
