@@ -9,7 +9,8 @@
   :code => %q{
 		<p>
 			Salut les p'tit amis !<br/>
-			Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre sa gauloise. On va d'abord créer une carte, y placer nos deux personnages, et faire bouger notre gaulois jusqu'à ce qu'il rejoigne sa chére et tendre. Tout ça grâce à la puissance et à la beauté de ruby !
+			Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre une gauloise.<br/>
+			On va d'abord créer une carte, y placer nos deux personnages, puis faire bouger notre gaulois jusqu'à ce qu'il rejoigne sa chére et tendre. Tout ça grâce à la beauté et puissance de ruby !
 		</p>
 
 		<h3>'M' pour afficher la carte</h3>
@@ -19,16 +20,18 @@
 		</p>
 
 		<p>
-			On veut créer une carte où les positions sont des hexagones. Pourquoi des hexagones et pas des carrés ? Simplement parce qu'ils représentent mieux la réalité. Lorsqu'on choisis de représenter une carte à partir d'une série de position, comme ici, il est important d'anticiper la notion de distance entre deux positions.<br/>
-			On aurait plus naturellement choisi des positions carrés, pour représenter la carte comme un grand tableau. Le problème qui se pose, si on définit une distance de 1 pour deux provinces côtes à côtes, est de calculer la distance d'une position en diagonale. Une distance qui ne soit pas un entier va nous poser problème ensuite. Ce problème ne se posera pas avec des positions hexagonales.
+			On veut créer une carte où les provinces sont représentées par des hexagones. Pourquoi uitliser des hexagones plutôt qu'un bête tableau ? Lorsqu'on choisis de représenter une carte à partir d'une série de position, il est important d'anticiper la notion de distance.<br/>
+			La construction d'une carte en forme de tableau est plus intuitive, mais va nous poser problème lorsqu'on arrivera à définir la notion de distance. Si on définit la distance entre deux positions mitoyennes à 1, la distance qui sépare une position donnée d'une position situé en diagonale sera un nombre non entier.<br/>
+			Si notre personnage peut se déplacer de 1 par tour, combien de tour doit il compter pour se déplacer sur une position située à 1,414 de distance ?<br/>
+			Utiliser des positions "hexagonales" évite de poser ce genre de problèmes, car toutes les distances calculées seront des nombres entiers.
 		</p>
 
 		<p>
-			Les positions seront définies par trois coordonnées. Encore une fois, il semble plus naturel de n'utiliser que deux coordonnées pour représenter une carte en 2D, mais ajouter une troisième coordonnées permettra de faciliter largement le calcul des distances entre deux positions. Ces trois coordonnées seront notés <%= coderay({:inline => true}, ":x, :y, :z") %>, et devront respecter la condition <%= coderay({:inline => true}, "-x + y + z == 0") %>.
+			Les positions seront définies par trois coordonnées <%= coderay({:inline => true}, ":x, :y, :z") %>. Encore une fois, il semble plus naturel de n'utiliser que deux coordonnées pour représenter une carte à deux dimensions, mais ajouter cette troisième coordonnée permettra de faciliter le calcul des distances. La valeur de la troisième coordonnée sera donnée par la formule <%= coderay({:inline => true}, "z = x - y") %>.
 		</p>
 
 		<p>
-			Sans plus attendre, je vous donne le code de nos deux premières classes.
+			Sans transitions, voici le code de nos deux premières classes :
 		</p>
 
 		<%= coderay do %>
@@ -56,7 +59,7 @@ end
 		<% end %>
 
 		<p>
-			Rapidement, on va afficher un exemple de la liste des positions générées.
+			On peut donner un exemple des positions générées :
 		</p>
 
 		<%= coderay do %>
@@ -93,7 +96,7 @@ end
 		<h3>Les Gaulois</h3>
 
 		<p>
-			Pour représente nos deux gaulois, rien de plus simple, on va créer une classe <%= coderay({:inline => true}, "Gaulois") %>, et lui donner un attribut <%= coderay({:inline => true}, ":province") %>. On va en profiter pour créer et placer les deux personnages dans la méthode <%= coderay({:inline => true}, "World#initialize") %>.
+			Pour représente nos deux personnages, on va créer une classe <%= coderay({:inline => true}, "Gaulois") %>, et lui donner un attribut <%= coderay({:inline => true}, ":province") %> (il permettra de définir la position d'un gaulois). On va en profiter pour modifier la méthode <%= coderay({:inline => true}, "World#initialize") %>, afin de créer et de placer sur la carte nos deux amoureux.
 		</p>
 
 		<%= coderay do %>
@@ -129,9 +132,10 @@ end
 
 		<% end %>
 
+    <h3>Array Extend</h3>
+
 		<p>
-			Rapide digression, j'ai crée deux méthodes : <%= coderay({:inline => true}, "Array#except") %> et <%= coderay({:inline => true}, "Array#sample") %>. La première exclu une, ou plusieurs, valeurs dans un tableau. La seconde sélectionne une valeur aléatoirement.<br/>
-			Ces deux extends ne sontpas obligatoires, vous trouverez <%= coderay({:inline => true}, "Array#reject") %> e ruby, qui fait presque la même chose que mon <%= coderay({:inline => true}, "Array#except") %>. Et <%= coderay({:inline => true}, "Array#sample") %> est déjà inclus dans rails, puisque la méthode est définie dans <%= coderay({:inline => true}, "??? active support") %>.
+			Courte digression : j'ai crée les deux méthodes <%= coderay({:inline => true}, "Array#except") %> et <%= coderay({:inline => true}, "Array#sample") %>. La première exclu une, ou plusieurs, valeurs dans un tableau. La seconde sélectionne une valeur aléatoirement. Ces deux méthodes n'étaient pas nécéssaires, puisque vous trouverez <%= coderay({:inline => true}, "Array#reject") %> en ruby, qui fait presque la même chose que mon <%= coderay({:inline => true}, "Array#except") %>. Et la méthode <%= coderay({:inline => true}, "Array#sample") %> est déjà incluse dans rails, via <%= coderay({:inline => true}, "ActiveSupport") %>.
 		</p>
 
 		<%= coderay do %>
@@ -149,7 +153,11 @@ end
 		<h3>Conclusion</h3>
 
 		<p>
-			Allez, on a fait un monde et deux gaulois, je pense qu'il est temps de se reposer. C'est déjà beaucoup. Un prochain article va suivre où on commencera à faire bouger notre gaulois.
+			Allez, on a fait un monde et deux gaulois, je crois qu'on a le droit à un moment de repos. Demain, on verra comment faire avancer notre gaulois.
+		</p>
+		
+		<p>
+		  C'est tout pour cette fois. Vraiment, c'est pas la peine de rester y'en aura pas plus.
 		</p>
   },
   :pool => :ruby,
