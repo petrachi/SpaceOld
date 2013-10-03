@@ -167,22 +167,23 @@ end
 @gaulois_2_article = Blog::Article.create :user => @primal_user.blog_user,
   :title => "Gaulois cherche Gauloise (2)",
   :summary => %q{
-    On va se bouger aujourd'hui ! Et les gaulois aussi, ça suffit !
+    On va se bouger aujourd'hui ! Et les gaulois aussi, ça suffit ! Allez allez c'est parti.
   },
   :code => %q{
 		<p>
 			Coucou les copains, comment ça va aujourd'hui ?<br/>
-			Allez directement, on a fait un monde, des provinces, des gaulois, maintenant il faut les faire se déplacer. Sauf la gauloise, elle, elle bouge pas.
+			Allez directement, on a fait un monde, des provinces, des gaulois, maintenant on va mettre tout ça en action.
 		</p>
 
-		<h3>Du mouvement vint la vie</h3>
+		<h3>Du mouvement</h3>
 
 		<p>
-			Pour faire déplacer Gérôme le gaulois, il suffit de modifier la valeur de l'attribut <%= coderay({:inline => true}, ":province") %>. La difficulté sera de sélectionner une valeur cohérente. Pour cela, nous allons créer une méthode <%= coderay({:inline => true}, "Province#vision(distance)") %>, qui nous renverra la liste de toutes les provinces visibles à une certaine distance. Et une méthode <%= coderay({:inline => true}, "Province#distance(province)") %>, qui va calculer la distance jusqu'à la province passé en paramètre.
+			Pour faire se déplacer notre gaulois, il suffit de modifier la valeur son attribut <%= coderay({:inline => true}, ":province") %>. Reste à choisir une valeur cohérente.<br/>
+			Pour `nous aider, nous allons créer deux méthode : Et <%= coderay({:inline => true}, "Province#distance(province)") %>, qui va calculer la distance jusqu'à la province passé en paramètre. Et <%= coderay({:inline => true}, "Province#vision(distance)") %>, qui nous renverra la liste de toutes les provinces "visibles" à une certaine distance.
 		</p>
 
 		<p>
-			Afin d'avoir accès aux provinces qui existent dans le monde, nous allons devoir modifer la méthode <%= coderay({:inline => true}, "Province#initialize") %>, pour passer l'instance de la classe <%= coderay({:inline => true}, "World") %> dans laquelle elle est incluse.
+			Afin d'avoir accès à la liste provinces qui peuplent notre carte, nous allons modifer la méthode <%= coderay({:inline => true}, "Province#initialize") %>, afin d'inclure l'instance de <%= coderay({:inline => true}, "World") %> qui englobe notre province.
 		</p>
 
 		<%= coderay do %>
@@ -192,7 +193,15 @@ class Province
   def initialize x, y, z, world
   	@x, @y, @z, @world = x, y, z, world
   end
-
+  
+  def distance province
+    [
+      (@x - province.x).abs,
+      (@y - province.y).abs,
+      (@z - province.z).abs,
+    ].max
+  end
+  
   def vision distance
   	@world.provinces.select do |province|
   		(@x - distance..@x + distance) === province.x and
@@ -220,11 +229,17 @@ class World
   end
 end
 		<% end %>
-
+    
+    <p>
+      C'est ici que le choix des trois coordonnées paye. La méthode de distance cherche juste la valeur maximale de la différence de chaque coordonnée. Et la méthode de vision sélectionne une plage trés simple de valeurs pour chaque coordonnées.<br/>
+      Essayez donc chez vous de reproduire ces deux fonctions avec seulement deux coordonnées, toujours pour une carte "hexagonale", et venez me dire aprés que c'était plus facile.
+    </p>
+    
 		<h3>Gaulois#move</h3>
 
 		<p>
-			Enfin, on va pouvoir faire se déplacer notre Gérôme le gaulois. À chaque "tour" (<%= coderay({:inline => true}, "World#play_turn") %>), il va regarder toutes les provinces autour de lui, à une distance de 1, et se déplacer sur l'une d'entre-elles aléatoirement (<%= coderay({:inline => true}, "Gaulois#move") %>). On répétera l'opération jusqu'a ce que les deux personnages soit réunis.
+			Pour sélectionner une province sur laquelle notre personnage va se déplacer, nous allons d'abord récupérer la liste des provinces visibles, à partir de sa position actuelle, à une disance de 1. Puis sélectionner aléatoirement une de ces provinces.<br/>
+			Cette mécanique sera décrite dans la fonction <%= coderay({:inline => true}, "World#play_turn") %>, tandis que la fonction <%= coderay({:inline => true}, "World#play_turn") %>) nous permettra de faire passer un tour de jeu dans notre monde.
 		</p>
 
 		<%= coderay do %>
@@ -244,7 +259,7 @@ end
 		<% end %>
 
 		<p>
-			Volontairement, je vais choisir un monde assez petit. Ainsi codé, Gérôme le gaulois peut lobotomiser assez longtemps avant de retrouver sa gauloise.
+		  On peut voir le résultat directement. J'ai volontairement choisi un monde assez petit pour cette fois, car avec cette méthode de déplacement aléatoire, il peut se passer de nombreux tours de jeu avant que nos deux personnages soient réunis.
 		</p>
 
 		<%= coderay do %>		
@@ -276,11 +291,11 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<h3>Conclusion</h3>
 
 		<p>
-			Et voilà ! L'amour à triomphé ! C'est très bien. Dans le prochain et dernier article, on va améliorer la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, pour que les déplacements soit un peu moins aléatoires.
+			Et voilà ! L'amour à triomphé chez les gaulois ! C'est très bien. Mais on ne va pas s'arreter là, dans le prochain article, on va améliorer la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, et rendre les déplacements de notre gaulois moins aléatoires.
 		</p>
 
 		<p>
-			Allez, c'est tout pour aujourd'hui. Vous pouvez partir. Il faut me débarrasser le plancher !
+			Allez, c'est fini pour aujourd'hui. Vous devez partir. Il faut me débarrasser le plancher !
 		</p>
   },
   :pool => :ruby,
@@ -290,22 +305,23 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 @gaulois_3_article = Blog::Article.create :user => @primal_user.blog_user,
   :title => "Gaulois cherche Gauloise (3)",
   :summary => %q{
-    Épisode final où l'amour triomphe pour Gérôme le gaulois et sa copine. Aujourd'hui, on fait de l'intelligence artificielle ! (Enfin, pas vraiment mais on va dire que oui).
+    Épisode final pour notre ami gaulois et sa tendre amie. Aujourd'hui, on fait de l'intelligence artificielle ! (Enfin, pas vraiment mais on va dire que oui).
   },
   :code => %q{
 		<p>
-			En forme aujourd'hui ?<br/>
-			Très bien. Retour sur nos deux gaulois. Dans cet épisode final, on va upgrade la méthode <%= coderay({:inline => true}, "Gaulois#move") %> de deux façons, vous allez voir, vous allez comprendre.
+			Patate aujourd'hui ?<br/>
+			Très bien. Retour sur nos deux gaulois. Dans cet article, on va améliorer la méthode <%= coderay({:inline => true}, "Gaulois#move") %> afin de rendre les déplacements moins aléatoires.
 		</p>
 
 		<h3>Vision de jeu</h3>
 
 		<p>
-			On va ajouter un attribut <%= coderay({:inline => true}, ":vision") %> à la classe <%= coderay({:inline => true}, "Gaulois") %>. Ce nouvel attribut nous permettra d'inspecter les alentours avant de se déplacer.
+			On va commencer par ajouter un attribut <%= coderay({:inline => true}, ":vision") %> aux gaulois. il va nous permettre d'inspecter les alentours avant de se déplacer.
 		</p>
 
 		<p>
-			Rappelez vous, dans la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, on sélectionne une province sur laquelle se déplacer. Pour l'instant, le choix de la province reléve du pur hasard. On va modifier la méthode afin de regarder d'abord si la gauloise que nous cherchons à atteindre est en vue. Si oui, nous sélectionnerons une province qui nous rapproche d'elle le plus possible. Sinon, on retourne sur le hasard.
+		  On va modifier la méthode <%= coderay({:inline => true}, "Gaulois#move") %> pour y faire bon usage de ce nouvel attribut. Avant de choisir une province sur laquelle se déplacer, nous allons regarder les provinces autour de nous, aussi loin que nous le permet notre vision, à la recherche de la gauloise.<br/>
+		  Si la gauloise est en vue, nous allons sélectionner une province qui nous raproche d'elle. Sinon, on reprendra notre comportement aléatoire habituel.
 		</p>
 
 		<%= coderay do %>
@@ -317,6 +333,10 @@ class Gaulois
   	@vision = 4
   end
 
+  def look &block
+    @province.vision(@vision).detect &block
+  end
+  
   def find_a_way
   	province_gauloise = look{ |province| province == @world.gauloise.province }
 
@@ -350,7 +370,12 @@ end
 		<h3>Mémoire - Du poisson rouge à l'éléphant</h3>
 
 		<p>
-			Pour finir, nous allons mémoriser toutes les provinces déjà visitées, et éviter d'y retourner. Pour faire ça, on va stocker toutes les provinces vues dans un tableau, et modifier la partie "sélection aléatoire" de la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, afin d'exclure les provinces déjà visitées de la liste des déplacements disponibles. Il faudra également prévoir le cas où toutes les déplacements disponibles ont déjà été vus, pour éviter de se retrouver coincé dans un cul de sac.
+			La seconde amélioration sera de mémoriser toutes les provinces déjà visitées, et éviter d'y retourner.
+		</p>
+		
+		<p>
+		  Pour ajouter ce nouveau comportement, on va créer un attribut <%= coderay({:inline => true}, ":seen") %>, dans lequel nous allons enregistrer toutes les positions déjà vue.<br/>
+		  On va aussi modifier la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, afin d'exclure, si possible, les provinces visitées de la sélection des provinces sur lequelles se déplacer. Je dis "si possible", car on ne peut pas exclure de se retrouver coincé dans un cul de sac. À ce moment, il faudra retourner sur ses pas.
 		</p>
 
 		<%= coderay do %>
@@ -360,11 +385,6 @@ class Gaulois
   	@vision = 4
 
   	@seen = Array.new
-  end
-
-  def move
-    @province = find_a_way
-    @seen << @province
   end
 
   def find_a_way
@@ -393,11 +413,16 @@ class Gaulois
   		possible_provinces.sample
   	end
   end
+  
+  def move
+    @province = find_a_way
+    @seen << @province
+  end
 end
 		<% end %>
 
 		<p>
-			Avec ça, Gérôme le gaulois devrait retouver sa belle plus rapidement. Allez, je lance le script, et je vous rajoute des <%= coderay({:inline => true}, "puts") %> pour bien comprendre tout ce qui se passe.
+			Avec ça, notre gaulois devrait pouvoir retouver sa gauloise un peu plus rapidement. Allez, je lance le script sur un monde plus grand que la dernière fois, et je rajoute des <%= coderay({:inline => true}, "puts") %> pour plus de clarté.
 		</p>
 
 		<%= coderay do %>		
@@ -423,21 +448,21 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<% end %>
 
 		<p>
-			Youpi, l'amour triomphe encore chez les gaulois ! C'était le dernier article de la série, même si on pourrait encore travailler à davantage d'améliorations. Si vous voulez vous amuser, je vous conseillerais d'ajouter des obstacles sur la route, par exemple.
+			C'est assez dingue mais, l'amour triomphe encore cette fois chez les gaulois ! C'était le dernier article de la série, et je sais qu'on pourrait encore améliorer les déplacements du gaulois, ou faire d'autres trucs plus fun. Essayez donc chez vous d'ajouter des obstacles sur la route.
 		</p>
 
 		<h3>Conclusion</h3>
 
 		<p>
-			J'ai surtout l'habitude de rails, et j'ai dû travailler sur la notion de "visibilité" des objets. Par exemple pour les provinces, j'aurais eu le réflexe de faire quelque chose comme <%= coderay({:inline => true}, "province.world.provinces") %>. Le système d'associations d'<%= coderay({:inline => true}, "ActiveRecord") %>, et le fait d'avoir une base de donnée, rends presque invisible les mécaniques qui vont lier deux objets entre eux. Comment faire alors pour qu'une instance de <%= coderay({:inline => true}, "Province") %> ait accès au reste de ses homologues ?
+			J'ai surtout l'habitude d'utiliser ruby via rails. Le fait de ne pas avoir de système de données persistant  m'a fait retravailler le concept de visibilité des objets. Une instance de <%= coderay({:inline => true}, "Province") %> n'a pas accés "naturellement" aux autres instances de <%= coderay({:inline => true}, "Province") %>.
 		</p>
-
+		
 		<p>
-			Peut-être que cette première expérience en "plain ruby" m'amènera à me pencher d'avantage sur les mécaniques d'<%= coderay({:inline => true}, "ActiveRecord") %>, et de ruby sans rails.
+			Cette expérience en "plain ruby" m'a beaucoup plu, et je vais essayer de coder plus souvent en dehors de rails. J'essaierait peut être bientôt de reproduire certains comportements d'<%= coderay({:inline => true}, "ActiveRecord") %>, afin de mieux saisir cette mécanique de visibilité des objets.
 		</p>
-
+    
 		<p>
-			Allez, je vous laisse les copains. C'est fini pour aujourd'hui. Non mais allez-vous en, ça commence à devenir gênant.
+			Allez, je vous laisse les copains. C'est fini, vous pouvez partir ... Non mais rentrez chez vous maintenant, ça commence à devenir gênant.
 		</p>
   },
   :pool => :ruby,
