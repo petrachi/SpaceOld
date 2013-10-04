@@ -54,7 +54,62 @@ class Blog::Version < ActiveRecord::Base
   validates_presence_of :user_id, :experiment_id
   validates_uniqueness_of :mutation, :scope => :experiment_id
   
+  before_save :precompile_scss!
+  def precompile_scss!
+    if Digest::MD5.hexdigest(scss) != scss_md5
+      write_attribute :scss_md5, Digest::MD5.hexdigest(scss)
+    
+    
+      context_scss = ERB.new(%Q{
+        <%
+          #{ params }
+          #{ ruby }
+        %>
+
+        <%= %Q{#{ scss }} %>
+      }).result
+    
+    
+    
+      #this code is duplicate from erb helper - it needs to be refactor
+      write_attribute :precompiled_scss, Sass::Engine.new(
+        %Q{
+          @import "r_kit/variables";
+          @import "r_kit/mixins";
+          @import "r_kit/animations";
+
+          @import "blog/variables";
+          @import "compass";
+        } + context_scss, 
+        :syntax => :scss,
+        :load_paths => [
+          File.join(Rails.root, "app/assets/stylesheets"),
+          File.join(Rails.root, "lib/assets/stylesheets"),
+          File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
+          File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")
+        ]
+      ).render
+    
+      save!
+    end
+  end
   
+  def precompiled_scss
+    
+    
+    precompile_scss!
+    read_attribute :precompiled_scss  
+    
+  end
+  
+  #the content tag for css here could be in erb_helper, or already exist in rails
+  # and, this lead to the code below to be describe in a "decorator", who have access to rails views helpers
+  
+  #orig is <%= scss %Q{#{ scss }} %>
+  
+  #<style type="text/css">#{ precompiled_scss }</style>
+  #precompiling doesn't work because scss need erb to evaluate ruby before compiling scss
+  #(variables ruby injected in scss to calc the width for ex in experiment 2 hexagones)
   def code
     %Q{
       <%
@@ -62,7 +117,7 @@ class Blog::Version < ActiveRecord::Base
         #{ ruby }
       %>
       
-      <%= scss %Q{#{ scss }} %>
+      <style type="text/css">#{ precompiled_scss }</style>
       
       #{ erb }
       

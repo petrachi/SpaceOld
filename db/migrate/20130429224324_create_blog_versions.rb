@@ -10,6 +10,9 @@ class CreateBlogVersions < ActiveRecord::Migration
       t.text :erb
       t.text :js
       
+      t.string :scss_md5
+      t.text :precompiled_scss, :limit => 16.megabytes - 1
+      
       t.references :primal
       t.string :mutation
       

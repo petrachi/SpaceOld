@@ -71,11 +71,13 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
     t.text     "scss"
     t.text     "erb"
     t.text     "js"
+    t.string   "scss_md5"
+    t.text     "precompiled_scss", :limit => 16777215
     t.integer  "primal_id"
     t.string   "mutation"
-    t.boolean  "published",     :default => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.boolean  "published",                            :default => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
   end
 
   add_index "blog_versions", ["experiment_id"], :name => "index_blog_versions_on_experiment_id"
