@@ -14,6 +14,8 @@ group :production do
 end
 
 # Out of :assets because of the scss herper (use scss inline)
+# this shoud be in assets and run a precompile on models at deploy
+
 gem 'sass-rails',   '~> 3.2.3'
 gem 'compass-rails'
 
@@ -61,3 +63,6 @@ gem 'oily_png'
 
 # Code Highlight
 gem 'coderay'
+
+# this is my all in one gem
+gem 'r_kit'
