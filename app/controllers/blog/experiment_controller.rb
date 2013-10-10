@@ -5,13 +5,12 @@ class Blog::ExperimentController < Blog::ApplicationController
   end
   
   def index
-    @experiments = Blog::Experiment.with_primal_version
+    @experiments = Blog::Experiment.published
+    @experiments = @experiments.pool params[:pool] if params[:pool]
   end
   
   def show
-    @experiment = Blog::Experiment.where(:id => params[:id])
-      .with_version(params[:version_id])
-      .first
+    @experiment = Blog::Experiment.where(:id => params[:id]).first
   end
   
   

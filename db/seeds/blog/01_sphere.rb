@@ -6,7 +6,7 @@
   :summary => %q{
     Répartition équitable de <i>n</i> points sur une sphére et rendu graphique avec les technologies web natives.
   },
-  :code => %q{ 
+  :snippet => Blog::Snippet.create(erb: %q{ 
     <%= scss %Q{
       @include keyframes(rotation){
     		from{ 
@@ -244,8 +244,9 @@ end
     <p>
       Allez, bisous les copains ! Ouste !
     </p>
-  },
+  }),
   :pool => :experiment,
+  :tag => :sphere,
   :published => true
 
 

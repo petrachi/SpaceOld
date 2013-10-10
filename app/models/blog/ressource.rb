@@ -1,20 +1,16 @@
 class Blog::Ressource < ActiveRecord::Base
-  attr_protected
-  
   belongs_to :user
-  belongs_to :article
   
-  scope :published, where(:published => true)
-  default_scope published
-  
-  scope :primal, where(:primal => true)
+  scope :published, where(:published => true)  
   scope :pool, ->(pool){ where(:pool => pool) }
   
-  validates_presence_of :user_id, :title, :summary, :link, :pool
+  
+  validates_presence_of :user, :title, :summary, :link, :pool, :tag
   validates_uniqueness_of :title, :link
   validates_inclusion_of :pool, :in => [:technology_watch, :demo, :blog, :doc, :tutorial]
   
-  def self.to_url
+  
+  def self.url
     URL.ressources_path
   end
   

@@ -5,10 +5,7 @@ class Blog::RessourceController < Blog::ApplicationController
   end
   
   def index
-    if params[:pool]
-      @ressources = Blog::Ressource.pool params[:pool]
-    else
-      @ressources = Blog::Ressource.primal
-    end
+    @ressources = Blog::Ressource.published
+    @ressources = @ressources.pool params[:pool] if params[:pool]
   end
 end

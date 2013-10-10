@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429224324) do
+ActiveRecord::Schema.define(:version => 20131009231736) do
 
   create_table "blog_articles", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "summary"
-    t.text     "code"
     t.string   "pool"
     t.boolean  "published",  :default => false
+    t.string   "tag"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
@@ -28,32 +28,50 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
 
   create_table "blog_experiments", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "article_id"
     t.string   "title"
     t.text     "summary"
+    t.string   "pool"
     t.boolean  "published",  :default => false
+    t.string   "tag"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
 
-  add_index "blog_experiments", ["article_id"], :name => "index_blog_experiments_on_article_id"
   add_index "blog_experiments", ["user_id"], :name => "index_blog_experiments_on_user_id"
 
   create_table "blog_ressources", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "article_id"
     t.string   "title"
     t.text     "summary"
     t.string   "link"
     t.string   "pool"
-    t.boolean  "primal",     :default => false
     t.boolean  "published",  :default => false
+    t.string   "tag"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
 
-  add_index "blog_ressources", ["article_id"], :name => "index_blog_ressources_on_article_id"
   add_index "blog_ressources", ["user_id"], :name => "index_blog_ressources_on_user_id"
+
+  create_table "blog_snippets", :force => true do |t|
+    t.integer  "runnable_id"
+    t.string   "runnable_type"
+    t.text     "params"
+    t.text     "ruby"
+    t.text     "scss"
+    t.text     "erb"
+    t.text     "js"
+    t.string   "fingerprint"
+    t.text     "compiled",      :limit => 16777215
+    t.boolean  "published",                         :default => false
+    t.integer  "primal_id"
+    t.string   "mutation"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+  end
+
+  add_index "blog_snippets", ["primal_id"], :name => "index_blog_snippets_on_primal_id"
+  add_index "blog_snippets", ["runnable_id", "runnable_type"], :name => "index_blog_snippets_on_runnable_id_and_runnable_type"
 
   create_table "blog_users", :force => true do |t|
     t.integer  "main_user_id"
@@ -62,27 +80,6 @@ ActiveRecord::Schema.define(:version => 20130429224324) do
   end
 
   add_index "blog_users", ["main_user_id"], :name => "index_blog_users_on_main_user_id"
-
-  create_table "blog_versions", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "experiment_id"
-    t.text     "params"
-    t.text     "ruby"
-    t.text     "scss"
-    t.text     "erb"
-    t.text     "js"
-    t.string   "scss_md5"
-    t.text     "precompiled_scss", :limit => 16777215
-    t.integer  "primal_id"
-    t.string   "mutation"
-    t.boolean  "published",                            :default => false
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-  end
-
-  add_index "blog_versions", ["experiment_id"], :name => "index_blog_versions_on_experiment_id"
-  add_index "blog_versions", ["primal_id"], :name => "index_blog_versions_on_primal_id"
-  add_index "blog_versions", ["user_id"], :name => "index_blog_versions_on_user_id"
 
   create_table "main_users", :force => true do |t|
     t.string   "first_name"

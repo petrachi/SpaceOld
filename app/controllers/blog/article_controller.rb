@@ -4,24 +4,16 @@ class Blog::ArticleController < Blog::ApplicationController
     super
   end
   
+  
   def index
-    if params[:pool]
-      @articles = Blog::Article.pool params[:pool]
-    else
-      @articles = Blog::Article.all
-    end
+    @articles = Blog::Article.published
+    @articles = @articles.pool params[:pool] if params[:pool]
   end
   
   def show
-    @article = Blog::Article.where(:id => params[:id])
-      .includes(:experiment)
-      .includes(:ressources)
-      .first
+    @article = Blog::Article.where(:id => params[:id]).first
   end
   
-  def pool
-    @articles = Blog::Article.pool params[:pool]
-  end
   
   
   #### Dev zone

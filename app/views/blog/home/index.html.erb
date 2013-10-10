@@ -8,6 +8,6 @@
 	</p>
 	
 	<p class="text-center">
-		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize.to_url, :class=>:btn %>
+		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize.url, :class=>:btn %>
 	</p>
 <% end %>

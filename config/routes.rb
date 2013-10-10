@@ -11,8 +11,8 @@ Space::Application.routes.draw do
     end
     
     controller "blog/experiment" do
-      match "/experiments" => :index, :as => :experiments
-      match "/experiment/:id(/v/:version_id)" => :show, :as => :experiment
+      match "/experiments(/p/:pool)" => :index, :as => :experiments
+      match "/experiment/:id" => :show, :as => :experiment
       
       match "/tmp_e" => :tmp
     end

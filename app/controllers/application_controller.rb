@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   
   include ActionForm
   
+  
   around_filter :disable_gc
-  private
   def disable_gc
     GC.disable
     begin

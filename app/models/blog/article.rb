@@ -1,25 +1,23 @@
 class Blog::Article < ActiveRecord::Base
-  attr_protected
-  
   belongs_to :user
-  has_one :experiment
-  has_many :ressources
   
-  scope :published, where(:published => true)
-  default_scope published
+  has_one :snippet, as: :runnable
+  delegate :run, to: :snippet
   
-  scope :primal, where(:primal => true)
-  scope :pool, ->(pool){ where(:pool => pool) }
+  scope :published, where(:published => true)  
+  scope :pool, -> pool { where(:pool => pool) }
   
-  validates_presence_of :user_id, :title, :summary, :code, :pool
-  validates_uniqueness_of :title
+  
+  validates_presence_of :user, :title, :summary, :snippet, :pool, :tag
+  validates_uniqueness_of :tag
   validates_inclusion_of :pool, :in => [:experiment, :ruby, :css]
   
-  def self.to_url
+  
+  def self.url
     URL.articles_path
   end
   
-  def to_url
+  def url
     URL.article_path self
   end
   

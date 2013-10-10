@@ -1,17 +1,9 @@
-class Blog::Version < ActiveRecord::Base
-  attr_protected
-  
-  belongs_to :user
-  
-  belongs_to :experiment
-  def experiment
-    Blog::Experiment.with_version(self).first
-  end
-  delegate :to_url, to: :experiment
+class Blog::Snippet < ActiveRecord::Base
+  belongs_to :runnable, polymorphic: true
   
 #mutation concern begin
-  has_many :mutations, :class_name => "Blog::Version", :foreign_key => "primal_id"
-  belongs_to :primal, :class_name => "Blog::Version", :foreign_key => "primal_id"
+  belongs_to :primal, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
+  has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
   
   def params
     super || primal.params
@@ -36,25 +28,18 @@ class Blog::Version < ActiveRecord::Base
   def primal?
     primal.blank?
   end
-  
-  validates_presence_of :params, :ruby, :scss, :erb, :js, if: :primal?
-  validates_presence_of :primal_id, :mutation, unless: :primal?
+  #disabled for now, must come back
+  #validates_presence_of :params, :ruby, :scss, :erb, :js, if: :primal?
+  #validates_presence_of :primal_id, :mutation, unless: :primal?
 #mutation concern end
 
 #must validate only one primal by experiment
 
-
   scope :published, where(:published => true)
-  default_scope published
   
-  scope :by_experiment, ->(experiment) do 
-    where(:experiment_id => experiment)
-  end
+  validates_uniqueness_of :mutation, :scope => :primal_id, :unless => :primal?
   
-  validates_presence_of :user_id, :experiment_id
-  validates_uniqueness_of :mutation, :scope => :experiment_id
-  
-  before_save :precompile_scss!
+  #before_save :precompile_scss!
   def precompile_scss!
     if Digest::MD5.hexdigest(scss) != scss_md5
       write_attribute :scss_md5, Digest::MD5.hexdigest(scss)
@@ -110,14 +95,16 @@ class Blog::Version < ActiveRecord::Base
   #<style type="text/css">#{ precompiled_scss }</style>
   #precompiling doesn't work because scss need erb to evaluate ruby before compiling scss
   #(variables ruby injected in scss to calc the width for ex in experiment 2 hexagones)
-  def code
+  def run mutation = nil
+    # if mutation, display the mutation precompiled
+    
     %Q{
       <%
         #{ params }
         #{ ruby }
       %>
       
-      <style type="text/css">#{ precompiled_scss }</style>
+      <%= scss %Q{#{ scss }} %>
       
       #{ erb }
       

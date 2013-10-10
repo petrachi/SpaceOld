@@ -5,10 +5,10 @@ class CreateBlogArticles < ActiveRecord::Migration
       
       t.string :title
       t.text :summary
-      t.text :code
       
       t.string :pool
       t.boolean :published, :default => false
+      t.string :tag
       
       t.timestamps
     end
