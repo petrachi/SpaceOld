@@ -29,7 +29,8 @@ module ErbHelper
         File.join(Rails.root, "app/assets/stylesheets"),
         File.join(Rails.root, "lib/assets/stylesheets"),
         File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/compass/stylesheets"),
-        File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets")
+        File.join(Gem.loaded_specs['compass'].full_gem_path, "frameworks/blueprint/stylesheets"),
+        File.join(Gem.loaded_specs['r_kit'].full_gem_path, "lib/assets/stylesheets")
       ]
     ).render
     

@@ -6,7 +6,7 @@
   :summary => %q{
     Rapide 'walkthrough' de l'utilisation des blocks dans l'implémentation de fonctions en ruby.
   },
-  :code => %q{ 
+  :snippet => Blog::Snippet.create(erb: %q{ 
 		<p>
 		  Les blocks, procs ou lambda, c'est tout la même chose : une instance de la classe <%= coderay({:inline => true}, :Proc) %> qui sert à stocker du code. Ils sont utilisés fréquement en ruby, dans la méthode <%= coderay({:inline => true}, "Enumerable#each") %> par exemple (le block c'est ce code entré entre les accolades - ou le do..end).<br/>
 		</p>
@@ -160,6 +160,7 @@ end
 		<p>
 			Allez, bisous les copains ! Faut partir maintenant, y'a plus l'temps !
 		</p>
-  },
+  }),
   :pool => :ruby,
-  :published => true
+  :published => true,
+  :tag => :block

@@ -6,10 +6,11 @@
   :summary => %q{
     Préparez-vous à être éblouis par cette sphère 2d !
   },
-  :published => true
+  :published => true,
+  :tag => :hexa,
+  :pool => :experiment
 
-Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @hexagones_experiment,
+Blog::Snippet.create :runnable => @hexagones_experiment,
   :params => %q{
     n = 46
     width = 10

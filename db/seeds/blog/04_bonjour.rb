@@ -6,11 +6,12 @@
   :summary => %q{
     Parceque écrire "bonjour" c'est stylé ! ... Et que j'aime bien écrire "bonjour" de toute façon ! (full HTML/CSS)
   },
-  :published => false
+  :published => false,
+  :tag => :bonjour,
+  :pool => :experiment
 
 
-@bonjour_version = Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @bonjour_experiment,
+@bonjour_version = Blog::Snippet.create :runnable => @bonjour_experiment,
   :params => %q{
     # No Params
   },

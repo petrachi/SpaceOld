@@ -6,7 +6,7 @@
   :summary => %q{
     Comment hacker la rigidité du spriting CSS ? En utilisant un positionnement exprimé en '%', le même sprite peut facilement être utilisé dans toutes les tailles du monde !
   },
-  :code => %q{ 
+  :snippet => Blog::Snippet.create(erb: %q{ 
 		<p>
 			Cet article aborde des notions avancées de CSS, utilise Sass, Compass, et parle de Ruby. Si UNE SEULE de ces technologie vous sont inconnues, RTFMN !
 		</p>
@@ -164,9 +164,10 @@ end
 		<p>
 			J'espère que vous vous êtes bien amusé, que vous allez , et je vous fais des bisous !
 		</p>
-  },
+  }),
   :pool => :css,
-  :published => false
+  :published => false,
+  :tag => :sprite
 
 
 @spriting_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
@@ -174,11 +175,11 @@ end
   :summary => %q{
     Un sprite pour toutes les tailles.
   },
-  :article => @spriting_article,
-  :published => false
+  :published => false,
+  :tag => :sprite,
+  :pool => :experiment
 
-@spriting_version = Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @spriting_experiment,
+@spriting_version = Blog::Snippet.create :runnable => @spriting_experiment,
   :params => %q{
     # No Params
   },
@@ -297,18 +298,14 @@ end
   :js => "// No JS",
   :published => true
 
-Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @spriting_experiment,
-  :primal => @spriting_version,
+Blog::Snippet.create :primal => @spriting_version,
   :erb => %q{
 	  <i class="sc-icon-protoss icon-x4"></i>
   },
   :mutation => :protoss_big,
   :published => true
 
-Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @spriting_experiment,
-  :primal => @spriting_version,
+Blog::Snippet.create :primal => @spriting_version,
   :scss => %q{
 		$px-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png");
 		
@@ -364,9 +361,7 @@ Blog::Version.create :user => @primal_user.blog_user,
   :mutation => :pixels,
   :published => true
 
-Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @spriting_experiment,
-  :primal => @spriting_version,
+Blog::Snippet.create :primal => @spriting_version,
   :erb => %q{
     <div id="fit-article">
       <i class="sc-icon-terran"></i>
@@ -384,7 +379,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Précompileur CSS écrit en ruby. Incontournable pour tout projet rails.",
   :link => "http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html",
   :pool => :doc,
-  :article => @spriting_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -392,7 +386,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Librairie de mixins pour Sass, quasi indispensable.",
   :link => "http://compass-style.org/",
   :pool => :doc,
-  :article => @spriting_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -400,5 +393,4 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "La meilleure font-icon que je connaisse.",
   :link => "http://fortawesome.github.io/Font-Awesome/",
   :pool => :doc,
-  :article => @spriting_article,
   :published => true

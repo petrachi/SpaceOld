@@ -227,7 +227,7 @@ end
 </div>
     <% end %>
     
-    <%= erb @article.experiment.with_mutant_version(:mini).code %>
+    <%= erb Blog::Experiment.where(tag: :sphere).first.run(:mini) %>
 
     <h3>
     	Conclusion
@@ -255,12 +255,12 @@ end
   :summary => %q{
     Une sphère tout en web :). Pas de flash, pas de librairies javascript, juste des <i>div</i> et des <i>transforms</i>. 
   },
-  :article => @sphere_article,
-  :published => true
+  :published => true,
+  :tag => :sphere,
+  :pool => :experiment
 
 
-@sphere_version = Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @sphere_experiment,
+@sphere_version = Blog::Snippet.create :runnable => @sphere_experiment,
   :params => %q{
     n = 789
     r = 230
@@ -353,9 +353,7 @@ end
   :js => "// No JS",
   :published => true
 
-Blog::Version.create :user => @primal_user.blog_user,
-  :experiment => @sphere_experiment,
-  :primal => @sphere_version,
+Blog::Snippet.create :primal => @sphere_version,
   :params => %q{
     n = 389
     r = 132
@@ -410,7 +408,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Site de démo des propriétés CSS3 les plus \"trendy\"",
   :link => "http://ie.microsoft.com/testdrive/graphics/hands-on-css3",
   :pool => :demo,
-  :article => @sphere_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -418,7 +415,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "C'est quoi les coordonnées sphériques ? Non mais dis donc ! Explique moi tout !",
   :link => "http://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques",
   :pool => :doc,
-  :article => @sphere_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -426,7 +422,6 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Répartir des points équitablement sur une sphére (en anglais)",
   :link => "http://www.xsi-blog.com/archives/115",
   :pool => :blog,
-  :article => @sphere_article,
   :published => true
 
 Blog::Ressource.create :user => @primal_user.blog_user,
@@ -434,5 +429,4 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "Librairie Javascript",
   :link => "http://mrdoob.github.com/three.js/",
   :pool => :technology_watch,
-  :article => @sphere_article,
   :published => true

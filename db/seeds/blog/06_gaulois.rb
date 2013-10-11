@@ -6,7 +6,7 @@
   :summary => %q{
     Chez les gaulois, l'amour triomphe toujours ! Comment ça se passe en ruby ? C'est justement le sujet de cet article.
   },
-  :code => %q{
+  :snippet => Blog::Snippet.create(erb: %q{
 		<p>
 			Salut les p'tit amis !<br/>
 			Aujourd'hui, un programme simple avec un gaulois, qui tentera de rejoindre une gauloise.<br/>
@@ -159,9 +159,10 @@ end
 		<p>
 		  C'est tout pour cette fois. Vraiment, c'est pas la peine de rester y'en aura pas plus.
 		</p>
-  },
+  }),
   :pool => :ruby,
-  :published => true
+  :published => true,
+  :tag => :gaulois1
   
   
 @gaulois_2_article = Blog::Article.create :user => @primal_user.blog_user,
@@ -169,7 +170,7 @@ end
   :summary => %q{
     On va se bouger aujourd'hui ! Et les gaulois aussi, ça suffit ! Allez allez c'est parti.
   },
-  :code => %q{
+  :snippet => Blog::Snippet.create(erb: %q{
 		<p>
 			Coucou les copains, comment ça va aujourd'hui ?<br/>
 			Allez directement, on a fait un monde, des provinces, des gaulois, maintenant on va mettre tout ça en action.
@@ -297,9 +298,10 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, c'est fini pour aujourd'hui. Vous devez partir. Il faut me débarrasser le plancher !
 		</p>
-  },
+  }),
   :pool => :ruby,
-  :published => true
+  :published => true,
+  :tag => :gaulois2
   
 
 @gaulois_3_article = Blog::Article.create :user => @primal_user.blog_user,
@@ -307,7 +309,7 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :summary => %q{
     Épisode final pour notre ami gaulois et sa tendre amie. Aujourd'hui, on fait de l'intelligence artificielle ! (Enfin, pas vraiment mais on va dire que oui).
   },
-  :code => %q{
+  :snippet => Blog::Snippet.create(erb: %q{
 		<p>
 			Patate aujourd'hui ?<br/>
 			Très bien. Retour sur nos deux gaulois. Dans cet article, on va améliorer la méthode <%= coderay({:inline => true}, "Gaulois#move") %> afin de rendre les déplacements moins aléatoires.
@@ -464,6 +466,7 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, je vous laisse les copains. C'est fini, vous pouvez partir ... Non mais rentrez chez vous maintenant, ça commence à devenir gênant.
 		</p>
-  },
+  }),
   :pool => :ruby,
-  :published => true
+  :published => true,
+  :tag => :gaulois3

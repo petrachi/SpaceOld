@@ -2,6 +2,8 @@ class CreateBlogSnippets < ActiveRecord::Migration
   def change
     create_table :blog_snippets do |t|
       t.references :runnable, polymorphic: true
+      t.references :primal
+      t.string :mutation
       
       t.text :params
       t.text :ruby
@@ -13,9 +15,6 @@ class CreateBlogSnippets < ActiveRecord::Migration
       t.text :compiled, :limit => 16.megabytes - 1
       
       t.boolean :published, :default => false
-      
-      t.references :primal
-      t.string :mutation
       
       t.timestamps
     end

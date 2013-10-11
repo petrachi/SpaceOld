@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20131009231736) do
   create_table "blog_snippets", :force => true do |t|
     t.integer  "runnable_id"
     t.string   "runnable_type"
+    t.integer  "primal_id"
+    t.string   "mutation"
     t.text     "params"
     t.text     "ruby"
     t.text     "scss"
@@ -64,8 +66,6 @@ ActiveRecord::Schema.define(:version => 20131009231736) do
     t.string   "fingerprint"
     t.text     "compiled",      :limit => 16777215
     t.boolean  "published",                         :default => false
-    t.integer  "primal_id"
-    t.string   "mutation"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
   end

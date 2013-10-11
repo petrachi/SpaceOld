@@ -6,23 +6,23 @@ class Blog::Snippet < ActiveRecord::Base
   has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
   
   def params
-    super || primal.params
+    super || primal.try( :params)
   end
   
   def ruby
-    super || primal.ruby
+    super || primal.try( :ruby)
   end
   
   def scss
-    super || primal.scss
+    super || primal.try( :scss)
   end
   
   def erb
-    super || primal.erb
+    super || primal.try( :erb)
   end
   
   def js
-    super || primal.js
+    super || primal.try( :js)
   end
   
   def primal?
@@ -96,6 +96,11 @@ class Blog::Snippet < ActiveRecord::Base
   #precompiling doesn't work because scss need erb to evaluate ruby before compiling scss
   #(variables ruby injected in scss to calc the width for ex in experiment 2 hexagones)
   def run mutation = nil
+    
+    if mutation
+      mutations.where(mutation: mutation).first.run
+    else
+    
     # if mutation, display the mutation precompiled
     
     %Q{
@@ -112,7 +117,7 @@ class Blog::Snippet < ActiveRecord::Base
         #{ js }
       </script>
     }
-
+  end
 # mode track time
 # reveal today => scss is 0.3s min (vs .8e-07 for all others)
 # ruby can jump to .003 (big calc "sphere" style)
