@@ -53,7 +53,8 @@ class Blog::Snippet < ActiveRecord::Base
     # fingerprint need to be last line in case of bug elsewhere
     write_attribute :fingerprint, Digest::MD5.hexdigest(raw)
     
-    save!
+    update_without_callbacks
+    #save!
     
     
   #  update_without_callbacks
