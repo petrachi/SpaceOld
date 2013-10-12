@@ -26,6 +26,6 @@ module ApplicationHelper
   end
   
   def application_is? application
-    application == instance_variable_get(:@application)
+    application == @application
   end
 end

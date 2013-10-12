@@ -39,6 +39,78 @@ class Blog::Snippet < ActiveRecord::Base
   
   validates_uniqueness_of :mutation, :scope => :primal_id, :unless => :primal?
   
+  def precompiled?
+    Digest::MD5.hexdigest(raw) == fingerprint
+  end
+  
+  
+  
+  before_save :precompile!
+  def precompile!
+    p "run precompile for #{id} #{runnable_id} #{erb[0..100]}"
+    
+    write_attribute :compiled, SnippetPrecompiler.new(self).precompile
+    
+    # fingerprint need to be last line in case of bug elsewhere
+    write_attribute :fingerprint, Digest::MD5.hexdigest(raw)
+    
+    
+    
+    
+  #  update_without_callbacks
+=begin
+    x = ActionView::Base.new()
+    x.extend(ApplicationHelper)
+    x.render(:inline => "ok <%= scss \"$blue: #f00; div{color: $blue;}\" %>", :locals => {:@application => :blog})
+    
+    
+    av = ActionView::Base.new(Rails::Configuration.new.view_path)
+    av.extend ApplicationController.master_helper_module
+    xml = av.render :inline => %Q{
+      <%
+        #{ params }
+        #{ ruby }
+      %>
+      
+      <%= scss %Q{#{ scss }} %>
+      
+      #{ erb }
+      
+      <script type='text/javascript'>
+        #{ js }
+      </script>
+    }
+    
+    
+    
+=begin    
+    ac = ActionController::Base.new()
+    
+    class << ac
+      #include ApplicationHelper
+      include ErbHelper
+    end
+    ac.render_to_string(:inline => %Q{
+      <%
+        #{ params }
+        #{ ruby }
+      %>
+      
+      <%= scss %Q{#{ scss }} %>
+      
+      #{ erb }
+      
+      <script type='text/javascript'>
+        #{ js }
+      </script>
+    })
+=end    
+  rescue
+    
+    
+    compiled = raw
+  end
+  
   #before_save :precompile_scss!
   def precompile_scss!
     if Digest::MD5.hexdigest(scss) != scss_md5
@@ -97,12 +169,28 @@ class Blog::Snippet < ActiveRecord::Base
   #(variables ruby injected in scss to calc the width for ex in experiment 2 hexagones)
   def run mutation = nil
     
+    p "run"
+    
     if mutation
+      p"mutation"
+      
       mutations.where(mutation: mutation).first.run
     else
-    
+      p "normal"
+      
+      
+      p precompiled?
+      
+      p "need precom" unless precompiled?
+      
+      unless precompiled?
+        
+        save! # will precompile
+      end
+      compiled
+      
     # if mutation, display the mutation precompiled
-    
+=begin    
     %Q{
       <%
         #{ params }
@@ -117,6 +205,7 @@ class Blog::Snippet < ActiveRecord::Base
         #{ js }
       </script>
     }
+=end
   end
 # mode track time
 # reveal today => scss is 0.3s min (vs .8e-07 for all others)
@@ -151,4 +240,56 @@ class Blog::Snippet < ActiveRecord::Base
     }
 =end
   end
+  
+  def raw
+    %Q{
+      <%
+        #{ params }
+        #{ ruby }
+      %>
+      
+      <%= scss %Q{#{ scss }} %>
+      
+      #{ erb }
+      
+      <script type='text/javascript'>
+        #{ js }
+      </script>
+    }
+  end
+end
+
+
+
+
+class SnippetPrecompiler < AbstractController::Base
+ include AbstractController::Rendering
+ include AbstractController::Layouts
+ include AbstractController::Helpers
+ include AbstractController::Translation
+ include AbstractController::AssetPaths
+ #include ActionController::UrlWriter
+ include Rails.application.routes.url_helpers
+ 
+ # Uncomment if you want to use helpers 
+ # defined in ApplicationHelper in your views
+ helper ApplicationHelper
+ helper Blog::ApplicationHelper
+
+ # Make sure your controller can find views
+ # self.view_paths = "app/views"
+
+ # You can define custom helper methods to be used in views here
+ # helper_method :current_admin
+ # def current_admin; nil; end
+ 
+ def initialize snippet
+   @snippet = snippet
+ end
+ 
+ delegate :raw, to: :@snippet
+ 
+ def precompile
+   render inline: raw, locals: {:@application => :blog}
+ end
 end
