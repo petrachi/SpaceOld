@@ -6,7 +6,8 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :summary => "HCN (Human Coders News) est un des incontournables sites de veille info en français.",
   :link => "http://news.humancoders.com/",
   :pool => :technology_watch,
-  :published => true
+  :published => true,
+  :tag => :hcn
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Railscasts",
