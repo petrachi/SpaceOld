@@ -45,16 +45,15 @@ class Blog::Snippet < ActiveRecord::Base
   
   
   
-  before_save :precompile!
+  before_save :precompile!, unless: :precompiled?
   def precompile!
-    p "run precompile for #{id} #{runnable_id} #{erb[0..100]}"
-    
+
     write_attribute :compiled, SnippetPrecompiler.new(self).precompile
     
     # fingerprint need to be last line in case of bug elsewhere
     write_attribute :fingerprint, Digest::MD5.hexdigest(raw)
     
-    
+    save!
     
     
   #  update_without_callbacks
@@ -106,8 +105,6 @@ class Blog::Snippet < ActiveRecord::Base
     })
 =end    
   rescue
-    
-    
     compiled = raw
   end
   
@@ -169,23 +166,16 @@ class Blog::Snippet < ActiveRecord::Base
   #(variables ruby injected in scss to calc the width for ex in experiment 2 hexagones)
   def run mutation = nil
     
-    p "run"
     
     if mutation
-      p"mutation"
       
       mutations.where(mutation: mutation).first.run
     else
-      p "normal"
       
-      
-      p precompiled?
-      
-      p "need precom" unless precompiled?
       
       unless precompiled?
-        
-        save! # will precompile
+        precompile!
+        #save! # will precompile
       end
       compiled
       
