@@ -1,7 +1,7 @@
-class MainUser < ActiveRecord::Base
+class User < ActiveRecord::Base
   include ThreadedLibrary; thread_local_accessor :current
   
-  attr_protected
+  has_one :blog_user, :class_name => 'Blog::User'
   
   has_secure_password
   

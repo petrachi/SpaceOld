@@ -16,9 +16,9 @@ module ApplicationHelper
   
   def install_authorized? application
     case application
-    #when :blog then MainUser.current and Blog::User.current.blank?
-    #when :game then MainUser.current and Game::User.current.blank?
-    #when :gems then MainUser.current and Gems::User.current.blank?
+    #when :blog then User.current and Blog::User.current.blank?
+    #when :game then User.current and Game::User.current.blank?
+    #when :gems then User.current and Gems::User.current.blank?
     when :space then false
     #when :super_user then false
     else false

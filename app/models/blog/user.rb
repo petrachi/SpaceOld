@@ -1,9 +1,12 @@
 class Blog::User < ActiveRecord::Base
-  include UserInherit
-  attr_protected
-  
+  belongs_to :user
   has_many :articles
   has_many :experiments
   has_many :ressources
-  has_many :versions
+  
+  
+  validates_presence_of :user
+  
+  
+  delegate :to_s, to: :user
 end

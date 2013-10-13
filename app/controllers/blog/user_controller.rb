@@ -7,7 +7,7 @@ class Blog::UserController < Blog::ApplicationController
   end
   
   def install
-    Blog::User.create :main_user => MainUser.current
+    Blog::User.create :user => User.current
     redirect_to space_blog_url(:subdomain => false), :notice=>t(:installed)
   end
 end

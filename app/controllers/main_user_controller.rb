@@ -1,6 +1,6 @@
-class MainUserController < ApplicationController 
+class UserController < ApplicationController 
   
-  action_form :sign_up, :model => MainUser,
+  action_form :sign_up, :model => User,
               :validation => -> do
                 session[:user_id] = @object.id
               end
@@ -8,7 +8,7 @@ class MainUserController < ApplicationController
   action_form :sign_in, 
               :errors => ->(params) do
                 @errors = Array.new
-                @user = MainUser.where(:email => params[:email]).first
+                @user = User.where(:email => params[:email]).first
                 
                 check_errors_for [:email, :password] do |attr|
                   params[attr].blank?

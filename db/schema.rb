@@ -74,14 +74,14 @@ ActiveRecord::Schema.define(:version => 20131009231736) do
   add_index "blog_snippets", ["runnable_id", "runnable_type"], :name => "index_blog_snippets_on_runnable_id_and_runnable_type"
 
   create_table "blog_users", :force => true do |t|
-    t.integer  "main_user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "blog_users", ["main_user_id"], :name => "index_blog_users_on_main_user_id"
+  add_index "blog_users", ["user_id"], :name => "index_blog_users_on_user_id"
 
-  create_table "main_users", :force => true do |t|
+  create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "name"
     t.string   "email"

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :get_current_user
   def get_current_user
-    MainUser.current = MainUser.where(:id => session[:user_id]).first
+    User.current = User.where(:id => session[:user_id]).first
   end
   
   before_filter :get_location
