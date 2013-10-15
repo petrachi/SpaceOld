@@ -1,30 +1,31 @@
 Space::Application.routes.draw do
   
-  constraints :subdomain => "blog" do
-    match "/install" => "blog/user#install", :as => "install"
-    
-    controller "blog/article" do
+  scope :module => :blog, :constraints => {:subdomain => "blog"} do
+    match "/install" => "user#install", :as => "install"
+  
+    controller "article" do
       match "/articles(/p/:pool)" => :index, :as => :articles
       match "/article/:id" => :show, :as => :article
-      
+    
       match "/tmp_a" => :tmp
     end
-    
-    controller "blog/experiment" do
+  
+    controller "experiment" do
       match "/experiments(/p/:pool)" => :index, :as => :experiments
       match "/experiment/:id" => :show, :as => :experiment
-      
+    
       match "/tmp_e" => :tmp
     end
-    
-    controller "blog/ressource" do
+  
+    controller "ressource" do
       match "/ressources(/p/:pool)" => :index, :as => :ressources
     end
-    
-    root :to => "blog/home#index"
+  
+    root :to => "home#index"
   end
   match "/space_blog" => "space#blog", :as => "space_blog"
   
+end
   
   match "/:controller(/:action(/:id))"  
   root :to => "space#index"
