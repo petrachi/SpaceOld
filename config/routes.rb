@@ -1,5 +1,11 @@
 Space::Application.routes.draw do
   
+  namespace :blog do
+    scope :constraints => {:subdomain => "blog"} do
+      resources :articles, only: [:index, :show]
+    end
+  end
+
   scope :module => :blog, :constraints => {:subdomain => "blog"} do
     match "/install" => "user#install", :as => "install"
   
@@ -25,7 +31,6 @@ Space::Application.routes.draw do
   end
   match "/space_blog" => "space#blog", :as => "space_blog"
   
-end
   
   match "/:controller(/:action(/:id))"  
   root :to => "space#index"
