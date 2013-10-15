@@ -10,11 +10,7 @@ class Blog::Ressource < ActiveRecord::Base
   validates_inclusion_of :pool, :in => [:technology_watch, :demo, :blog, :doc, :tutorial]
   
   
-  def self.url
-    URL.ressources_path
-  end
-  
   def pool_url
-    URL.ressources_path :pool => pool
+    URL.blog_ressources_path :pool => pool
   end
 end

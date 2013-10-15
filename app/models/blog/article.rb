@@ -13,15 +13,7 @@ class Blog::Article < ActiveRecord::Base
   validates_inclusion_of :pool, :in => [:experiment, :ruby, :css]
   
   
-  def self.url
-    URL.articles_path
-  end
-  
-  def url
-    URL.article_path self
-  end
-  
   def pool_url
-    URL.articles_path :pool => pool
+    URL.blog_articles_path :pool => pool
   end
 end
