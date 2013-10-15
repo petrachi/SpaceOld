@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009231736) do
+ActiveRecord::Schema.define(:version => 20131015113637) do
 
   create_table "blog_articles", :force => true do |t|
     t.integer  "user_id"
@@ -52,6 +52,20 @@ ActiveRecord::Schema.define(:version => 20131009231736) do
   end
 
   add_index "blog_ressources", ["user_id"], :name => "index_blog_ressources_on_user_id"
+
+  create_table "blog_screencasts", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "summary"
+    t.string   "embed"
+    t.string   "pool"
+    t.boolean  "published",  :default => false
+    t.string   "tag"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "blog_screencasts", ["user_id"], :name => "index_blog_screencasts_on_user_id"
 
   create_table "blog_snippets", :force => true do |t|
     t.integer  "runnable_id"

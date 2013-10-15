@@ -25,4 +25,7 @@ fr:
                 blog: "Blogs"
                 doc: "Docs"
                 tutorial: "Tutos"
-                
+        
+        screencast:
+            name: "Screencasts"
+            summary: "Allez, on va faire des vidéos, parceque ça a de la gueule quand même."

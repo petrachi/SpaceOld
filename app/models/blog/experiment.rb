@@ -8,7 +8,7 @@ class Blog::Experiment < ActiveRecord::Base
   scope :pool, -> pool { where(:pool => pool) }  
   
   
-  validates_presence_of :user_id, :title, :summary, :tag
+  validates_presence_of :user_id, :title, :summary, :snippet, :pool, :tag
   validates_uniqueness_of :tag
   validates_inclusion_of :pool, :in => [:experiment]
   

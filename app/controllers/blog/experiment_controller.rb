@@ -10,7 +10,9 @@ class Blog::ExperimentController < Blog::ApplicationController
   end
   
   def show
-    @experiment = Blog::Experiment.where(:id => params[:id]).first
+    @experiment = Blog::Experiment.published
+      .where(:id => params[:id])
+      .first
   end
   
   

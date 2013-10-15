@@ -20,6 +20,11 @@ Space::Application.routes.draw do
     controller "ressource" do
       match "/ressources(/p/:pool)" => :index, :as => :blog_ressources
     end
+    
+    controller "screencast" do
+      match "/screencasts(/p/:pool)" => :index, :as => :blog_screencasts
+      match "/screencast/:id" => :show, :as => :blog_screencast
+    end
   
     root :to => "home#index"
   end

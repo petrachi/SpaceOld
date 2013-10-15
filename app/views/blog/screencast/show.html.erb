@@ -1,0 +1,13 @@
+<%= container do %>
+	<%= row do %>
+		<%= twelve_span do %>
+		
+			<%= erb @screencast.embed %>
+			
+			<hr/>
+			
+			<%= erb @screencast.run %>
+			
+		<% end %>
+	<% end %>
+<% end %>

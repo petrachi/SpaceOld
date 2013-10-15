@@ -1,0 +1,17 @@
+<%= container do %>
+	<%= row :nested => true do %>
+		<%= ten_span do %>
+			<p>
+				Cast all the things !
+			</p>
+		<% end %>
+		
+		<%= one_span :prepend => 1 do %>
+			<p>
+				<%= link_to blog_screencasts_url do %>
+					<i class="icon-home"></i>
+				<% end %>
+			</p>
+		<% end %>
+	<% end %>
+<% end %>

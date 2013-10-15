@@ -1,0 +1,13 @@
+<%= four_cols_container :collection => @screencasts do |screencast| %>
+	<h2 class="text-center">
+		<%= screencast.title %>
+	</h2>
+	
+	<p>
+		<%= screencast.summary.html_safe %>
+	</p>
+	
+	<p class="text-center">
+		<%= link_to t(:watch), screencast, :class => :btn %>
+	</p>
+<% end %>

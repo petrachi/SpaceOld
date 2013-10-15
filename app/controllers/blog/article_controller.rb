@@ -11,7 +11,9 @@ class Blog::ArticleController < Blog::ApplicationController
   end
   
   def show
-    @article = Blog::Article.where(:id => params[:id]).first
+    @article = Blog::Article.published
+      .where(:id => params[:id])
+      .first
   end
   
   
