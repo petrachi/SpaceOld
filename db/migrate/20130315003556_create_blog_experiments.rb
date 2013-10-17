@@ -13,5 +13,6 @@ class CreateBlogExperiments < ActiveRecord::Migration
       t.timestamps
     end
     add_index :blog_experiments, :user_id
+    add_index :blog_experiments, :tag
   end
 end

@@ -3,7 +3,7 @@ class Blog::Snippet < ActiveRecord::Base
   
 #mutation concern begin
   belongs_to :primal, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
-  has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id", conditions: "published = 1"
+  has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id", conditions: "published = true"
   
   def params
     super || primal.try( :params)

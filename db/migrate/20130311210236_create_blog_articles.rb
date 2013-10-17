@@ -13,5 +13,6 @@ class CreateBlogArticles < ActiveRecord::Migration
       t.timestamps
     end
     add_index :blog_articles, :user_id
+    add_index :blog_articles, :tag
   end
 end

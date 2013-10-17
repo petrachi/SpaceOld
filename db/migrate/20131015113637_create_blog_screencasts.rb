@@ -14,5 +14,6 @@ class CreateBlogScreencasts < ActiveRecord::Migration
       t.timestamps
     end
     add_index :blog_screencasts, :user_id
+    add_index :blog_screencasts, :tag
   end
 end

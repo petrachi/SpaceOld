@@ -14,5 +14,6 @@ class CreateBlogRessources < ActiveRecord::Migration
       t.timestamps
     end
     add_index :blog_ressources, :user_id
+    add_index :blog_ressources, :tag
   end
 end

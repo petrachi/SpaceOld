@@ -1,7 +1,7 @@
 class Blog::Article < ActiveRecord::Base
   belongs_to :user
   
-  has_one :snippet, as: :runnable, conditions: "published = 1"
+  has_one :snippet, as: :runnable, conditions: "published = true"
   delegate :run, to: :snippet
   
   scope :published, where(:published => true)  
