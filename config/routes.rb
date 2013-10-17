@@ -5,14 +5,14 @@ Space::Application.routes.draw do
   
     controller "article" do
       match "/articles(/p/:pool)" => :index, :as => :blog_articles
-      match "/article/:id" => :show, :as => :blog_article
+      match "/article/:tag" => :show, :as => :blog_article
     
       match "/tmp_a" => :tmp
     end
   
     controller "experiment" do
       match "/experiments(/p/:pool)" => :index, :as => :blog_experiments
-      match "/experiment/:id" => :show, :as => :blog_experiment
+      match "/experiment/:tag" => :show, :as => :blog_experiment
     
       match "/tmp_e" => :tmp
     end
@@ -23,7 +23,11 @@ Space::Application.routes.draw do
     
     controller "screencast" do
       match "/screencasts(/p/:pool)" => :index, :as => :blog_screencasts
-      match "/screencast/:id" => :show, :as => :blog_screencast
+      match "/screencast/:tag" => :show, :as => :blog_screencast
+    end
+    
+    controller "snippet" do
+      match "/snippet/:id" => :show, :as => :blog_snippet
     end
   
     root :to => "home#index"

@@ -160,7 +160,8 @@ end
 		<p>
 			Allez, bisous les copains ! Faut partir maintenant, y'a plus l'temps !
 		</p>
-  }),
+  },
+  :published => true),
   :pool => :ruby,
   :published => true,
   :tag => :block

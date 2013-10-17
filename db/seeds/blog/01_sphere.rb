@@ -6,105 +6,105 @@
   :summary => %q{
     Une sphère tout en web :). Pas de flash, pas de librairies javascript, juste des <i>div</i> et des <i>transforms</i>. 
   },
+  :snippet => Blog::Snippet.create(:params => %q{
+      n = 789
+      r = 230
+      h = 8
+    },
+    :ruby => %q{
+      def point_on_sphere n
+  	    n = n.to_f
+  	    pts = []
+
+  	    inc = Math::PI * (3 - Math::sqrt(5))
+  	    off = 2 / n
+
+  	    (0...n).each do |k|
+  	      y = k * off - 1 + (off / 2)    
+  	      r = Math::sqrt(1 - y**2)
+  	      phi = k * inc
+
+  	      x_phi = Math::PI/2 - Math::acos(y)
+
+  	      pts << [1.0, phi, x_phi]
+  	    end
+
+  	    pts
+  	  end
+
+  	  points = point_on_sphere(n)
+    },
+    :scss => %q{
+      @include keyframes(planet-rotation){
+  			from{
+  				@include transform(rotateZ(23deg) rotateY(-180deg)); 
+  			}
+  		  to {
+  				@include transform(rotateZ(23deg) rotateY(180deg));
+  			}
+  		}
+
+  		.planet-container{
+  		  margin: 1em auto;
+
+        height: #{ r * 2 }px;
+  			width: #{ r * 2 }px;
+
+  			.planet{ 
+  		  	height: 100%;
+  		    width: 100%;
+  		    position: relative;
+
+  		    @include transform-style(preserve-3d);
+  		    @include animation(planet-rotation 270s linear infinite);
+
+  				.province{  
+  			    @include backface-visibility(hidden);
+
+  			    position: absolute;
+  			    left: #{ r - (h/2) }px;
+  			    top: #{ r - (h/2) }px;
+
+  			    height: #{ h }px; 
+  				  width: #{ h }px;
+
+            background-color: $primary-color;
+  			    @include border-radius(50%);
+
+  			    #{
+  			      points.each_with_index.map do |(p, ϕ, θ), i|
+  			        %Q{
+  			          &#province-#{ i }{
+                    @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
+      	          }
+  			        } 
+  			      end.join "
+  			      "
+  			    }
+  			  }
+  			}
+  		}
+    },
+    :erb => %q{
+      <div class="planet-container">
+        <div class="planet">
+          <% points.each_index do |i| %>
+            <div class="province" id="province-<%= i %>">
+            </div>
+          <% end %>
+        </div>
+      </div>
+    },
+    :js => "// No JS",
+    :published => true),
   :published => true,
   :tag => :sphere,
   :pool => :experiment
 
 
-@sphere_version = Blog::Snippet.create :runnable => @sphere_experiment,
-  :params => %q{
-    n = 789
-    r = 230
-    h = 8
-  },
-  :ruby => %q{
-    def point_on_sphere n
-	    n = n.to_f
-	    pts = []
 
-	    inc = Math::PI * (3 - Math::sqrt(5))
-	    off = 2 / n
 
-	    (0...n).each do |k|
-	      y = k * off - 1 + (off / 2)    
-	      r = Math::sqrt(1 - y**2)
-	      phi = k * inc
-
-	      x_phi = Math::PI/2 - Math::acos(y)
-
-	      pts << [1.0, phi, x_phi]
-	    end
-
-	    pts
-	  end
-	  
-	  points = point_on_sphere(n)
-  },
-  :scss => %q{
-    @include keyframes(planet-rotation){
-			from{
-				@include transform(rotateZ(23deg) rotateY(-180deg)); 
-			}
-		  to {
-				@include transform(rotateZ(23deg) rotateY(180deg));
-			}
-		}
-
-		.planet-container{
-		  margin: 1em auto;
-
-      height: #{ r * 2 }px;
-			width: #{ r * 2 }px;
-
-			.planet{ 
-		  	height: 100%;
-		    width: 100%;
-		    position: relative;
-
-		    @include transform-style(preserve-3d);
-		    @include animation(planet-rotation 270s linear infinite);
-
-				.province{  
-			    @include backface-visibility(hidden);
-
-			    position: absolute;
-			    left: #{ r - (h/2) }px;
-			    top: #{ r - (h/2) }px;
-
-			    height: #{ h }px; 
-				  width: #{ h }px;
-
-          background-color: $primary-color;
-			    @include border-radius(50%);
-			    
-			    #{
-			      points.each_with_index.map do |(p, ϕ, θ), i|
-			        %Q{
-			          &#province-#{ i }{
-                  @include transform(rotateY(#{ ϕ }rad) rotateX(#{ θ }rad) translateZ(#{ p * r }px));
-    	          }
-			        } 
-			      end.join "
-			      "
-			    }
-			  }
-			}
-		}
-  },
-  :erb => %q{
-    <div class="planet-container">
-      <div class="planet">
-        <% points.each_index do |i| %>
-          <div class="province" id="province-<%= i %>">
-          </div>
-        <% end %>
-      </div>
-    </div>
-  },
-  :js => "// No JS",
-  :published => true
-
-Blog::Snippet.create :primal => @sphere_version,
+Blog::Snippet.create :primal => @sphere_experiment.snippet,
   :params => %q{
     n = 389
     r = 132
@@ -397,7 +397,8 @@ end
     <p>
       Allez, bisous les copains ! Ouste !
     </p>
-  }),
+  },
+  :published => true),
   :pool => :experiment,
   :tag => :sphere,
   :published => true

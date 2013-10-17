@@ -159,7 +159,8 @@ end
 		<p>
 		  C'est tout pour cette fois. Vraiment, c'est pas la peine de rester y'en aura pas plus.
 		</p>
-  }),
+  },
+  :published => true),
   :pool => :ruby,
   :published => true,
   :tag => :gaulois1
@@ -298,7 +299,8 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, c'est fini pour aujourd'hui. Vous devez partir. Il faut me débarrasser le plancher !
 		</p>
-  }),
+  },
+  :published => true),
   :pool => :ruby,
   :published => true,
   :tag => :gaulois2
@@ -466,7 +468,8 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, je vous laisse les copains. C'est fini, vous pouvez partir ... Non mais rentrez chez vous maintenant, ça commence à devenir gênant.
 		</p>
-  }),
+  },
+  :published => true),
   :pool => :ruby,
   :published => true,
   :tag => :gaulois3

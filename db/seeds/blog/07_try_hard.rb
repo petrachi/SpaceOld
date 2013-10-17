@@ -9,7 +9,8 @@ Blog::Screencast.create :user => @primal_user.blog_user,
     <p>
       Alors voilà jean-michel, un super screencast dites donc !
     </p>
-  }),
+  },
+  :published => true),
   :pool => :try_hard,
   :published => true,
   :tag => :try_hard_1

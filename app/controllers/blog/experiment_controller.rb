@@ -11,8 +11,7 @@ class Blog::ExperimentController < Blog::ApplicationController
   
   def show
     @experiment = Blog::Experiment.published
-      .where(:id => params[:id])
-      .first
+      .tagged(params[:tag])
   end
   
   

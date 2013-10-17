@@ -12,8 +12,7 @@ class Blog::ScreencastController < Blog::ApplicationController
   
   def show
     @screencast = Blog::Screencast.published
-      .where(:id => params[:id])
-      .first
+      .tagged(params[:tag])
   end
   
   

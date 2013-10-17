@@ -3,7 +3,7 @@ class Blog::Snippet < ActiveRecord::Base
   
 #mutation concern begin
   belongs_to :primal, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
-  has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id"
+  has_many :mutations, :class_name => "Blog::Snippet", :foreign_key => "primal_id", conditions: "published = 1"
   
   def params
     super || primal.try( :params)
@@ -106,7 +106,7 @@ class Blog::Snippet < ActiveRecord::Base
     })
 =end    
   rescue
-    compiled = raw
+    self.compiled = raw
   end
   
   #before_save :precompile_scss!
