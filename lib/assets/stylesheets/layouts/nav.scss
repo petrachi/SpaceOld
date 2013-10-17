@@ -22,7 +22,8 @@
 		
 		[class*=#{$application}-section-]{
 			@include filter( grayscale(100%) );
-			@include box-shadow(0 0 1em 0 $background-color inset);
+			@include box-shadow(0 0 1em 0 rgba($background-color, .65) inset);
+			@include border-radius(1px);
 			
 			&:hover,
 			&.active{
@@ -43,11 +44,14 @@
 				a{
 					display: block;
 					padding: 4.25em .5em .25em;
-					@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em));
+					@include background-image(
+						linear-gradient(top, transparent 4em, rgba($background-color, .65) 4em)
+					);
 					
 					&:hover{ 
-						@include background-image( linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em));
-						
+						@include background-image( 
+							linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em)
+						);
 					}
 				}
 			}
@@ -71,7 +75,8 @@
 			
 			@include box-shadow(
 				0 1px 3px rgba(black, .3),
-				0 1px 0 rgba(white, .1) inset);
+				0 1px 0 rgba(white, .1) inset
+			);
 			@include border-radius(1px);
 			
 			p{
