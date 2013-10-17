@@ -4,7 +4,7 @@
 Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Try Hard #1",
   :summary => "On va parler des opérateur \"et\" et \"ou\"",
-  :embed => "<iframe width=\"960\" height=\"720\" src=\"//www.youtube.com/embed/bshV5tqzIwE?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/bshV5tqzIwE?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
   :snippet => Blog::Snippet.create(:erb => %Q{
     <p>
       Alors voilà jean-michel, un super screencast dites donc !
