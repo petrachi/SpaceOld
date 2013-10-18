@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "blog_articles", ["tag"], :name => "index_blog_articles_on_tag"
   add_index "blog_articles", ["user_id"], :name => "index_blog_articles_on_user_id"
 
   create_table "blog_experiments", :force => true do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "blog_experiments", ["tag"], :name => "index_blog_experiments_on_tag"
   add_index "blog_experiments", ["user_id"], :name => "index_blog_experiments_on_user_id"
 
   create_table "blog_ressources", :force => true do |t|
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "blog_ressources", ["tag"], :name => "index_blog_ressources_on_tag"
   add_index "blog_ressources", ["user_id"], :name => "index_blog_ressources_on_user_id"
 
   create_table "blog_screencasts", :force => true do |t|
@@ -65,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                    :null => false
   end
 
+  add_index "blog_screencasts", ["tag"], :name => "index_blog_screencasts_on_tag"
   add_index "blog_screencasts", ["user_id"], :name => "index_blog_screencasts_on_user_id"
 
   create_table "blog_snippets", :force => true do |t|
@@ -78,10 +82,10 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.text     "erb"
     t.text     "js"
     t.string   "fingerprint"
-    t.text     "compiled",      :limit => 16777215
-    t.boolean  "published",                         :default => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.text     "compiled"
+    t.boolean  "published",     :default => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "blog_snippets", ["primal_id"], :name => "index_blog_snippets_on_primal_id"
