@@ -141,12 +141,14 @@ extract_png(fp,ofp)
 	@evolution_tree = []
 	@mutation_rate = 1.0 / 1_000
 	
+	@mutation_rate = 1.0 / 10
+	
 	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus.png")
 	image = ChunkyPNG::Image.from_file("app/assets/images/blog/blog-section/screencast.png")
 	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_small.png")
 	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/terran.png")
 
-	@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/terran.png")
+	@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/blog-section/screencast.png")
 	@searched_genes = @searched_image.pixels
 	
 	@availables_pixels = @searched_genes.uniq
@@ -162,6 +164,7 @@ extract_png(fp,ofp)
 		
 		{
 			:genes => genes,
+			:muted => [],
 			:score => 0,
 			:fit => 0
 		}
@@ -176,7 +179,20 @@ extract_png(fp,ofp)
 	
 	
 	def evaluate_person person
-		person[:score] = person[:genes].zip(@searched_genes).delete_if{ |gene, searched_gene| gene != searched_gene }.size
+		index = -1
+
+		person[:score] = person[:genes].zip(@searched_genes).delete_if do |gene, searched_gene|
+			index += 1
+
+			if gene == searched_gene
+				false
+			elsif rand < @mutation_rate
+				person[:muted][index] = searched_gene #create_gene
+				true
+			else
+				true
+			end
+		end.size
 	end
 	
 	def evaluate_population
@@ -188,24 +204,29 @@ extract_png(fp,ofp)
 	
 	
 	def mutate person
-		genes = person[:genes].map do |gene|	
-			if rand < @mutation_rate
-				gene = create_gene
-			end
-			gene
-		end
+		#genes = person[:genes].map do |gene|	
+		#	if rand < @mutation_rate
+		#		gene = create_gene
+		#	end
+		#	gene
+		#end
 		
-		create_person genes
+		create_person person[:muted]
 	end
 	
 	# hill-climbing only
 	GC.enable
+	first_timer = Time.now
+	timer = Time.now
+	
+	
+	p "Start Genetic - Complexity: #{ @searched_genes.size } genes + #{ @availables_pixels.size } colors"
 		
 	@population_of_one = create_person
-	1_000_000.times do |generation|
-		mutation = mutate @population_of_one
-		
+	1_00.times do |generation|
 		evaluate_person @population_of_one
+		
+		mutation = mutate @population_of_one
 		evaluate_person mutation
 		
 		if mutation[:score] > @population_of_one[:score]
@@ -213,14 +234,19 @@ extract_png(fp,ofp)
 		end
 		
 		
-		if (generation % 10_000).zero?
+		if (generation % 10).zero?
 			GC.start
-			puts "Generation #{ generation } - Score #{ @population_of_one[:score] } (#{ @population_of_one[:score] * 100 / @searched_genes.size }%)"
-			@evolution_tree << @population_of_one
+			
+			puts "Generation #{ generation } - Score #{ @population_of_one[:score] } (#{ @population_of_one[:score] * 100 / @searched_genes.size }%) - time elapsed : #{ Time.now - timer } (this generation)"
+			timer = Time.now
+			
+			@evolution_tree << create_person(@population_of_one[:genes])
 		end
 		
-		exit if @population_of_one[:score] == @searched_genes.size
+		break if @population_of_one[:score] == @searched_genes.size
 	end
+	
+	p "End Genetic - Total time : #{ Time.now - first_timer }"
 	
 	# main
 	@population_size = 100
