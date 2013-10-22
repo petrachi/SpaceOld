@@ -138,6 +138,101 @@ extract_png(fp,ofp)
 <hr/>
 
 <% 
+	@evolution_tree = []
+	@mutation_rate = 1.0 / 1_000
+	
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/blog-section/screencast.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_small.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/terran.png")
+
+	@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/terran.png")
+	@searched_genes = @searched_image.pixels
+	
+	@availables_pixels = @searched_genes.uniq
+	
+	def create_gene
+		@availables_pixels.sample
+	end
+	
+	def create_person genes = []
+		if genes.blank?
+			@searched_genes.size.times{ genes << create_gene }
+		end
+		
+		{
+			:genes => genes,
+			:score => 0,
+			:fit => 0
+		}
+	end
+	
+	def create_population
+		@population = []
+		@population_size.times do
+			@population << create_person
+		end
+	end
+	
+	
+	def evaluate_person person
+		person[:score] = person[:genes].zip(@searched_genes).delete_if{ |gene, searched_gene| gene != searched_gene }.size
+	end
+	
+	def evaluate_population
+		@population.map{ |person| evaluate_person person }
+	end
+	
+	
+	# here goes the mating pool
+	
+	
+	def mutate person
+		genes = person[:genes].map do |gene|	
+			if rand < @mutation_rate
+				gene = create_gene
+			end
+			gene
+		end
+		
+		create_person genes
+	end
+	
+	# hill-climbing only
+	GC.enable
+		
+	@population_of_one = create_person
+	1_000_000.times do |generation|
+		mutation = mutate @population_of_one
+		
+		evaluate_person @population_of_one
+		evaluate_person mutation
+		
+		if mutation[:score] > @population_of_one[:score]
+			@population_of_one = mutation
+		end
+		
+		
+		if (generation % 10_000).zero?
+			GC.start
+			puts "Generation #{ generation } - Score #{ @population_of_one[:score] } (#{ @population_of_one[:score] * 100 / @searched_genes.size }%)"
+			@evolution_tree << @population_of_one
+		end
+		
+		exit if @population_of_one[:score] == @searched_genes.size
+	end
+	
+	# main
+	@population_size = 100
+	create_population
+	
+	# ---
+
+
+=begin
+
+
+
 
 	def make_individu
 		
@@ -221,7 +316,7 @@ extract_png(fp,ofp)
 	
 	
 	def evaluate(individu)
-=begin
+#=begin
 	  score = @max_score
 	
 	
@@ -245,7 +340,7 @@ extract_png(fp,ofp)
 	
 	  score
 	
-=end	
+#=end	
 	
 	score = @nb_pixel
 	
@@ -372,7 +467,7 @@ extract_png(fp,ofp)
 		
 		@population
 		
-=begin		
+#=begin		
 		
 		pop_to_reprod = select_best
 		
@@ -403,7 +498,7 @@ extract_png(fp,ofp)
 		  end
 		
 		@population = reprod
-=end		
+#=end		
 	end
 	
 	def reproduce parent1, parent2
@@ -527,30 +622,27 @@ extract_png(fp,ofp)
 	#  next_generation
 	end
 	
-	
-	
+=end	
+
+	def genes_to_uri genes
+		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
+		png.save("app/assets/images/blog/experiment/genetic_best.png")
+		asset_data_uri("blog/experiment/genetic_best.png")
+	end
 
 %>
 
 <hr/>
-<h2>base population</h2>
-<%# @population.each do |p| %>
-	<%#= image_tag p[1][:uri] %>
-<%# end %>
 
-<% @bests.each_with_index do |b, i|  %>
-	
+
+<% @evolution_tree.each_with_index do |person, generation|  %>
 	<div style="display: inline-block">
-	<p>gen <%= i %><br/>score <%= b[0] %> (<%=  (b[0] * 100 / @max_score) %>%)</p>
-	<%
-			img = ChunkyPNG::Image.new(@image.width, @image.height, b[1][:px])
-			img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
-			uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
-
+		<p>
+			Generation <%= generation %><br/>
+			Score <strong><%= person[:score] %></strong> (<%= person[:score] * 100 / @searched_genes.size %>%)
+		</p>
 		
-	  %>
-	
-	<%= image_tag uri %>
+		<%= image_tag genes_to_uri(person[:genes]) %>
 	</div>
 	
 	
