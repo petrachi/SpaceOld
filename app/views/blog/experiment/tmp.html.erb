@@ -1,5 +1,165 @@
 <%= one_col_container do %>
 	
-<%= erb @code %>
+	<p class="text-center">
+		<span id="time"></span>
+		
+		<span id="color"></span>
+	</p>
+	
+	<script>
+		var d = new Date();
+		var n = d.getTime();
+		
+		function pad(num, size) {
+		    var s = "000000000" + num;
+		    return s.substr(s.length-size);
+		}
+		
+		
+		
+		var r_arrow = "up";
+		var v_arrow = "bottom_bound";
+		var b_arrow = "bottom_bound";
+		
+		
+		var r_value = 0;
+		var v_value = 0;
+		var b_value = 0;
+		
+		
+		function increment_color(){
+			if(r_arrow == "up"){
+				//r_value++;
+				r_value = r_value + 1;
+				
+				if(r_value >= 255){
+					r_value = 255;
+					r_arrow = "up_bound";
+					v_arrow = "up";
+				};
+			}else if(r_arrow == "down"){
+			//	r_value--;
+				r_value = r_value - 1;
+				
+				if(r_value <= 0){
+					r_value = 0;
+					r_arrow = "bottom_bound";
+					b_arrow = "up";
+				};
+			};
+			
+			
+			
+			if(v_arrow == "up"){
+				//v_value++;
+				v_value = v_value + 1;
+				
+				if(v_value >= 255){
+					v_value = 255;
+					v_arrow = "up_bound";
+					r_arrow = "down";
+				};
+			}else if(v_arrow == "down"){
+			//	v_value--;
+				v_value = v_value - 1;
+				
+				if(v_value <= 0){
+					v_value = 0;
+					v_arrow = "bottom_bound";
+					r_arrow = "up";
+				};
+			};
+			
+			
+			
+			
+			if(b_arrow == "up"){
+			//	b_value++;
+				b_value = b_value + 1;
+				
+				if(b_value >= 255){
+					b_value = 255;
+					b_arrow = "up_bound";
+					v_arrow = "down";
+				};
+			}else if(b_arrow == "down"){
+		//		b_value--;
+				b_value = b_value - 1;
+				
+				if(b_value <= 0){
+					b_value = 0;
+					b_arrow = "bottom_bound";
+					v_arrow = "up";
+				};
+			};
+			
+			
+		};
+		
+		
+		/*
+		0 0 0
+		fup 0 0
+		F fup 0
+		fdown F 0
+		0 F fup
+		0 fdown F
+		fup 0 F
+		F fup F
+		
+		*/
+		
+		var i = 0;
+		var timer;
+		
+		function set_color_clock(){
+			var dt = new Date();
+			var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+			
+			
+			var mins = dt.getMinutes() + (60 * dt.getHours());
+			
+			
+			// (16777215 / 86400) == 194 (nb val possible sur #ffffff / nb sec dans 1 jour)
+			
+	//		var color_dec = secs % 16777215;
+	//		var color_hex = color_dec.toString(16);
+			
+			
+			color_hex = pad(r_value.toString(16), 2) + pad(v_value.toString(16), 2) + pad(b_value.toString(16), 2);
+			
+			
+			// can pass a int in arg, to increment faster
+			// this increment should be sync with the 'i' counter
+			// we should be able to run every sec, but increment color only every minutes
+			increment_color();
+			
+			
+			
+			document.getElementById("time").innerHTML = mins;
+			document.getElementById("color").innerHTML = color_hex;
+
+			document.querySelector("body").style.background = '#' + color_hex;
+			document.querySelector("html").style.background = '#' + color_hex;
+			
+			
+			
+			if(i < mins){
+				timer = 1;
+			}else{
+				timer = 1000;
+			};
+			i++;
+			
+			console.log(i);
+			
+			setTimeout(set_color_clock, timer);
+		};
+		
+		
+		
+		set_color_clock();
+		
+	</script>
 
 <% end %>

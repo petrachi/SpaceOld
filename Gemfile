@@ -66,3 +66,6 @@ gem 'coderay'
 
 # this is my all in one gem
 gem 'r_kit'
+
+# manipulation of png - needed for genetic octopus experiment
+gem "chunky_png", "~> 1.2.9"

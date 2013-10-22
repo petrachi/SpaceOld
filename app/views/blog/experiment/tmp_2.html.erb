@@ -1,0 +1,558 @@
+
+<%
+	def asset_data_uri path
+	  asset = Rails.application.assets.find_asset path
+
+	  throw "Could not find asset '#{path}'" if asset.nil?
+
+	  base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
+	  "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
+	end
+%>
+
+<%= image_tag "blog/experiment/octopus.png" %>
+
+<%= asset_data_uri "blog/experiment/octopus.png" %>
+
+<%= image_tag asset_data_uri( "blog/experiment/octopus.png") %>
+
+<%
+def asset_to_bin path
+	asset = Rails.application.assets.find_asset path
+
+	  throw "Could not find asset '#{path}'" if asset.nil?
+	
+	s = File.binread(asset.pathname)
+	bits = s.unpack("B*")[0]
+end
+	
+	
+	
+def bin_to_file bits
+	File.open("app/assets/images/blog/experiment/genetic_octopus.png", 'wb' ) do |output|
+	  output.write [bits].pack("B*")
+	end
+end
+
+
+
+file = bin_to_file(asset_to_bin("blog/experiment/octopus.png"))
+
+def mutate bits
+	
+	1.times do
+	
+	b = rand(bits.size)
+	
+	change = bits[b]
+	
+	bits[b] = if bits[b] == "0"
+		"1"
+	else
+		"0"
+	end
+	
+end
+	bits
+	
+end
+
+file = bin_to_file(mutate(asset_to_bin("blog/experiment/octopus.png")))
+
+
+#f = Tempfile.new "binary"
+#f.binmode
+#f.write(asset_to_bin "blog/experiment/octopus.png")
+
+
+def encode_data_uri file
+	
+	
+	
+	base64 = Base64.encode64(File.read(file.path)).gsub(/\s+/, "")
+	  "data:#{"image/png"};base64,#{Rack::Utils.escape(base64)}"
+end
+
+%>
+
+<%= image_tag asset_data_uri( "blog/experiment/genetic_octopus.png") %>
+
+<% 
+
+
+
+
+def extract_chunk(input, output)
+   lenword = input.read(4)
+   length = lenword.unpack('N')[0]
+   type = input.read(4)
+   data = length>0 ? input.read(length) : ""
+	
+
+   crc = input.read(4)
+   return nil if length<0 || !(('A'..'z')===type[0,1])
+   #return nil if validate_crc(type+data, crc)
+   output.write lenword
+   output.write type
+   output.write data
+   output.write crc
+   return type
+end
+
+def extract_png(input, output)
+    hdr = input.read(8)
+
+"\x89PNG\r\n\x1A\n"
+    #raise "Not a PNG File" if hdr[0,4]!= "\211PNG"
+    #raise "file not in binary mode" if hdr[4,4]!="\r\n\032\n"
+    output.write(hdr)
+    loop do
+      chunk_type = extract_chunk(input,output)
+      p chunk_type
+      break if  chunk_type.nil? || chunk_type == 'IEND'
+    end
+end
+
+fp = File.new("app/assets/images/blog/experiment/octopus.png","rb")
+ofp = File.new("app/assets/images/blog/experiment/genetic_octopus_bis.png","wb")
+extract_png(fp,ofp)
+
+
+
+
+#f.close
+ %>
+
+<%= image_tag asset_data_uri( "blog/experiment/genetic_octopus_bis.png") %>
+
+
+<% 2.times do %>
+<% 
+	img = ChunkyPNG::Image.new(168, 103); img.width.times{ |x| img.height.times{ |y| r,v,b = rand(256), rand(256), rand(256); img[x,y] = ChunkyPNG::Color.rgb(r, v, b)  } } ; img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+	
+ %>
+
+<%= image_tag asset_data_uri( "blog/experiment/genetic_octopus_ter.png") %>
+<% end %>
+
+<hr/>
+
+<% 
+
+	def make_individu
+		
+		img = ChunkyPNG::Image.new(@image.width, @image.height)
+		img.width.times{ |x| 
+			img.height.times{ |y| 
+				
+				img[x,y] = ChunkyPNG::Color.from_hex(@colors_dispo.sample)
+				
+			#	img[x,y] = ChunkyPNG::Color.rgba(rand(256), rand(256), rand(256), rand(255))
+				
+			}
+		}
+		img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+		
+		uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
+		
+		pixels = img.pixels
+		
+		
+		
+		value = {:uri => uri, px: pixels}
+		
+		
+	  [nil, value, nil]
+	end
+
+	def make_population
+		t = Time.now
+		
+	  population = []
+	
+	
+#	threads = []
+
+	@pop_size.times { |i|
+
+#		threads << Thread.new(i) { |i|
+			p "create pop #{i+1}/#{@pop_size}" if (i%10).zero?
+			 population << make_individu
+#		  }
+
+	  }
+
+#	threads.each { |aThread|  aThread.join }
+	
+	p Time.now - t
+	
+	  population
+	end
+
+
+	
+	
+	def hexa_dist hex, hex2
+		
+		#"#ffccff".match /#(..)(..)(..)/
+
+		#puts "R: #{m[1].hex}"
+		#puts "G: #{m[2].hex}"
+		#puts "B: #{m[3].hex}"
+		# is slower
+		
+		r,v,b = hex[1..2], hex[3..4], hex[5..6]
+		
+		r = r.to_i(16).to_s(10).to_i
+		v = v.to_i(16).to_s(10).to_i
+		b = b.to_i(16).to_s(10).to_i
+		
+		
+		r2,v2,b2 = hex2[1..2], hex2[3..4], hex2[5..6]
+		
+		r2 = r2.to_i(16).to_s(10).to_i
+		v2 = v2.to_i(16).to_s(10).to_i
+		b2 = b2.to_i(16).to_s(10).to_i
+		
+		
+		(r - r2).abs + (b - b2).abs + (v - v2).abs
+		
+	end
+	
+	
+	def evaluate(individu)
+=begin
+	  score = @max_score
+	
+	
+	
+	
+	
+	individu[:px].each_with_index do |character, index|
+		
+		
+			search_hex = ChunkyPNG::Color.to_hex @search_value[index]
+			char_hex = ChunkyPNG::Color.to_hex character
+
+			distance_hex = hexa_dist(search_hex, char_hex)
+			
+			score -= distance_hex
+		  
+		
+	  end
+	
+	
+	
+	  score
+	
+=end	
+	
+	score = @nb_pixel
+	
+	
+	
+	individu[:px].each_with_index do |character, index|
+
+	#	p @search_value[index], character
+
+			score -= 1 if @search_value[index] != character
+
+
+	  end
+
+	score = 1 if score == 0
+
+	  score
+	
+	
+	
+	
+	end
+
+	def evaluate_population
+#		threads = []
+	#	print " evaluating"
+		@population = @population.each_with_index.map do |(score, individu, fit), i|
+			
+#			threads << Thread.new([score, individu, i]) { |(score, individu, i)|
+			
+				#p "evaluate #{i+1}/#{@pop_size}" if (i%100).zero?
+			
+				[evaluate(individu), individu, nil]
+			
+#			}
+		end
+		
+	#	@population = threads.each { |aThread|  aThread.join }
+	end
+	
+	
+	
+	def calc_fit
+	#	print " fitting"
+		@population = @population.each_with_index.map do |(score, individu, fit), i|
+			
+#			threads << Thread.new([score, individu, i]) { |(score, individu, i)|
+			
+				#p "fit #{i+1}/#{@pop_size}" if (i%100).zero?
+			
+			
+				[score, individu, ((score.to_f * 100 / @total_score))]
+			
+#			}
+		end
+		
+		
+	end
+	
+	def create_mating_pool
+		 @population.sort{ |a,b| b[0] <=> a[0] }
+		
+		
+		@total_score = @population.map{ |x| x[0]   }.sum
+		calc_fit
+		
+		
+		mating_pool = []
+		  @population.each do |person|
+		    integer_part = person[2].to_i
+		    fractional_part = person[2] - integer_part
+		    integer_part.times { mating_pool << person }
+		    mating_pool << person if rand < fractional_part
+		  end
+		  mating_pool
+		
+		
+		#calc_fit
+		#remake popu with fit
+		
+	#	@population[0..@select_size].shuffle
+		
+		
+	end
+	
+	def mutate parent1
+		px_1 = parent1[1][:px]
+		
+		@nb_mutation.times do
+			px_1[rand(px_1.size)] = ChunkyPNG::Color.from_hex(@colors_dispo.sample)
+		end
+		
+		
+		parent1[1][:px] = px_1
+		
+		parent1
+	end
+	
+	def reproduce_population
+		mating_pool = create_mating_pool
+		  pool_size = mating_pool.size
+	
+		
+		  @population = []
+		  
+	#	print " reproducing"
+		@pop_size.times do |i|
+			#p "reproducing #{i+1}/#{@pop_size}" if (i%100).zero?
+			
+		    parent1 = mating_pool[rand(pool_size)]
+		    parent2 = mating_pool[rand(pool_size)]
+		
+		#p parent1, parent1[1][:px]
+		#	p parent2, parent2[1][:px]
+		
+		
+		child1 = reproduce(parent1, parent2)
+		
+		if rand(@mutation).zero?
+			child1 = mutate(child1)
+		end
+		    @population << child1
+		  end
+		
+		@population
+		
+=begin		
+		
+		pop_to_reprod = select_best
+		
+		reprod = []
+		
+		@reprod_size.times do |i|
+			
+			
+		    parent1, parent2 = pop_to_reprod.slice!(0, 2)
+		    child1, child2 = reproduce(parent1, parent2)
+		    child3, child4 = reproduce(parent1, parent2)
+		
+		
+			if rand(@mutation).zero?
+				child1 = mutate(child1)
+			end
+			if rand(@mutation).zero?
+				child2 = mutate(child2)
+			end
+			if rand(@mutation).zero?
+				child3 = mutate(child3)
+			end
+			if rand(@mutation).zero?
+				child4 = mutate(child4)
+			end
+		
+		    reprod += [child1, child2, child3, child4]
+		  end
+		
+		@population = reprod
+=end		
+	end
+	
+	def reproduce parent1, parent2
+		
+		point = rand(parent1[1][:px].size)
+		
+		# other method, better dispatch, probably more long
+		#px_1 = parent1[1][:px].zip(parent2[1][:px]).map{ |x,y| rand(2).zero? ? x : y }
+
+
+#		px_2 = parent2[1][:px].zip(parent1[1][:px]).map{ |x,y| rand(2).zero? ? x : y }
+		
+		px_1 = parent1[1][:px][0...point] + parent2[1][:px][point..-1]
+		px_2 = parent2[1][:px][0...point] + parent1[1][:px][point..-1]
+		
+		px_1 = rand(2).zero? ? px_1 : px_2
+		
+#		img = ChunkyPNG::Image.new(168, 103, px_1)
+#		img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+#		uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
+	#	value = {:uri => uri, px: px_1}
+		
+	#		img = ChunkyPNG::Image.new(168, 103, px_1)
+	#		img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+	#		uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
+			value = {:uri => "", px: px_1}
+
+		
+	  
+		
+		  child1 = [nil, value, nil]
+		
+#		img = ChunkyPNG::Image.new(168, 103, px_2)
+#		img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+#		uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
+#		value = {:uri => uri, px: px_2}
+		
+#		  child2 = [nil, value, nil]
+		  #[child1, child2]
+		child1
+	end
+
+	# Ce qui suit est nouveau:
+	
+	
+	@reprod_size = 200
+	@select_size = @reprod_size*2
+	@pop_size = @select_size*2
+	
+	@nb_gen = 500
+	
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/blog-section/screencast.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_small.png")
+	image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/terran.png")
+	
+	
+	@image = image
+	
+	image_hex = image.pixels
+	@search_value = image_hex
+	
+	@colors_dispo = image.pixels.map { |p| ChunkyPNG::Color.to_hex(p) }.uniq
+	
+	@nb_pixel = image.height * image.width
+	@max_score = image.height * image.width
+	
+	
+	
+	@base_mutation = 1000
+	@mutation = @base_mutation
+	
+	@base_nb_mutation = @nb_pixel / 10
+	@nb_mutation = @base_nb_mutation
+	
+	
+	@population = make_population
+@bests = []
+	@worsts = []
+	
+	
+	
+	@best_score = 0
+	
+	
+	#GC.enable
+	@nb_gen.times do |generation|
+		GC.start
+		
+	  evaluate_population
+	  @population = @population.sort{ |a,b| b[0] <=> a[0] }
+	  @bests << @population.first
+	@worsts << @population.last
+	
+	@old_best_score = @best_score
+	@best_score = @population.first[0]
+	
+	if @old_best_score >= @best_score
+		@mutation -= 100
+		@mutation = 1 if @mutation < 1
+		
+		if false
+			@nb_mutation += @nb_pixel / 50
+			@nb_mutation = @nb_pixel if @nb_mutation > @nb_pixel
+		end
+		
+	else
+		@mutation = @base_mutation
+		@nb_mutation = @base_nb_mutation
+	end
+	
+	@mutation = [@mutation, @base_mutation].min
+	@nb_mutation = [@nb_mutation, @base_nb_mutation].max
+	
+	  puts "Generation: #{generation} - Best: #{@population.first[0]} (#{@best_score - @old_best_score} - #{@population.first[0] * 100 / @max_score}%) - Mutation: 1/#{@mutation} (#{@nb_mutation * 100 / @nb_pixel}% mutation)"
+	  exit if @population.first[0] == @max_score
+		
+		@population = reproduce_population
+		GC.start
+	
+	#  next_generation
+	end
+	
+	
+	
+
+%>
+
+<hr/>
+<h2>base population</h2>
+<%# @population.each do |p| %>
+	<%#= image_tag p[1][:uri] %>
+<%# end %>
+
+<% @bests.each_with_index do |b, i|  %>
+	
+	<div style="display: inline-block">
+	<p>gen <%= i %><br/>score <%= b[0] %> (<%=  (b[0] * 100 / @max_score) %>%)</p>
+	<%
+			img = ChunkyPNG::Image.new(@image.width, @image.height, b[1][:px])
+			img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
+			uri = asset_data_uri( "blog/experiment/genetic_octopus_ter.png")
+
+		
+	  %>
+	
+	<%= image_tag uri %>
+	</div>
+	
+	
+<% end %>
+

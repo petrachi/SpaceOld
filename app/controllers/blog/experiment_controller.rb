@@ -24,6 +24,11 @@ class Blog::ExperimentController < Blog::ApplicationController
   #if Rails.env == "development"
   
     def tmp
+      if params[:page] == "2"
+        render :template => "blog/experiment/tmp_2"
+      end
+      
+=begin      
       experiment = Blog::Experiment.where(:id => 4)
 	      		.with_version(5)
 	      		.first
@@ -109,6 +114,7 @@ class Blog::ExperimentController < Blog::ApplicationController
 	    @code = %Q{
 	      <%= scss %Q{#{ scss }} %>
 	    }
+=end
 =begin	    
 	    @code = %Q{
 	      <%
