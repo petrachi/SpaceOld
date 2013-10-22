@@ -411,15 +411,15 @@ extract_png(fp,ofp)
 		point = rand(parent1[1][:px].size)
 		
 		# other method, better dispatch, probably more long
-		#px_1 = parent1[1][:px].zip(parent2[1][:px]).map{ |x,y| rand(2).zero? ? x : y }
+		px_1 = parent1[1][:px].zip(parent2[1][:px]).map{ |x,y| rand(2).zero? ? x : y }
 
 
 #		px_2 = parent2[1][:px].zip(parent1[1][:px]).map{ |x,y| rand(2).zero? ? x : y }
 		
-		px_1 = parent1[1][:px][0...point] + parent2[1][:px][point..-1]
-		px_2 = parent2[1][:px][0...point] + parent1[1][:px][point..-1]
+		#px_1 = parent1[1][:px][0...point] + parent2[1][:px][point..-1]
+		#px_2 = parent2[1][:px][0...point] + parent1[1][:px][point..-1]
 		
-		px_1 = rand(2).zero? ? px_1 : px_2
+		#px_1 = rand(2).zero? ? px_1 : px_2
 		
 #		img = ChunkyPNG::Image.new(168, 103, px_1)
 #		img.save("app/assets/images/blog/experiment/genetic_octopus_ter.png")
