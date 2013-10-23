@@ -28,6 +28,14 @@ class Blog::ExperimentController < Blog::ApplicationController
         render :template => "blog/experiment/tmp_2"
       end
       
+      if params[:page] == "3"
+        render :template => "blog/experiment/tmp_3"
+      end
+      
+       if params[:page] == "4"
+          render :template => "blog/experiment/tmp_4"
+        end
+      
 =begin      
       experiment = Blog::Experiment.where(:id => 4)
 	      		.with_version(5)
