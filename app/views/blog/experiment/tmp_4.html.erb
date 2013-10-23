@@ -503,7 +503,8 @@ transform: rotate(900deg);
 </div>
 
 <% 
-@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopusnocolor.png")
+@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_transparent.png")
+
 
 @generations = 1_500
 @mutation_rate = 1.0 / 1
@@ -647,10 +648,8 @@ score_increment = 6.6
 		}
 	}
 	
-	
-	var timers = [9, 104, 105, 93, 117, 109, 127, 128, 132, 173, 139, 199, 241, 253, 451, 1116];
-	
-	var timers = [10, 121, 122, 109, 125, 112, 146, 158, 144, 180, 167, 224, 281, 301, 539, 1387];
+		
+	var timers = [10, 138, 163, 146, 157, 152, 196, 195, 178, 215, 210, 279, 348, 362, 634, 1592];
 	
 	var timer = 0;
 	
