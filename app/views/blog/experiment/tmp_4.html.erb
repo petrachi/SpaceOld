@@ -626,7 +626,61 @@ score_increment = 6.6
 	<span class="gen display-none" style="margin:1em;">
 	Generation <%= generation + 1 %><br/>
 	Score <strong><%= person[:score] %></strong> (<%= person[:score] * 100 / @searched_genes.size %>%)
+	
+	<% 
+	percent = person[:score] * 100 / @searched_genes.size
+	reverse_p = 100 - percent
+		r = 255 * reverse_p/100.0
+		v = 255 * percent/100.0
+		
+		
+		
+		function Color(r,g,b) {
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.coll = new Array(r,g,b);
+			this.valid = cVerify(this.coll);
+			this.text = cText(this.coll);
+			this.bg = cText(this.coll);
+		}
+		
+		function mixPalette() {
+			var steps = 10;
+			var count = steps + 1;
+			palette[0] = new Color(ends[0].r,ends[0].g,ends[0].b);
+			palette[count] = new Color(ends[1].r,ends[1].g,ends[1].b);
+			for (i = 1; i < count; i++) {
+				var r = (ends[0].r + (step[0] * i));
+				var g = (ends[0].g + (step[1] * i));
+				var b = (ends[0].b + (step[2] * i));
+					palette[i] = new Color(r,g,b);
+			}
+			for (j = count + 1; j < 12; j++) {
+				palette[j].text = '';
+				palette[j].bg = 'white';
+			}
+		}
+		
+		
+		
+	#	color : from our red
+	#	color : to dogerblue(?) 1E90FF
+	# 
+	# see color blend : http://www.w3schools.com/tags/ref_colormixer.asp
+	#  or http://meyerweb.com/eric/tools/color-blend/
+	# 
+	#color rainbow : http://krazydad.com/tutorials/makecolors.php
+	# 
+	# these colors are to add in r_kit variables
+	# complementary : #2B70B5
+	# analogous : #B5702B
+	%>
+	
+	<div style="background-color: rgb(<%= r.to_i %>, <%= v.to_i %>, 0);">
 	<%= image_tag genes_to_uri(person[:genes]) %>
+	</div>
+	
 	</span>
 	<span class="loader">
 		load
