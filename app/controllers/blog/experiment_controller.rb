@@ -140,6 +140,11 @@ class Blog::ExperimentController < Blog::ApplicationController
 	    }
 =end	    
 	  end
+	  
+	  def try_hard
+	   render layout: false
+	  end
+	  
   #end
   ####
 end

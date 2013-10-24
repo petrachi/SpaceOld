@@ -1,0 +1,109 @@
+<% 
+	def make_gene
+		@available_genes.sample
+	end
+	
+	def make_person genes = []
+		if genes.blank?
+			@search_value.size.times{ genes << make_gene }
+		end
+		
+		{:genes => genes}
+	end
+	
+	def make_population
+		@population = []
+		@population_size.times{ @population << make_person }
+	end
+	
+	def evaluate_person person
+		person[:score] = person[:genes].zip(@search_value).delete_if do |gene, searched_gene|
+			gene != searched_gene
+		end.size
+	end
+	
+	def evaluate_population
+		@population.each{ |person| evaluate_person person }
+	end
+	
+	
+	def fit_person person
+		person[:fit] = person[:score] * 100.0 / @total_scores
+	end
+	
+	def fit_population
+		@total_scores = @population.sum{ |person| person[:score] }
+		@population.each{ |person| fit_person person }
+	end
+	
+	
+	def make_mating_pool
+		@mating_pool = []
+		@population.each do |person|
+		    person[:fit].to_i.times { @mating_pool << person }
+		end
+	end
+	
+	
+	def reproduce father, mother		
+		
+		point = rand(@search_value.size)
+		make_person(father[:genes][0..point] + mother[:genes][point+1..-1])
+		
+	end
+	
+	def reproduce_population
+		fit_population
+		make_mating_pool
+		
+		@population = []
+		
+		@population_size.times do
+			father = @mating_pool.sample
+			mother = @mating_pool.sample
+			
+			@population << reproduce(father, mother)
+		end
+	end
+	
+	def mutate_person person
+		if rand < @mutation_rate
+			person[:genes][rand(person[:genes].size)] = make_gene
+		end
+	end
+	
+	def mutate_population
+		@population.each{ |person| mutate_person person }
+	end
+	
+	@search_value = "Mon royaume pour un cheval".split(//)
+	@available_genes = "azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN ".split(//)
+	
+	@population_size = 100
+	@mutation_rate = 1.0 / 10
+	
+	@bests_of_populations = []
+	
+	make_population
+	10_000.times do |generation|
+		
+		
+		evaluate_population
+		
+		@bests_of_populations << @population.first
+		break if @population.first[:score] == @search_value.size
+		
+		reproduce_population
+		mutate_population
+		
+		p "Generation #{generation}"
+		
+		
+	end
+	
+	
+%>
+
+<% @bests_of_populations.each do |person| %>
+	score <%= person[:score] %> - <%= person[:genes].join %><br/>
+<% end %>

@@ -15,6 +15,7 @@ Space::Application.routes.draw do
       match "/experiment/:tag" => :show, :as => :blog_experiment
     
       match "/tmp_e" => :tmp
+      match "/try_hard" => :try_hard
     end
   
     controller "ressource" do
