@@ -103,7 +103,7 @@
     },
     :scss => %q{
       div#sphere_svg{
-    		margin: 1em auto;
+    		margin: 2em auto;
     		width: #{ n * width }px;
     	}
     },

@@ -622,19 +622,41 @@ score_increment = 6.6
 
 %>
 
+<%= scss %Q{
+	.hill-climbing{
+		padding-top: 2em;
+		text-align: center;
+		
+		.icon-spinner{
+			font-size: 4em;
+			margin: .25em;
+		}
+	}
+} %>
+
 <%= six_cols_container :collection => @evolution_tree, :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
-	<span class="gen display-none" style="margin:1em;">
-	Generation <%= generation + 1 %><br/>
-	Score <strong><%= person[:score] %></strong> (<%= person[:score] * 100 / @searched_genes.size %>%)
 	
 	<% 
+	
+	color_start = {:r=>"b6".to_i(16), :v=>"2b".to_i(16), :b=>"2b".to_i(16)}
+	color_end = {:r=>"2b".to_i(16), :v=>"70".to_i(16), :b=>"b5".to_i(16)} #blue
+	
+	color_end = {:r=>"b5".to_i(16), :v=>"70".to_i(16), :b=>"2b".to_i(16)} #orange
+	
+#	color_end = {:r=>"00".to_i(16), :v=>"c0".to_i(16), :b=>"00".to_i(16)} #green
 	percent = person[:score] * 100 / @searched_genes.size
-	reverse_p = 100 - percent
-		r = 255 * reverse_p/100.0
-		v = 255 * percent/100.0
+	
+	
+	r_diff = color_end[:r] - color_start[:r]
+	v_diff = color_end[:v] - color_start[:v]
+	b_diff = color_end[:b] - color_start[:b]
+	
+	r = color_start[:r] + r_diff * percent/100.0
+	v = color_start[:v] + v_diff * percent/100.0
+	b = color_start[:b] + b_diff * percent/100.0
+	
 		
-		
-		
+=begin		
 		function Color(r,g,b) {
 			this.r = r;
 			this.g = g;
@@ -661,7 +683,7 @@ score_increment = 6.6
 				palette[j].bg = 'white';
 			}
 		}
-		
+=end		
 		
 		
 	#	color : from our red
@@ -677,14 +699,9 @@ score_increment = 6.6
 	# analogous : #B5702B
 	%>
 	
-	<div style="background-color: rgb(<%= r.to_i %>, <%= v.to_i %>, 0);">
-	<%= image_tag genes_to_uri(person[:genes]) %>
-	</div>
+	<%= image_tag genes_to_uri(person[:genes]), :class => "display-none", :style=>"background-color: rgb(#{r.to_i}, #{v.to_i}, #{b.to_i});" %>
+	<i class="icon-spinner icon-spin"></i>
 	
-	</span>
-	<span class="loader">
-		load
-	</span>
 <% end %>
 
 <script type="text/javascript">
@@ -707,17 +724,18 @@ score_increment = 6.6
 	
 	var timer = 0;
 	
+	
  	var elems = document.getElementsByClassName("hill-climbing");
 	for(var timeIndex = 0; timeIndex < elems.length; ++timeIndex)
 	{
 		
 		
 		
-		var gen = elems[timeIndex].getElementsByClassName( "gen" )[0];
-		var load = elems[timeIndex].getElementsByClassName( "loader" )[0];
+		var gen = elems[timeIndex].getElementsByTagName( "img" )[0];
+		var load = elems[timeIndex].getElementsByTagName( "i" )[0];
 		
 		setTimeout(removeClass.bind(this, elems[timeIndex], "display-none"), timer);
-		console.log("remove all (display load) " + timeIndex + " at " + timer)
+		console.log(gen)
 		
 		timer = timer + timers[timeIndex]
 		

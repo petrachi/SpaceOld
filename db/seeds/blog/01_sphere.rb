@@ -45,7 +45,7 @@
   		}
 
   		.planet-container{
-  		  margin: 1em auto;
+  		  margin: 2em auto;
 
         height: #{ r * 2 }px;
   			width: #{ r * 2 }px;
