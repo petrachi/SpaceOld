@@ -47,13 +47,12 @@ class Blog::Snippet < ActiveRecord::Base
   
   before_save :precompile!, unless: :precompiled?
   def precompile!
-
     write_attribute :compiled, SnippetPrecompiler.new(self).precompile
     
     # fingerprint need to be last line in case of bug elsewhere
     write_attribute :fingerprint, Digest::MD5.hexdigest(raw)
     
-    update_without_callbacks
+    
     #save!
     
     
@@ -106,7 +105,8 @@ class Blog::Snippet < ActiveRecord::Base
     })
 =end    
   rescue
-    self.compiled = raw
+    p "Blog::Snippet can't precompile"
+    write_attribute :compiled, raw
   end
   
   #before_save :precompile_scss!
@@ -173,12 +173,9 @@ class Blog::Snippet < ActiveRecord::Base
       mutations.where(mutation: mutation).first.run
     else
       
-      
-      unless precompiled?
-        precompile!
-        #save! # will precompile
-      end
       compiled
+      
+      
       
     # if mutation, display the mutation precompiled
 =begin    

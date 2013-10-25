@@ -505,25 +505,24 @@ transform: rotate(900deg);
 <% 
 @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_transparent.png")
 
-
 @generations = 1_500
 @mutation_rate = 1.0 / 1
 
 score_increment = 6.6
+
+color_start = "#b62b2b"
+color_end = "#b5702b"
+
 %>
 
 <% 	
 	# --- setup
-	
 	@searched_genes = @searched_image.pixels
 	@availables_pixels = @searched_genes.uniq
-	
-	
 	
 	@evolution_tree = []
 	
 	# -- hill climbing
-	
 	def create_gene
 		@availables_pixels.sample
 	end
@@ -562,11 +561,9 @@ score_increment = 6.6
 	first_timer = Time.now
 	timer = Time.now
 	
-	
 	p "Start Hill Climbing - #{ @generations } Generations - Complexity: #{ @searched_genes.size } genes + #{ @availables_pixels.size } colors"
 	
 	score = 0
-	score_increment = 6.6
 	
 	@population_of_one = create_person
 	@generations.times do |generation|
@@ -623,80 +620,40 @@ score_increment = 6.6
 %>
 
 <%= scss %Q{
-	.hill-climbing{
-		padding-top: 2em;
-		text-align: center;
+	.genetic-octopus{
+		margin: 1em 0 2em;
 		
-		.icon-spinner{
-			font-size: 4em;
-			margin: .25em;
+		.hill-climbing{
+			padding-top: 1em;
+			text-align: center;
+
+			.icon-spinner{
+				font-size: 4em;
+				margin: .25em;
+			}
 		}
 	}
+	
 } %>
 
-<%= six_cols_container :collection => @evolution_tree, :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
+<%= six_cols_container :collection => @evolution_tree, :class => :'genetic-octopus', :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
 	
 	<% 
+		m = color_start.match /#(..)(..)(..)/
+		color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
 	
-	color_start = {:r=>"b6".to_i(16), :v=>"2b".to_i(16), :b=>"2b".to_i(16)}
-	color_end = {:r=>"2b".to_i(16), :v=>"70".to_i(16), :b=>"b5".to_i(16)} #blue
+		m = color_end.match /#(..)(..)(..)/
+		color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
 	
-	color_end = {:r=>"b5".to_i(16), :v=>"70".to_i(16), :b=>"2b".to_i(16)} #orange
+		percent = person[:score] * 100 / @searched_genes.size
 	
-#	color_end = {:r=>"00".to_i(16), :v=>"c0".to_i(16), :b=>"00".to_i(16)} #green
-	percent = person[:score] * 100 / @searched_genes.size
+		r_diff = color_end[:r] - color_start[:r]
+		v_diff = color_end[:v] - color_start[:v]
+		b_diff = color_end[:b] - color_start[:b]
 	
-	
-	r_diff = color_end[:r] - color_start[:r]
-	v_diff = color_end[:v] - color_start[:v]
-	b_diff = color_end[:b] - color_start[:b]
-	
-	r = color_start[:r] + r_diff * percent/100.0
-	v = color_start[:v] + v_diff * percent/100.0
-	b = color_start[:b] + b_diff * percent/100.0
-	
-		
-=begin		
-		function Color(r,g,b) {
-			this.r = r;
-			this.g = g;
-			this.b = b;
-			this.coll = new Array(r,g,b);
-			this.valid = cVerify(this.coll);
-			this.text = cText(this.coll);
-			this.bg = cText(this.coll);
-		}
-		
-		function mixPalette() {
-			var steps = 10;
-			var count = steps + 1;
-			palette[0] = new Color(ends[0].r,ends[0].g,ends[0].b);
-			palette[count] = new Color(ends[1].r,ends[1].g,ends[1].b);
-			for (i = 1; i < count; i++) {
-				var r = (ends[0].r + (step[0] * i));
-				var g = (ends[0].g + (step[1] * i));
-				var b = (ends[0].b + (step[2] * i));
-					palette[i] = new Color(r,g,b);
-			}
-			for (j = count + 1; j < 12; j++) {
-				palette[j].text = '';
-				palette[j].bg = 'white';
-			}
-		}
-=end		
-		
-		
-	#	color : from our red
-	#	color : to dogerblue(?) 1E90FF
-	# 
-	# see color blend : http://www.w3schools.com/tags/ref_colormixer.asp
-	#  or http://meyerweb.com/eric/tools/color-blend/
-	# 
-	#color rainbow : http://krazydad.com/tutorials/makecolors.php
-	# 
-	# these colors are to add in r_kit variables
-	# complementary : #2B70B5
-	# analogous : #B5702B
+		r = color_start[:r] + r_diff * percent/100.0
+		v = color_start[:v] + v_diff * percent/100.0
+		b = color_start[:b] + b_diff * percent/100.0
 	%>
 	
 	<%= image_tag genes_to_uri(person[:genes]), :class => "display-none", :style=>"background-color: rgb(#{r.to_i}, #{v.to_i}, #{b.to_i});" %>
@@ -705,48 +662,20 @@ score_increment = 6.6
 <% end %>
 
 <script type="text/javascript">
-
-	function hasClass(ele,cls) {
-		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-	}
-	function addClass(ele,cls) {
-		if (!this.hasClass(ele,cls)) ele.className += " "+cls;
-	}
-	function removeClass(ele,cls) {
-		if (hasClass(ele,cls)) {
-			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
-			ele.className=ele.className.replace(reg,' ');
-		}
-	}
-	
-		
 	var timers = [10, 138, 163, 146, 157, 152, 196, 195, 178, 215, 210, 279, 348, 362, 634, 1592];
-	
 	var timer = 0;
-	
 	
  	var elems = document.getElementsByClassName("hill-climbing");
 	for(var timeIndex = 0; timeIndex < elems.length; ++timeIndex)
 	{
+		var img = elems[timeIndex].getElementsByTagName( "img" )[0];
+		var spinner = elems[timeIndex].getElementsByClassName( "icon-spinner" )[0];
 		
-		
-		
-		var gen = elems[timeIndex].getElementsByTagName( "img" )[0];
-		var load = elems[timeIndex].getElementsByTagName( "i" )[0];
-		
-		setTimeout(removeClass.bind(this, elems[timeIndex], "display-none"), timer);
-		console.log(gen)
+		setTimeout(r_kit.removeClass.bind(this, elems[timeIndex], "display-none"), timer);
 		
 		timer = timer + timers[timeIndex]
 		
-		console.log("add gen + cache load " + timeIndex + " at " + timer)
-		
-		setTimeout(removeClass.bind(this, gen, "display-none"), timer);
-		setTimeout(addClass.bind(this, load, "display-none"), timer);
-		
-		
+		setTimeout(r_kit.removeClass.bind(this, img, "display-none"), timer);
+		setTimeout(r_kit.addClass.bind(this, spinner, "display-none"), timer);
 	}
-	
-	
-	
 </script>
