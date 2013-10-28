@@ -6,7 +6,7 @@ class Blog::ScreencastController < Blog::ApplicationController
   
   
   def index
-    @screencasts = Blog::Screencast.published
+    @screencasts = Blog::Screencast.published.order("id desc")
     @screencasts = @screencasts.pool params[:pool] if params[:pool]
   end
   

@@ -6,7 +6,7 @@ class Blog::ArticleController < Blog::ApplicationController
   
   
   def index
-    @articles = Blog::Article.published
+    @articles = Blog::Article.published.order("id desc")
     @articles = @articles.pool params[:pool] if params[:pool]
   end
   

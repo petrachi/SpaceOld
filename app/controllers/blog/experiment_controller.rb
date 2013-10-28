@@ -5,7 +5,7 @@ class Blog::ExperimentController < Blog::ApplicationController
   end
   
   def index
-    @experiments = Blog::Experiment.published
+    @experiments = Blog::Experiment.published.order("id desc")
     @experiments = @experiments.pool params[:pool] if params[:pool]
   end
   
