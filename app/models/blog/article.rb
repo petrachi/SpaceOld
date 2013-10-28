@@ -4,6 +4,9 @@ class Blog::Article < ActiveRecord::Base
   has_one :snippet, as: :runnable, conditions: "published = true"
   delegate :run, to: :snippet
   
+  has_one :followed, class_name: "Article", foreign_key: "following_id"
+  belongs_to :following, class_name: "Article"
+  
   scope :published, where(:published => true)  
   scope :pool, -> pool { where(:pool => pool) }
   
@@ -19,4 +22,31 @@ class Blog::Article < ActiveRecord::Base
   def pool_url
     URL.blog_articles_path :pool => pool
   end
+  
+  
+  def serial?
+    followed or following
+  end
+  
+  def serial_number
+    if following
+      following.serial_number + 1
+    else
+      1
+    end
+  end
+  
+  
+  
+  
+  # DECORATOR - need to be move
+  def title
+    if serial?
+      @attributes["title"] + " - #{I18n.t "blog.name"} part " + serial_number.to_s
+    else
+      @attributes["title"]
+    end
+  end
+ 
+  
 end

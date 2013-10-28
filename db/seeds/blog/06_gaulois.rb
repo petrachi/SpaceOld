@@ -303,6 +303,7 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :published => true),
   :pool => :ruby,
   :published => true,
+  :following => @gaulois_1_article,
   :tag => :gaulois2
   
 
@@ -472,4 +473,5 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :published => true),
   :pool => :ruby,
   :published => true,
+  :following => @gaulois_2_article,
   :tag => :gaulois3

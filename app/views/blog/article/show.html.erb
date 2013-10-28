@@ -15,6 +15,16 @@
 			</h2>
 			
 			<%= erb @article.run %>
+			
+			<p>
+				<% if @article.following %>
+					<%= link_to "<- début", @article.following, :class => :btn %>
+				<% end %>
+				
+				<% if @article.followed %>
+					<%= link_to "suite ->", @article.followed, :class => :btn %>
+				<% end %>
+			</p>
 		<% end %>
 	<% end %>
 <% end %>
