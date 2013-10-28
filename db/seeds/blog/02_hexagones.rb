@@ -1,7 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@hexagones_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+@hexagones_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Hexagones",
   :summary => %q{
     Préparez-vous à être éblouis par cette sphère 2d !
@@ -128,5 +128,5 @@
     :published => true),
   :published => true,
   :tag => :hexa,
-  :pool => :experiment
+  :pool => :experience
 

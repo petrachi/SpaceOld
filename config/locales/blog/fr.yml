@@ -8,8 +8,8 @@ fr:
             summary: "Laissez vous entrainer par de fantastiques aventures techniques en tous genres !"
             pool: "Catégorie"
             
-        experiment:
-            name: "Expérimentations"
+        experience:
+            name: "Expériences"
             summary: "Le petit chimiste appliqué aux technologies web. Attention, la compagnie ne pourra pas être tenue responsable des graves sévices auquels vous vous exposez."
             
             version: 

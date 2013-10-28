@@ -10,9 +10,9 @@ Space::Application.routes.draw do
       match "/tmp_a" => :tmp
     end
   
-    controller "experiment" do
-      match "/experiments(/p/:pool)" => :index, :as => :blog_experiments
-      match "/experiment/:tag" => :show, :as => :blog_experiment
+    controller "experience" do
+      match "/experiences(/p/:pool)" => :index, :as => :blog_experiences
+      match "/experience/:tag" => :show, :as => :blog_experience
     
       match "/tmp_e" => :tmp
       match "/try_hard" => :try_hard

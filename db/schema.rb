@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
   add_index "blog_articles", ["tag"], :name => "index_blog_articles_on_tag"
   add_index "blog_articles", ["user_id"], :name => "index_blog_articles_on_user_id"
 
-  create_table "blog_experiments", :force => true do |t|
+  create_table "blog_experiences", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "summary"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                    :null => false
   end
 
-  add_index "blog_experiments", ["tag"], :name => "index_blog_experiments_on_tag"
-  add_index "blog_experiments", ["user_id"], :name => "index_blog_experiments_on_user_id"
+  add_index "blog_experiences", ["tag"], :name => "index_blog_experiences_on_tag"
+  add_index "blog_experiences", ["user_id"], :name => "index_blog_experiences_on_user_id"
 
   create_table "blog_ressources", :force => true do |t|
     t.integer  "user_id"

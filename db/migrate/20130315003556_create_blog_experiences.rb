@@ -1,6 +1,6 @@
-class CreateBlogExperiments < ActiveRecord::Migration
+class CreateBlogExperiences < ActiveRecord::Migration
   def change
-    create_table :blog_experiments do |t|
+    create_table :blog_experiences do |t|
       t.references :user
       
       t.string :title
@@ -12,7 +12,7 @@ class CreateBlogExperiments < ActiveRecord::Migration
       
       t.timestamps
     end
-    add_index :blog_experiments, :user_id
-    add_index :blog_experiments, :tag
+    add_index :blog_experiences, :user_id
+    add_index :blog_experiences, :tag
   end
 end

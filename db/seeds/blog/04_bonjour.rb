@@ -1,17 +1,17 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@bonjour_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+@bonjour_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Bonjour",
   :summary => %q{
     Parceque écrire "bonjour" c'est stylé ! ... Et que j'aime bien écrire "bonjour" de toute façon ! (full HTML/CSS)
   },
   :published => false,
   :tag => :bonjour,
-  :pool => :experiment
+  :pool => :experience
 
 
-@bonjour_version = Blog::Snippet.create :runnable => @bonjour_experiment,
+@bonjour_version = Blog::Snippet.create :runnable => @bonjour_experience,
   :params => %q{
     # No Params
   },

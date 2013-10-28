@@ -2,13 +2,13 @@
 # encoding: utf-8
 
 
-@octopus_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+@octopus_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Genetic Octopus",
   :summary => %q{
     Un poulpe, un algorithme de hill-climbing, et une bonne dose de SWAG. Je dois avouer que si une fille pouvait ressembler à ça, je la demande en mariage instantanément.
   },
   :snippet => Blog::Snippet.create(:params => %q{
-      @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_transparent.png")
+      @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopus_transparent.png")
 
       @generations = 1_500
       @mutation_rate = 1.0 / 1
@@ -116,8 +116,8 @@
 
     	def genes_to_uri genes
     		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
-    		png.save("app/assets/images/blog/experiment/genetic_best.png")
-    		asset_data_uri("blog/experiment/genetic_best.png")
+    		png.save("app/assets/images/blog/experience/genetic_best.png")
+    		asset_data_uri("blog/experience/genetic_best.png")
     	end
     },
     :scss => %q{
@@ -182,6 +182,6 @@
     :published => true),
   :published => true,
   :tag => :genetic_octopus,
-  :pool => :experiment
+  :pool => :experience
 
 

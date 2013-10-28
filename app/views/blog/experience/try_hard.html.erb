@@ -32,7 +32,7 @@
 		make_person person[:muted]
 	end
 	
-	@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopusnocolor.png")
+	@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopusnocolor.png")
 	
 	@search_value = @searched_image.pixels
 	@available_genes = @searched_image.pixels.uniq
@@ -94,8 +94,8 @@
 
 		def genes_to_uri genes
 			png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
-			png.save("app/assets/images/blog/experiment/genetic_best.png")
-			asset_data_uri("blog/experiment/genetic_best.png")
+			png.save("app/assets/images/blog/experience/genetic_best.png")
+			asset_data_uri("blog/experience/genetic_best.png")
 		end
 		
 		 %>

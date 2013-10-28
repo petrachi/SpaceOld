@@ -2,16 +2,16 @@
 # encoding: utf-8
 
 
-@spriting_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+@spriting_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Spriting SC2",
   :summary => %q{
     Un sprite pour toutes les tailles.
   },
   :published => false,
   :tag => :sprite,
-  :pool => :experiment
+  :pool => :experience
 
-@spriting_version = Blog::Snippet.create :runnable => @spriting_experiment,
+@spriting_version = Blog::Snippet.create :runnable => @spriting_experience,
   :params => %q{
     # No Params
   },
@@ -33,7 +33,7 @@
 		}
   },
   :scss => %q{
-		$sc-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png");
+		$sc-icon-sprites: sprite-map("blog/experience/sc-icon/*.png");
 		
 		.sc-icon-sprite{
 		    background-image: inline-sprite($sc-icon-sprites);
@@ -139,7 +139,7 @@ Blog::Snippet.create :primal => @spriting_version,
 
 Blog::Snippet.create :primal => @spriting_version,
   :scss => %q{
-		$px-icon-sprites: sprite-map("blog/experiment/sc-icon/*.png");
+		$px-icon-sprites: sprite-map("blog/experience/sc-icon/*.png");
 		
 		.px-icon-sprite{
 		    background-image: inline-sprite($px-icon-sprites);
@@ -246,7 +246,7 @@ compass sprite "app/assets/images/sc-icon/*.png"
 				<% end %>
 				
 				<%= three_span do %>				  
-				  <%= erb @article.experiment.with_mutant_version(:protoss_big).code %>
+				  <%= erb @article.experience.with_mutant_version(:protoss_big).code %>
 				<% end %>
 			<% end %>
 		<% end %>
@@ -284,7 +284,7 @@ compass sprite "app/assets/images/sc-icon/*.png"
 }
 		<% end %>
 		
-		<%= erb @article.experiment.with_mutant_version(:pixels).code %>
+		<%= erb @article.experience.with_mutant_version(:pixels).code %>
 	  		
 		<h3>
 			Re-positionnement relatif
@@ -352,7 +352,7 @@ end
 			Tout est prêt pour la démo finale. Je croise les doigts pour que tout fonctionne comme prévu .... Le temps que le moteur chauffe .... j'appuie sur le bouton ! Go !
 		</p>
 		
-		<%= erb @article.experiment.with_mutant_version(:percent).code %>
+		<%= erb @article.experience.with_mutant_version(:percent).code %>
 				
 		<h3>
 			Conclusion

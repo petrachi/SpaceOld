@@ -1,7 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@sphere_experiment = Blog::Experiment.create :user => @primal_user.blog_user,
+@sphere_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Sphère",
   :summary => %q{
     Une sphère tout en web :). Pas de flash, pas de librairies javascript, juste des <i>div</i> et des <i>transforms</i>. 
@@ -99,12 +99,12 @@
     :published => true),
   :published => true,
   :tag => :sphere,
-  :pool => :experiment
+  :pool => :experience
 
 
 
 
-Blog::Snippet.create :primal => @sphere_experiment.snippet,
+Blog::Snippet.create :primal => @sphere_experience.snippet,
   :params => %q{
     n = 389
     r = 132
@@ -380,7 +380,7 @@ end
 </div>
     <% end %>
     
-    <%= erb Blog::Experiment.where(tag: :sphere).first.run(:mini) %>
+    <%= erb Blog::Experience.where(tag: :sphere).first.run(:mini) %>
 
     <h3>
     	Conclusion
@@ -399,7 +399,7 @@ end
     </p>
   },
   :published => true),
-  :pool => :experiment,
+  :pool => :experience,
   :tag => :sphere,
   :published => true
 

@@ -503,7 +503,7 @@ transform: rotate(900deg);
 </div>
 
 <% 
-@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experiment/octopus_transparent.png")
+@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopus_transparent.png")
 
 @generations = 1_500
 @mutation_rate = 1.0 / 1
@@ -613,8 +613,8 @@ color_end = "#b5702b"
 	
 	def genes_to_uri genes
 		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
-		png.save("app/assets/images/blog/experiment/genetic_best.png")
-		asset_data_uri("blog/experiment/genetic_best.png")
+		png.save("app/assets/images/blog/experience/genetic_best.png")
+		asset_data_uri("blog/experience/genetic_best.png")
 	end
 
 %>

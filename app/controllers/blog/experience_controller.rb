@@ -1,16 +1,16 @@
-class Blog::ExperimentController < Blog::ApplicationController
+class Blog::ExperienceController < Blog::ApplicationController
   def get_location
-    @section = :experiment
+    @section = :experience
     super
   end
   
   def index
-    @experiments = Blog::Experiment.published.order("id desc")
-    @experiments = @experiments.pool params[:pool] if params[:pool]
+    @experiences = Blog::Experience.published.order("id desc")
+    @experiences = @experiences.pool params[:pool] if params[:pool]
   end
   
   def show
-    @experiment = Blog::Experiment.published
+    @experience = Blog::Experience.published
       .tagged(params[:tag])
   end
   
@@ -25,15 +25,15 @@ class Blog::ExperimentController < Blog::ApplicationController
   
     def tmp
       if params[:page] == "2"
-        render :template => "blog/experiment/tmp_2"
+        render :template => "blog/experience/tmp_2"
       end
       
       if params[:page] == "3"
-        render :template => "blog/experiment/tmp_3"
+        render :template => "blog/experience/tmp_3"
       end
       
        if params[:page] == "4"
-          render :template => "blog/experiment/tmp_4"
+          render :template => "blog/experience/tmp_4"
         end
       
 =begin      
