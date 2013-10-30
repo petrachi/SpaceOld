@@ -88,7 +88,7 @@ Blog::Screencast.create :user => @primal_user.blog_user,
   
 Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Try Hard #7",
-  :summary => "On va parler de blogs et de commentaire",
+  :summary => "On va parler d'algorithmes génétiques",
   :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/oSkGssrsw_U?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
   :snippet => Blog::Snippet.create(:erb => %Q{
   <p>
@@ -102,7 +102,7 @@ Blog::Screencast.create :user => @primal_user.blog_user,
   
 Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Try Hard #7.5",
-  :summary => "On va parler de blogs et de commentaire",
+  :summary => "On va parler de hill-cimbing",
   :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/JSh8e73E5OQ?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
   :snippet => Blog::Snippet.create(:erb => %Q{
   <p>
