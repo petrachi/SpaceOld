@@ -85,3 +85,32 @@ Blog::Screencast.create :user => @primal_user.blog_user,
   :pool => :try_hard,
   :published => true,
   :tag => :try_hard_6
+  
+Blog::Screencast.create :user => @primal_user.blog_user,
+  :title => "Try Hard #7",
+  :summary => "On va parler de blogs et de commentaire",
+  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/oSkGssrsw_U?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :snippet => Blog::Snippet.create(:erb => %Q{
+  <p>
+  Alors voilà jean-michel, un super screencast dites donc !
+  </p>
+  },
+  :published => true),
+  :pool => :try_hard,
+  :published => true,
+  :tag => :try_hard_7
+  
+Blog::Screencast.create :user => @primal_user.blog_user,
+  :title => "Try Hard #7.5",
+  :summary => "On va parler de blogs et de commentaire",
+  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/JSh8e73E5OQ?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :snippet => Blog::Snippet.create(:erb => %Q{
+  <p>
+  Alors voilà jean-michel, un super screencast dites donc !
+  </p>
+  },
+  :published => true),
+  :pool => :try_hard,
+  :published => true,
+  :tag => :try_hard_75
+  
