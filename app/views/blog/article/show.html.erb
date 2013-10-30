@@ -2,7 +2,7 @@
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
 		
-			<h3><%=t :'blog.article.pool' %></h3>
+			<h3><%=t 'blog.article.pool' %></h3>
 			
 			<p>
 				<%= link_to @article.pool, @article.pool_url, :class => :btn %>
@@ -18,11 +18,11 @@
 			
 			<p>
 				<% if @article.following %>
-					<%= link_to " ← Précédent", @article.following, :class => :btn %>
+					<%= link_to "&larr; Précédent".html_safe, @article.following, :class => :btn %>
 				<% end %>
 				
 				<% if @article.followed %>
-					<%= link_to "Suivant →", @article.followed, :class => :btn %>
+					<%= link_to "Suivant &rarr;".html_safe, @article.followed, :class => :btn %>
 				<% end %>
 			</p>
 		<% end %>

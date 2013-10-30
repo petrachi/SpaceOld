@@ -2,7 +2,7 @@
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
 	
-			<h3><%=t :'blog.screencast.pool' %></h3>
+			<h3><%=t 'blog.screencast.pool' %></h3>
 		
 			<p>
 				<%= link_to @screencast.pool, @screencast.pool_url, :class => :btn %>
@@ -15,6 +15,8 @@
 			</h2>
 			
 			<%= erb @screencast.embed %>
+			
+			<h3><%= t 'blog.screencast.ressources' %></h3>
 			
 			<%= erb @screencast.run %>
 		<% end %>
