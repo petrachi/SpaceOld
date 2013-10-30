@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 @gaulois_1_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "Gaulois cherche Gauloise (1)",
+  :title => "Gaulois cherche Gauloise",
   :summary => %q{
     Chez les gaulois, l'amour triomphe toujours ! Comment ça se passe en ruby ? C'est justement le sujet de cet article.
   },
@@ -163,11 +163,11 @@ end
   :published => true),
   :pool => :ruby,
   :published => true,
-  :tag => :gaulois1
+  :tag => :gaulois,
+  :serial_anticiped => true
   
   
 @gaulois_2_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "Gaulois cherche Gauloise (2)",
   :summary => %q{
     On va se bouger aujourd'hui ! Et les gaulois aussi, ça suffit ! Allez allez c'est parti.
   },
@@ -303,12 +303,9 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :published => true),
   :pool => :ruby,
   :published => true,
-  :following => @gaulois_1_article,
-  :tag => :gaulois2
-  
+  :following => @gaulois_1_article  
 
 @gaulois_3_article = Blog::Article.create :user => @primal_user.blog_user,
-  :title => "Gaulois cherche Gauloise (3)",
   :summary => %q{
     Épisode final pour notre ami gaulois et sa tendre amie. Aujourd'hui, on fait de l'intelligence artificielle ! (Enfin, pas vraiment mais on va dire que oui).
   },
@@ -473,5 +470,4 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :published => true),
   :pool => :ruby,
   :published => true,
-  :following => @gaulois_2_article,
-  :tag => :gaulois3
+  :following => @gaulois_2_article

@@ -18,11 +18,11 @@
 			
 			<p>
 				<% if @article.following %>
-					<%= link_to "<- début", @article.following, :class => :btn %>
+					<%= link_to " ← Précédent", @article.following, :class => :btn %>
 				<% end %>
 				
 				<% if @article.followed %>
-					<%= link_to "suite ->", @article.followed, :class => :btn %>
+					<%= link_to "Suivant →", @article.followed, :class => :btn %>
 				<% end %>
 			</p>
 		<% end %>
