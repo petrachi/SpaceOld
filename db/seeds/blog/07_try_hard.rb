@@ -836,4 +836,3 @@ end
   :pool => :try_hard,
   :published => true,
   :tag => :hill_climbing
-  

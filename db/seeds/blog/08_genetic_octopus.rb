@@ -5,7 +5,7 @@
 @octopus_experience = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Genetic Octopus",
   :summary => %q{
-    Un poulpe, un algorithme de hill-climbing, et une bonne dose de SWAG. Je dois avouer que si une fille pouvait ressembler à ça, je la demande en mariage instantanément.
+    Je dois avouer que si une fille pouvait ressembler à ça, je la demande en mariage instantanément.
   },
   :snippet => Blog::Snippet.create(:params => %q{
       @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopus_transparent.png")
