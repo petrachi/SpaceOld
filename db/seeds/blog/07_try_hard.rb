@@ -2,9 +2,9 @@
 # encoding: utf-8
 
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #1",
+  :title => "Opérateurs \"||\", \"or\", \"&&\" et \"and\"",
   :summary => "Quel est la différence entre l'opérateur \"||\" et l'opérateur \"or\" ? C'est ce qu'on va voir !",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/bshV5tqzIwE?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "bshV5tqzIwE",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 ?> var = false || true
@@ -35,12 +35,12 @@ Blog::Screencast.create :user => @primal_user.blog_user,
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_1
+  :tag => :or_and
 
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #2",
+  :title => "Block, Proc et lambda",
   :summary => "Blocks, Procs et lambda en screencast, c'est ici que ça se passe !",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/8Slu1_5xUYA?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "8Slu1_5xUYA",
   :snippet => Blog::Snippet.create(:erb => %q{
 		<%= coderay do %>
 def easy
@@ -132,13 +132,17 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_2
+  :tag => :blocks
     
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #3",
+  :title => "Refactoring",
   :summary => "Le refactoring c'est chouette, alors pour cette fois, on va faire plein de trucs chouette avec une classe Product et Report.",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/s6iMBtzo3nE?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "s6iMBtzo3nE",
   :snippet => Blog::Snippet.create(:erb => %q{
+    <p>
+      Talk original par Ben Orenstein, Aloha Ruby Conf 2012 : <%= link_to "Refactoring from good to great", "http://emaxime.com/2012/eys-refactoring-from-good-to-great-and-live/", :class => :btn, :target => "_blank" %> 
+    </p>
+    
     <p>
       Main
     </p>
@@ -236,13 +240,17 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_3
+  :tag => :refactoring
       
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #4",
+  :title => "Null Pattern",
   :summary => "Suite sur le refactoring, en suivant le design \"NullPattern\"",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/Z74ANuUEs7g?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "Z74ANuUEs7g",
   :snippet => Blog::Snippet.create(:erb => %q{
+    <p>
+      Talk original par Ben Orenstein, Aloha Ruby Conf 2012 : <%= link_to "Refactoring from good to great", "http://emaxime.com/2012/eys-refactoring-from-good-to-great-and-live/", :class => :btn, :target => "_blank" %> 
+    </p>
+    
     <p>
       Main
     </p>
@@ -342,12 +350,12 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_4
+  :tag => :null_pattern
         
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #5",
+  :title => "Method missing",
   :summary => "Le method_missing, c'est LA fonctionnalité de métaprogrammation qui m'a fait aimer ruby, on va voir comment ça marche.",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/X1bmSh72JoA?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "X1bmSh72JoA",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class User
@@ -412,13 +420,13 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_5
+  :tag => :method_missing
 
   
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #6",
+  :title => "Belongs_to :HABTM",
   :summary => "Transformer une relation habtm en has_many/belongs_to, pourquoi ? comment ?",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/kI4sG-HA7ZY?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :embed => "kI4sG-HA7ZY",
   :snippet => Blog::Snippet.create(:erb => %q{
   <p>
     ArticleBlog Model
@@ -470,33 +478,362 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_6
+  :tag => :habtm
   
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #7",
-  :summary => "On va parler d'algorithmes génétiques",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/oSkGssrsw_U?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :title => "Algorithme génétique",
+  :summary => "Premier test sur les algorithmes génétiques, où on va tenter de résoudre un problème dit du \"paradoxe du singe savant\".",
+  :embed => "oSkGssrsw_U",
   :snippet => Blog::Snippet.create(:erb => %q{
-  <p>
-  Alors voilà jean-michel, un super screencast dites donc !
-  </p>
+    <p>
+      Blog d'lkdjiin : <%= link_to "Les algorithmes génétiques démystifiés", "http://lkdjiin.github.io/blog/2013/08/28/les-algorithmes-genetiques-demystifies/", :class => :btn, :target => "_blank" %>
+    </p>
+    
+    <%= coderay do %>
+def make_chromosome
+  value = []
+  length = @search_value.size
+  length.times { value << random_gene }
+  [nil, value.join]
+end
+
+def random_gene
+  @genes[rand(@genes.size)]
+end
+
+def make_population
+  population = []
+  @population_size.times { population << make_chromosome }
+  population
+end
+
+def score_population
+  evaluate_population
+  normalize_population_score
+end
+
+def evaluate_population
+  @population.map! {|person| [evaluate(person.last), person.last] }
+end
+
+def evaluate(phrase)
+  score = 0
+  phrase.split(//).each_with_index do |character, index|
+    score += 1 if @search_value[index] == character
+  end
+  score
+end
+
+def normalize_population_score
+  total = @population.inject(0) {|sum, person| sum + person.first }
+  @population.map! {|person| [person.first.to_f / total * 100, person.last] }
+end
+
+def next_generation
+  mating_pool = create_mating_pool
+  pool_size = mating_pool.size
+  @population = []
+  @population_size.times do
+    parent1 = mating_pool[rand(pool_size)]
+    parent2 = mating_pool[rand(pool_size)]
+    @population << crossover(parent1, parent2)
+  end
+end
+
+def create_mating_pool
+  mating_pool = []
+  @population.each do |person|
+    person.first.to_i.times { mating_pool << person }
+  end
+  mating_pool
+end
+
+def crossover(parent1, parent2)
+  point = rand(1..@search_value.size)
+  child = parent1.last[0...point] + parent2.last[point..-1]
+  [nil, mutate(child)]
+end
+
+def mutate(phrase)
+  @search_value.size.times do |index|
+    phrase[index] = random_gene if rand < @mutation_rate
+  end
+  phrase
+end
+
+def solution_found
+  found = false
+  @population.each do |person|
+    if person.last == @search_value
+		found = true 
+	end
+  end
+  found
+end
+    <% end %>
+
+    <%= coderay do %>
+@search_value = "Mon royaume pour un cheval"
+@genes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+
+@population_size = 100
+@mutation_rate = 1.0 / 100
+@population = make_population
+
+@bests = []
+
+1000.times do |generation|
+  score_population
+
+	if generation % 10 == 0
+		@bests << @population.sort{ |x| -x.first }.first
+	end
+
+	if solution_found
+		@bests << @population.sort_by{ |x| -x.first }.first
+		break
+	end
+
+	next_generation
+end
+
+
+?> @bests.each_with_index do |person, i|
+*>   p "#{ person.last } - Score #{ evaluate person.last } - Generation #{ i }"
+*> end
+    <% end %>
   },
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_7
+  :tag => :genetic
   
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Try Hard #7.5",
-  :summary => "On va finir de parler des algorithmes génétiques",
-  :embed => "<iframe width=\"840\" height=\"500\" src=\"//www.youtube.com/embed/JSh8e73E5OQ?rel=0\" frameborder=\"0\" allowfullscreen></iframe>",
+  :title => "Algoritme génétique (suite)",
+  :summary => "On va améliorer la fonction de reproduction qui posait problème dans l'épisode précédent.",
+  :embed => "JSh8e73E5OQ",
   :snippet => Blog::Snippet.create(:erb => %q{
-  <p>
-  Alors voilà jean-michel, un super screencast dites donc !
-  </p>
+    <p>
+      Blog d'lkdjiin : <%= link_to "Les algorithmes génétiques démystifiés", "http://lkdjiin.github.io/blog/2013/08/28/les-algorithmes-genetiques-demystifies/", :class => :btn, :target => "_blank" %>
+    </p>
+    
+    <%= coderay do %>
+def make_chromosome
+  value = []
+  length = @search_value.size
+  length.times { value << random_gene }
+  [nil, value.join]
+end
+
+def random_gene
+  @genes[rand(@genes.size)]
+end
+
+def make_population
+  population = []
+  @population_size.times { population << make_chromosome }
+  population
+end
+
+def score_population
+  evaluate_population
+  normalize_population_score
+end
+
+def evaluate_population
+  @population.map! {|person| [evaluate(person.last), person.last] }
+end
+
+def evaluate(phrase)
+  score = 0
+  phrase.split(//).each_with_index do |character, index|
+    score += 1 if @search_value[index] == character
+  end
+  score
+end
+
+def normalize_population_score
+  total = @population.inject(0) {|sum, person| sum + person.first }
+  @population.map! {|person| [person.first.to_f / total * 100, person.last] }
+end
+
+def next_generation
+  mating_pool = create_mating_pool
+  pool_size = mating_pool.size
+  @population = []
+  @population_size.times do
+    parent1 = mating_pool[rand(pool_size)]
+    parent2 = mating_pool[rand(pool_size)]
+    @population << crossover(parent1, parent2)
+  end
+end
+
+def create_mating_pool
+  mating_pool = []
+  @population.each do |person|
+    person.first.to_i.times { mating_pool << person }
+  end
+  mating_pool
+end
+
+def crossover(parent1, parent2)
+  point = rand(1..@search_value.size)
+  child = parent1.last[0...point] + parent2.last[point..-1]
+  [nil, mutate(child)]
+end
+
+def mutate(phrase)
+  @search_value.size.times do |index|
+    phrase[index] = random_gene if rand < @mutation_rate
+  end
+  phrase
+end
+
+def solution_found
+  found = false
+  @population.each do |person|
+    if person.last == @search_value
+		found = true 
+	end
+  end
+  found
+end
+    <% end %>
+
+    <%= coderay do %>
+@search_value = "Mon royaume pour un cheval"
+@genes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+
+@population_size = 100
+@mutation_rate = 1.0 / 100
+@population = make_population
+
+@bests = []
+
+1000.times do |generation|
+  score_population
+
+	if generation % 10 == 0
+		@bests << @population.sort{ |x| -x.first }.first
+	end
+
+	if solution_found
+		@bests << @population.sort_by{ |x| -x.first }.first
+		break
+	end
+
+	next_generation
+end
+
+
+?> @bests.each_with_index do |person, i|
+*>   p "#{ person.last } - Score #{ evaluate person.last } - Generation #{ i }"
+*> end
+    <% end %>
   },
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :try_hard_75
+  :tag => :genetic_suite
+
+Blog::Screencast.create :user => @primal_user.blog_user,
+  :title => "Hill Climbing",
+  :summary => "Le hill climbing, c'est un algorithme génétique simplifié, sans population et sans reproductions. On va voir comment ça se passe",
+  :embed => "uCIQy1r2l34",
+  :snippet => Blog::Snippet.create(:erb => %q{
+    <%= coderay do %>
+def make_gene
+	@available_genes.sample
+end
+
+def make_person genes = []
+	if genes.blank?
+		@search_value.size.times{ genes << make_gene }
+	end
+
+	{:genes => genes.clone, :muted => genes.clone}
+end
+
+def evaluate_person person
+	score = 0
+	person[:genes].zip(@search_value).each_with_index do |(gene, searched_gene), index|
+		if gene == searched_gene
+			score += 1
+		end
+
+		if rand < @mutation_rate
+			person[:muted][index] = make_gene
+		end
+	end
+
+	person[:score] = score
+end
+
+def mutate_person person
+	make_person person[:muted]
+end
+    <% end %>
+
+    <%= coderay do %>
+@searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopusnocolor.png")
+
+@search_value = @searched_image.pixels
+@available_genes = @searched_image.pixels.uniq
+
+@population_size = 100
+@mutation_rate = 1.0 / 1_000
+
+@bests_of_populations = []
+
+@person = make_person
+10_000.times do |generation|
+	evaluate_person @person
+
+	mutation = mutate_person @person
+	evaluate_person mutation
+
+	if generation % 100 == 0
+		@bests_of_populations << @person
+		p "Generation #{generation} - score #{@person[:score]}/#{@search_value.size}"
+	end
+
+	if mutation[:score] > @person[:score]
+		@person = make_person mutation[:genes]
+	else
+		@person = make_person @person[:genes]
+	end
+
+	break if @person[:score] == @search_value.size
+end
+    <% end %>
+
+    <p>
+      For the views
+    </p>
+
+    <%= coderay do %>
+def asset_data_uri path
+	asset = Rails.application.assets.find_asset path
+
+  throw "Could not find asset '#{path}'" if asset.nil?
+  
+  base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
+  "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
+end
+
+def genes_to_uri genes
+	png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
+	png.save("app/assets/images/blog/experience/genetic_best.png")
+	asset_data_uri("blog/experience/genetic_best.png")
+end
+
+?> @bests_of_populations.each do |person| %>
+*>   helper.image_tag genes_to_uri(person[:genes])
+?> end
+    <% end %>
+  },
+  :published => true),
+  :pool => :try_hard,
+  :published => true,
+  :tag => :hill_climbing
   

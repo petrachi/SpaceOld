@@ -164,4 +164,4 @@ end
   :published => true),
   :pool => :ruby,
   :published => true,
-  :tag => :block
+  :tag => :blocks

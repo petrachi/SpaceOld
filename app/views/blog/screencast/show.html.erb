@@ -14,7 +14,7 @@
 				<%= @screencast.title %>
 			</h2>
 			
-			<%= erb @screencast.embed %>
+			<iframe width="840" height="500" src="//www.youtube.com/embed/<%= @screencast.embed %>?rel=0" frameborder="0" allowfullscreen></iframe>
 			
 			<h3><%= t 'blog.screencast.ressources' %></h3>
 			

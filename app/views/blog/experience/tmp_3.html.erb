@@ -1,6 +1,7 @@
 
 
 <% 	
+
 def make_chromosome
   value = []
   length = @search_value.size
@@ -75,15 +76,17 @@ end
 def solution_found
   found = false
   @population.each do |person|
-    found = true if person.last == @search_value
+    if person.last == @search_value
+		found = true 
+	end
   end
   found
 end
 
 
 
-@search_value = (1..1000).to_a.map{ |x| x % 500 } # "Mon royaume pour un cheval"*100
-@genes = (1..500).to_a # "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+@search_value = "Mon royaume pour un cheval"
+@genes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
 
 
 
@@ -94,26 +97,21 @@ end
 @bests = []
 
 1000.times do |generation|
-  score_population
-  #puts "Generation: #{generation}"
-#  @population.each {|i| puts i.inspect }
+  	score_population
 
-if generation % 1 == 0
-	@bests << @population.sort{ |x| -x.first }.first
+	if generation % 1 == 0
+		@bests << @population.sort{ |x| -x.first }.first
+
+		p "gen #{generation} - b score #{evaluate @bests.last.last}"
+	end
 	
-	p "gen #{generation} - b score #{evaluate @bests.last.last}"
+	if solution_found
+		@bests << @population.sort_by{ |x| -x.first }.first
+		break
+	end
+  	
+	next_generation
 end
-  if solution_found
-	@bests << @population.sort{ |x| -x.first }.first
-	p "okokok"
-	break
-end
-  next_generation
-end
-	
-	# ---
-
-
 %>
 
 <hr/>
@@ -124,6 +122,4 @@ To find : <%= @searched_genes %>
 	<div>
 		<%= person.last %> - Score <%= evaluate person.last %> - Gen <%= i %>
 	</div>
-	
-	
 <% end %>
