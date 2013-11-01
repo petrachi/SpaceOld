@@ -134,7 +134,7 @@ end
   :published => true,
   :tag => :blocks
     
-Blog::Screencast.create :user => @primal_user.blog_user,
+@screencast_refactoring = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Refactoring",
   :summary => "Le refactoring c'est chouette, alors pour cette fois, on va faire plein de trucs chouette avec une classe Product et Report.",
   :embed => "s6iMBtzo3nE",
@@ -240,10 +240,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :refactoring
+  :serie => :refactoring
       
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Null Pattern",
   :summary => "Suite sur le refactoring, en suivant le design \"NullPattern\"",
   :embed => "Z74ANuUEs7g",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -350,7 +349,7 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :null_pattern
+  :following => @screencast_refactoring
         
 Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Method missing",
@@ -480,7 +479,7 @@ end
   :published => true,
   :tag => :habtm
   
-Blog::Screencast.create :user => @primal_user.blog_user,
+@screencast_genetic = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Algorithme génétique",
   :summary => "Premier test sur les algorithmes génétiques, où on va tenter de résoudre un problème dit du \"paradoxe du singe savant\".",
   :embed => "oSkGssrsw_U",
@@ -606,10 +605,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :genetic
+  :serie => :genetic
   
 Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Algoritme génétique (suite)",
   :summary => "On va améliorer la fonction de reproduction qui posait problème dans l'épisode précédent.",
   :embed => "JSh8e73E5OQ",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -734,7 +732,7 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :genetic_suite
+  :following => @screencast_genetic
 
 Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Hill Climbing",

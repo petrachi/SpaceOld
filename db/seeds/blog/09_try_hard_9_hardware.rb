@@ -1,8 +1,8 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "class Hardware (p1)",
+@screencast_hardware_1 = Blog::Screencast.create :user => @primal_user.blog_user,
+  :title => "class Hardware",
   :summary => "Dans cette série, on va tenter de représenter le hardware d'un ordinateur en ruby, avec des classes. Ça promet !",
   :embed => "sUP_4s0S_EI",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -103,10 +103,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_1
+  :serie => :hardware
 
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p2)",
+@screencast_hardware_2 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On continue notre série et on va s'attaquer aux portes logiques un peu plus évoluées.",
   :embed => "7BMjaVbDBSg",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -165,12 +164,11 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_2
+  :following => @screencast_hardware_1
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p3)",
+@screencast_hardware_3 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Toujours dans les portes logiqies, au programme, not and et not or.",
-  :embed => "",
+  :embed => "Qf463dEaHlY",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class DoorNotAnd
@@ -212,12 +210,11 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_3
+  :following => @screencast_hardware_2
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p4)",
+@screencast_hardware_4 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Cette fois, on fini de coder les portes logiques, avec la dernière, le xor. Et on va aussi refactorer un peu.",
-  :embed => "",
+  :embed => "4yzCijAGHyQ",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class DoorXor
@@ -247,10 +244,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_4
+  :following => @screencast_hardware_3
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p5)",
+@screencast_hardware_5 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On peut enfin commencer à parler des additionneurs, avant-dernière étape de notre périple.",
   :embed => "",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -300,10 +296,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_5
+  :following => @screencast_hardware_4
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p6)",
+@screencast_hardware_6 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Rapide digression, on va faire un traducteur entier <> binaire. Ça sera aussi chouette pour vous que pour moi.",
   :embed => "",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -334,10 +329,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_6
+  :following => @screencast_hardware_5
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p7)",
+@screencast_hardware_7 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Youpi ! On va enfin pouvoir chainer nos additionneurs, et réaliser notre additionneur 4 bit !!! Joie et volutée dans cet épisode.",
   :embed => "",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -371,10 +365,9 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_7
+  :following => @screencast_hardware_6
   
-Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Hardware Class (p8)",
+@screencast_hardware_8 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Allez, un épisode de cloture fini à la pisse (dédicasse mistermv). On régle les derniers bugs et on se la raconte.",
   :embed => "",
   :snippet => Blog::Snippet.create(:erb => %q{
@@ -706,4 +699,4 @@ end
   :published => true),
   :pool => :try_hard,
   :published => true,
-  :tag => :hardware_8
+  :following => @screencast_hardware_7
