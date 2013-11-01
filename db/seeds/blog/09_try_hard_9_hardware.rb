@@ -248,7 +248,7 @@ end
   
 @screencast_hardware_5 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On peut enfin commencer à parler des additionneurs, avant-dernière étape de notre périple.",
-  :embed => "",
+  :embed => "W7t3IWhOsgs",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class HalfAdder
@@ -299,8 +299,8 @@ end
   :following => @screencast_hardware_4
   
 @screencast_hardware_6 = Blog::Screencast.create :user => @primal_user.blog_user,
-  :summary => "Rapide digression, on va faire un traducteur entier <> binaire. Ça sera aussi chouette pour vous que pour moi.",
-  :embed => "",
+  :summary => "Rapide digression, on va faire un traducteur entier / binaire. Ça sera aussi chouette pour vous que pour moi.",
+  :embed => "l8HT_EXPJKg",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class BitTranslator
@@ -333,7 +333,7 @@ end
   
 @screencast_hardware_7 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Youpi ! On va enfin pouvoir chainer nos additionneurs, et réaliser notre additionneur 4 bit !!! Joie et volutée dans cet épisode.",
-  :embed => "",
+  :embed => "--DWbH8DG_g",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class Adder4Bit
@@ -369,7 +369,7 @@ end
   
 @screencast_hardware_8 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Allez, un épisode de cloture fini à la pisse (dédicasse mistermv). On régle les derniers bugs et on se la raconte.",
-  :embed => "",
+  :embed => "iZ30mlKokd8",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class Wire
