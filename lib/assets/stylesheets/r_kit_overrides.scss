@@ -1,0 +1,6 @@
+.btn-disabled{
+	@extend .btn;
+	
+	// need variable color
+	background-color: #222;
+}

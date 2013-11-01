@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.string   "pool"
     t.boolean  "published",    :default => false
     t.string   "tag"
+    t.string   "serie"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end

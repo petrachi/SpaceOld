@@ -163,8 +163,7 @@ end
   :published => true),
   :pool => :ruby,
   :published => true,
-  :tag => :gaulois,
-  :serial_anticiped => true
+  :serie => :gaulois
   
   
 @gaulois_2_article = Blog::Article.create :user => @primal_user.blog_user,

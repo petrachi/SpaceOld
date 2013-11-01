@@ -11,31 +11,41 @@ class Blog::Article < ActiveRecord::Base
   scope :pool, -> pool { where(:pool => pool) }
   
   
-  validates_presence_of :user, :summary, :snippet, :pool
-  validates_presence_of :title, :tag, unless: :following
+  validates_presence_of :user, :title, :summary, :snippet, :pool, :tag
+  validates_presence_of :serie, if: :following
   
-  before_create :set_inheritance_serials, if: :following
-  def set_inheritance_serials
-    self.title ||= following.read_attribute :title
-    m = following.tag.to_s.match /^(.*)_p\d+$/
-
-    self.tag = m[1]
+  
+  
+  # all thing from series need to be moved in concern or something, 
+  # cause serie will be needed for screencasts and experiences(?)
+  #
+  # first only take serie + title
+  # auto set tag
+  ###
+  # then, following do not include title nor tag nor serie, only following
+  # serie + title + tag is set
+  
+  
+  def tag_from_serie
+    "#{ serie }_p#{ serial_number }"
   end
   
-  attr_accessor :serial_anticiped
-  before_create :set_tag_serials, if: "serial? or serial_anticiped"
-  def set_tag_serials
-    p "tag special"
-    self.tag = tag.to_s + "_p" + serial_number.to_s
-    
-    p self.tag
+  before_validation :set_following, on: :create, if: :following
+  def set_following
+    p "set follow #{self}"
+    self.title = following.title
+    self.serie = following.serie
+  end
+  
+  before_validation :set_serie, on: :create, if: :serie
+  def set_serie
+    p "set serie #{self}"
+    self.tag = tag_from_serie
     true
   end
   
-  before_validation :youpi, if: :serial_anticiped
-  def youpi
-    p "hahahah"
-  end
+  
+  
   
   validates_uniqueness_of :tag
   validates_inclusion_of :pool, :in => [:experience, :ruby, :css]
@@ -49,9 +59,6 @@ class Blog::Article < ActiveRecord::Base
   end
   
   
-  def serial?
-    following or followed
-  end
   
   def serial_number
     if following
@@ -65,12 +72,11 @@ class Blog::Article < ActiveRecord::Base
   
   
   # DECORATOR - need to be move
-  def title
-    return nil if @attributes["title"].blank?
-    if serial?
-      @attributes["title"] + " - part " + serial_number.to_s
+  def title_with_serie
+    if serie
+      "#{ title } <small><i>(vol #{ serial_number })</i></small>".html_safe
     else
-      @attributes["title"]
+      title
     end
   end
  

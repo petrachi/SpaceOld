@@ -1,7 +1,21 @@
 <%= container do %>
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
-		
+			<% if @article.serie %>
+				<h3><%=t 'blog.article.serie' %></h3>
+
+				<p>
+					<% @serie = Blog::Article.where(serie: @article.serie) %>
+					<% @serie.each do |s| %><!--
+						--><% if s == @article %><!--
+							--><span class="btn-disabled">vol <%= s.serial_number %></span><!--
+						--><% else %><!--
+							--><%= link_to "vol #{s.serial_number}", s, :class => :btn %><!--
+						--><% end %><!--
+					--><% end %>
+				</p>
+			<% end %>
+			
 			<h3><%=t 'blog.article.pool' %></h3>
 			
 			<p>
@@ -11,20 +25,22 @@
 		
 		<%= nine_span :element => :article do %>
 			<h2>
-				<%= @article.title %>
+				<%= @article.title_with_serie %>
 			</h2>
 			
 			<%= erb @article.run %>
 			
-			<p>
-				<% if @article.following %>
-					<%= link_to "&larr; Précédent".html_safe, @article.following, :class => :btn %>
-				<% end %>
+			<% if @article.serie %>			
+				<p>
+					<% if @article.following %>
+						<%= link_to "&larr; Précédent".html_safe, @article.following, :class => :btn %>
+					<% end %>
 				
-				<% if @article.followed %>
-					<%= link_to "Suivant &rarr;".html_safe, @article.followed, :class => :btn %>
-				<% end %>
-			</p>
+					<% if @article.followed %>
+						<%= link_to "Suivant &rarr;".html_safe, @article.followed, :class => :btn %>
+					<% end %>
+				</p>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>

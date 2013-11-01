@@ -10,6 +10,7 @@ class CreateBlogArticles < ActiveRecord::Migration
       t.string :pool
       t.boolean :published, :default => false
       t.string :tag
+      t.string :serie
       
       t.timestamps
     end
