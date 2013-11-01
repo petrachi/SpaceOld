@@ -22,6 +22,13 @@
 			<p>
 				<%= link_to @screencast.pool, @screencast.pool_url, :class => :btn %>
 			</p>
+			
+			<h3><%=t 'blog.screencast.subscribe_youtube' %></h3>
+			
+			<script src="https://apis.google.com/js/plusone.js"></script>
+			<div class="g-ytsubscribe" data-channelid="UCOYFTIqHc5de50CMJK6s9Rw" data-layout="full" data-theme="default">
+			</div>
+			
 		<% end %>
 	
 		<%= nine_span :element => :article do %>
