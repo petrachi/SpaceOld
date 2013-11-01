@@ -1,7 +1,22 @@
 <%= container do %>
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
-	
+			<% if @screencast.serie %>
+				<h3><%=t 'blog.screencast.serie' %></h3>
+
+				<p>
+					<% @serie = Blog::Screencast.where(serie: @screencast.serie) %>
+					<% @serie.each do |s| %><!--
+						--><% if s == @screencast %><!--
+							--><span class="btn-disabled">vol <%= s.serial_number %></span><!--
+						--><% else %><!--
+							--><%= link_to "vol #{s.serial_number}", s, :class => :btn %><!--
+						--><% end %><!--
+					--><% end %>
+				</p>
+			<% end %>
+			
+			
 			<h3><%=t 'blog.screencast.pool' %></h3>
 		
 			<p>
@@ -11,7 +26,7 @@
 	
 		<%= nine_span :element => :article do %>
 			<h2>
-				<%= @screencast.title %>
+				<%= @screencast.title_with_serie %>
 			</h2>
 			
 			<iframe width="840" height="500" src="//www.youtube.com/embed/<%= @screencast.embed %>?rel=0" frameborder="0" allowfullscreen></iframe>
