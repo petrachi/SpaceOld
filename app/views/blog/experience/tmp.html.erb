@@ -1,165 +1,147 @@
 <%= one_col_container do %>
 	
-	<p class="text-center">
-		<span id="time"></span>
-		
-		<span id="color"></span>
-	</p>
 	
-	<script>
-		var d = new Date();
-		var n = d.getTime();
+	
+	<% 
 		
-		function pad(num, size) {
-		    var s = "000000000" + num;
-		    return s.substr(s.length-size);
+		def hex_to_rgb hex
+			hex =~ /#(..)(..)(..)/
+			{r: $1.hex, v: $2.hex, b: $3.hex}
+		end
+		
+		def rgb_to_hex rgb
+			"##{"%02x" % rgb[:r]}#{"%02x" % rgb[:v]}#{"%02x" % rgb[:b]}"
+		end
+		
+		def percent value, total
+			value.to_f / total
+		end
+		
+		def diff_color from, to
+			{
+				r: to[:r] - from[:r],
+				v: to[:v] - from[:v],
+				b: to[:b] - from[:b]
+			}
+		end
+		
+		def blend_color from, diff, progress
+			{
+				r: from[:r] + diff[:r] * progress,
+				v: from[:v] + diff[:v] * progress,
+				b: from[:b] + diff[:b] * progress
+			}
+		end
+		
+		def blender color_stops, steps
+			blender = Array.new
+			
+			begin
+				from = hex_to_rgb color_stops.shift
+				to = hex_to_rgb color_stops.first
+				
+				diff = diff_color from, to
+				
+				steps.times do |i|
+					progress = percent i, steps
+					
+					blended = blend_color from, diff, progress
+					
+					p "progress #{progress} - #{blended}"
+					
+					blender << rgb_to_hex(blended)
+				end
+			end while color_stops.size > 1
+		
+			blender
+		end
+		
+		# [nb min in a day] == 1440 == 180 * 8 == [steps] * [color_stops]
+		blended = blender(["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"], 180)
+		
+        		
+	%>
+	
+	<%= scss %q{
+		#clock{
+			color: $black;
+			
+			p{
+				text-align: center;
+				font-size: 3em;
+				margin: 1em 0;
+			}
 		}
 		
-		
-		
-		var r_arrow = "up";
-		var v_arrow = "bottom_bound";
-		var b_arrow = "bottom_bound";
-		
-		
-		var r_value = 0;
-		var v_value = 0;
-		var b_value = 0;
-		
-		// see color rainbow !!! http://krazydad.com/tutorials/makecolors.php
-		function increment_color(){
-			if(r_arrow == "up"){
-				//r_value++;
-				r_value = r_value + 1;
+		#colors{
+			.color-sample{
+				height: 1.5em;
+				width: 1.5em;
 				
-				if(r_value >= 255){
-					r_value = 255;
-					r_arrow = "up_bound";
-					v_arrow = "up";
-				};
-			}else if(r_arrow == "down"){
-			//	r_value--;
-				r_value = r_value - 1;
+				font-size: 2em;
+				font-weight: 100;
 				
-				if(r_value <= 0){
-					r_value = 0;
-					r_arrow = "bottom_bound";
-					b_arrow = "up";
-				};
-			};
-			
-			
-			
-			if(v_arrow == "up"){
-				//v_value++;
-				v_value = v_value + 1;
+				text-align: center;
 				
-				if(v_value >= 255){
-					v_value = 255;
-					v_arrow = "up_bound";
-					r_arrow = "down";
-				};
-			}else if(v_arrow == "down"){
-			//	v_value--;
-				v_value = v_value - 1;
-				
-				if(v_value <= 0){
-					v_value = 0;
-					v_arrow = "bottom_bound";
-					r_arrow = "up";
-				};
-			};
-			
-			
-			
-			
-			if(b_arrow == "up"){
-			//	b_value++;
-				b_value = b_value + 1;
-				
-				if(b_value >= 255){
-					b_value = 255;
-					b_arrow = "up_bound";
-					v_arrow = "down";
-				};
-			}else if(b_arrow == "down"){
-		//		b_value--;
-				b_value = b_value - 1;
-				
-				if(b_value <= 0){
-					b_value = 0;
-					b_arrow = "bottom_bound";
-					v_arrow = "up";
-				};
-			};
-			
-			
-		};
+				padding: .75em;
+				margin: 2px auto;
+				border: 1px solid $text-color;
+			}
+		}
+	} %>
+	
+	<div id="clock">
+		<p>
+			<span id="regular-display"></span><br/>
+			<span id="color-display"></span>
+		</p>
 		
+		<p id="next-display"></p>
+	</div>
+	
+	<div id="colors">
+		<% 24.times do |hour| %>
+			<div class="color-sample" style="background-color: <%= blended[hour * 60] %>">
+				<%= hour %>h
+			</div>
+		<% end %>
+	</div>
+	
+	<script>
+		var colors = <%= blended.to_json.html_safe %>;
 		
-		/*
-		0 0 0
-		fup 0 0
-		F fup 0
-		fdown F 0
-		0 F fup
-		0 fdown F
-		fup 0 F
-		F fup F
+		function displayTime(date, color){
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds_remaining = 60 - date.getSeconds();
+			
+			document.getElementById("regular-display").innerHTML = "Time is : " + hours + "hrs " + minutes;
+			document.getElementById("color-display").innerHTML = "Color is : " + color;
+			
+			if(seconds_remaining == 60){
+				document.getElementById("next-display").innerHTML = "Next color in : " + color;
+			}else{
+				document.getElementById("next-display").innerHTML = "Next color in : " + seconds_remaining;
+			}
+		}
 		
-		*/
-		
-		var i = 0;
-		var timer;
+		function colorTime(color){
+			document.getElementsByTagName("body")[0].style.background = color;
+			document.getElementsByTagName("html")[0].style.background = color;
+		}
 		
 		function set_color_clock(){
-			var dt = new Date();
-			var secs = dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+			var date = new Date();
+			var total_minutes = date.getMinutes() + (60 * date.getHours());
+			var color = colors[total_minutes];
 			
+			displayTime(date, color);
+			colorTime(color);
 			
-			var mins = dt.getMinutes() + (60 * dt.getHours());
-			
-			
-			// (16777215 / 86400) == 194 (nb val possible sur #ffffff / nb sec dans 1 jour)
-			
-	//		var color_dec = secs % 16777215;
-	//		var color_hex = color_dec.toString(16);
-			
-			
-			color_hex = pad(r_value.toString(16), 2) + pad(v_value.toString(16), 2) + pad(b_value.toString(16), 2);
-			
-			
-			// can pass a int in arg, to increment faster
-			// this increment should be sync with the 'i' counter
-			// we should be able to run every sec, but increment color only every minutes
-			increment_color();
-			
-			
-			
-			document.getElementById("time").innerHTML = mins;
-			document.getElementById("color").innerHTML = color_hex;
-
-			document.querySelector("body").style.background = '#' + color_hex;
-			document.querySelector("html").style.background = '#' + color_hex;
-			
-			
-			
-			if(i < mins){
-				timer = 1;
-			}else{
-				timer = 1000;
-			};
-			i++;
-			
-			console.log(i);
-			
-			setTimeout(set_color_clock, timer);
+			setTimeout(set_color_clock, 1000);
 		};
 		
-		
-		
 		set_color_clock();
-		
 	</script>
 
 <% end %>

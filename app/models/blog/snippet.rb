@@ -105,7 +105,7 @@ class Blog::Snippet < ActiveRecord::Base
     })
 =end    
   rescue
-    p "Blog::Snippet can't precompile"
+    p "Blog::Snippet can't precompile - error #{ $! }"
     write_attribute :compiled, raw
   end
   

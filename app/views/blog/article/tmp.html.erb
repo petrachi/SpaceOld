@@ -6,112 +6,90 @@
 
 		<%= nine_span :element => :article do %>
 			
-			<i>Le Hill-Climbing, c'est un algorithme génétique dégénéré. Un algorithme génétique, on verra ce que c'est, et comment ça dégénére.</i>
+			<i></i>
 			
-			<h2>Hill-Climbing</h2>
-			
-			<p>
-				Bienvenue aux tous-petits et aux grandes personne qui les accompagnent.<br/>
-				Aujourd'hui dans notre spectacle, nous allons parler d'un poulpe, d'aléatoire, de mutation et d'évolution. Un programme complet qui ravira les esprits de 7 à 77ans.
-			</p>
-			
-			<h3>Introduction à la génétique</h3>
+			<h2></h2>
 			
 			<p>
-				En informatique, il y les algorithmes, et dans les algorithmes, il y a les algorithmes génétiques.<br/>
-				Pour résumer ce que j'en sais, un algorithme génétique va tenter d'apporter une solution à un problème de la façon suivante : 
+				
 			</p>
 			
-			<ul>
-				<li>
-					D'abord, on va créer une population initiale. La population, c'est un ensemble d'individus, un individus, c'est une solution possible au problème. Chaque individu est généré aléatoirement à partir d'un ensemble de gênes.
-				</li>
-				<li>
-					Ensuite, on va se charger d'évaluer chaque individu par rapport au problème. Si l'individu apporte une réponse satisfaisante, il obtiendra un bon score, sinon, un score inférieur.
-				</li>
-				<li>
-					En fonction du score de chaque individu, on va sélectionner les meilleurs parmi toute la population, et les faire se reproduire entre eux. Cette reproduction donnera une nouvelle génération d'individus, qui devraient globalement apporter une meilleure solution au problème initial.
-				</li>
-				<li>
-					On pourra éventuellement faire "muter" quelques individus de la nouvelle génération, afin d'apporter une diversité génétique supplémentaire.
-				</li>
-				<li>
-					On pourra répéter l'opération autant de fois possible, ce qui nous permettra à chaque nouvelle génération de nous rapprocher d'une solution optimale.
-				</li>
-			</ul>
+			<h3></h3>
 			
-			<p>
-				Il est important de noter que le but d'un algorithme génétique est d'arriver à une solution acceptable, et non parfaite. On pourrait imaginer des mise en oeuvre de ce type d'algorithmes dans la création d'une IA, ou pour du ciblage publicitaire.
-			</p>
+			article color blend / will use color_clock snippet muted
 			
-			<p>
-				Si vous vous interressez aux algorithmes génétiques, je vous invite à lire l'excelente série "alogrithmes génétiques démistyfiés" sur ce blog (#mettre lien), qui m'a moi-même fait découvrir le sujet.
-			</p>
+			color_start = "#b62b2b"
+			color_end = "#b5702b"
 			
-			<h3>De la génétique au poulpe</h3>
+			m = color_start.match /#(..)(..)(..)/
+			color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
+
+			m = color_end.match /#(..)(..)(..)/
+			color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
+
+			percent = person[:score] * 100 / @searched_genes.size
+
+			r_diff = color_end[:r] - color_start[:r]
+			v_diff = color_end[:v] - color_start[:v]
+			b_diff = color_end[:b] - color_start[:b]
+
+			r = color_start[:r] + r_diff * percent/100.0
+			v = color_start[:v] + v_diff * percent/100.0
+			b = color_start[:b] + b_diff * percent/100.0
 			
-			<p>
-				Cette fois, nous avons une image de poulpe, et nous allons mettre en oeuvre un algorithme génétique un peu spécial, dit de hill-climbing, afin de retrouver l'image du poulpe, à partir d'une image crée aléatoirement.
-			</p>
 			
-			# mettre image aléatoire => image poulpe
+			<% 
+
+				def calc_blend_array colors, steps
+
+				blender = []
+				begin
+
+				color_start = colors.shift
+				color_end = colors.first
+
+				m = color_start.match /#(..)(..)(..)/
+				color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
+
+				m = color_end.match /#(..)(..)(..)/
+				color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
+
+
+
+				steps.times do |i|
+
+				percent = i * 100.0 / steps
+
+				r_diff = color_end[:r] - color_start[:r]
+				v_diff = color_end[:v] - color_start[:v]
+				b_diff = color_end[:b] - color_start[:b]
+
+				r = color_start[:r] + r_diff * percent/100.0
+				v = color_start[:v] + v_diff * percent/100.0
+				b = color_start[:b] + b_diff * percent/100.0
+
+				blender << "##{"%02x" % r}#{"%02x" % v}#{"%02x" % b}"
+
+				end
+
+				end while colors.size > 1
+
+				blender
+				end
+
+				# 1440
+				calculated = calc_blend_array(["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"], 180)
+
+
+			%>
 			
-			<p>
-				Comme je le dis, l'algorithme génétique utilisé ici est spécial, car il ne prendra ni population, ni reproduction, uniquement la mutation. C'est du hill-climbing. Le principe ici, nous allons générer une population d'un seul individu, le faire muter, puis sélectionner le meilleur score entre l'individu original et sa mutation.
-			</p>
 			
-			<p>
-				Ce genre d'algorithme de hill-climbing sont souvent utilisés afin de tester les fonctions d'évaluations et de mutation, avant de mettre en place un algorithme génétique complet.
-			</p>
+			<% calculated.each do |hex| %><!--
+				--><div class="cb" style="background-color: <%= hex %>;">
+				</div><!--
+			--><% end %>
+
 			
-			<h3>Manipulation d'images</h3>
-			
-			<p>
-				Afin de créer et de comparer des images, j'avais d'abord pensé utiliser un format binaire, ou en base 64. Mais l'encodage d'un PNG est d'une complexité qui ne permet pas un apprentissage rapide. Aussi, j'ai choisis d'utiliser une gem disponible en rails : chunky-png.
-			</p>
-			
-			# mettre code / image essai infructueux
-			
-			<p>
-				Chunky-png permet facilement de créer ou manipuler des PNG. Je vous fait une démo :  
-			</p>
-			
-			# mettre code / image d'une ouverture de fichier + création de fichier
-			
-			<h3>De l'aléatoire à la mutation, au poulpe</h3>
-			
-			<p>
-				Enfin, nous avons tous les outils pour réaliser notre petite expérience. Nous allons commencer par déclarer la valeur cherchée (image originale du poulpe), puis créer notre premier individu.
-			</p>
-			
-			# mettre code creation img
-			
-			<p>
-				Ensuite nous allons faire muter cette image. Il s'agira de sélectionner quelques pixels aléatoirement, et de leur assigner une nouvelle valeur.
-			</p>
-			
-			# mettre code mutation img
-			
-			<p>
-				Puis, nous pouvons évaluer ces deux individus, afin de définir le meilleur. Le score d'un individu correspondra au nombre de pixels identiques à l'image originale.
-			</p>
-			
-			# mettre code évaluation
-			
-			<p>Et voilà ce que ça donne pour 600 générations : </p>
-			
-			# mettre sur 2 col : N°gen / score(en %) - image
-			# toutes les 150 gen
-			
-			<h3>Conclusion</h3>
-			
-			<p>
-				Je trouve assez impressionnant de réussir à recréer une image, sans vraiment s'intéresser à la manière dont elle est construite. Tout ce qui nous intéresse ici, c'est de savoir si l'individu crée est proche ou non de la solution. La manière dont cet individu à été fabriqué nous est totalement étrangère, et c'est ce que je trouve un peu magique dans ces algorithmes génétiques.
-			</p>
-			
-			<p>
-				Pendant que je faisait ce bout de code, j'ai beaucoup pensé aux différentes applications, et j'ai repensé à la problématique de répartition uniforme des point à la surface d'une sphère, qui nous avait posé misère sur une expérience précédente (# mettre lien). Peut-être verrons-nous bientôt une "sphére génétique" ?
-			</p>
 			
 			<p>
 				Bisous bisous, c'est la fin.
