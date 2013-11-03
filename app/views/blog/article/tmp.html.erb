@@ -149,6 +149,117 @@ end
 				Allez, bisous bisous, c'est la fin.
 			</p>
 			
+			
+			
+			
+			
+			<hr/>
+			
+			<i>Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas "7". Rhaaa, ce genre de trucs me rends fou !</i>
+			
+			<h2>Pad with zero</h2>
+			
+			<p>
+				Allez, pas de mensonges, on a tous été ennuyés par ce problème, ajouter des zéros au début d'un nombre afin de respecter un certain format. Ce que j'appelle dans le titre de cet article, pad with zero, je vais vous le raconter en deux langages. D'abord en javascript, et puis, le meilleur pour la fin, en ruby.
+			</p>
+			
+			<h3>En Javascript</h3>
+			
+			<p>
+				Voici une fonction simple, on prends une chaine de caratères composé uniquement de zéros et on y ajoute notre nombre. Ce porcéder permettra de "coller" les zéros devant notre nombre, il ne reste plus qu'à récupérer la longueur de chaine que nous voulions.
+			</p>
+			
+			<%= coderay :lang => :javascript do %>
+function pad(value, size) {
+	var padded = "0000000000" + value;
+	return padded.substr( padded.length - size )
+}
+
+> pad(15, 3);
+"015"
+
+> pad(155, 3);
+"155"
+
+> pad(1554, 3);
+"554" // bugged
+
+> pad(1554, 15);
+"4" // bugged
+
+// avec une valeur hexa
+> pad("2bff", 6);
+"002bff"
+
+// avec une valeur binaire
+> pad("101", 4)
+"0101"
+			<% end %>
+			
+			<p>
+				Si cette fonction est utilisable dans la plupart des cas, il faut faire attention aux valeurs avec lesquelles on l'utilise, car elle possède un seuil de validité certain.
+			</p>
+			
+			<h3>En Ruby</h3>
+			
+			<p>
+				J'imagine qu'il y a de nombreuses autres façons de faire que celle que je vais vous présenter, mais j'aime vraiment la syntaxe un peu sale de l'utilisation du <%= coderay({:inline => true}, 'Kernel#sprintf') %>.
+			</p>
+			
+			<%= coderay do %>
+def pad value, size
+	"%0#{ size }d" % value
+end
+
+?> pad 15, 3
+=> "015"
+
+?> pad 155, 3
+=> "155"
+
+?> pad 1554, 3
+=> "1554"
+
+?> pad 1554, 15
+=> "000000000001554"
+
+# avec une valeur hexa
+> pad("2bff", 6);
+ArgumentError: invalid value for Integer(): "f" # bugged
+
+# avec une valeur binaire
+?> pad 101, 4
+"0101"
+			<% end %>
+			
+			<p>
+				Et voilà ! Bon, la valeur hexa a bug, bah oui parceque le <%= coderay({:inline => true}, 'Kernel#sprintf') %> est un peu délicat avec les types. Mais si on voulait utiliser de l'hexa (ou du binaire), on pourrait le faire très simplment, et à partir de nombres décimaux.
+			</p>
+			
+			<%= coderay do %>
+// hexa
+?> "%06x" % 15
+=> "00000f"
+
+// bin
+?> "%08b" % 15
+=> "00001111"
+			<% end %>
+			
+			<h3>Conclusion</h3>
+			
+			<p>
+				Bon, je l'avoue, la fonction javascript n'est pas de moi, et d'ailleurs je ne m'en suis presque jamais servie. Par contre, celle en ruby est de moi.
+			</p>
+			
+			<p>
+				La méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %> est vraiment dure à aborder, et j'en ferais volontier un article si je la connaissait mieux. Elle est au moins aussi intéressante et moche que les regexp, mais comme on a vu, c'est une fonction assez puissante, et qui mériterais une part de soleil.
+			</p>
+			
+			<p>
+				C'est fini pour aujourd'hui. Allez, filez jouer dehors bande de petits sacripants.
+			</p>
+			
 		<% end %>
 	<% end %>
 <% end %>

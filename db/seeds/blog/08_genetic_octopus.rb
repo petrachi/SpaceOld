@@ -117,9 +117,10 @@
     	def genes_to_uri genes
     		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
     		png.save("app/assets/images/blog/experience/genetic_best.png")
-    		asset_data_uri("blog/experience/genetic_best.png")
+    		uri = asset_data_uri("blog/experience/genetic_best.png")
     		
     		File.delete("app/assets/images/blog/experience/genetic_best.png")
+    		uri
     	end
     },
     :scss => %q{

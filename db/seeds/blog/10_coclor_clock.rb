@@ -4,7 +4,7 @@
 @color_clock_experiment = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Color Clock",
   :summary => %q{
-    Il est vert, la couleur de la pause ! La color clock, intégrée dans la montre intelligente Space.
+    Il est vert, la couleur de la pause ! La color clock, prochainement intégrée dans la montre intelligente Space.
   },
   :snippet => Blog::Snippet.create(:params => %q{
       color_stops = ["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"]
@@ -170,9 +170,7 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 				color: $black;
 				
 				display: inline-block;
-				
-				transition: width ease 1s;
-				
+								
 				.color-value{
 				  visibility: hidden;
 				}
