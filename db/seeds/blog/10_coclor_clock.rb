@@ -1,13 +1,14 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-Blog::Experience.create :user => @primal_user.blog_user,
+@color_clock_experiment = Blog::Experience.create :user => @primal_user.blog_user,
   :title => "Color Clock",
   :summary => %q{
     Il est vert, la couleur de la pause ! La color clock, intégrée dans la montre intelligente Space.
   },
   :snippet => Blog::Snippet.create(:params => %q{
       color_stops = ["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"]
+      steps = 180
     },
     :ruby => %q{
   		def hex_to_rgb hex
@@ -59,8 +60,7 @@ Blog::Experience.create :user => @primal_user.blog_user,
   			blender
   		end
   		
-  		# [nb min in a day] == 1440 == 180 * 8 == [steps] * [color_stops]
-    	blended = blender(["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"], 180)
+    	blended = blender(color_stops, steps)
     },
     :scss => %q{
       #clock{
@@ -147,4 +147,61 @@ Blog::Experience.create :user => @primal_user.blog_user,
   :published => true,
   :tag => :color_clock,
   :pool => :experience
+  
 
+Blog::Snippet.create :primal => @color_clock_experiment.snippet,
+  :params => %q{
+    color_stops = ["#b62b2b", "#2b2bb6"]
+    steps = 186
+  },
+  :scss => %q{
+		#colors{
+			.color-sample{
+				height: 6em;
+				width: .25em;
+
+				//border: 1px solid black;
+				border: none;
+				
+				vertical-align: top;
+				
+				font-size: 1em;
+				font-weight: 100;
+				color: $black;
+				
+				display: inline-block;
+				
+				transition: width ease 1s;
+				
+				.color-value{
+				  visibility: hidden;
+				}
+				
+				&:hover{
+				  width: 6em;
+				  border: 1px solid black;
+				  border-top: none;
+				  border-bottom: none;
+				  
+				  .color-value{
+				    visibility: visible;
+				    padding: .25em;
+				  }
+				}
+			}
+		}
+  },
+  :erb => %q{
+    <div id="colors" %>
+      <% blended.each do |color| %><!--
+        --><div class="color-sample" style="background-color: <%= color %>">
+          <span class="color-value"><%= color %></span>
+			  </div><!--
+			--><% end %>
+    </div>
+  },
+  :js => %q{
+    // No JS
+  },
+  :mutation => :only_blender,
+  :published => true

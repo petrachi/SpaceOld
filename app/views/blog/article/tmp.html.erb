@@ -6,93 +6,147 @@
 
 		<%= nine_span :element => :article do %>
 			
-			<i></i>
+			<i>On prend deux couleurs, on les mixe, et on obtient en général quelque chose de tout à fait dégueulasse. Mais pas tout le temps.</i>
 			
-			<h2></h2>
+			<h2>Color Blender</h2>
 			
 			<p>
-				
+				Salut les p'tit amis,<br/>
+				Donc le principe ici sera de faire une fonction permettant d'assurer une transition fluide entre deux couleurs.
 			</p>
 			
-			<h3></h3>
-			
-			article color blend / will use color_clock snippet muted
-			
-			color_start = "#b62b2b"
-			color_end = "#b5702b"
-			
-			m = color_start.match /#(..)(..)(..)/
-			color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
-
-			m = color_end.match /#(..)(..)(..)/
-			color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
-
-			percent = person[:score] * 100 / @searched_genes.size
-
-			r_diff = color_end[:r] - color_start[:r]
-			v_diff = color_end[:v] - color_start[:v]
-			b_diff = color_end[:b] - color_start[:b]
-
-			r = color_start[:r] + r_diff * percent/100.0
-			v = color_start[:v] + v_diff * percent/100.0
-			b = color_start[:b] + b_diff * percent/100.0
-			
-			
-			<% 
-
-				def calc_blend_array colors, steps
-
-				blender = []
-				begin
-
-				color_start = colors.shift
-				color_end = colors.first
-
-				m = color_start.match /#(..)(..)(..)/
-				color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
-
-				m = color_end.match /#(..)(..)(..)/
-				color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
-
-
-
-				steps.times do |i|
-
-				percent = i * 100.0 / steps
-
-				r_diff = color_end[:r] - color_start[:r]
-				v_diff = color_end[:v] - color_start[:v]
-				b_diff = color_end[:b] - color_start[:b]
-
-				r = color_start[:r] + r_diff * percent/100.0
-				v = color_start[:v] + v_diff * percent/100.0
-				b = color_start[:b] + b_diff * percent/100.0
-
-				blender << "##{"%02x" % r}#{"%02x" % v}#{"%02x" % b}"
-
-				end
-
-				end while colors.size > 1
-
-				blender
-				end
-
-				# 1440
-				calculated = calc_blend_array(["#000000", "#ff00ff", "#0000ff", "#00ffff", "#ffffff", "#00ff00", "#ffff00", "#ff0000", "#000000"], 180)
-
-
-			%>
-			
-			
-			<% calculated.each do |hex| %><!--
-				--><div class="cb" style="background-color: <%= hex %>;">
-				</div><!--
-			--><% end %>
-
-			
+			<h3>Format de couleur</h3>
 			
 			<p>
-				Bisous bisous, c'est la fin.
+				En gros, il y a deux formats de couleurs classiques utilisés en développement informatique.<br/>
+				Le format hexadécimal, où le blanc est représenté comme ceci #ffffff, et le rouge utilisé pour les boutons de ce site #b62b2b. Ou le format rgv (pour touge, vert, bleu), où le blanc fait rgb(255, 255, 255), et le rouge des boutons fait rbg(182, 43, 43).<br/>
+				On peut également trouver un format hsv, pour teinte, saturation et luminosité. Mais je crois que ce format est plus souvent utilisé en photo montage qu'en programmation.
+			</p>
+			
+			<p>
+				Nous allons devoir manipuler des couleurs dans notre petit algorithme, il faut donc choisir le format le plus approprié. J'ai choisi de travailler avec le format rgb, car utiliser les valeurs numériques sont plus faciles à manipuler. Le résultat attendu devra par contre être exprimé en hexa, car ce format est plus lisible.<br/>
+				À la réflexion, manipuler les couleurs avec le format hsv aurait peut-être simplifié la tâche, ar ils sépare bien toute les composantes d'une couleur, et permet donc de trouver facilement une transition fluide.
+			</p>
+			
+			<%= coderay do %>
+def hex_to_rgb hex
+	hex =~ /#(..)(..)(..)/
+	{r: $1.hex, v: $2.hex, b: $3.hex}
+end
+
+def rgb_to_hex rgb
+	"##{"%02x" % rgb[:r]}#{"%02x" % rgb[:v]}#{"%02x" % rgb[:b]}"
+end
+			<% end %>
+			
+			<h3>Color diff + color blend</h3>
+			
+			<p>
+				Maintenant, on va devoir apprendre à m'langer deux couleurs. Pour ça, on calculera d'abord les valeurs de différences entre les deux couleurs. C'est relativement simple.
+			</p>
+			
+			<%= coderay do %>
+def diff_color from, to
+	{
+		r: to[:r] - from[:r],
+		v: to[:v] - from[:v],
+		b: to[:b] - from[:b]
+	}
+end
+			<% end %>
+			
+			<p>
+				Ensuite, nous allons appliquer cette différence à partir de la couleur de base, accouplé à un pourcentage de transformation.
+			</p>
+			
+			<%= coderay do %>
+def blend_color from, diff, progress
+	{
+		r: from[:r] + diff[:r] * progress,
+		v: from[:v] + diff[:v] * progress,
+		b: from[:b] + diff[:b] * progress
+	}
+end
+			<% end %>
+			
+			<h3>Réunification de toutes les composantes</h3>
+			
+			<p>
+				Nous pouvons maintenant réunir toutes les différentes étapes de notre blender. De la conversion rgb/hex, au calcul de la différence et à la transition lente d'une couleur à l'autre.
+			</p>
+			
+			<%= coderay do %>
+def blender from, to, steps
+	blender = Array.new
+
+	from = hex_to_rgb color_stops.shift
+	to = hex_to_rgb color_stops.first
+
+	diff = diff_color from, to
+
+	steps.times do |i|
+		progress = percent i, steps
+
+		blended = blend_color from, diff, progress
+
+		p "progress #{progress} - #{blended}"
+
+		blender << rgb_to_hex(blended)
+	end
+
+	blender
+end
+			<% end %>
+			
+			<p>
+				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender('#b62b2b', '#2b2bb6', 186)") %>
+			</p>
+			
+			<%= erb Blog::Experience.tagged(:color_clock).run(:only_blender) %>
+			
+			<h3>Color stops</h3>
+			
+			<p>
+				Avant de conclure, je vous présente juste une petite amélioration qui permettra de chainer les appels à l'ancien blender. L'appel ressemblera à <%= coderay({:inline => true}, "blender(['#000000', '#ff00ff', '#ffffff'], 4)") %>.
+			</p>
+			
+			<%= coderay do %>
+def blender color_stops, steps
+	blender = Array.new
+
+	begin
+		from = hex_to_rgb color_stops.shift
+		to = hex_to_rgb color_stops.first
+
+		diff = diff_color from, to
+
+		steps.times do |i|
+			progress = percent i, steps
+
+			blended = blend_color from, diff, progress
+
+			p "progress #{progress} - #{blended}"
+
+			blender << rgb_to_hex(blended)
+		end
+	end while color_stops.size > 1
+
+	blender
+end
+			<% end %>
+			
+			<h3>Conclusion</h3>
+			
+			<p>
+				Voilà, un color blender très simple et rapidement réalisé. On pourrait améliorer largement cette fonction, pour inclure la transparence d'abord. Puis améliorer la gestion des <%= coderay({:inline => true}, "color_stops") %>, qui est très statique aujourd'hui.
+			</p>
+			
+			<p>
+				En dehors de ces améliorations possibles, l'algorithme fonctionne suffisamment bien. Je l'ai mis en place pour l'expérience du "color clock", et il remplit son rôle. J'avais commencé par le faire en javascript, mais j'avoue être bien plus à l'aise en ruby.
+			</p>
+			
+			<p>
+				Allez, bisous bisous, c'est la fin.
 			</p>
 			
 		<% end %>

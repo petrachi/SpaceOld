@@ -138,7 +138,7 @@
     	}
     },
     :erb => %q{
-      <%= six_cols_container :collection => @evolution_tree, :class => :'genetic-octopus', :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
+      <%= six_cols_container :collection => @evolution_tree, :class => :'genetic-octopus', :rows => {:nested => true}, :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
 
       	<% 
       		m = color_start_hex.match /#(..)(..)(..)/
