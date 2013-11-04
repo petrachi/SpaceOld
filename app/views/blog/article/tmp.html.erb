@@ -8,19 +8,11 @@
 			
 			
 			<%= @article.title %>
-			<%= @article.link %>
-			<%= @article.label %>
-			<%= @article.path %>
-			<%= @article.scss %>
 			
 			<hr/>
 			
 			<%= decorate Blog::Article.last do |article| %>
 				<%= article.title %>
-				<%= article.link %>
-				<%= article.label %>
-				<%= article.path %>
-				<%= article.scss %>
 			<% end %>
 			
 			<hr/>
@@ -29,7 +21,7 @@
 			
 			
 			
-			<i>On prend deux couleurs, on les mixe, et on obtient en général quelque chose de tout à fait dégueulasse. Mais pas tout le temps.</i>
+			<i>On prend deux couleurs, on les mixe, et on obtient un dégradé parfaitement génial, avec du code tout à fait dégueulasse.</i>
 			
 			<h2>Color Blender</h2>
 			

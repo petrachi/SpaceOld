@@ -6,6 +6,12 @@ class Blog::Article < ActiveRecord::Base
   include Blog::Seriable
   include Blog::Taggable
   
+  
+  
+  #include Blog::Poolable.new([:experience, :ruby, :css])
+  
+  
+  
   scope :published, where(:published => true)  
   scope :pool, -> pool { where(:pool => pool) }
   
