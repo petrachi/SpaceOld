@@ -8,11 +8,13 @@ class Blog::ScreencastController < Blog::ApplicationController
   def index
     @screencasts = Blog::Screencast.published.order("id desc")
     @screencasts = @screencasts.pool params[:pool] if params[:pool]
+    @screencasts.map{ |screencast| screencast.decorate(view_context) }
   end
   
   def show
     @screencast = Blog::Screencast.published
       .tagged(params[:tag])
+      .decorate(view_context)
   end
   
   

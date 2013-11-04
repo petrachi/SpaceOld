@@ -1,4 +1,4 @@
-module Blog::ArticleDecorator
+module Blog::ScreencastDecorator
   include Blog::Decorable
   
   module DecoratorMethods

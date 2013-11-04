@@ -1,6 +1,7 @@
 class Blog::Screencast < ActiveRecord::Base
   belongs_to :user
   
+  include Blog::ScreencastDecorator
   include Blog::Runnable
   include Blog::Seriable
   include Blog::Taggable

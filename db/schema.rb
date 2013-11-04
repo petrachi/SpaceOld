@@ -32,18 +32,16 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
 
   create_table "blog_experiences", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "following_id"
     t.string   "title"
     t.text     "summary"
     t.string   "pool"
-    t.boolean  "published",    :default => false
+    t.boolean  "published",  :default => false
     t.string   "tag"
     t.string   "serie"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
-  add_index "blog_experiences", ["following_id"], :name => "index_blog_experiences_on_following_id"
   add_index "blog_experiences", ["tag"], :name => "index_blog_experiences_on_tag"
   add_index "blog_experiences", ["user_id"], :name => "index_blog_experiences_on_user_id"
 

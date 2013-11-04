@@ -21,19 +21,7 @@ module Blog::Seriable
     self.tag = "#{ serie }_#{ serial_number }"
   end
   
-  
   def serial_number
     following ? following.serial_number + 1 : 1
   end
-  
-  # DECORATOR - need to be move
-  # need to be translated
-  def title_with_serie
-    if serie
-      "#{ title } <small><i>(vol #{ serial_number })</i></small>".html_safe
-    else
-      title
-    end
-  end
-  
 end

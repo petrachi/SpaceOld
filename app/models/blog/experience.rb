@@ -2,7 +2,6 @@ class Blog::Experience < ActiveRecord::Base
   belongs_to :user
   
   include Blog::Runnable
-  include Blog::Seriable
   include Blog::Taggable
   
   scope :published, where(:published => true)

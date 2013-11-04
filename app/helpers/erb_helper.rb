@@ -12,8 +12,6 @@ module ErbHelper
     render :inline => code
   end
   
-  #require 'sass'
-  #require 'sass/plugin'
   def scss code
     to_css = raw Sass::Engine.new(
       %Q{
