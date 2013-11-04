@@ -20,6 +20,7 @@ module Space
     config.autoload_paths += %W(
       #{config.root}/lib
       #{config.root}/app/concerns
+      #{config.root}/app/decorators
     )
     
     # Only load the plugins named here, in the order given (default is alphabetical).

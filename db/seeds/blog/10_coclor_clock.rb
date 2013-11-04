@@ -156,6 +156,18 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   },
   :scss => %q{
 		#colors{
+		  display: inline-block;
+		
+			&:hover .color-sample.active{
+			  width: .25em;
+			  border: none;
+			  
+			  .color-value{
+			    visibility: hidden;
+			    padding: .25em;
+			  }
+			}
+			
 			.color-sample{
 				height: 6em;
 				width: .25em;
@@ -173,9 +185,12 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 								
 				.color-value{
 				  visibility: hidden;
+				  padding: .25em;
 				}
 				
-				&:hover{
+				&:hover,
+				&.active,
+				&.active:hover{
 				  width: 6em;
 				  border: 1px solid black;
 				  border-top: none;
@@ -183,7 +198,6 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 				  
 				  .color-value{
 				    visibility: visible;
-				    padding: .25em;
 				  }
 				}
 			}
@@ -191,8 +205,8 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   },
   :erb => %q{
     <div id="colors" %>
-      <% blended.each do |color| %><!--
-        --><div class="color-sample" style="background-color: <%= color %>">
+      <% blended.each_with_index do |color, index| %><!--
+        --><div class="color-sample <%= :active if index.zero? %>" style="background-color: <%= color %>">
           <span class="color-value"><%= color %></span>
 			  </div><!--
 			--><% end %>

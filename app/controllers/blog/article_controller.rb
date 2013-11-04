@@ -21,7 +21,7 @@ class Blog::ArticleController < Blog::ApplicationController
   #if Rails.env == "development"
   
     def tmp
-      
+      @article = Blog::Article.first.decorate(view_context)
 	  end
   
   

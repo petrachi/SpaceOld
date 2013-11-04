@@ -1,6 +1,7 @@
 class Blog::Article < ActiveRecord::Base
   belongs_to :user
   
+  include Blog::ArticleDecorator
   include Blog::Runnable
   include Blog::Seriable
   include Blog::Taggable

@@ -1,6 +1,8 @@
 module ApplicationHelper
   include GridHelper
   include GridFormHelper
+  
+  include DecoratorHelper
   include ErbHelper
   
   def authorized? application

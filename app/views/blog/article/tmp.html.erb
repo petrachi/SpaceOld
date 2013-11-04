@@ -6,6 +6,29 @@
 
 		<%= nine_span :element => :article do %>
 			
+			
+			<%= @article.title %>
+			<%= @article.link %>
+			<%= @article.label %>
+			<%= @article.path %>
+			<%= @article.scss %>
+			
+			<hr/>
+			
+			<%= decorate Blog::Article.last do |article| %>
+				<%= article.title %>
+				<%= article.link %>
+				<%= article.label %>
+				<%= article.path %>
+				<%= article.scss %>
+			<% end %>
+			
+			<hr/>
+			<hr/>
+			<hr/>
+			
+			
+			
 			<i>On prend deux couleurs, on les mixe, et on obtient en général quelque chose de tout à fait dégueulasse. Mais pas tout le temps.</i>
 			
 			<h2>Color Blender</h2>
@@ -182,18 +205,14 @@ function pad(value, size) {
 "155"
 
 > pad(1554, 3);
-"554" // bugged
+"554" // bug
 
 > pad(1554, 15);
-"4" // bugged
+"4" // bug
 
 // avec une valeur hexa
 > pad("2bff", 6);
 "002bff"
-
-// avec une valeur binaire
-> pad("101", 4)
-"0101"
 			<% end %>
 			
 			<p>
@@ -225,11 +244,7 @@ end
 
 # avec une valeur hexa
 > pad("2bff", 6);
-ArgumentError: invalid value for Integer(): "f" # bugged
-
-# avec une valeur binaire
-?> pad 101, 4
-"0101"
+ArgumentError: invalid value for Integer(): "f" # bug
 			<% end %>
 			
 			<p>
@@ -237,11 +252,11 @@ ArgumentError: invalid value for Integer(): "f" # bugged
 			</p>
 			
 			<%= coderay do %>
-// hexa
+# hexa
 ?> "%06x" % 15
 => "00000f"
 
-// bin
+# bin
 ?> "%08b" % 15
 => "00001111"
 			<% end %>
