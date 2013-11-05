@@ -106,7 +106,7 @@
 
 
     	def asset_data_uri path
-    	  asset = Rails.application.assets.instance_variable_get('@environment').find_asset "blog/experience/octopus_new.png"
+    	  asset = Rails.application.assets.instance_variable_get('@environment').find_asset path
         
         throw "Could not find asset '#{path}'" if asset.nil?
         
