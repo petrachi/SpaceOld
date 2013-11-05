@@ -3,9 +3,7 @@ class Blog::Mutable < Module
   def initialize options = {}
     options.each do |key, value|
       instance_variable_set "@#{ key }", value
-    end  
-    
-  #  p "init"
+    end
   end
   
   def included(base)
@@ -13,14 +11,6 @@ class Blog::Mutable < Module
     
     base.extend(ClassMethods)
     base.included_do
-    
-  #  p "included"
-  #  p @mutables
-    
-  #  InstanceMethods.instance_variable_set :@mutables, @mutables
-    
- #   p InstanceMethods.instance_variable_get :@mutables
-    
     base.send(:include, InstanceMethods.new(mutables: @mutables))
   end
   
@@ -38,45 +28,24 @@ class Blog::Mutable < Module
     def initialize options = {}
       options.each do |key, value|
         instance_variable_set "@#{ key }", value
-      end  
-
-      #p "init"
+      end
     end
     
     def included(base)
       super
-
-    #  base.extend(ClassMethods)
       instance_methods_do
-
-    #  p "included"
-    #  p @mutables
-
-      #InstanceMethods.instance_variable_set :@mutables, @mutables
-
-     # p InstanceMethods.instance_variable_get :@mutables
-
-    #  base.send(:include, InstanceMethods)
     end
-    
     
     def instance_methods_do
-    @mutables.each do |mutable|
-      
-      define_method mutable do
-        super() || primal.try(mutable)
+      @mutables.each do |mutable|
+        define_method mutable do
+          super() || primal.try(mutable)
+        end
       end
-      
-      
+    
+      define_method :primal? do
+        primal.blank?
+      end
     end
-    
-    define_method :primal? do
-      primal.blank?
-    end
-    
-    
-  end
-    
-    
   end
 end
