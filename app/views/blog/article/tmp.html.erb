@@ -103,9 +103,6 @@ def blender from, to, steps
 		progress = percent i, steps
 
 		blended = blend_color from, diff, progress
-
-		p "progress #{progress} - #{blended}"
-
 		blender << rgb_to_hex(blended)
 	end
 

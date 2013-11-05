@@ -1,33 +1,31 @@
 class Blog::Poolable < Module
   
-  def initialize inclusion_of
-    @inclusion_of = inclusion_of
+  def initialize options = {}
+    options.each do |key, value|
+      instance_variable_set "@#{ key }", value
+    end  
   end
   
-  def included(model)
+  def included(base)
     super
     
-    included_do @inclusion_of
-    instance_methods
+    base.extend(ClassMethods)
+    base.included_do @inclusion_in
+    base.send(:include, InstanceMethods)
   end
   
-  def included_do inclusion_of
-    class_eval do
-      scope :pool, -> pool { where(:pool => pool) }
+  module ClassMethods
+    def included_do inclusion_in
+      scope :pool, -> pool { where(pool: pool) }
       
       validates_presence_of :pool
-      validates_inclusion_of :pool, :in => inclusion_of
-      
+      validates_inclusion_of :pool, in: inclusion_in  
     end
   end
   
-  def pool_url
-    URL.blog_articles_path :pool => pool
-  end
-  
-  def instance_methods
-    define_method("pool_url") do
-      URL.blog_articles_path :pool => pool
+  module InstanceMethods
+    def pool_url
+      URL.send "#{ ActiveModel::Naming.route_key self.class }_path", pool: pool
     end
   end
 end
