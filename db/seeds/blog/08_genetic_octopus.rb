@@ -106,7 +106,9 @@
 
 
     	def asset_data_uri path
-    	  asset = Rails.application.assets.instance_variable_get('@environment').find_asset path
+    	  env = Rails.application.assets.is_a?(Sprockets::Index) ? Rails.application.assets.instance_variable_get('@environment') : Rails.application.assets
+        
+    	  asset = env.find_asset path
         
         throw "Could not find asset '#{path}'" if asset.nil?
         
