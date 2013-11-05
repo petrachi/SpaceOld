@@ -4,7 +4,7 @@ Space::Application.routes.draw do
     match "/install" => "user#install", :as => "install"
   
     controller "article" do
-      match "/articles(/p/:pool)" => :index, :as => :blog_articles
+      match "/articles(/p/:pool)(/s/:serie)" => :index, :as => :blog_articles
       match "/article/:tag" => :show, :as => :blog_article
     
       match "/tmp_a" => :tmp
@@ -23,7 +23,7 @@ Space::Application.routes.draw do
     end
     
     controller "screencast" do
-      match "/screencasts(/p/:pool)" => :index, :as => :blog_screencasts
+      match "/screencasts(/p/:pool)(/s/:serie)" => :index, :as => :blog_screencasts
       match "/screencast/:tag" => :show, :as => :blog_screencast
     end
     

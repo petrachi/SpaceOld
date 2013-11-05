@@ -7,7 +7,9 @@ fr:
             name: "Articles"
             summary: "Laissez vous entrainer par de fantastiques aventures techniques en tous genres !"
             pool: "Catégorie"
-            serie: "Dans la même série"
+            serie: "Série"
+            series:
+                pagination: "Dans la même série"
             
         experience:
             name: "Expériences"
@@ -31,6 +33,8 @@ fr:
             name: "Screencasts"
             summary: "Allez, on va faire des vidéos, parceque ça a de la gueule quand même."
             pool: "Playlist"
-            serie: "Dans la même série"
+            serie: "Série"
+            series:
+                pagination: "Dans la même série"
             ressources: "Ressources"
             subscribe_youtube: "Chaine Youtube"

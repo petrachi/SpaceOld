@@ -8,6 +8,7 @@ class Blog::ArticleController < Blog::ApplicationController
   def index
     @articles = Blog::Article.published.order("id desc")
     @articles = @articles.pool params[:pool] if params[:pool]
+    @articles = @articles.serie params[:serie] if params[:serie]
     @articles.map{ |article| article.decorate(view_context) }
   end
   

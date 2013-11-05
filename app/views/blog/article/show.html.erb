@@ -2,7 +2,7 @@
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
 			<% if @article.serie %>
-				<h3><%=t 'blog.article.serie' %></h3>
+				<h3><%=t 'blog.article.series.pagination' %></h3>
 
 				<p>
 					<% @serie = Blog::Article.where(serie: @article.serie) %>
@@ -13,6 +13,12 @@
 							--><%= link_to "vol #{s.serial_number}", s, :class => :btn %><!--
 						--><% end %><!--
 					--><% end %>
+				</p>
+				
+				<h3><%=t 'blog.article.serie' %></h3>
+				
+				<p>
+					<%= link_to @article.serie, @article.serie_url, :class => :btn %>
 				</p>
 			<% end %>
 			

@@ -10,6 +10,8 @@ module Blog::Seriable
     
     validates_presence_of :serie, if: :following
     validates_uniqueness_of :following_id, if: :following
+    
+    scope :serie, -> serie { where(serie: serie) }
   end
   
   def set_following
@@ -23,5 +25,9 @@ module Blog::Seriable
   
   def serial_number
     following ? following.serial_number + 1 : 1
+  end
+  
+  def serie_url
+    URL.send "#{ ActiveModel::Naming.route_key self.class }_path", serie: serie
   end
 end

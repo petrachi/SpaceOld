@@ -2,7 +2,7 @@
 	<%= row do %>
 		<%= three_span :element => :sidebar do %>
 			<% if @screencast.serie %>
-				<h3><%=t 'blog.screencast.serie' %></h3>
+				<h3><%=t 'blog.screencast.series.pagination' %></h3>
 
 				<p>
 					<% @serie = Blog::Screencast.where(serie: @screencast.serie) %>
@@ -13,6 +13,12 @@
 							--><%= link_to "vol #{s.serial_number}", s, :class => :btn %><!--
 						--><% end %><!--
 					--><% end %>
+				</p>
+				
+				<h3><%=t 'blog.screencast.serie' %></h3>
+				
+				<p>
+					<%= link_to @screencast.serie, @screencast.serie_url, :class => :btn %>
 				</p>
 			<% end %>
 			
