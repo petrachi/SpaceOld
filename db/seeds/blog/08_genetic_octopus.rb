@@ -8,7 +8,7 @@
     Je dois avouer que si une fille pouvait ressembler à ça, je la demande en mariage instantanément.
   },
   :snippet => Blog::Snippet.create(:params => %q{
-      @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopus_transparent.png")
+      @searched_image = ChunkyPNG::Image.from_file("app/assets/images/blog/experience/octopus.png")
 
       @generations = 1_500
       @mutation_rate = 1.0 / 1
@@ -106,20 +106,21 @@
 
 
     	def asset_data_uri path
-    		asset = Rails.application.assets.find_asset path
+    	  asset = Rails.application.assets.instance_variable_get('@environment').find_asset "blog/experience/octopus_new.png"
         
-    	  throw "Could not find asset '#{path}'" if asset.nil?
+        throw "Could not find asset '#{path}'" if asset.nil?
         
-    	  base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
-    	  "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
+        base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
+        "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
     	end
       
     	def genes_to_uri genes
     		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
     		png.save("app/assets/images/blog/experience/genetic_best.png")
-    		uri = asset_data_uri("blog/experience/genetic_best.png")
     		
+    		uri = asset_data_uri("blog/experience/genetic_best.png")
     		File.delete("app/assets/images/blog/experience/genetic_best.png")
+    		
     		uri
     	end
     },
