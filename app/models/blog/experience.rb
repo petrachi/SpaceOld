@@ -5,7 +5,7 @@ class Blog::Experience < ActiveRecord::Base
   include Blog::Runnable
   include Blog::Taggable
   
-  scope :pool, -> pool { where(:pool => pool) }  
+  scope :published, where(:published => true)
   
   validates_presence_of :user, :title, :summary
 end
