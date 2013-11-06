@@ -158,33 +158,49 @@ end
 			</p>
 			
 			<p>
-				Allez, bisous bisous, c'est la fin.
+				Allez, bisous. Filez jouer maintenant !
 			</p>
+			
+			
+			
+			
+			
 			
 			
 			
 			
 			
 			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
+			<hr/>
 			
-			<i>Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas "7". Rhaaa, ce genre de trucs me rends fou !</i>
+			<i>Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas "7". Rhaaa, ce genre de trucs me rend fou !</i>
 			
-			<h2>Pad with zero</h2>
+			<h2>Pad with zeros</h2>
 			
 			<p>
-				Allez, pas de mensonges, on a tous été ennuyés par ce problème, ajouter des zéros au début d'un nombre afin de respecter un certain format. Ce que j'appelle dans le titre de cet article, pad with zero, je vais vous le raconter en deux langages. D'abord en javascript, et puis, le meilleur pour la fin, en ruby.
+				Allez, pas de mensonges, on a tous eu besoin d'ajouter des zéros au début d'un nombre afin de respecter un certain format. Aujourd'hui, je vous donne la solution dans deux languages. Enjoy ;)
 			</p>
 			
 			<h3>En Javascript</h3>
 			
 			<p>
-				Voici une fonction simple, on prends une chaine de caratères composé uniquement de zéros et on y ajoute notre nombre. Ce porcéder permettra de "coller" les zéros devant notre nombre, il ne reste plus qu'à récupérer la longueur de chaine que nous voulions.
+				Donc, on va prendre une chaine de caractère composée uniquement de zéros, ajouter à la suite notre nombre, et enfin, on va sélectionner dans cette nouvelle chaine le nombre correcte de caractères. Si la fonction renvoie le plus souvent un résultat correct, elle va renvoyer une mauvaise valeur si je veux injecter trop de zéros, ou si le nombre passé en paramètre est trop grand.
 			</p>
 			
 			<%= coderay :lang => :javascript do %>
 function pad(value, size) {
 	var padded = "0000000000" + value;
-	return padded.substr( padded.length - size )
+	return padded.substr(padded.length - size);
 }
 
 > pad(15, 3);
@@ -194,24 +210,23 @@ function pad(value, size) {
 "155"
 
 > pad(1554, 3);
-"554" // bug
+"554" // ! bug
 
 > pad(1554, 15);
-"4" // bug
+"4" // ! bug
 
-// avec une valeur hexa
-> pad("2bff", 6);
+> pad("2bff", 6); // hexa
 "002bff"
 			<% end %>
-			
-			<p>
-				Si cette fonction est utilisable dans la plupart des cas, il faut faire attention aux valeurs avec lesquelles on l'utilise, car elle possède un seuil de validité certain.
-			</p>
 			
 			<h3>En Ruby</h3>
 			
 			<p>
-				J'imagine qu'il y a de nombreuses autres façons de faire que celle que je vais vous présenter, mais j'aime vraiment la syntaxe un peu sale de l'utilisation du <%= coderay({:inline => true}, 'Kernel#sprintf') %>.
+				Il y a peut-être de meilleures façon de faire, mais personnellement j'utilise la méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %>. Si la syntaxe de est au moins aussi sale que celle des <%= coderay({:inline => true}, 'Regexp') %>, la méthode est vraiment puissante et permet de formatter une string facilement.
+			</p>
+			
+			<p>
+				Je vais pas vous refaire la doc, mais juste une petite explication. On crée une <%= coderay({:inline => true}, 'String') %> qui correspond au format voulu, on utilise ensuite l'opérateur <%= coderay({:inline => true}, '%') %> qui peut prendre en paramètre au choix, un <%= coderay({:inline => true}, 'Array') %> ou un <%= coderay({:inline => true}, 'Hash') %>. La <%= coderay({:inline => true}, 'String') %> de format va utiliser certains caractères spéciaux afin d'insérer les paramètres. Ici pourra utiliser <%= coderay({:inline => true}, '"%02d"') %>, ce qui veut dire <i>insère le premier paramètre , dont le type doit pouvoir être caster via <%= coderay({:inline => true}, 'Integer()') %>, et ajouter des zéros au besoin pour atteindre une longueur minimale de 2</i>.
 			</p>
 			
 			<%= coderay do %>
@@ -231,37 +246,34 @@ end
 ?> pad 1554, 15
 => "000000000001554"
 
-# avec une valeur hexa
-> pad("2bff", 6);
-ArgumentError: invalid value for Integer(): "f" # bug
+> pad("2bff", 6); # hexa
+ArgumentError: invalid value for Integer(): "f" # ! bug
 			<% end %>
 			
 			<p>
-				Et voilà ! Bon, la valeur hexa a bug, bah oui parceque le <%= coderay({:inline => true}, 'Kernel#sprintf') %> est un peu délicat avec les types. Mais si on voulait utiliser de l'hexa (ou du binaire), on pourrait le faire très simplment, et à partir de nombres décimaux.
+				La méthode fonctionne bien, on ne retrouve pas les problèmes qu'on avait rencontré en javascript, par contre cette méthode est beaucoup plus sensible aux types des paramètres que l'on utilise. On se rendra compte en lisant la doc plus attentivement qu'utiliser une valeur en hexadécimal, voire en binaire, est aussi possible. Et facilement encore une fois, la méthode se chargera de la conversion des valeurs !
 			</p>
 			
 			<%= coderay do %>
-# hexa
-?> "%06x" % 15
+?> "%06x" % 15 # hexa
 => "00000f"
 
-# bin
-?> "%08b" % 15
+?> "%08b" % 15 # binaire
 => "00001111"
 			<% end %>
 			
 			<h3>Conclusion</h3>
 			
 			<p>
-				Bon, je l'avoue, la fonction javascript n'est pas de moi, et d'ailleurs je ne m'en suis presque jamais servie. Par contre, celle en ruby est de moi.
+				<%= coderay({:inline => true, :lang => :html}, '<troll>ruby > javascript</troll>') %>
 			</p>
 			
 			<p>
-				La méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %> est vraiment dure à aborder, et j'en ferais volontier un article si je la connaissait mieux. Elle est au moins aussi intéressante et moche que les regexp, mais comme on a vu, c'est une fonction assez puissante, et qui mériterais une part de soleil.
+				La méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %> est assez repoussante la première fois, mais elle se révèle suffisamment puissante pour qu'on l'utilise quand même. Ça me fait beaucoup penser au <%= coderay({:inline => true}, 'Regexp') %> sur cette idée, je l'aime et la déteste tout en même temps.
 			</p>
 			
 			<p>
-				C'est fini pour aujourd'hui. Allez, filez jouer dehors bande de petits sacripants.
+				C'est fini pour aujourd'hui. Allez, tu vas pas rester toute la journée devant ton écran alors qu'il fait beau ?
 			</p>
 			
 		<% end %>
