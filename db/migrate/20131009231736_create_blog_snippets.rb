@@ -13,9 +13,7 @@ class CreateBlogSnippets < ActiveRecord::Migration
       
       t.string :fingerprint
       t.text :compiled, :limit => 16.megabytes - 1
-      
-      t.boolean :published, :default => false
-      
+            
       t.timestamps
     end
     add_index :blog_snippets, [:runnable_id, :runnable_type]

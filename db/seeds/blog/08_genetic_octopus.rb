@@ -184,9 +184,9 @@
     		setTimeout(r_kit.removeClass.bind(this, img, "display-none"), timer);
     		setTimeout(r_kit.addClass.bind(this, spinner, "display-none"), timer);
     	}
-    },
-    :published => true),
-  :published => true,
+    }),
+  :published => true  ,
+  :published_at => "25-10-2013".to_datetime,
   :tag => :genetic_octopus,
   :pool => :experience
 

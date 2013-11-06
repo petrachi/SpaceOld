@@ -12,9 +12,7 @@ class Blog::Poolable < Module
     base.extend(ClassMethods)
     base.included_do @inclusion_in
     
-    class << base
-      include InstanceMethods
-    end
+    base.send :include, InstanceMethods
   end
   
   module ClassMethods

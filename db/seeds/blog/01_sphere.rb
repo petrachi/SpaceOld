@@ -95,9 +95,9 @@
         </div>
       </div>
     },
-    :js => "// No JS",
-    :published => true),
+    :js => "// No JS"),
   :published => true,
+  :published_at => "05-05-2013".to_datetime,
   :tag => :sphere,
   :pool => :experience
 
@@ -150,8 +150,7 @@ Blog::Snippet.create :primal => @sphere_experience.snippet,
 			}
 		}
   },
-  :mutation => :mini,
-  :published => true
+  :mutation => :mini
 
 
 @sphere_article = Blog::Article.create :user => @primal_user.blog_user,
@@ -397,11 +396,11 @@ end
     <p>
       Allez, bisous les copains ! Ouste !
     </p>
-  },
-  :published => true),
+  }),
   :pool => :experience,
   :tag => :sphere,
-  :published => true
+  :published => true,
+  :published_at => "05-05-2013".to_datetime
 
 
 Blog::Ressource.create :user => @primal_user.blog_user,

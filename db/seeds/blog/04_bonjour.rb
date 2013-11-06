@@ -194,5 +194,4 @@
     	--><div id="r"></div>
     </div>
   },
-  :js => "// No JS",
-  :published => true
+  :js => "// No JS"

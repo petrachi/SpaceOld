@@ -31,10 +31,10 @@ Blog::Screencast.create :user => @primal_user.blog_user,
 ?> var = value unless var.nil?
     <% end %>
     
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "12-07-2013".to_datetime,
   :tag => :or_and
 
 Blog::Screencast.create :user => @primal_user.blog_user,
@@ -128,10 +128,10 @@ end
 ?> {:a => 100, :b => 200, "c" => nil}.compact{ |key, _| key.is_a? String }
 => {:a=>100, :b=>200}
 		<% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "23-07-2013".to_datetime,
   :tag => :blocks
     
 @screencast_refactoring = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -236,10 +236,10 @@ class Order
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "25-07-2013".to_datetime,
   :serie => :refactoring
       
 Blog::Screencast.create :user => @primal_user.blog_user,
@@ -345,10 +345,10 @@ class JobSite
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "13-10-2013".to_datetime,
   :following => @screencast_refactoring
         
 Blog::Screencast.create :user => @primal_user.blog_user,
@@ -415,10 +415,10 @@ end
 ?> dynamic.title
 => "try hard"
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "16-10-2013".to_datetime,
   :tag => :method_missing
 
   
@@ -473,10 +473,10 @@ def sync_parent_or_childs
   end
 end
   <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "25-10-2013".to_datetime,
   :tag => :habtm
   
 @screencast_genetic = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -601,10 +601,10 @@ end
 *>   p "#{ person.last } - Score #{ evaluate person.last } - Generation #{ i }"
 *> end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "29-10-2013".to_datetime,
   :serie => :genetic
   
 Blog::Screencast.create :user => @primal_user.blog_user,
@@ -728,10 +728,10 @@ end
 *>   p "#{ person.last } - Score #{ evaluate person.last } - Generation #{ i }"
 *> end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "29-10-2013".to_datetime,
   :following => @screencast_genetic
 
 Blog::Screencast.create :user => @primal_user.blog_user,
@@ -829,8 +829,8 @@ end
 *>   helper.image_tag genes_to_uri(person[:genes])
 ?> end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "30-10-2013".to_datetime,
   :tag => :hill_climbing

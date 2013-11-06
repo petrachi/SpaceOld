@@ -159,10 +159,10 @@ end
 		<p>
 		  C'est tout pour cette fois. Vraiment, c'est pas la peine de rester y'en aura pas plus.
 		</p>
-  },
-  :published => true),
+  }),
   :pool => :ruby,
   :published => true,
+  :published_at => "03-10-2013".to_datetime,
   :serie => :gaulois
   
   
@@ -298,10 +298,10 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, c'est fini pour aujourd'hui. Vous devez partir. Il faut me débarrasser le plancher !
 		</p>
-  },
-  :published => true),
+  }),
   :pool => :ruby,
   :published => true,
+  :published_at => "03-10-2013".to_datetime,
   :following => @gaulois_1_article  
 
 @gaulois_3_article = Blog::Article.create :user => @primal_user.blog_user,
@@ -465,8 +465,8 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			Allez, je vous laisse les copains. C'est fini, vous pouvez partir ... Non mais rentrez chez vous maintenant, ça commence à devenir gênant.
 		</p>
-  },
-  :published => true),
+  }),
   :pool => :ruby,
   :published => true,
+  :published_at => "03-10-2013".to_datetime,
   :following => @gaulois_2_article
