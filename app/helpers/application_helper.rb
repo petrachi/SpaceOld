@@ -2,7 +2,7 @@ module ApplicationHelper
   include GridHelper
   include GridFormHelper
   
-  include DecoratorHelper
+  include RKit::DecorableHelper
   include ErbHelper
   
   def authorized? application

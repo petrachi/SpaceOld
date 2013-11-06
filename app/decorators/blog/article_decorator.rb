@@ -1,5 +1,5 @@
 module Blog::ArticleDecorator
-  include Blog::Decorable
+  include RKit::Decorable
   
   module DecoratorMethods
     def title
