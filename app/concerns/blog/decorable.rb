@@ -1,6 +1,4 @@
 module Blog::Decorable
-  extend ActiveSupport::Concern
-  
   def decorate(view_context)
     @view_context = view_context
     

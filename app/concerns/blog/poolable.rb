@@ -11,7 +11,10 @@ class Blog::Poolable < Module
     
     base.extend(ClassMethods)
     base.included_do @inclusion_in
-    base.send(:include, InstanceMethods)
+    
+    class << base
+      include InstanceMethods
+    end
   end
   
   module ClassMethods
@@ -19,7 +22,7 @@ class Blog::Poolable < Module
       scope :pool, -> pool { where(pool: pool) }
       
       validates_presence_of :pool
-      validates_inclusion_of :pool, in: inclusion_in  
+      validates_inclusion_of :pool, in: inclusion_in
     end
   end
   
