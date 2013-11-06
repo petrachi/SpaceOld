@@ -4,6 +4,7 @@ module ApplicationHelper
   
   include RKit::DecorableHelper
   include ErbHelper
+  include GoogleAnalyticsHelper
   
   def authorized? application
     case application
