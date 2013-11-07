@@ -1,7 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@sphere_article = Blog::Article.create :user => @primal_user.blog_user,
+@block_article = Blog::Article.create :user => @primal_user.blog_user,
   :title => "Blocks, Procs, Lambdas",
   :summary => %q{
     Rapide 'walkthrough' de l'utilisation des blocks dans l'implémentation de fonctions en ruby.
@@ -160,8 +160,8 @@ end
 		<p>
 			Allez, bisous les copains ! Faut partir maintenant, y'a plus l'temps !
 		</p>
-  },
-  :published => true),
+  }),
   :pool => :ruby,
   :published => true,
+  :published_at => "30-05-2013".to_datetime,
   :tag => :blocks

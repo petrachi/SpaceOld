@@ -5,7 +5,9 @@
 		
 		<%= stylesheet_link_tag @application, :media => 'all' %>	
 		<%= javascript_include_tag 'application' %>
-	
+		
+		<%= google_analytics_include_tag %>
+		
 		<%= csrf_meta_tags %>
 	</head>
 	<body id="<%= @application %>" layout="main">

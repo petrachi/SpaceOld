@@ -142,9 +142,9 @@
   		};
 
   		set_color_clock();
-    },
-    :published => true),
+    }),
   :published => true,
+  :published_at => "02-11-2013".to_datetime,
   :tag => :color_clock,
   :pool => :experience
   
@@ -210,8 +210,7 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :js => %q{
     // No JS
   },
-  :mutation => :only_blender,
-  :published => true
+  :mutation => :only_blender
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{
@@ -274,5 +273,4 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :js => %q{
     // No JS
   },
-  :mutation => :multiple_blender,
-  :published => true
+  :mutation => :multiple_blender

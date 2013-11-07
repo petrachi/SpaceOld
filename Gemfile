@@ -65,7 +65,7 @@ gem 'oily_png'
 gem 'coderay'
 
 # this is my all in one gem
-gem 'r_kit', "~> 0.1.1"
+gem 'r_kit', "~> 0.1.2.1"
 
 # manipulation of png - needed for genetic octopus experience
 gem "chunky_png", "~> 1.2.9"

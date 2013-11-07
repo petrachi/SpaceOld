@@ -127,15 +127,13 @@
     	<% end %>
     <% end %>
   },
-  :js => "// No JS",
-  :published => true
+  :js => "// No JS"
 
 Blog::Snippet.create :primal => @spriting_version,
   :erb => %q{
 	  <i class="sc-icon-protoss icon-x4"></i>
   },
-  :mutation => :protoss_big,
-  :published => true
+  :mutation => :protoss_big
 
 Blog::Snippet.create :primal => @spriting_version,
   :scss => %q{
@@ -190,8 +188,7 @@ Blog::Snippet.create :primal => @spriting_version,
   	  <i class="px-icon-zerg icon-x4"></i>
 	  </div>
   },
-  :mutation => :pixels,
-  :published => true
+  :mutation => :pixels
 
 Blog::Snippet.create :primal => @spriting_version,
   :erb => %q{
@@ -202,8 +199,7 @@ Blog::Snippet.create :primal => @spriting_version,
   	  <i class="sc-icon-terran icon-x4"></i>
 	  </div>
   },
-  :mutation => :percent,
-  :published => true
+  :mutation => :percent
 
 
 @spriting_article = Blog::Article.create :user => @primal_user.blog_user,

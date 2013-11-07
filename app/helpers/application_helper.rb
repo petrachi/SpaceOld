@@ -2,8 +2,9 @@ module ApplicationHelper
   include GridHelper
   include GridFormHelper
   
-  include DecoratorHelper
+  include RKit::DecorableHelper
   include ErbHelper
+  include GoogleAnalyticsHelper
   
   def authorized? application
     case application

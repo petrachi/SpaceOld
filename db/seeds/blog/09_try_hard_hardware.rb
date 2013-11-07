@@ -99,10 +99,10 @@ class DoorYes
   end
 end      
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :serie => :hardware
 
 @screencast_hardware_2 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -160,10 +160,10 @@ class DoorOr
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_1
   
 @screencast_hardware_3 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -206,10 +206,10 @@ class DoorNotOr
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_2
   
 @screencast_hardware_4 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -240,10 +240,10 @@ class DoorXor
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_3
   
 @screencast_hardware_5 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -292,10 +292,10 @@ class Adder
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_4
   
 @screencast_hardware_6 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -325,10 +325,10 @@ class BitTranslator
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_5
   
 @screencast_hardware_7 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -361,10 +361,10 @@ class Adder4Bit
   end
 end
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_6
   
 @screencast_hardware_8 = Blog::Screencast.create :user => @primal_user.blog_user,
@@ -695,8 +695,8 @@ end
 ?> BitTranslator.new(res).int
 => 7
     <% end %>
-  },
-  :published => true),
+  }),
   :pool => :try_hard,
   :published => true,
+  :published_at => "01-11-2013".to_datetime,
   :following => @screencast_hardware_7

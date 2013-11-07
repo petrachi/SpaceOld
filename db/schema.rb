@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.text     "summary"
     t.string   "pool"
     t.boolean  "published",    :default => false
+    t.datetime "published_at"
     t.string   "tag"
     t.string   "serie"
     t.datetime "created_at",                      :null => false
@@ -35,11 +36,12 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.string   "title"
     t.text     "summary"
     t.string   "pool"
-    t.boolean  "published",  :default => false
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
     t.string   "tag"
     t.string   "serie"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "blog_experiences", ["tag"], :name => "index_blog_experiences_on_tag"
@@ -51,10 +53,11 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.text     "summary"
     t.string   "link"
     t.string   "pool"
-    t.boolean  "published",  :default => false
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
     t.string   "tag"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "blog_ressources", ["tag"], :name => "index_blog_ressources_on_tag"
@@ -68,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.string   "embed"
     t.string   "pool"
     t.boolean  "published",    :default => false
+    t.datetime "published_at"
     t.string   "tag"
     t.string   "serie"
     t.datetime "created_at",                      :null => false
@@ -90,9 +94,8 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.text     "js"
     t.string   "fingerprint"
     t.text     "compiled",      :limit => 16777215
-    t.boolean  "published",                         :default => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "blog_snippets", ["primal_id"], :name => "index_blog_snippets_on_primal_id"

@@ -7,6 +7,7 @@ Blog::Ressource.create :user => @primal_user.blog_user,
   :link => "http://news.humancoders.com/",
   :pool => :technology_watch,
   :published => true,
+  :published_at => "05-05-2013".to_datetime,
   :tag => :hcn
 
 Blog::Ressource.create :user => @primal_user.blog_user,

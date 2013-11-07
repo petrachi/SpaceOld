@@ -3,9 +3,7 @@ class Blog::Snippet < ActiveRecord::Base
   
   include Blog::Mutable.new mutables: %w(params ruby scss erb js)
   include Blog::Precompilable
-  
-  scope :published, where(published: true)
-  
+    
   validates_presence_of :erb
   
   def run mutation = nil

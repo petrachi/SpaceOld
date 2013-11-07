@@ -124,9 +124,9 @@
 
     	  <%= points.map{	|point| to_canvas_script(point, max_x, max_y, n * width) }.join " " %>
       };
-    },
-    :published => true),
+    }),
   :published => true,
+  :published_at => "05-05-2013".to_datetime,
   :tag => :hexa,
   :pool => :experience
 
