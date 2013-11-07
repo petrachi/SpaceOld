@@ -111,7 +111,7 @@ end
 			<% end %>
 			
 			<p>
-				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender '#b62b2b', '#b5702b', 168") %>
+				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender '#A21111', '#D3A80D', 168") %>
 			</p>
 			
 			<%= erb Blog::Experience.tagged(:color_clock).run(:only_blender) %>
@@ -187,7 +187,7 @@ end
 			<hr/>
 			<hr/>
 			
-			<i>Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas "7". Rhaaa, ce genre de trucs me rend fou !</i>
+			<i>Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas juste "7". Rhaaa, ce truc me rend fou !</i>
 			
 			<h2>Pad with zeros</h2>
 			
@@ -198,7 +198,8 @@ end
 			<h3>En Javascript</h3>
 			
 			<p>
-				Donc, on va prendre une chaine de caractère composée uniquement de zéros, ajouter à la suite notre nombre, et enfin, on va sélectionner dans cette nouvelle chaine le nombre correcte de caractères. Si la fonction renvoie le plus souvent un résultat correct, elle va renvoyer une mauvaise valeur si je veux injecter trop de zéros, ou si le nombre passé en paramètre est trop grand.
+				On va prendre une chaine de caractère composée uniquement de zéros, ajouter à la suite notre nombre, et enfin, on va sélectionner dans cette nouvelle chaine le nombre correcte de caractères.<br/>
+				Si cette fonction renvoie le plus souvent un résultat correct, elle n'est pas fiable à 100%.Si je veux injecter trop de zéros, ou si le nombre passé en paramètre est trop grand, la fonction va renvoyer une mauvaise valeur.
 			</p>
 			
 			<%= coderay :lang => :javascript do %>
@@ -206,7 +207,9 @@ function pad(value, size) {
 	var padded = "0000000000" + value;
 	return padded.substr(padded.length - size);
 }
-
+			<% end %>
+			
+			<%= coderay :lang => :javascript do %>
 > pad(15, 3);
 "015"
 
@@ -226,11 +229,12 @@ function pad(value, size) {
 			<h3>En Ruby</h3>
 			
 			<p>
-				Il y a peut-être de meilleures façon de faire, mais personnellement j'utilise la méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %>. Si la syntaxe de est au moins aussi sale que celle des <%= coderay({:inline => true}, 'Regexp') %>, la méthode est vraiment puissante et permet de formatter une string facilement.
+				J'utilise la méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %>, mais il existe peut-être de meilleures solutions que je en connais pas encore. Si la syntaxe de est au moins aussi sale que celle des <%= coderay({:inline => true}, 'Regexp') %>, cette méthode est vraiment puissante et permet de formatter une string facilement.
 			</p>
 			
 			<p>
-				Je vais pas vous refaire la doc, mais juste une petite explication. On crée une <%= coderay({:inline => true}, 'String') %> qui correspond au format voulu, on utilise ensuite l'opérateur <%= coderay({:inline => true}, '%') %> qui peut prendre en paramètre au choix, un <%= coderay({:inline => true}, 'Array') %> ou un <%= coderay({:inline => true}, 'Hash') %>. La <%= coderay({:inline => true}, 'String') %> de format va utiliser certains caractères spéciaux afin d'insérer les paramètres. Ici pourra utiliser <%= coderay({:inline => true}, '"%02d"') %>, ce qui veut dire <i>insère le premier paramètre , dont le type doit pouvoir être caster via <%= coderay({:inline => true}, 'Integer()') %>, et ajouter des zéros au besoin pour atteindre une longueur minimale de 2</i>.
+				On crée d'abord une <%= coderay({:inline => true}, 'String') %> qui correspond au format voulu. On utilise ensuite l'opérateur <%= coderay({:inline => true}, '%') %> qui peut prendre plusieurs types d'objets en paramètre (notamment un <%= coderay({:inline => true}, 'Array') %> ou un <%= coderay({:inline => true}, 'Hash') %>).<br/>
+				La <%= coderay({:inline => true}, 'String') %> de format va utiliser certains caractères spéciaux afin d'insérer les paramètres. Ici on va utiliser quelquechose comme <%= coderay({:inline => true}, '"%02d"') %>, qui va dire au système : insère le premier paramètre , dont le type doit pouvoir être évalué via <%= coderay({:inline => true}, 'Integer()') %>, et ajoute des zéros au besoin, pour atteindre une longueur minimale de 2 caractères.
 			</p>
 			
 			<%= coderay do %>
@@ -255,7 +259,7 @@ ArgumentError: invalid value for Integer(): "f" # ! bug
 			<% end %>
 			
 			<p>
-				La méthode fonctionne bien, on ne retrouve pas les problèmes qu'on avait rencontré en javascript, par contre cette méthode est beaucoup plus sensible aux types des paramètres que l'on utilise. On se rendra compte en lisant la doc plus attentivement qu'utiliser une valeur en hexadécimal, voire en binaire, est aussi possible. Et facilement encore une fois, la méthode se chargera de la conversion des valeurs !
+				Cette méthode fonctionne mieux que celle en javascript, mais elle est beaucoup plus sensible aux type d'objet des paramètres. Pour utiliser des valeurs hexadécimales, voir binaires, il faudra procéder différemment. En utilisant une <%= coderay({:inline => true}, 'String') %> de format différente, on pourra à la fois convertir et formatter des valeurs décimales.
 			</p>
 			
 			<%= coderay do %>
@@ -269,11 +273,11 @@ ArgumentError: invalid value for Integer(): "f" # ! bug
 			<h3>Conclusion</h3>
 			
 			<p>
-				<%= coderay({:inline => true, :lang => :html}, '<troll>ruby > javascript</troll>') %>
+				<%= coderay({:inline => true, :lang => :html}, %Q{<troll> ruby > javascript </troll>}) %>
 			</p>
 			
 			<p>
-				La méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %> est assez repoussante la première fois, mais elle se révèle suffisamment puissante pour qu'on l'utilise quand même. Ça me fait beaucoup penser au <%= coderay({:inline => true}, 'Regexp') %> sur cette idée, je l'aime et la déteste tout en même temps.
+				Plus sérieusement, la méthode <%= coderay({:inline => true}, 'Kernel#sprintf') %> est assez repoussante la première fois, mais elle se révèle suffisamment puissante pour l'utiliser malgré tout. Ça me fait penser au <%= coderay({:inline => true}, 'Regexp') %> dans l'idée : je l'aime et la déteste à la fois.
 			</p>
 			
 			<p>
