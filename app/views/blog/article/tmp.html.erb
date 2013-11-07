@@ -111,7 +111,7 @@ end
 			<% end %>
 			
 			<p>
-				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender('#b62b2b', '#2b2bb6', 186)") %>
+				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender '#b62b2b', '#b5702b', 168") %>
 			</p>
 			
 			<%= erb Blog::Experience.tagged(:color_clock).run(:only_blender) %>
@@ -119,7 +119,7 @@ end
 			<h3>Color stops</h3>
 			
 			<p>
-				Avant de conclure, je vous présente juste une petite amélioration qui permettra de chainer les appels à l'ancien blender. L'appel ressemblera à <%= coderay({:inline => true}, "blender(['#000000', '#ff00ff', '#ffffff'], 4)") %>.
+				Avant de conclure, je vous présente juste une petite amélioration qui permettra de chainer les appels à l'ancien blender.
 			</p>
 			
 			<%= coderay do %>
@@ -146,6 +146,10 @@ def blender color_stops, steps
 	blender
 end
 			<% end %>
+			
+			<p><%= coderay({:inline => true}, "blender %w(#063186 #A21111 #D3A80D #28A528), 56") %></p>
+			
+			<%= erb Blog::Experience.tagged(:color_clock).run(:multiple_blender) %>
 			
 			<h3>Conclusion</h3>
 			

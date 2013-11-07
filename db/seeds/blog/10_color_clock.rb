@@ -151,15 +151,15 @@
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{
-    color_stops = ["#b62b2b", "#2b2bb6"]
-    steps = 186
+    color_stops = ["#A21111", "#D3A80D"]
+    steps = 168
   },
   :scss => %q{
 		#colors{
-		  display: inline-block;
+		  display: flex;
 		
 			&:hover .color-sample.active{
-			  width: .25em;
+			  flex: 1;
 			  border: none;
 			  
 			  .color-value{
@@ -170,18 +170,11 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 			
 			.color-sample{
 				height: 6em;
-				width: .25em;
-
-				//border: 1px solid black;
-				border: none;
-				
-				vertical-align: top;
+				flex: 1;
 				
 				font-size: 1em;
 				font-weight: 100;
 				color: $black;
-				
-				display: inline-block;
 								
 				.color-value{
 				  visibility: hidden;
@@ -191,10 +184,12 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 				&:hover,
 				&.active,
 				&.active:hover{
-				  width: 6em;
-				  border: 1px solid black;
-				  border-top: none;
-				  border-bottom: none;
+				  flex: none;
+  			  width: 6em;
+				  border: {
+				    left: 1px solid black;
+				    right: 1px solid black;
+				  };
 				  
 				  .color-value{
 				    visibility: visible;
@@ -216,4 +211,68 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
     // No JS
   },
   :mutation => :only_blender,
+  :published => true
+
+Blog::Snippet.create :primal => @color_clock_experiment.snippet,
+  :params => %q{
+    color_stops = ["#063186", "#A21111", "#D3A80D", "#28A528"]
+    steps = 56
+  },
+  :scss => %q{
+		#colors{
+		  display: flex;
+
+			&:hover .color-sample.active{
+			  flex: 1;
+			  border: none;
+
+			  .color-value{
+			    visibility: hidden;
+			    padding: .25em;
+			  }
+			}
+
+			.color-sample{
+				height: 6em;
+				flex: 1;
+
+				font-size: 1em;
+				font-weight: 100;
+				color: $black;
+
+				.color-value{
+				  visibility: hidden;
+				  padding: .25em;
+				}
+
+				&:hover,
+				&.active,
+				&.active:hover{
+				  flex: none;
+  			  width: 6em;
+				  border: {
+				    left: 1px solid black;
+				    right: 1px solid black;
+				  };
+
+				  .color-value{
+				    visibility: visible;
+				  }
+				}
+			}
+		}
+  },
+  :erb => %q{
+    <div id="colors" %>
+      <% blended.each_with_index do |color, index| %><!--
+        --><div class="color-sample <%= :active if index.zero? %>" style="background-color: <%= color %>">
+          <span class="color-value"><%= color %></span>
+			  </div><!--
+			--><% end %>
+    </div>
+  },
+  :js => %q{
+    // No JS
+  },
+  :mutation => :multiple_blender,
   :published => true

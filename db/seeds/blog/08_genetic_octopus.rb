@@ -14,6 +14,11 @@
       @mutation_rate = 1.0 / 1
 
       score_increment = 6.6
+      score_to_reach = if Rails.env == "development"
+        30
+      else
+        100
+      end
 
       color_start_hex = "#b62b2b"
       color_end_hex = "#b5702b"
@@ -25,7 +30,6 @@
 
     	@evolution_tree = []
 
-    	# -- hill climbing
     	def create_gene
     		@availables_pixels.sample
     	end
@@ -64,8 +68,6 @@
     	first_timer = Time.now
     	timer = Time.now
 
-    	p "Start Hill Climbing - #{ @generations } Generations - Complexity: #{ @searched_genes.size } genes + #{ @availables_pixels.size } colors"
-
     	score = 0
 
     	@population_of_one = create_person
@@ -80,16 +82,14 @@
 
     			GC.start
 
-    			puts "Generation #{ generation + 1 } - Score #{ @population_of_one[:score] } (#{ @population_of_one[:score] * 100 / @searched_genes.size }%) - time elapsed : #{ Time.now - timer } (this generation)"
-    			timer = Time.now
+  			  timer = Time.now
 
     			@evolution_tree << [@population_of_one, generation]
 
-    			break if score >= 100
+    			break if score >= score_to_reach
     		end
 
     		if @population_of_one[:score] == @searched_genes.size
-    			p "Perfect solution found - Exit at generation #{ generation }"
     			@evolution_tree << [@population_of_one, generation]
     			break 
     		end
@@ -101,8 +101,7 @@
     		end
     	end
 
-    	p "End Hill Climbing - Total time : #{ Time.now - first_timer }"
-    	# --- hill climbing end
+
 
 
     	def asset_data_uri path
