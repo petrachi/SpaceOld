@@ -3,5 +3,11 @@
 		<%= twelve_span do %>
 			<%= erb @experience.run %>
 		<% end %>
+		
+		<%= twelve_span do %>
+			<%= decorate @experience.snippet do |snippet| %>
+				<%= snippet.coderay %>
+			<% end %>
+		<% end %>
 	<% end %>
 <% end %>
