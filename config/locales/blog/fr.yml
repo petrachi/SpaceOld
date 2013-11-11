@@ -45,4 +45,5 @@ fr:
             erb: "Erb"
             js: "Javascript"
             reveal: "Afficher le code"
+            raw: "Afficher le code (raw)"
             
