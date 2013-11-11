@@ -44,6 +44,18 @@
 			
 			<iframe width="840" height="500" src="//www.youtube.com/embed/<%= @screencast.embed %>?rel=0" frameborder="0" allowfullscreen></iframe>
 			
+			<% if @screencast.serie %>			
+				<p>
+					<% if @screencast.following %>
+						<%= link_to "&larr; Précédent".html_safe, @screencast.following, :class => :btn %>
+					<% end %>
+				
+					<% if @screencast.followed %>
+						<%= link_to "Suivant &rarr;".html_safe, @screencast.followed, :class => :btn %>
+					<% end %>
+				</p>
+			<% end %>
+			
 			<h3><%= t 'blog.screencast.ressources' %></h3>
 			
 			<%= erb @screencast.run %>

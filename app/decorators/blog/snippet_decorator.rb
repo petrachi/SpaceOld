@@ -31,7 +31,7 @@ module Blog::SnippetDecorator
     end
     
     def reveal
-      h.content_tag :span, h.t("blog.snippet.reveal"), onclick: "r_kit.removeClass(document.getElementById('#{ h.dom_id(self) }'), 'display-none');"
+      h.link_to h.t("blog.snippet.reveal"), '#', onclick: "r_kit.removeClass(document.getElementById('#{ h.dom_id(self) }'), 'display-none');"
     end
   end
 end
