@@ -1,7 +1,7 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@gaulois_1_article = Blog::Article.create :user => @primal_user.blog_user,
+@pad_article = Blog::Article.create :user => @primal_user.blog_user,
   :title => "Pad with zeros",
   :summary => %q{
     Pourquoi mon ordinateur ne comprends pas qu'il faut afficher "07" et pas juste "7". Rhaaa, ce truc me rend fou !

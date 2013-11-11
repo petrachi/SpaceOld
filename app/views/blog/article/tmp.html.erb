@@ -192,19 +192,20 @@ end
 			
 			
 			
-			<i>Mince, la méthode que j'essaie d'utiliser ne fonctionne pas. J'aimerais bien avoir le code sous les yeux, si seulement le space blog pouvait me donner une technique pour trouver facilement le fichier et la ligne où est définie cette méthode ...</i>
+			<i>Mince, j'ai pas un IDE chouettos qui peut m'envoyer directement à la définition d'une méthode. Je suis bloqué ! Si seulement le SPACE BLOG avait un protip à ce sujet ...</i>
 			
 			<h2>Method location</h2>
 			
 			<p>
 				Salut tout le monde ! Vous êtes en forme aujourd'hui ?<br/>
-				C'est important de poser la question, parcequ'on va envoyer la sauce pas plus tard que maintenant. Trouver facilement le fichier et la ligné où est définie une méthode, c'est possible ! Et c'est parfois utile, aussi.
+				C'est important de poser la question, parce qu'on va envoyer la sauce pas plus tard que maintenant. Trouver facilement le fichier et la ligne où est définie une méthode, c'est possible ! Et c'est parfois utile, aussi.
 			</p>
 			
 			<h3>Ruby 1.9+</h3>
 			
 			<p>
-				On peut directement utiliser la méthode <%= coderay({:inline => true}, "Method#source_location") %>, qui renverra le fichier où est défini votre méthode, et la ligne. Mais on doit d'abord récupérer une instance de <%= coderay({:inline => true}, "Method") %>. Pour ça, c'est la méthode <%= coderay({:inline => true}, "Object#method") %> qui va nous servir.
+				On peut directement utiliser la méthode <%= coderay({:inline => true}, "Method#source_location") %>, qui renverra le fichier où est défini votre méthode, et la ligne. Mais on doit d'abord récupérer une instance de <%= coderay({:inline => true}, "Method") %>. Pour ça, c'est la méthode <%= coderay({:inline => true}, "Object#method") %> qui va nous servir.<br/>
+				Il faudra faire attention à une chose, la méthode <%= coderay({:inline => true}, "Method#source_location") %> renverra <%= coderay({:inline => true}, "nil") %> si la méthode cherchée n'est pas écrire en ruby.
 			</p>
 			
 			<%= coderay do %>
@@ -221,18 +222,14 @@ end
 
 ?> method.source_location
 => ["(irb)", 17]
-			<% end %>
-			
-			<%= coderay do %>
+
+
+# ---
 ?> "bonjour".method(:constantize).source_location
-=> ["/opt/boxen/rbenv/versions/1.9.3-p231-tcs-github1/lib/ruby/gems/1.9.1/gems/activesupport-3.2.14/lib/active_support/core_ext/string/inflections.rb", 53]
-			<% end %>
-			
-			<p>
-				Attention cependant, <%= coderay({:inline => true}, "Method#source_location") %> renverra <%= coderay({:inline => true}, "nil") %> si la méthode cherchée n'est pas écrite en ruby
-			</p>
-			
-			<%= coderay do %>
+=> ["/opt/boxen/(...)/active_support/core_ext/string/inflections.rb", 53]
+
+
+# --- Méthode native
 ?> "bonjour".method(:upcase).source_location
 => nil
 			<% end %>
@@ -240,7 +237,7 @@ end
 			<h3>Ruby 1.8 REE</h3>
 			
 			<p>
-				La classe <%= coderay({:inline => true}, "Method") %> de ruby 1.8 ne posséde pas encore la méthode <%= coderay({:inline => true}, "#source_location") %>, mais avec la version enterprise, vous pouvez facilement arriver au même résultat à l'aide de <%= coderay({:inline => true}, "__file__") %> et <%= coderay({:inline => true}, "__line__") %>
+				Sur ruby 1.8, la méthode <%= coderay({:inline => true}, "Method#source_location") %> n'existe pas. Cependant, la version enterprise (ree) nous fournit deux méthodes, <%= coderay({:inline => true}, "__file__") %> et <%= coderay({:inline => true}, "__line__") %>, qui vont nous permettre de facilement reproduire le comportement de <%= coderay({:inline => true}, "Method#source_location") %>.
 			</p>
 			
 			<%= coderay do %>
@@ -254,9 +251,11 @@ class Method
 end
 
 ?> "bonjour".method(:constantize).source_location
-=> ["/usr/local/rvm/gems/ree-1.8.7-2012.02/gems/activesupport-3.2.14/lib/active_support/core_ext/string/inflections.rb", 53]
+=> ["/usr/local/rvm/(...)/active_support/core_ext/string/inflections.rb", 53]
 
-?> "bonjour".method(:capitalize).source_location
+
+# --- Méthode native
+?> "bonjour".method(:upcase).source_location
 => ArgumentError: native Method
 	from (irb):36:in `__file__'
 	from (irb):36:in `source_location'
@@ -266,7 +265,7 @@ end
 			<h3>Conclusion</h3>
 			
 			<p>
-				Donc, une méthode à utiliser avec précautions, qui peut s'avérer utile surtout pour du débug.
+				Voilà une méthode utile, pour du débug ou par curiosité, mais que je ne conseille de ne pas utiliser ailleurs que dans son irb ou sa console.
 			</p>
 			
 			<p>
