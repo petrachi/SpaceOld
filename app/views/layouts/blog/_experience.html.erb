@@ -2,7 +2,11 @@
 	<%= row :nested => true do %>
 		<%= ten_span do %>
 			<p>
-				<strong>-webkit-</strong> (Chrome, safari)
+				<% if content_for? :red_bar %>
+					<%= yield :red_bar %>
+				<% else %>
+					<strong>-webkit-</strong> (Chrome, safari)
+				<% end %>
 			</p>
 		<% end %>
 		

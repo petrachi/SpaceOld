@@ -8,26 +8,30 @@ module Blog::SnippetDecorator
       end
     end
     
-    def coderay
-      
-      # each coderays should be in single methods (one for ruby, one from scss ...)
-      # code clumn (ruby, sccs, js) should be override to add html_safe
-      
-      h.capture do
-        x = h.coderay do
-          params + ruby
-        end
+    def coderay column
+      h.coderay lang: column do
+        self.send column
+      end
+    end
+    
+    def code
+      h.div_for self, class: "display-none" do
+        safe_buffer = h.content_tag :h3, h.t("blog.snippet.ruby")
+        safe_buffer += coderay :ruby
         
-        x += h.coderay :lang => :css do
-              scss
-        end.html_safe
+        safe_buffer += h.content_tag :h3, h.t("blog.snippet.scss")
+        safe_buffer += coderay :scss
         
-        x += h.coderay :lang => :javascript do
-              js
-        end.html_safe
+        safe_buffer += h.content_tag :h3, h.t("blog.snippet.erb")
+        safe_buffer += coderay :erb
         
-        
-      end.html_safe
+        safe_buffer += h.content_tag :h3, h.t("blog.snippet.js")
+        safe_buffer += coderay :js
+      end
+    end
+    
+    def reveal
+      h.content_tag :span, h.t("blog.snippet.reveal"), onclick: "r_kit.removeClass(document.getElementById('#{ h.dom_id(self) }'), 'display-none');"
     end
   end
 end

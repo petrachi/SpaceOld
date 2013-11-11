@@ -38,3 +38,11 @@ fr:
                 pagination: "Dans la même série"
             ressources: "Ressources"
             subscribe_youtube: "Chaine Youtube"
+        
+        snippet:
+            ruby: "Ruby"
+            scss: "Scss"
+            erb: "Erb"
+            js: "Javascript"
+            reveal: "Afficher le code"
+            
