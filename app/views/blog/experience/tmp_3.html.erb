@@ -1,0 +1,266 @@
+<%= one_col_container do %>
+	
+	<%= scss %q{
+		#img{
+			width: 130px;
+			
+		
+			.line{
+				display: flex;
+				
+				.px{
+					flex: 1;
+					
+					height: 10px;
+					
+					
+					background-color: red;
+				
+					&.w{
+						background-color: white;
+					}
+				}
+			}
+		}
+	} %>
+	
+	<div id="img">
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+		
+		<div class="line">
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px w"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+			<div class="px"></div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<%
+		color = Class.new do
+			def initialize options = {}
+				
+				@integer = if options[:integer]
+					options[:integer]
+				elsif options[:hex]
+					options[:hex].to_i(16)
+				elsif options[:rgb]
+					"##{ "%02x" % options[:rgb][0] }#{ "%02x" % options[:rgb][1] }#{ "%02x" % options[:rgb][2] }"
+				end
+				
+			end
+			
+			def hex
+				"%06x" % @integer
+			end
+		end
+		
+		div_drawer = Class.new do
+			attr_accessor :pixels
+			
+			def initialize view_context, color_class, options = {}
+				@width, @height = options.values_at :width, :height
+				
+				@pixels = Array.new(@height){ Array.new(@width){ color_class.new(options[:fill]) }}
+				
+				@h = view_context
+			end
+			
+			
+			def line options = {}
+				# look fonction affine
+			end
+			
+			
+			def draw
+				@h.content_tag :div, id: :img do
+					@pixels.inject(ActiveSupport::SafeBuffer.new) do |pixels, line|
+						
+						line_injected = @h.content_tag :div, class: :line do
+							line.inject(ActiveSupport::SafeBuffer.new) do |line, px|
+								
+								div_px = @h.content_tag :div, class: :px, style: "background-color: ##{ px.hex };" do
+									
+								end
+								
+								line.safe_concat div_px
+								
+							end
+						end
+						
+						pixels.safe_concat line_injected
+					end
+				end
+			end
+		end
+		
+		
+		
+	%>
+	
+	
+	<% x = div_drawer.new(self, color, :width => 13, :height => 10, :fill => {:hex => "ff00ff"})
+		
+		
+		x.pixels[2][2] = color.new hex: "00ff00"
+		x.pixels[3][4] = color.new hex: "0000ff"
+		
+		#p x.pixels
+		%><%=
+		x.draw 
+	%>
+	
+<% end %>
