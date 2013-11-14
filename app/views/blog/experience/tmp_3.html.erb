@@ -216,12 +216,77 @@
 				
 				@pixels = Array.new(@height){ Array.new(@width){ color_class.new(options[:fill]) }}
 				
+				@color_class = color_class
 				@h = view_context
 			end
 			
 			
+			
+			def calc_coef from, to
+				a = (to[:y] - from[:y]).to_f / (to[:x] - from[:x])
+				b = to[:y] - a * to[:x]
+				
+				[a, b]
+			end
+			
+			def affine_function from, to
+				
+				
+				a, b = calc_coef from, to
+				
+				
+				Proc.new{ |x| a * x + b }
+				
+				
+			end
+			
+			def reverse_function from, to
+				
+				
+				if (to[:x] - from[:x]) == 0
+					Proc.new{ |x| from[:x] }
+				else
+				
+				a, b = calc_coef from, to
+				
+				Proc.new{ |x| (x - b) / a }
+			end
+			end
+			
 			def line options = {}
 				# look fonction affine
+				
+				
+				
+				
+				
+				if (options[:to][:x] - options[:from][:x]) > (options[:to][:y] - options[:from][:y])
+				
+				options[:from][:x].upto options[:to][:x] do |x|
+					
+					f = affine_function options[:from], options[:to]
+					
+					y = f[x]
+					
+					@pixels[y.to_i][x.to_i] = @color_class.new(options[:fill])
+				end
+				
+			else
+				
+					options[:from][:y].upto options[:to][:y] do |y|
+
+						
+						f = reverse_function options[:from], options[:to]
+
+						x = f[y]
+						
+						
+						p x, y
+
+						@pixels[y.to_i][x.to_i] = @color_class.new(options[:fill])
+					end
+				end
+				
 			end
 			
 			
@@ -252,11 +317,20 @@
 	%>
 	
 	
-	<% x = div_drawer.new(self, color, :width => 13, :height => 10, :fill => {:hex => "ff00ff"})
+	<% x = div_drawer.new(self, color, :width => 15, :height => 15, :fill => {:hex => "ff00ff"})
 		
 		
-		x.pixels[2][2] = color.new hex: "00ff00"
-		x.pixels[3][4] = color.new hex: "0000ff"
+		x.pixels[1][10] = color.new hex: "ffff00"
+		x.pixels[2][10] = color.new hex: "00ffff"
+		
+		x.line :from => {:x => 1, :y => 5}, :to => {:x => 13, :y => 5}, :fill => {:hex => "0000ff"}
+		x.line :from => {:x => 1, :y => 5}, :to => {:x => 13, :y => 7}, :fill => {:hex => "000088"}
+		
+		x.line :from => {:x => 5, :y => 1}, :to => {:x => 5, :y => 13}, :fill => {:hex => "00ff00"}
+		x.line :from => {:x => 5, :y => 1}, :to => {:x => 7, :y => 13}, :fill => {:hex => "008800"}
+		
+		x.line :from => {:x => 1, :y => 1}, :to => {:x => 13, :y => 13}, :fill => {:hex => "ff0000"}
+		
 		
 		#p x.pixels
 		%><%=
