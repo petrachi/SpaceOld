@@ -1,0 +1,46 @@
+@mixin col($base_width, $col_size){
+	padding: 0 $base_width;
+	width: $base_width * 8 * $col_size;
+	flex-shrink: 0;
+	box-sizing: border-box;
+}
+
+@mixin grid($base_width: 12px){
+	
+	.container{
+		margin: auto;
+		width: $base_width * 8 * 12;
+		padding: 0 $base_width;
+		
+		.row{
+			display: flex;
+			flex-wrap: wrap;
+			align-items: baseline;
+			
+			margin: 0 -#{$base_width};
+			
+			@for $col_size from 1 through 12 {
+			  .col-#{$col_size} { @include col($base_width, $col_size); }
+			}
+		}
+	}
+}
+
+@include grid();
+
+
+/*
+
+1152 total (12px base)
+12span => 12 + 1128 + 12
+1span => 12 + 72 + 12
+
+960 total (10px base, 1span = 8 * base, total = 12 * 1span)
+1 => 10 + 60 + 10
+
+768 total (8px base)
+8 + 48 + 8
+*/
+
+
+

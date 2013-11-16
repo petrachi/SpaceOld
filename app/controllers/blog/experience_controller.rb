@@ -18,7 +18,7 @@ class Blog::ExperienceController < Blog::ApplicationController
   
   
   
-  
+  helper NewGrid
   
   #### Dev zone
   #if Rails.env == "development"
@@ -33,7 +33,7 @@ class Blog::ExperienceController < Blog::ApplicationController
       end
       
        if params[:page] == "4"
-          render :template => "blog/experience/tmp_4"
+          render :template => "blog/experience/tmp_4", layout: false
         end
       
 =begin      
