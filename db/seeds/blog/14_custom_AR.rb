@@ -4,7 +4,7 @@
 @custom_AR_1 = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Custom AR",
   :summary => "Avec rails, on peut perdre de vue certaines mécaniques de ruby. Cette série va nous permettre de renouer avec les vielles habitudes.",
-  :embed => "",
+  :embed => "pgaGyqU4Xpk",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class Book
@@ -53,7 +53,7 @@ book_2 = Book.new title: "La belle et la bete", author: author
 
 @custom_AR_2 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Après avoir reproduit le comportement has_many/belongs_to, on s'occupe maintenant des méthodes 'all' et 'find_by_*'.",
-  :embed => "",
+  :embed => "2_m-euiWzxU",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class Author
@@ -118,7 +118,7 @@ puts Author.find_by_name :jeanne
   
 @custom_AR_3 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Épisode final où -HO MY GOD- on va utiliser un method_missing pour dynamiser un petit peu nos jeunes méthodes 'find_by_*'.",
-  :embed => "",
+  :embed => "wPB23V4g6-A",
   :snippet => Blog::Snippet.create(:erb => %q{
     <%= coderay do %>
 class Book
