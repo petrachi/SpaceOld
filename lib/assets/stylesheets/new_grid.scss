@@ -5,6 +5,10 @@
 	box-sizing: border-box;
 }
 
+@mixin off($base_width, $off_size){
+	margin-left: $base_width * 8 * $off_size;
+}
+
 @mixin grid($base_width: 12px){
 	
 	.container{
@@ -19,8 +23,9 @@
 			
 			margin: 0 -#{$base_width};
 			
-			@for $col_size from 1 through 12 {
-			  .col-#{$col_size} { @include col($base_width, $col_size); }
+			@for $i from 1 through 12 {
+			  .col-#{$i} { @include col($base_width, $i); }
+			  .off-#{$i} { @include off($base_width, $i); }
 			}
 		}
 	}
