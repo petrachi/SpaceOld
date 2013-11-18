@@ -67,7 +67,7 @@
 			<% end %>
 		<% end %>
 		
-		<%= container_6_tag [1,2,3,4] do |i| %>
+		<%= container_6_tag [1,2,3,4], class: :ccc, rows: {class: :rrr, spans: {proc_options: {class: ->(instance){ "sss-#{instance}" }}}} do |i| %>
 			<%= i %>
 		<% end %>
 	</body>
