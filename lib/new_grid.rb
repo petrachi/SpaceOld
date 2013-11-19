@@ -4,8 +4,8 @@ module NewGrid
   # this is doing too mush for very rare use
   # -> maybe, allow proc only for spans, and maybe put it in a "proc options" key
   def proc_options instance, options = {}
-    options[:proc_options].each do |key, proc|
-      options[key] = value.call(instance)
+    (options[:proc_options] || []).each do |key, proc|
+      options[key] = proc.call(instance)
     end
   end
   
@@ -49,10 +49,10 @@ module NewGrid
     end
   
     define_method "row_#{ col_size }_tag" do |collection, options = {}, &block|
-      span_options = options.delete(:spans) || {}
+      col_options = options.delete(:spans) || {}
       
       cols_buffer = collection.inject ActiveSupport::SafeBuffer.new do |safe_buffer, instance|
-        safe_buffer.safe_concat send("col_#{ col_size }_tag", instance, span_options, &block)
+        safe_buffer.safe_concat send("col_#{ col_size }_tag", instance, col_options, &block)
       end
       
       row_tag(options){ cols_buffer }
