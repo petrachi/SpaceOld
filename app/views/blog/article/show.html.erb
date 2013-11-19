@@ -1,6 +1,6 @@
-<%= container do %>
-	<%= row do %>
-		<%= three_span :element => :sidebar do %>
+<%= container_tag do %>
+	<%= row_tag do %>
+		<%= col_3_tag tag: :sidebar do %>
 			<% if @article.serie %>
 				<h3><%=t 'blog.article.series.pagination' %></h3>
 
@@ -29,7 +29,7 @@
 			</p>
 		<% end %>
 		
-		<%= nine_span :element => :article do %>
+		<%= col_9_tag tag: :article do %>
 			<h2>
 				<%= @article.title %>
 			</h2>

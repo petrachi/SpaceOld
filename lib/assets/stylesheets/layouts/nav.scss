@@ -69,7 +69,7 @@
 	}
 	
 	#break{
-		.container{	
+		//.container{	
 			color: $background-color;
 			background-color: $primary-color;
 			
@@ -82,6 +82,6 @@
 			p{
 				margin: .5em 1em;
 			}
-		}
+			//}
 	}
 }

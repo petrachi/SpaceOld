@@ -3,6 +3,7 @@
 	width: $base_width * 8 * $col_size;
 	flex-shrink: 0;
 	box-sizing: border-box;
+	background-origin: content-box;
 }
 
 @mixin off($base_width, $off_size){
@@ -15,6 +16,8 @@
 		margin: auto;
 		width: $base_width * 8 * 12;
 		padding: 0 $base_width;
+		box-sizing: border-box;
+		background-clip: content-box;
 		
 		.row{
 			display: flex;

@@ -11,36 +11,46 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body id="<%= @application %>" layout="nav">
-		<%= one_col_container :element => :header, :disable => :spans do %>
-			<%= one_span :id => :return do %>
-				<h1 class="text-center">
-					<%= link_to root_url(:subdomain => false) do %>
-						<i class="icon-globe"></i>
+		<header>
+			<%= container_tag do %>
+				<%= row_tag do %>
+					<%= col_1_tag :id => :return do %>
+						<h1 class="text-center">
+							<%= link_to root_url(:subdomain => false) do %>
+								<i class="icon-globe"></i>
+							<% end %>
+						</h1>
 					<% end %>
-				</h1>
-			<% end %>
 			
-			<%= ten_span :id => :title, :append => 1 do %>
-				<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
+					<%= col_10_tag :id => :title, :append => 1 do %>
+						<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
+					<% end %>
+				<% end %>
 			<% end %>
-		<% end %>
-		
-		<!-- Navigation trough sections -->
-		<%= four_col_container 	:element => :nav, 
-								:collection => @sections, 
-								:spans => {
-									:class => ->(section){ 
-										%W{
-											#{ @application }-section-#{ section } 
-											#{ :active if section == @section }
-										}.join ' '
-									}
-								} do |section| %>
-			<h3><%= link_to t("#{ @application }.#{ section }.name"), "#{ @application }/#{ section }".classify.constantize %></h3>
-		<% end %>
-		
+		</header>
+			
+		<nav>
+			<%= container_3_tag @sections, 
+					rows: {
+						cols: {
+							proc_options: {
+								class: ->(section){ 
+									%W{
+										#{ @application }-section-#{ section } 
+										#{ :active if section == @section }
+									}.join ' '
+								}
+							}
+						}
+					} do |section| %>
+				<h3>
+					<%= link_to t("#{ @application }.#{ section }.name"), "#{ @application }/#{ section }".classify.constantize %>
+				</h3>
+			<% end %>
+		</nav>
+	
 		<!-- Wide -->
-		<%= one_col_container :id => :break, :class => @section do %>
+		<%= container_tag :id => :break, :class => @section do %>
 			<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
 		<% end %>
 		

@@ -11,23 +11,26 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body id="<%= @application %>" layout="main">
-		<%= container :element => :header do %>
-			<%= row do %>
-				<% unless application_is? :space %>
-					<%= one_span :id => :return do %>
-						<h1>
-							<%= link_to root_url(:subdomain => false) do %>
-								<i class="icon-globe"></i>
-							<% end %>
-						</h1>
+		<header>
+			<%= container_tag do %>
+				<%= row_tag do %>
+					<% unless application_is? :space %>
+						<%= col_1_tag :id => :return do %>
+							<h1>
+								<%= link_to root_url(:subdomain => false) do %>
+									<i class="icon-globe"></i>
+								<% end %>
+							</h1>
+						<% end %>
+					<% end %>
+				
+					<%= col_10_tag offset: (application_is?(:space) ? 1 : 0) do %>
+						<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
 					<% end %>
 				<% end %>
-				
-				<%= ten_span :append => 1, :prepend => (application_is?(:space) ? 1 : 0) do %>
-					<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
-				<% end %>
 			<% end %>
-		<% end %>
+		</header>
+		
 		
 		<%= yield %>
 	</body>
