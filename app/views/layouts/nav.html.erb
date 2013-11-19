@@ -50,8 +50,10 @@
 		</nav>
 	
 		<!-- Wide -->
-		<%= container_tag :id => :break, :class => @section do %>
-			<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
+		<%= container_tag do %>
+			<div id="break">
+				<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
+			</div>
 		<% end %>
 		
 		<%= yield %>	

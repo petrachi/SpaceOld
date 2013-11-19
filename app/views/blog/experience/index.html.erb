@@ -1,4 +1,4 @@
-<%= four_cols_container :collection => @experiences do |experience| %>
+<%= container_3_tag @experiences do |experience| %>
 	<h2 class="text-center">
 		<%= experience.title %>
 	</h2>
@@ -8,6 +8,6 @@
 	</p>
 	
 	<p class="text-center">
-		<%= link_to t(:test), experience, :class => :btn %>
+		<%= link_to t(:test), experience, class: :btn %>
 	</p>
 <% end %>

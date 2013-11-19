@@ -4,16 +4,13 @@
 	<% end %>
 <% end %>
 
-<%= container do %>
-	<%= row do %>
-		<%= twelve_span do %>
-			<%= decorate @experience.snippet do |snippet| %>
-				<%= snippet.code %>
-			<% end %>
-		<% end %>
-		
-		<%= twelve_span do %>
-			<%= erb @experience.run %>
-		<% end %>
+
+<%= container_tag do %>
+	<%= decorate @experience.snippet do |snippet| %>
+		<%= snippet.code %>
 	<% end %>
+<% end %>
+
+<%= container_tag do %>
+	<%= erb @experience.run %>
 <% end %>

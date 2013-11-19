@@ -1,6 +1,6 @@
-<%= container do %>
-	<%= row do %>
-		<%= three_span :element => :sidebar do %>
+<%= container_tag do %>
+	<%= row_tag do %>
+		<%= col_3_tag :element => :sidebar do %>
 			<% if @screencast.serie %>
 				<h3><%=t 'blog.screencast.series.pagination' %></h3>
 
@@ -37,7 +37,7 @@
 			
 		<% end %>
 	
-		<%= nine_span :element => :article do %>
+		<%= col_9_tag :element => :article do %>
 			<h2>
 				<%= @screencast.title %>
 			</h2>

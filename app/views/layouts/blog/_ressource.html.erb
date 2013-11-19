@@ -1,17 +1,15 @@
-<%= container do %>
-	<%= row :nested => true do %>
-		<%= ten_span do %>
-			<p>
-				Tout est là, tout mon savoir.
-			</p>
-		<% end %>
-		
-		<%= one_span :prepend => 1 do %>
-			<p>
-				<%= link_to blog_ressources_url do %>
-					<i class="icon-home"></i>
-				<% end %>
-			</p>
-		<% end %>
+<%= row_tag do %>
+	<%= col_10_tag do %>
+		<p>
+			Tout est là, tout mon savoir.
+		</p>
+	<% end %>
+	
+	<%= col_1_tag offset: 1 do %>
+		<p>
+			<%= link_to blog_ressources_url do %>
+				<i class="icon-home"></i>
+			<% end %>
+		</p>
 	<% end %>
 <% end %>

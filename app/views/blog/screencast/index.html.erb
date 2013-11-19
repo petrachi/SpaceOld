@@ -1,4 +1,4 @@
-<%= four_cols_container :collection => @screencasts do |screencast| %>
+<%= container_3_tag @screencasts do |screencast| %>
 	<h2 class="text-center">
 		<%= screencast.title %>
 	</h2>
@@ -8,6 +8,6 @@
 	</p>
 	
 	<p class="text-center">
-		<%= link_to t(:watch), screencast, :class => :btn %>
+		<%= link_to t(:watch), screencast, class: :btn %>
 	</p>
 <% end %>

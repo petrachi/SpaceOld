@@ -1,21 +1,19 @@
-<%= container do %>
-	<%= row :nested => true do %>
-		<%= ten_span do %>
-			<p>
-				<% if content_for? :red_bar %>
-					<%= yield :red_bar %>
-				<% else %>
-					<strong>-webkit-</strong> (Chrome, safari)
-				<% end %>
-			</p>
-		<% end %>
-		
-		<%= one_span :prepend => 1 do %>
-			<p>
-				<%= link_to blog_experiences_url do %>
-					<i class="icon-home"></i>
-				<% end %>
-			</p>
-		<% end %>
+<%= row_tag do %>
+	<%= col_10_tag do %>
+		<p>
+			<% if content_for? :red_bar %>
+				<%= yield :red_bar %>
+			<% else %>
+				<strong>-webkit-</strong> (Chrome, safari)
+			<% end %>
+		</p>
+	<% end %>
+	
+	<%= col_1_tag offset: 1 do %>
+		<p>
+			<%= link_to blog_experiences_url do %>
+				<i class="icon-home"></i>
+			<% end %>
+		</p>
 	<% end %>
 <% end %>
