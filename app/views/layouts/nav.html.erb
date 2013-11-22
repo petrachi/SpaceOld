@@ -28,7 +28,7 @@
 				<% end %>
 			<% end %>
 		</header>
-			
+		
 		<nav>
 			<%= container_3_tag @sections, 
 					rows: {
@@ -49,12 +49,11 @@
 			<% end %>
 		</nav>
 	
-		<!-- Wide -->
-		<%= container_tag do %>
-			<div id="break">
+		<div id="break">
+			<%= container_tag do %>
 				<%= render :partial => "layouts/#{ @application }/#{ @section }" %>
-			</div>
-		<% end %>
+			<% end %>
+		</div>
 		
 		<%= yield %>	
 	</body>

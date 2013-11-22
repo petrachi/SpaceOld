@@ -41,7 +41,7 @@ module NewGrid
     end
   
     define_method "row_#{ col_size }_tag" do |collection, options = {}, &block|
-      col_options = options.delete(:cols) || {}
+      col_options = options[:cols] || {}
       
       cols_buffer = collection.inject ActiveSupport::SafeBuffer.new do |safe_buffer, instance|
         safe_buffer.safe_concat send("col_#{ col_size }_tag", col_options.merge(instance: instance), &block)
@@ -50,16 +50,18 @@ module NewGrid
       row_tag(options){ cols_buffer }
     end
     
-    define_method "container_#{ col_size }_tag" do |collection, options = {}, &block|
-      row_options = options.delete(:rows) || {}
-      
+    
+    define_method "rows_#{ col_size }_tag" do |collection, options = {}, &block|      
       rows_buffer = collection
         .in_groups_of(12 / col_size, false)
         .inject ActiveSupport::SafeBuffer.new do |safe_buffer, collection|
-          safe_buffer.safe_concat send("row_#{ col_size }_tag", collection, row_options, &block)
+          safe_buffer.safe_concat send("row_#{ col_size }_tag", collection, options, &block)
       end
-      
-      container_tag(options){ rows_buffer }
+    end
+    
+    define_method "container_#{ col_size }_tag" do |collection, options = {}, &block|
+      row_options = options.delete(:rows) || {}
+      container_tag(options){ send("rows_#{ col_size}_tag", collection, row_options, &block) }
     end
   end
 end

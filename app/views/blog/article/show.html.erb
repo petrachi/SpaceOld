@@ -5,20 +5,8 @@
 				<h3><%=t 'blog.article.series.pagination' %></h3>
 
 				<p>
-					<% @serie = Blog::Article.where(serie: @article.serie) %>
-					<% @serie.each do |s| %><!--
-						--><% if s == @article %><!--
-							--><span class="btn-disabled">vol <%= s.serial_number %></span><!--
-						--><% else %><!--
-							--><%= link_to "vol #{s.serial_number}", s, :class => :btn %><!--
-						--><% end %><!--
-					--><% end %>
-				</p>
-				
-				<h3><%=t 'blog.article.serie' %></h3>
-				
-				<p>
-					<%= link_to @article.serie, @article.serie_url, :class => :btn %>
+					<%= @article.serie_link_to %><!--
+					--><%= @article.paginate %>
 				</p>
 			<% end %>
 			

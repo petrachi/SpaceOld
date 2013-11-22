@@ -1,23 +1,24 @@
 @mixin col($base_width, $col_size){
-	padding: 0 $base_width;
-	width: $base_width * 8 * $col_size;
+	//padding: 0 $base_width;
+	margin: 0 $base_width;
+	width: $base_width * 8 * $col_size - 2 * $base_width;
 	flex-shrink: 0;
-	box-sizing: border-box;
-	background-origin: content-box;
+	//box-sizing: border-box;
+	//background-origin: content-box;
 }
 
 @mixin off($base_width, $off_size){
-	margin-left: $base_width * 8 * $off_size;
+	margin-left: $base_width * 8 * $off_size + 1 * $base_width;
 }
 
 @mixin grid($base_width: 12px){
 	
 	.container{
 		margin: auto;
-		width: $base_width * 8 * 12;
-		padding: 0 $base_width;
+		width: $base_width * 8 * 12 - 2 * $base_width;
+		//padding: 0 $base_width;
 		box-sizing: border-box;
-		background-clip: content-box;
+		//background-clip: content-box;
 		
 		.row{
 			display: flex;

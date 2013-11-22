@@ -254,53 +254,52 @@ Blog::Snippet.create :primal => @sphere_experience.snippet,
       En cherchant bien sur l'internet, j'ai trouvé un algorithme fiable et rapide basé sur le nombre d'or. Rapidement traduit en ruby, cet algorithme renvoie un tableau de points, représentés par leurs coordonnées sphériques ([distance, angle horizontal, angle vertical] - noté [p, ϕ, θ] - les angles sont exprimés en radians). Voilà ce que ça donne : 
     </p>
     
-    <%= container :class => :'demo-transform' do %>
-    	<%= row :nested => true do %>
-    		<%= five_span do %>
-      		<%= coderay do %>
+    
+  	<%= row_tag do %>
+  		<%= col_5_tag do %>
+    		<%= coderay do %>
 def points_on_sphere n
-  n = n.to_f
-  pts = Array.new
+n = n.to_f
+pts = Array.new
 
-  inc = Math::PI * (3 - Math::sqrt(5))
-  off = 2 / n
+inc = Math::PI * (3 - Math::sqrt(5))
+off = 2 / n
 
-  (0...n).each do |k|
-    y = k * off - 1 + (off / 2)    
-    r = Math::sqrt(1 - y**2)
-    phi = k * inc
+(0...n).each do |k|
+  y = k * off - 1 + (off / 2)    
+  r = Math::sqrt(1 - y**2)
+  phi = k * inc
 
-    x_phi = Math::PI/2 - Math::acos(y)
+  x_phi = Math::PI/2 - Math::acos(y)
 
-    pts << [1.0, phi, x_phi]
-  end
-
-  pts
+  pts << [1.0, phi, x_phi]
 end
-    			<% end %>
-      	<% end %>
 
-      	<%= four_span do %>
-      	  <%= coderay do %>
+pts
+end
+  			<% end %>
+    	<% end %>
+
+    	<%= col_4_tag do %>
+    	  <%= coderay do %>
 >> points_on_sphere 6
 =>[
-  [1.0, 0.0, -1.1596584], 
-  [1.0, 2.3999632, -0.848062], 
-  [1.0, 4.7999264, -0.6228265], 
-  [1.0, 7.1998896, -0.4297754], 
-  [1.0, 9.5998529, -0.2526802], 
-  [1.0, 11.9998161, -0.08343], 
-  [1.0, 14.3997793, 0.08343], 
-  [1.0, 16.7997426, 0.2526802], 
-  [1.0, 19.1997058, 0.4297754], 
-  [1.0, 21.599669, 0.6228265], 
-  [1.0, 23.9996322, 0.848062], 
-  [1.0, 26.3995955, 1.1596584]
+[1.0, 0.0, -1.1596584], 
+[1.0, 2.3999632, -0.848062], 
+[1.0, 4.7999264, -0.6228265], 
+[1.0, 7.1998896, -0.4297754], 
+[1.0, 9.5998529, -0.2526802], 
+[1.0, 11.9998161, -0.08343], 
+[1.0, 14.3997793, 0.08343], 
+[1.0, 16.7997426, 0.2526802], 
+[1.0, 19.1997058, 0.4297754], 
+[1.0, 21.599669, 0.6228265], 
+[1.0, 23.9996322, 0.848062], 
+[1.0, 26.3995955, 1.1596584]
 ]
-          <% end %>
-    		<% end %>
-    	<% end %>
-    <% end %>
+        <% end %>
+  		<% end %>
+  	<% end %>
     
     <h3>
     	Représentation graphique
@@ -309,48 +308,46 @@ end
     <p>
       Chaque point sera représenté par une <%= coderay({:inline => true, :lang => :html}, "<div>") %>, qui sera ensuite positionnée via les propriètés <%= coderay({:inline => true, :lang => :css}, :transform) %> de la norme CSS3. Une rapide démonstration de l'utilisation des <%= coderay({:inline => true, :lang => :css}, :transform) %> montre bien la facilité avec laquelle nous pouvons réaliser un rendu graphique 3D en web aujourd'hui, merci les nouvelles technologies !
     </p>
-    
-    <%= container :class => :'demo-transform' do %>
-    	<%= row :nested => true do %>
-    		<%= three_span :class => :base do %>
-    			<h4 class="text-center">Aucune transformation</h4>
+  
+  	<%= row_tag :class => :'demo-transform' do %>
+  		<%= col_3_tag :class => :base do %>
+  			<h4 class="text-center">Aucune transformation</h4>
 
-    			<div class="demo">
-    				<div class="origin final">
-    					<p>Final</p>
-    				</div>
-    			</div>
-    		<% end %>
+  			<div class="demo">
+  				<div class="origin final">
+  					<p>Final</p>
+  				</div>
+  			</div>
+  		<% end %>
 
-    		<%= three_span :class => :intermediate do %>
-    			<h4 class="text-center">Une rotation</h4>
+  		<%= col_3_tag :class => :intermediate do %>
+  			<h4 class="text-center">Une rotation</h4>
 
-    			<div class="demo">
-    				<div class="origin">
-    					<p>1</p>
-    				</div>
-    				<div class="rotation final">
-    					<p>Final</p>
-    				</div>
-    			</div>
-    		<% end %>
+  			<div class="demo">
+  				<div class="origin">
+  					<p>1</p>
+  				</div>
+  				<div class="rotation final">
+  					<p>Final</p>
+  				</div>
+  			</div>
+  		<% end %>
 
-    		<%= three_span :class => :final do %>
-    			<h4 class="text-center">Suivie d'une translation</h4>
+  		<%= col_3_tag :class => :final do %>
+  			<h4 class="text-center">Suivie d'une translation</h4>
 
-    			<div class="demo">
-    				<div class="origin">
-    					<p>1</p>
-    				</div>
-    				<div class="rotation">
-    					<p>2</p>
-    				</div>
-    				<div class="translation final">
-    					<p>Final</p>
-    				</div>
-    			</div>
-    		<% end %>
-    	<% end %>
+  			<div class="demo">
+  				<div class="origin">
+  					<p>1</p>
+  				</div>
+  				<div class="rotation">
+  					<p>2</p>
+  				</div>
+  				<div class="translation final">
+  					<p>Final</p>
+  				</div>
+  			</div>
+  		<% end %>
     <% end %>
     
     <%= coderay :lang => :css do %>

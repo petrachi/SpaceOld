@@ -30,4 +30,8 @@ module Blog::Seriable
   def serie_url
     URL.send "#{ ActiveModel::Naming.route_key self.class }_path", serie: serie
   end
+  
+  def serie_collection
+    self.class.where(serie: serie)
+  end
 end

@@ -15,7 +15,7 @@
 
       score_increment = 6.6
       score_to_reach = if Rails.env == "development"
-        30
+        20
       else
         100
       end
@@ -128,9 +128,13 @@
     :scss => %q{
       .genetic-octopus{
     		margin: 1em 0 2em;
-
+        
+        .row{
+          align-items: center;
+        }
+        
     		.hill-climbing{
-    			padding-top: 1em;
+    			padding-top: 1em !important;
     			text-align: center;
 
     			.icon-spinner{
@@ -141,30 +145,32 @@
     	}
     },
     :erb => %q{
-      <%= six_cols_container :collection => @evolution_tree, :class => :'genetic-octopus', :rows => {:nested => true}, :spans => {:class => :'hill-climbing display-none'} do |person, generation| %>
+      <div class="genetic-octopus">
+        <%= rows_2_tag @evolution_tree, :cols => {:class => :'hill-climbing display-none'} do |person, generation| %>
 
-      	<% 
-      		m = color_start_hex.match /#(..)(..)(..)/
-      		color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
+        	<% 
+        		m = color_start_hex.match /#(..)(..)(..)/
+        		color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
 
-      		m = color_end_hex.match /#(..)(..)(..)/
-      		color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
+        		m = color_end_hex.match /#(..)(..)(..)/
+        		color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
 
-      		percent = person[:score] * 100 / @searched_genes.size
+        		percent = person[:score] * 100 / @searched_genes.size
 
-      		r_diff = color_end[:r] - color_start[:r]
-      		v_diff = color_end[:v] - color_start[:v]
-      		b_diff = color_end[:b] - color_start[:b]
+        		r_diff = color_end[:r] - color_start[:r]
+        		v_diff = color_end[:v] - color_start[:v]
+        		b_diff = color_end[:b] - color_start[:b]
 
-      		r = color_start[:r] + r_diff * percent/100.0
-      		v = color_start[:v] + v_diff * percent/100.0
-      		b = color_start[:b] + b_diff * percent/100.0
-      	%>
+        		r = color_start[:r] + r_diff * percent/100.0
+        		v = color_start[:v] + v_diff * percent/100.0
+        		b = color_start[:b] + b_diff * percent/100.0
+        	%>
 
-      	<%= image_tag genes_to_uri(person[:genes]), :class => "display-none", :style=>"background-color: rgb(#{r.to_i}, #{v.to_i}, #{b.to_i});" %>
-      	<i class="icon-spinner icon-spin"></i>
+        	<%= image_tag genes_to_uri(person[:genes]), :class => "display-none", :style=>"background-color: rgb(#{r.to_i}, #{v.to_i}, #{b.to_i});" %>
+        	<i class="icon-spinner icon-spin"></i>
 
-      <% end %>
+        <% end %>
+      </div>
     },
     :js => %q{
       var timers = [10, 138, 163, 146, 157, 152, 196, 195, 178, 215, 210, 279, 348, 362, 634, 1592];

@@ -2,9 +2,11 @@ module Blog::ScreencastDecorator
   include RKit::Decorable
   
   module DecoratorMethods
+    include Blog::Seriable::Decorator
+    
     def title
       if serie
-        "#{ super } <small><i>(vol #{ serial_number })</i></small>".html_safe
+        "#{ super } <small><i class='no-warp'>(vol #{ serial_number })</i></small>".html_safe
       else
         super
       end
