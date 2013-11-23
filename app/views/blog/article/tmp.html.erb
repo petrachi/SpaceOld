@@ -1,10 +1,10 @@
-<%= container do %>
-	<%= row do %>
-		<%= three_span :element => :sidebar do %>
+<%= container_tag do %>
+	<%= row_tag do %>
+		<%= col_3_tag :element => :sidebar do %>
 			1
 		<% end %>
 
-		<%= nine_span :element => :article do %>
+		<%= col_9_tag :element => :article do %>
 			
 			
 			<%= @article.title %>
@@ -21,26 +21,20 @@
 			
 			
 			
-			<i>On prend deux couleurs, on les mixe, et on obtient un dégradé parfaitement génial, avec du code tout à fait dégueulasse.</i>
+			<i>On prend deux couleurs, on les mixe, et on obtient un dégradé parfaitement génial (mais le code tout à fait dégueulasse).</i>
 			
 			<h2>Color Blender</h2>
 			
 			<p>
 				Salut les p'tit amis,<br/>
-				Donc le principe ici sera de faire une fonction permettant d'assurer une transition fluide entre deux couleurs.
+				Aujourd'hui on va contruire un algorithme de création de dégradé, ou 'color blender', en ruby, parceque c'est fun !
 			</p>
 			
 			<h3>Format de couleur</h3>
 			
 			<p>
-				En gros, il y a deux formats de couleurs classiques utilisés en développement informatique.<br/>
-				Le format hexadécimal, où le blanc est représenté comme ceci #ffffff, et le rouge utilisé pour les boutons de ce site #b62b2b. Ou le format rgv (pour touge, vert, bleu), où le blanc fait rgb(255, 255, 255), et le rouge des boutons fait rbg(182, 43, 43).<br/>
-				On peut également trouver un format hsv, pour teinte, saturation et luminosité. Mais je crois que ce format est plus souvent utilisé en photo montage qu'en programmation.
-			</p>
-			
-			<p>
-				Nous allons devoir manipuler des couleurs dans notre petit algorithme, il faut donc choisir le format le plus approprié. J'ai choisi de travailler avec le format rgb, car utiliser les valeurs numériques sont plus faciles à manipuler. Le résultat attendu devra par contre être exprimé en hexa, car ce format est plus lisible.<br/>
-				À la réflexion, manipuler les couleurs avec le format hsv aurait peut-être simplifié la tâche, ar ils sépare bien toute les composantes d'une couleur, et permet donc de trouver facilement une transition fluide.
+				On va utiliser deux formats de couleurs pour notre algorithme, rgb pour manipuler les valeurs, parceque manipuler des décimales c'est quand même plus sympa, et puis de l'hexa aussi, parceque je trouve ça plus joli. À titre d'exemple, le rouge utilise sur ce site donne en rgb quelquechose comme (182, 43, 43), et en hexa #b62b2b.<br/>
+				Tout ça nous donner l'occasion de travailler sur deux petites fonctions de conversion !
 			</p>
 			
 			<%= coderay do %>
@@ -54,10 +48,10 @@ def rgb_to_hex rgb
 end
 			<% end %>
 			
-			<h3>Color diff + color blend</h3>
+			<h3>Color diff + pourcentages</h3>
 			
 			<p>
-				Maintenant, on va devoir apprendre à m'langer deux couleurs. Pour ça, on calculera d'abord les valeurs de différences entre les deux couleurs. C'est relativement simple.
+				Allez, sans transitions on rentre dans le vif du sujet, on commence par calculer la différence de valeurs entre les deux couleurs passées en paramètres (notés <%= coderay({:inline => true}, "from, to") %>).
 			</p>
 			
 			<%= coderay do %>
@@ -71,7 +65,7 @@ end
 			<% end %>
 			
 			<p>
-				Ensuite, nous allons appliquer cette différence à partir de la couleur de base, accouplé à un pourcentage de transformation.
+				Ensuite, nous allons pouvoir progresser lentement, à partir de la première couleur, vers la seconde, en appliquant une portion donnée de la différence entre les deux couleurs.
 			</p>
 			
 			<%= coderay do %>
@@ -84,10 +78,10 @@ def blend_color from, diff, progress
 end
 			<% end %>
 			
-			<h3>Réunification de toutes les composantes</h3>
+			<h3>Unification dans le blender</h3>
 			
 			<p>
-				Nous pouvons maintenant réunir toutes les différentes étapes de notre blender. De la conversion rgb/hex, au calcul de la différence et à la transition lente d'une couleur à l'autre.
+				Nous avons toutes les composantes pour notre fonction de color blender, il suffit juste de tout mettre bout à bout : 
 			</p>
 			
 			<%= coderay do %>
@@ -119,7 +113,7 @@ end
 			<h3>Color stops</h3>
 			
 			<p>
-				Avant de conclure, je vous présente juste une petite amélioration qui permettra de chainer les appels à l'ancien blender.
+				Avant de conclure, je vous montre une version améliorée qui permet de chainer plusieurs couleurs en un seul appel.
 			</p>
 			
 			<%= coderay do %>
@@ -154,11 +148,12 @@ end
 			<h3>Conclusion</h3>
 			
 			<p>
-				Voilà, un color blender très simple et rapidement réalisé. On pourrait améliorer largement cette fonction, pour inclure la transparence d'abord. Puis améliorer la gestion des <%= coderay({:inline => true}, "color_stops") %>, qui est très statique aujourd'hui.
+				Voilà, c'est fini, un color blender simple et rapidement réalisé.<br/>
+				On pourrait bien sûr améliorer cette fonction, transformer ce code fontionnel en orienté objet, inclure la transparence, mieux gérer le nombre d'itérations en deux couleurs.
 			</p>
 			
 			<p>
-				En dehors de ces améliorations possibles, l'algorithme fonctionne suffisamment bien. Je l'ai mis en place pour l'expérience du "color clock", et il remplit son rôle. J'avais commencé par le faire en javascript, mais j'avoue être bien plus à l'aise en ruby.
+				J'ai développé cet algorithme pour l'exéprience du "color clock" (que j'avais commencé à travailler en javascript), et je l'ai aussi utilisé pour l'expérience du "genetic octopus". Pour moi, cette fonction a rempli son office.
 			</p>
 			
 			<p>
