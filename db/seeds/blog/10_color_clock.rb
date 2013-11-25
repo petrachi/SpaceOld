@@ -147,7 +147,64 @@
   :published_at => "02-11-2013".to_datetime,
   :tag => :color_clock,
   :pool => :experience
-  
+
+Blog::Snippet.create :primal => @color_clock_experiment.snippet,
+  :params => %q{
+    color_stops = ["#A21111", "#D3A80D"]
+    steps = 168
+    
+    from, to = color_stops
+  },
+  :scss => %q{
+		#colors{
+      display: flex;
+      justify-content: space-around;
+      
+			.color-sample{
+				height: 6em;
+			  width: 6em;
+        
+        border: {
+			    left: 1px solid black;
+			    right: 1px solid black;
+			  };
+        
+				font-size: 1em;
+				font-weight: 100;
+				color: $black;
+        
+			  .color-value{
+          display: inline-block;
+			    padding: .25em;
+			  }
+			}
+		}
+  },
+  :erb => %q{
+    <%
+      from = hex_to_rgb from
+		  to = hex_to_rgb to
+
+		  diff = diff_color from, to
+    %>
+    
+    <div id="colors">
+      <% [0, 0.2, 0.4, 0.6, 0.8, 1].each do |progress| %>
+        <% color = rgb_to_hex blend_color(from, diff, progress) %>
+        
+        <div class="color-sample" style="background-color: <%= color %>">
+          <span class="color-value">
+            <%= (progress * 100).to_i %> % <br/>
+            <%= color %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  },
+  :js => %q{
+    // No JS
+  },
+  :mutation => :diff_blender  
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{

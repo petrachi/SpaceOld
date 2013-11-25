@@ -1,32 +1,15 @@
-<%= container_tag do %>
-	<%= row_tag do %>
-		<%= col_3_tag :element => :sidebar do %>
-			1
-		<% end %>
+#!/bin/env ruby
+# encoding: utf-8
 
-		<%= col_9_tag :element => :article do %>
-			
-			<%= @article.title %>
-			
-			<hr/>
-			
-			<%= decorate Blog::Article.last do |article| %>
-				<%= article.title %>
-			<% end %>
-			
-			<hr/>
-			<hr/>
-			<hr/>
-			
-			
-			
-			<i>On prend deux couleurs, on les mixe, et on obtient un dégradé parfaitement génial (mais le code est tout à fait dégueulasse).</i>
-			
-			<h2>Color Blender</h2>
-			
+@color_blender_article = Blog::Article.create :user => @primal_user.blog_user,
+  :title => "Color Blender",
+  :summary => %q{
+    On prend deux couleurs, on les mixe, et on obtient un dégradé parfaitement génial (mais le code est tout à fait dégueulasse).
+  },
+  :snippet => Blog::Snippet.create(erb: %q{
 			<p>
 				Salut les p'tit amis,<br/>
-				Aujourd'hui on va faire un algorithme de création de dégradé, ou 'color blender', et on va le faire en ruby, parceque c'est fun !
+				Aujourd'hui on va se programmer un petit algorithme de création de dégradé, ou 'color blender', et on va le faire en ruby, parceque c'est fun !
 			</p>
 			
 			<h3>Format de couleur</h3>
@@ -166,9 +149,8 @@ end
 			<p>
 				Allez, bisous. Filez jouer maintenant !
 			</p>
-			
-		<% end %>
-	<% end %>
-<% end %>
-
-
+  }),
+  :pool => :ruby,
+  :published => true,
+  :published_at => "25-11-2013".to_datetime,
+  :tag => :color_blender
