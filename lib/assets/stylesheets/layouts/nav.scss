@@ -69,19 +69,21 @@
 	}
 	
 	#break{
-		//.container{	
-			color: $background-color;
-			background-color: $primary-color;
-			
-			@include box-shadow(
-				0 1px 3px rgba(black, .3),
-				0 1px 0 rgba(white, .1) inset
-			);
-			@include border-radius(1px);
-			
-			p{
-				margin: .5em 1em;
-			}
-			//}
+		color: $background-color;
+		background-color: $primary-color;
+		
+		@include box-shadow(
+			0 1px 3px rgba(black, .3),
+			0 1px 0 rgba(white, .1) inset
+		);
+		@include border-radius(1px);
+		
+		p{
+			margin: .5em 1em;
+            
+            a{
+                font-weight: bold;
+            }
+		}
 	}
 }

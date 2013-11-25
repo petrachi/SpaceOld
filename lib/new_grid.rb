@@ -50,8 +50,7 @@ module NewGrid
       row_tag(options){ cols_buffer }
     end
     
-    
-    define_method "rows_#{ col_size }_tag" do |collection, options = {}, &block|      
+    define_method "rows_#{ col_size }_tag" do |collection, options = {}, &block| 
       rows_buffer = collection
         .in_groups_of(12 / col_size, false)
         .inject ActiveSupport::SafeBuffer.new do |safe_buffer, collection|

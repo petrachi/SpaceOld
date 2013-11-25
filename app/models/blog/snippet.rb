@@ -15,6 +15,14 @@ class Blog::Snippet < ActiveRecord::Base
     end
   end
   
+  def precompiled_md5
+    Digest::MD5.hexdigest [params, ruby, scss, erb, js].join
+  end
+  
+  def tag
+    runnable.tag << "_#{ mutation }" if mutation
+  end
+  
   def raw
     %Q{
       <%
@@ -22,9 +30,15 @@ class Blog::Snippet < ActiveRecord::Base
         #{ ruby }
       %>
       
-      <%= scss %Q{#{ scss }} %>
+      <%= scss %Q{
+        #snippet-#{ precompiled_md5 }{
+          #{ scss }
+        }
+      } %>
       
-      #{ erb }
+      <div id="snippet-#{ precompiled_md5 }">
+        #{ erb }
+      </div>
       
       <script type='text/javascript'>
         #{ js }

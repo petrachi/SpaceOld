@@ -35,16 +35,7 @@
   	  points = point_on_sphere(n)
     },
     :scss => %q{
-      @include keyframes(planet-rotation){
-  			from{
-  				@include transform(rotateZ(23deg) rotateY(-180deg)); 
-  			}
-  		  to {
-  				@include transform(rotateZ(23deg) rotateY(180deg));
-  			}
-  		}
-
-  		.planet-container{
+      .planet-container{
   		  margin: 2em auto;
 
         height: #{ r * 2 }px;
@@ -86,6 +77,18 @@
   		}
     },
     :erb => %q{
+      <%= scss %Q{
+        @include keyframes(planet-rotation){
+    			from{
+    				@include transform(rotateZ(23deg) rotateY(-180deg)); 
+    			}
+    		  to {
+    				@include transform(rotateZ(23deg) rotateY(180deg));
+    			}
+    		}
+      }
+      %>
+      
       <div class="planet-container">
         <div class="planet">
           <% points.each_index do |i| %>
