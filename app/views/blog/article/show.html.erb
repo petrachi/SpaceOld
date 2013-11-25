@@ -24,17 +24,7 @@
 			
 			<%= erb @article.run %>
 			
-			<% if @article.serie %>			
-				<p>
-					<% if @article.following %>
-						<%= link_to "&larr; Précédent".html_safe, @article.following, :class => :btn %>
-					<% end %>
-				
-					<% if @article.followed %>
-						<%= link_to "Suivant &rarr;".html_safe, @article.followed, :class => :btn %>
-					<% end %>
-				</p>
-			<% end %>
+			<%= @article.navigate if @article.serie %>
 		<% end %>
 	<% end %>
 <% end %>

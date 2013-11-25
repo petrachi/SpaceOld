@@ -16,6 +16,9 @@ fr:
     wikilink: "Wikilien"
     super_use: "Administrer"
     
+    previous: "← Précédent"
+    next: "Suivant →"
+    
     restricted: "Accès non authorisé"
     installed: "L'application vient d'être installée"
     

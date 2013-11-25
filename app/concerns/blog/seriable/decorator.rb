@@ -12,4 +12,15 @@ module Blog::Seriable::Decorator
       end
     end.reduce(:safe_concat)
   end
+  
+  def navigate
+		h.content_tag :p do
+      safe_buffer = ActiveSupport::SafeBuffer.new
+      safe_buffer += h.link_to h.t(:previous), following, class: :btn if following
+      safe_buffer += " "
+      safe_buffer += h.link_to h.t(:next), followed, class: :btn if followed
+      safe_buffer
+      
+    end
+  end
 end
