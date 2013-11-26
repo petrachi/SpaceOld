@@ -4,7 +4,7 @@
 @simple_decorator_1 = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Simple Decorator",
   :summary => "Les decorators, c'est la solution pour faire du code de modèle orienté vues, et garder une architecture pas dégueulasse. On va voir comment implémenter ça, et sans gem !",
-  :embed => "",
+  :embed => "5p-qc-MQy90",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Decorator
@@ -76,7 +76,7 @@ end
 
 @simple_decorator_2 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Comme promis, un court épisode où on va tranformer notre décorateur (actuellement sous forme de classe) en module ! Pourquoi ? Parceque j'aime bien surcharger mes modèles et risquer du namespace collision à chaque nouvelle feature.",
-  :embed => "",
+  :embed => "G3lIIk22BYs",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Decorator
