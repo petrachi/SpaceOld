@@ -194,8 +194,7 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
         
         <div class="color-sample" style="background-color: <%= color %>">
           <span class="color-value">
-            <%= (progress * 100).to_i %> % <br/>
-            <%= color %>
+            <%= (progress * 100).to_i %> %
           </span>
         </div>
       <% end %>
