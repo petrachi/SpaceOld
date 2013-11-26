@@ -10,8 +10,6 @@
 			
 			margin: 1em 0; 
 			text-align: center;
-			
-			align-self: center;
 		}
 		
 		#return{
@@ -20,6 +18,12 @@
 				margin: 1.75em 0;
 			}
 		}
+    
+    .row{
+      [class*=col-]{
+        align-self: center;
+      }
+    }
 	}
 }
 
