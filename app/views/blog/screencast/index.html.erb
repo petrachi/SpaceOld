@@ -14,5 +14,5 @@
 
 
 <%= Blog::Screencast.pagination(params[:page].to_i, 16) %><hr/>
-<%= Paginator.new(self, :page=>params[:page].to_i, :per => 16).paginate(Blog::Screencast.published) %><hr/>
-<%= paginate Blog::Screencast.published, :page=>params[:page].to_i, :per => 16 %>
+<%= Paginator %><hr/>
+<%= paginate @paginables, :page=>params[:page].to_i, :per => 16 %>

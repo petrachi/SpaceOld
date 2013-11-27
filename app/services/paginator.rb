@@ -1,15 +1,22 @@
 class Paginator
-  def initialize view_context, options = {}
-    @view_context = view_context
-    @page, @per = options.values_at :page, :per
+  def self.paginate view_context, *args
+    new(view_context).paginate(*args)
   end
   
-  def paginate collection
-    nb_pages = collection.count / @per
+  
+  def initialize view_context, options = {}
+    @view_context = view_context
+  end
+  
+  def paginate collection, options = {}
+    pages_count = (collection.size.to_f / options[:per]).ceil
     
-    
-    nb_pages += 1
-
+    safe_buffer = ActiveSupport::SafeBuffer.new
+    safe_buffer += Paginator::Tag.previous_tag(@view_context, pages_count, current_page: options[:page])
+    safe_buffer += Paginator::Tag.pages_tag(@view_context, pages_count, current_page: options[:page])
+    safe_buffer += Paginator::Tag.next_tag(@view_context, pages_count, current_page: options[:page])
+    safe_buffer
+=begin    
     buf = ""
     nb_pages.times do |i|
 
@@ -22,29 +29,8 @@ class Paginator
     end
 
     buf.html_safe
+=end
   end
+  
+  ::ActionView::Base.send :include, Paginator::Helper
 end
-
-class Paginator
-  # = Helpers
-  module ActionViewExtension
-    # A helper that renders the pagination links.
-    #
-    #   <%= paginate @articles %>
-    #
-    # ==== Options
-    # * <tt>:window</tt> - The "inner window" size (4 by default).
-    # * <tt>:outer_window</tt> - The "outer window" size (0 by default).
-    # * <tt>:left</tt> - The "left outer window" size (0 by default).
-    # * <tt>:right</tt> - The "right outer window" size (0 by default).
-    # * <tt>:params</tt> - url_for parameters for the links (:controller, :action, etc.)
-    # * <tt>:param_name</tt> - parameter name for page number in the links (:page by default)
-    # * <tt>:remote</tt> - Ajax? (false by default)
-    # * <tt>:ANY_OTHER_VALUES</tt> - Any other hash key & values would be directly passed into each tag as :locals value.
-    def paginate(collection, options = {})
-      paginator = Paginator.new(self, options).paginate(collection)
-    end
-  end
-end
-
-::ActionView::Base.send :include, Paginator::ActionViewExtension

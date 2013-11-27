@@ -16,8 +16,10 @@ fr:
     wikilink: "Wikilien"
     super_use: "Administrer"
     
-    previous: "← Précédent"
-    next: "Suivant →"
+    previous: "<i class='icon-angle-left'></i> Précédent"
+    icon_previous: "<i class='icon-angle-left'></i>"
+    next: "Suivant <i class='icon-angle-right'></i>"
+    icon_next: "<i class='icon-angle-right'></i>"
     
     restricted: "Accès non authorisé"
     installed: "L'application vient d'être installée"

@@ -4,8 +4,20 @@
 	// need variable color
 	background-color: #181818;
 	color: black;
-	box-shadow: 0 0 0 1px black inset;
 	
+  //square
+  box-shadow: 0 0 0 1px black inset;
+ /*
+ box-shadow: 0 1px 0 0 black inset, 0 -1px 0 0 black inset;
+ 
+ &:first-child{
+   box-shadow: 0 1px 0 0 black inset, 0 -1px 0 0 black inset, 1px 0 0 0 black inset;
+ }
+ 
+ &:last-child{
+   box-shadow: 0 1px 0 0 black inset, 0 -1px 0 0 black inset, -1px 0 0 0 black inset;
+ }
+	*/
 }
 
 
