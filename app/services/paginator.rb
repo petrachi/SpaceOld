@@ -24,3 +24,27 @@ class Paginator
     buf.html_safe
   end
 end
+
+class Paginator
+  # = Helpers
+  module ActionViewExtension
+    # A helper that renders the pagination links.
+    #
+    #   <%= paginate @articles %>
+    #
+    # ==== Options
+    # * <tt>:window</tt> - The "inner window" size (4 by default).
+    # * <tt>:outer_window</tt> - The "outer window" size (0 by default).
+    # * <tt>:left</tt> - The "left outer window" size (0 by default).
+    # * <tt>:right</tt> - The "right outer window" size (0 by default).
+    # * <tt>:params</tt> - url_for parameters for the links (:controller, :action, etc.)
+    # * <tt>:param_name</tt> - parameter name for page number in the links (:page by default)
+    # * <tt>:remote</tt> - Ajax? (false by default)
+    # * <tt>:ANY_OTHER_VALUES</tt> - Any other hash key & values would be directly passed into each tag as :locals value.
+    def paginate(collection, options = {})
+      paginator = Paginator.new(self, options).paginate(collection)
+    end
+  end
+end
+
+::ActionView::Base.send :include, Paginator::ActionViewExtension
