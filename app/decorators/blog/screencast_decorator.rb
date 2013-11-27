@@ -3,7 +3,6 @@ module Blog::ScreencastDecorator
   
   module DecoratorMethods
     include Blog::Seriable::Decorator
-    include Blog::Paginable::Decorator
     
     def title
       if serie
@@ -11,6 +10,7 @@ module Blog::ScreencastDecorator
       else
         super
       end
+      
     end
   end
 end
