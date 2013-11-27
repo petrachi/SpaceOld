@@ -1,20 +1,6 @@
 module Blog::ScreencastDecorator
   include RKit::Decorable
   
-  
-  
-  #module ClassDecoratorMethods
-    
-    #end
-  
-    
-    def self.included(base)
-        base.send :extend, BaseDecorator
-      end
-  
-  
-  #include BaseDecorator
-  
   module DecoratorMethods
     include Blog::Seriable::Decorator
     include Blog::Paginable::Decorator
