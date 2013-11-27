@@ -9,6 +9,7 @@ class Blog::ScreencastController < Blog::ApplicationController
     @screencasts = Blog::Screencast.published.order("id desc")
     @screencasts = @screencasts.pool params[:pool] if params[:pool]
     @screencasts = @screencasts.serie params[:serie] if params[:serie]
+    @screencasts = @screencasts.paginate params[:page].to_i, 16 if params[:page]
     @screencasts.map{ |screencast| screencast.decorate(view_context) }
   end
   
@@ -17,18 +18,4 @@ class Blog::ScreencastController < Blog::ApplicationController
       .tagged(params[:tag])
       .decorate(view_context)
   end
-  
-  
-  
-  #### Dev zone
-  #if Rails.env == "development"
-  
-    def tmp
-      
-	  end
-  
-  
-  
-  #end
-  ####
 end

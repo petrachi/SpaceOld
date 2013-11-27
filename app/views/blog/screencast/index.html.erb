@@ -11,3 +11,6 @@
 		<%= link_to t(:watch), screencast, class: :btn %>
 	</p>
 <% end %>
+
+
+<%= Blog::Screencast.pagination(params[:page].to_i, 16) %>
