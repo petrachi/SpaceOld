@@ -1,4 +1,4 @@
-module Blog::Seriable::Decorator
+module Blog::SeriableDecorator
   def serie_link_to
     h.link_to serie, serie_url, class: :btn
   end

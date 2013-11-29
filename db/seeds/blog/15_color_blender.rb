@@ -19,7 +19,7 @@
 			</p>
 			
 			<p>
-				Tout ça nous donner l'occasion de travailler sur deux petites fonctions de conversion !
+				Tout ça nous donne l'occasion de travailler sur deux petites fonctions de conversion !
 			</p>
 			
 			<%= coderay do %>
@@ -50,7 +50,7 @@ end
 			<% end %>
 			
 			<p>
-				Ensuite, nous allons pouvoir progresser lentement, à partir de la première couleur, vers la seconde, en appliquant une portion donnée de la différence entre les deux couleurs.
+				Ensuite, en ajoutant un pourcentage de la différence à partir de la première couleur, nous allons pouvoir progresser pas à pas vers la couleur finale.
 			</p>
 			
 			<%= coderay do %>
@@ -104,7 +104,7 @@ end
 			<h3>Color stops</h3>
 			
 			<p>
-				Avant de conclure, je vous montre une rapide amélioration de qui permet de passer plus de deux couleurs en un seul appel.
+				Avant de conclure, je vous montre une rapide amélioration qui permet de passer plus de deux couleurs en un seul appel.
 			</p>
 			
 			<%= coderay do %>

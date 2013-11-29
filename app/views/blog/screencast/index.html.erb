@@ -12,7 +12,6 @@
 	</p>
 <% end %>
 
-
-<%= Blog::Screencast.pagination(params[:page].to_i, 16) %><hr/>
-<%= Paginator %><hr/>
-<%= paginate @paginables, :page=>params[:page].to_i, :per => 16 %>
+<%#= container_tag do %>
+  <%#= paginate @paginables, page: params[:page].to_i, per: 16 %>
+<%# end %>

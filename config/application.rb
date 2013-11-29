@@ -18,10 +18,9 @@ module Space
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(
-      #{config.root}/app/concerns
       #{config.root}/app/decorators
-      #{config.root}/app/extends
-      #{config.root}/app/services
+      #{config.root}/app/decorators/concerns
+      #{config.root}/app/models/concerns
       #{config.root}/lib
     )
     

@@ -17,7 +17,7 @@ class Paginator::Tag
   
   
   def paginate_tag
-    previous_tag + pages_tag + next_tag
+    h.content_tag :nav, previous_tag + pages_tag + next_tag, class: :pagination
   end
   
   
@@ -42,7 +42,7 @@ class Paginator::Tag
   end
   
   def next_tag
-    options = {content: h.t(:'icon_previous')}
+    options = {content: h.t(:icon_next)}
     
     if @current_page >= @pages_count
       disabled_page_tag @current_page, options

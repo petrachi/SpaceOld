@@ -2,7 +2,7 @@ module Blog::ScreencastDecorator
   include RKit::Decorable
   
   module DecoratorMethods
-    include Blog::Seriable::Decorator
+    include Blog::SeriableDecorator
     
     def title
       if serie
