@@ -4,7 +4,7 @@
 @module_with_arguments_1 = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Module with Arguments",
   :summary => "Les modules, c'est la réponse de ruby à l'héritage multiple. Personnellement j'aime bien, mais le problème avec les modules, c'est qu'ils sont un peu trop ... statiques. Et si on ajoutait un peu de méta-programmation à tout ça ?",
-  :embed => "",
+  :embed => "MiV8nhq8KU",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Module
@@ -58,5 +58,5 @@ include Prefixable.new title: "Summary", text: "Task", owner: "Remeber my name"
   }),
   :pool => :htcpcp,
   :published => true,
-  # :published_at => "20-11-2013".to_datetime,
+  :published_at => "29-11-2013".to_datetime,
   :serie => :module_with_arguments
