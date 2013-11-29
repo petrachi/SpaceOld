@@ -1,14 +1,6 @@
 class Paginator::Tag
-  def self.pages_tag *args
-    new(*args).pages_tag
-  end
-  
-  def self.previous_tag *args
-    new(*args).previous_tag 
-  end
-  
-  def self.next_tag *args
-    new(*args).next_tag
+  def self.paginate_tag *args
+    new(*args).paginate_tag
   end
   
   
@@ -21,6 +13,11 @@ class Paginator::Tag
   
   def h
     @view_context
+  end
+  
+  
+  def paginate_tag
+    previous_tag + pages_tag + next_tag
   end
   
   
@@ -45,15 +42,13 @@ class Paginator::Tag
   end
   
   def next_tag
-    options = {content: h.t(:icon_previous)}
+    options = {content: h.t(:'icon_previous')}
     
     if @current_page >= @pages_count
       disabled_page_tag @current_page, options
     else
       page_tag @current_page + 1, options
     end
-    
-   # h.link_to h.t(:icon_next), h.url_for(page: @current_page + 1), class: :btn
   end
   
   

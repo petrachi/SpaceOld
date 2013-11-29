@@ -20,6 +20,7 @@ module Space
     config.autoload_paths += %W(
       #{config.root}/app/concerns
       #{config.root}/app/decorators
+      #{config.root}/app/extends
       #{config.root}/app/services
       #{config.root}/lib
     )
