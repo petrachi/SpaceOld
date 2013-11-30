@@ -1,8 +1,9 @@
 class Blog::Screencast < ActiveRecord::Base
   belongs_to :user
   
+  act_as_paginable
+  
   include Blog::ScreencastDecorator
-  include Blog::Paginable
   include Blog::Poolable.new inclusion_in: [:try_hard, :htcpcp]
   include Blog::Publishable
   include Blog::Runnable
