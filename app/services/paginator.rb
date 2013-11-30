@@ -1,3 +1,3 @@
 module Paginator
-  ::ActionView::Base.send :include, Paginator::Helper
+  ::ActionView::Base.send :include, Paginator::Helpers
 end

@@ -1,6 +1,6 @@
-class Paginator::Tag
-  def self.paginate_tag *args
-    new(*args).paginate_tag
+class Paginator::Tags
+  def self.pagination_tag *args
+    new(*args).pagination_tag
   end
   
   
@@ -9,16 +9,15 @@ class Paginator::Tag
     
     @pages_count = pages_count
     @current_page = options[:current_page]
+    
+    p @current_page
   end
   
   def h
     @view_context
   end
   
-  
-  def paginate_tag
-    h.content_tag :nav, previous_tag + pages_tag + next_tag, class: :pagination
-  end
+  include PaginationTag
   
   
   def pages_tag
