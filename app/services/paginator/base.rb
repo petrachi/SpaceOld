@@ -4,6 +4,8 @@ class Paginator::Base
   end
   
   def paginate collection, options = {}
+    collection = collection.paginables if collection.is_a? Paginator::Collection
+    
     pagination = 
       [previous_page(options[:page])] + 
       pages(options[:page], collection, options[:per]) + 
