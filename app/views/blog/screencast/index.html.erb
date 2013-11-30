@@ -12,6 +12,6 @@
 	</p>
 <% end %>
 
-<%#= container_tag do %>
-  <%#= paginate @paginables, page: params[:page].to_i, per: 16 %>
-<%# end %>
+<%= container_tag do %>
+  <%= paginate @paginables, page: params[:page].to_i, per: 16 %>
+<% end %>

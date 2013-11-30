@@ -64,9 +64,9 @@ end
 			<% end %>
 			
 			<p>
-				Allez on se lance, je vous montre vite fait ce qu'on peut obtenir avec une valeur de <%= coderay({:inline => true}, "progress") %> qui varie, et les couleurs <%= coderay({:inline => true}, "from: '#A21111', to: '#D3A80D'") %>.
+				Allez on se lance, je vous montre vite fait ce qu'on peut obtenir avec une valeur de <%= coderay({:inline => true}, "progress") %> qui varie, et les couleurs <%= coderay({:inline => true}, "from: '#e63926', to: '#f8c94f'") %>.
 			</p>
-			
+
 			<%= erb Blog::Experience.tagged(:color_clock).run(:diff_blender) %>
 			
 			<h3>Unification dans le blender</h3>
@@ -96,7 +96,7 @@ end
 			<% end %>
 			
 			<p>
-				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender '#A21111', '#D3A80D', 168") %>
+				Si on fait un test rapide avec <%= coderay({:inline => true}, "blender '#e63926', '#f8c94f', 162") %>
 			</p>
 			
 			<%= erb Blog::Experience.tagged(:color_clock).run(:only_blender) %>
@@ -132,7 +132,7 @@ def blender color_stops, steps
 end
 			<% end %>
 			
-			<p>La démo qui va bien avec <%= coderay({:inline => true}, "blender %w(#063186 #A21111 #D3A80D #28A528), 56") %></p>
+			<p>La démo qui va bien avec <%= coderay({:inline => true}, "blender %w(#2773f7, #e63926, #f8c94f, #04a556), 54") %></p>
 			
 			<%= erb Blog::Experience.tagged(:color_clock).run(:multiple_blender) %>
 			

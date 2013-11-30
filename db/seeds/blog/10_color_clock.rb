@@ -150,8 +150,8 @@
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{
-    color_stops = ["#A21111", "#D3A80D"]
-    steps = 168
+    color_stops = ["#e63926", "#f8c94f"]
+    steps = 16
     
     from, to = color_stops
   },
@@ -207,8 +207,8 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{
-    color_stops = ["#A21111", "#D3A80D"]
-    steps = 168
+    color_stops = ["#e63926", "#f8c94f"]
+    steps = 162
   },
   :scss => %q{
 		#colors{
@@ -270,8 +270,8 @@ Blog::Snippet.create :primal => @color_clock_experiment.snippet,
 
 Blog::Snippet.create :primal => @color_clock_experiment.snippet,
   :params => %q{
-    color_stops = ["#063186", "#A21111", "#D3A80D", "#28A528"]
-    steps = 56
+    color_stops = ["#2773f7", "#e63926", "#f8c94f", "#04a556"]
+    steps = 54
   },
   :scss => %q{
 		#colors{

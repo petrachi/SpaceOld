@@ -57,7 +57,7 @@
 			}
 		}
 		
-		> .row:hover{
+		> .container:hover{
 			[class*=#{$application}-section-]{
 				@include filter( grayscale(100%) );
 				
