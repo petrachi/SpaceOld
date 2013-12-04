@@ -1,6 +1,12 @@
-module Paginator::Models
-  def acts_as_decorables &block
-    Object.const_set "#{ name }Decorator", Class.new(&block)
+module Decorator::Models
+  def acts_as_decorables const = nil, &block
+    
+    if block_given?
+      namespace = name.deconstantize.constantize
+      namespace.const_set "#{ name.demodulize }Decorator", Class.new(Decorator::Base, &block)
+    end
+    
+    @const = const || "#{ name }Decorator".constantize
     
     extend ClassMethods
     include InstanceMethods
@@ -8,13 +14,13 @@ module Paginator::Models
   
   module ClassMethods
     def decorator_class
-      "#{ name }Decorator".constantize
+      @const #|| "#{ name }Decorator".constantize
     end
   end
   
   module InstanceMethods
-    def decorate
-      self.class.decorator_class.new self
+    def decorate view_context
+      self.class.decorator_class.new self, view_context
     end
   end
 end

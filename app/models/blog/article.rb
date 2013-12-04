@@ -2,6 +2,9 @@ class Blog::Article < ActiveRecord::Base
   belongs_to :user
   
   #include Blog::ArticleDecorator
+  acts_as_decorables # Blog::SuperArticleDecorator
+  
+=begin
   acts_as_decorables do
     #how to delegate
     
@@ -15,7 +18,7 @@ class Blog::Article < ActiveRecord::Base
       end
     end
   end
-  
+=end  
   
   
   include Blog::Poolable.new inclusion_in: [:experience, :ruby, :css, :quicktip]
