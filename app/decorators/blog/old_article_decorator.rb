@@ -1,4 +1,4 @@
-module Blog::ArticleDecorator
+module Blog::OldArticleDecorator
   include RKit::Decorable
   
   module DecoratorMethods
