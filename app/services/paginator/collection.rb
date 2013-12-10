@@ -12,4 +12,9 @@ class Paginator::Collection < SimpleDelegator
     __setobj__ __getobj__.limit(str)
     self
   end
+  
+  def offset str
+    __setobj__ __getobj__.offset(str)
+    self
+  end
 end

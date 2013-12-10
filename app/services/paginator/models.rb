@@ -5,7 +5,7 @@ module Paginator::Models
   
   module ClassMethods
     def paginate page, per
-      Paginator::Collection.new(scoped).limit("#{(page-1) * per}, #{per}")
+      Paginator::Collection.new(scoped).limit(per).offset((page-1) * per)
     end
   end
 end
