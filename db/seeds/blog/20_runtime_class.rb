@@ -4,7 +4,7 @@
 @runtime_class_1 = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Defining class at Runtime",
   :summary => "Ruby nous donne énormément d'outils de métaprogrammation, et nous allons découvrir ensemble comment définir des classes dynamiquement, au runtime !",
-  :embed => "L3GSRTeX08w",
+  :embed => "wQegMYKHxKg",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Basic Usage
