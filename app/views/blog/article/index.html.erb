@@ -11,3 +11,7 @@
 		<%= link_to t(:discover), article, class: :btn %>
 	</p>
 <% end %>
+
+<%= container_tag do %>
+  <%= pagination_tag @articles, page: params[:page].to_i, per: 16 %>
+<% end %>

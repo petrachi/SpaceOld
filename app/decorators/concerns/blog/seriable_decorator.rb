@@ -1,4 +1,12 @@
 module Blog::SeriableDecorator
+  def title
+    if serie
+      "#{ super } <small><i class='no-warp'>(vol #{ serial_number })</i></small>".html_safe
+    else
+      super
+    end
+  end
+  
   def serie_link_to
     h.link_to serie, serie_url, class: :btn
   end

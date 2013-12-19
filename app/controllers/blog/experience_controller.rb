@@ -7,6 +7,8 @@ class Blog::ExperienceController < Blog::ApplicationController
   def index
     @experiences = Blog::Experience.published.order("id desc")
     @experiences = @experiences.pool params[:pool] if params[:pool]
+    
+    @experiences = @experiences.paginate params[:page].to_i, 16 if params[:page] || (params[:page] = 1)
   end
   
   def show

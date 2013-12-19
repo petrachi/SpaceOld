@@ -9,6 +9,9 @@ class Blog::ArticleController < Blog::ApplicationController
     @articles = Blog::Article.published.order("id desc")
     @articles = @articles.pool params[:pool] if params[:pool]
     @articles = @articles.serie params[:serie] if params[:serie]
+    
+    @articles = @articles.paginate params[:page].to_i, 16 if params[:page] || (params[:page] = 1)
+    
     @articles.map!{ |article| article.decorate(view_context) }
   end
   

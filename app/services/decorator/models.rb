@@ -14,7 +14,7 @@ module Decorator::Models
   
   module ClassMethods
     def decorator_class
-      @const #|| "#{ name }Decorator".constantize
+      @const
     end
   end
   

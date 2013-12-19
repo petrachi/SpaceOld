@@ -12,7 +12,7 @@ class Blog::ScreencastController < Blog::ApplicationController
     
     @screencasts = @screencasts.paginate params[:page].to_i, 16 if params[:page] || (params[:page] = 1)
     
-    @screencasts.map{ |screencast| screencast.decorate(view_context) }
+    @screencasts.map!{ |screencast| screencast.decorate(view_context) }
   end
   
   def show

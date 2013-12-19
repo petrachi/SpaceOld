@@ -1,7 +1,8 @@
 class Blog::Snippet < ActiveRecord::Base
   belongs_to :runnable, polymorphic: true
   
-  include Blog::SnippetDecorator
+  acts_as_decorables
+  
   include Blog::Mutable.new mutables: %w(params ruby scss erb js)
   include Blog::Precompilable
     

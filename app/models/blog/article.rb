@@ -1,25 +1,8 @@
 class Blog::Article < ActiveRecord::Base
   belongs_to :user
   
-  #include Blog::ArticleDecorator
-  acts_as_decorables # Blog::SuperArticleDecorator
-  
-=begin
-  acts_as_decorables do
-    #how to delegate
-    
-    include Blog::SeriableDecorator
-    
-    def title
-      if serie
-        "#{ super } <small><i>(vol #{ serial_number })</i></small>".html_safe
-      else
-        super
-      end
-    end
-  end
-=end  
-  
+  acts_as_decorables
+  act_as_paginable
   
   include Blog::Poolable.new inclusion_in: [:experience, :ruby, :css, :quicktip]
   include Blog::Publishable
