@@ -1,34 +1,11 @@
 #!/bin/env ruby
 # encoding: utf-8
 
-@runtime_class_1 = Blog::Screencast.create :user => @primal_user.blog_user,
+Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Acts as decorables",
   :summary => "Dans cet épisode on se sert de nos acquis pour transformer notre classe <i>decorator</i> en une vraie mini-librairie, DSL incluse, c'est cadeau.",
   :embed => "CmdeknAOUnQ",
   :snippet => Blog::Snippet.create(:erb => %q{
-    <p>
-      Basic Usage
-    </p>
-    
-    <%= coderay do %>
-def create_user_class
-  user_class = Class.new do
-    def name
-      "Thomas"
-    end
-  end
-
-  Object.const_set "User", user_class
-end
-
-?> puts User.new.name
-=> # uninitialized constant User (NameError)
-
-?> create_user_class
-?> puts User.new.name
-=> "Thomas"
-    <% end %>
-    
     <p>
       Service
     </p>
