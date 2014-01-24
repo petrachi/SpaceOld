@@ -41,7 +41,9 @@ end
 def easy &block
   block.call
 end
-
+    <% end %>
+    
+    <%= coderay do %>
 ?> easy{ "I'm in a block !" }
 => "I'm in a block !"
 

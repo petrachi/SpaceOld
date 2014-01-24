@@ -2,12 +2,12 @@
 # encoding: utf-8
 
 @struct_1 = Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "Struct",
-  :summary => "",
-  :embed => "",
+  :title => "Design with Struct",
+  :summary => "Ruby, par sa syntaxe épurée, et son langage dynamique, nous permet facilement d'organiser la structure du code. Nous allons tenter aujourd'hui d'améliorer la structure d'un bout de code, afin de mieux respecter les régles de design orienté objet.",
+  :embed => "a6cBdeUpVt4",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
-      # berlimioz about struct : (link)Ror french cast
+      <%= link_to "[ROR French Casts] Struct", "https://www.youtube.com/watch?v=vhVdV9_bfTo", class: :btn %>
     </p>
     
     <p>
@@ -82,13 +82,13 @@ end
     <% end %>
   }),
   :pool => :htcpcp,
-  :published => false,
-  :published_at => "".to_datetime,
-  :tag => :struct
+  :published => true,
+  :published_at => "23-01-2014".to_datetime,
+  :serie => :design_struct
 
 @struct_2 = Blog::Screencast.create :user => @primal_user.blog_user,
-  :summary => "",
-  :embed => "",
+  :summary => "On continue le boulot dans cette seconde partie de l'épisode, et on est chaud pour découper et déplacer les différents bouts de logiques de notre mini appli.",
+  :embed => "rzVuwoxIpvQ",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Refactoring
@@ -130,13 +130,13 @@ end
     <% end %>
   }),
   :pool => :htcpcp,
-  :published => false,
-  :published_at => "".to_datetime,
+  :published => true,
+  :published_at => "23-01-2014".to_datetime,
   :following => @struct_1
 
 @struct_3 = Blog::Screencast.create :user => @primal_user.blog_user,
-  :summary => "",
-  :embed => "",
+  :summary => "Dernière partie de l'épisode, et probablement le meilleur, pour récompenser ceux qui serons arrivés jusque là ^^! On utilise Struct pour gérer deux arguments fortements couplés, et dans le cas de :start_date et :end_date, ça devrait juste être inclus par défaut dans le ruby core.",
+  :embed => "XihSgJkQO2w",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Refactoring
@@ -176,7 +176,7 @@ end
     <% end %>
   }),
   :pool => :htcpcp,
-  :published => false,
-  :published_at => "".to_datetime,
+  :published => true,
+  :published_at => "23-01-2014".to_datetime,
   :following => @struct_2
-    
+  
