@@ -3,7 +3,7 @@
 
 @struct_1 = Blog::Screencast.create :user => @primal_user.blog_user,
   :title => "Design with Struct",
-  :summary => "Ruby, par sa syntaxe épurée, et son langage dynamique, nous permet facilement d'organiser la structure du code. Nous allons tenter aujourd'hui d'améliorer la structure d'un bout de code, afin de mieux respecter les régles de design orienté objet.",
+  :summary => "Ruby, par sa syntaxe épurée, et son langage dynamique, nous permet facilement d'organiser la structure du code. Nous allons tenter aujourd'hui d'améliorer la structure d'un bout de code, afin de mieux respecter les règles de design orienté objet.",
   :embed => "a6cBdeUpVt4",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
