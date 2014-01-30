@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  balance: 1
-  private_user: 
-
-two:
-  balance: 1
-  private_user: 
