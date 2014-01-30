@@ -4,7 +4,7 @@ class Blog::Screencast < ActiveRecord::Base
   acts_as_decorables
   act_as_paginable
   
-  include Blog::Poolable.new inclusion_in: [:try_hard, :htcpcp]
+  include Blog::Poolable.new inclusion_in: [:try_hard, :htcpcp, :wcs_jane]
   include Blog::Publishable
   include Blog::Runnable
   include Blog::Seriable

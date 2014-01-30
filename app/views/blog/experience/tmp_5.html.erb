@@ -1,0 +1,107 @@
+<div class="cube">
+              <span class="top side"></span>
+              <span class="left side"></span>
+              <span class="right side"></span>
+              <span class="bottom side">
+                <span class="back side"></span>
+              </span>
+            </div>
+            
+            
+            
+
+            .cube,
+            .cube .side {
+              width: 5em;
+              height: 5em;
+              background: rgba(153, 170, 187, 0.8);
+              /* -webkit-box-shadow: inset 0 0 0 5px #334455, 0 0 1px 1px #334455; */
+              -moz-box-shadow: inset 0 0 0 5px #334455, 0 0 1px 1px #334455;
+              box-shadow: inset 0 0 0 5px #334455, 0 0 0px 0px #334455;
+              border-radius: 3px;
+              -webkit-transform-style: preserve-3d;
+              -moz-transform-style: preserve-3d;
+              -ms-transform-style: preserve-3d;
+              -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+            }
+
+            .cube {
+              -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
+              -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
+              -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
+              -o-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
+              transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
+            }
+            .cube .side {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            .cube .top {
+              top: -5em;
+              -webkit-transform: rotateX(90deg);
+              -moz-transform: rotateX(90deg);
+              -ms-transform: rotateX(90deg);
+              -o-transform: rotateX(90deg);
+              transform: rotateX(90deg);
+              -webkit-transform-origin: 50% 100%;
+              -moz-transform-origin: 50% 100%;
+              -ms-transform-origin: 50% 100%;
+              -o-transform-origin: 50% 100%;
+              transform-origin: 50% 100%;
+            }
+            .cube .left {
+              left: -5em;
+              -webkit-transform: rotateY(-90deg);
+              -moz-transform: rotateY(-90deg);
+              -ms-transform: rotateY(-90deg);
+              -o-transform: rotateY(-90deg);
+              transform: rotateY(-90deg);
+              -webkit-transform-origin: 100% 50%;
+              -moz-transform-origin: 100% 50%;
+              -ms-transform-origin: 100% 50%;
+              -o-transform-origin: 100% 50%;
+              transform-origin: 100% 50%;
+            }
+            .cube .right {
+              left: 5em;
+              -webkit-transform: rotateY(90deg);
+              -moz-transform: rotateY(90deg);
+              -ms-transform: rotateY(90deg);
+              -o-transform: rotateY(90deg);
+              transform: rotateY(90deg);
+              -webkit-transform-origin: 0% 50%;
+              -moz-transform-origin: 0% 50%;
+              -ms-transform-origin: 0% 50%;
+              -o-transform-origin: 0% 50%;
+              transform-origin: 0% 50%;
+            }
+            .cube .bottom {
+              top: 5em;
+              -webkit-transform: rotateX(-90deg);
+              -moz-transform: rotateX(-90deg);
+              -ms-transform: rotateX(-90deg);
+              -o-transform: rotateX(-90deg);
+              transform: rotateX(-90deg);
+              -webkit-transform-origin: 50% 0%;
+              -moz-transform-origin: 50% 0%;
+              -ms-transform-origin: 50% 0%;
+              -o-transform-origin: 50% 0%;
+              transform-origin: 50% 0%;
+            }
+            .cube .bottom .back {
+              top: 5em;
+              -webkit-transform: rotateX(-90deg);
+              -moz-transform: rotateX(-90deg);
+              -ms-transform: rotateX(-90deg);
+              -o-transform: rotateX(-90deg);
+              transform: rotateX(-90deg);
+              -webkit-transform-origin: 50% 0%;
+              -moz-transform-origin: 50% 0%;
+              -ms-transform-origin: 50% 0%;
+              -o-transform-origin: 50% 0%;
+              transform-origin: 50% 0%;
+            }
+            
+            

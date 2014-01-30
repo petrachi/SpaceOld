@@ -20,7 +20,7 @@ class Blog::ExperienceController < Blog::ApplicationController
   
   
   
-  helper NewGrid
+  # helper NewGrid
   
   #### Dev zone
   #if Rails.env == "development"

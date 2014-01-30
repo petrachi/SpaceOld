@@ -6,11 +6,154 @@
 
 		<%= col_9_tag :element => :article do %>
 			
-      <i>Avec rails 3, les strings sont par défaut "unsafe". C'est très bien pour éviter une injection XSS. Mais pour les clés I18n, qui proviennent d'un environnement contrôlé, il n'existerait pas une petite technique à la pisse des bois pour éviter de toujours répéter <i>.html_safe</i> ?</i>
+      <i></i>
       
-      <h2>I18n + html_safe?</h2>
+      <h2>Scroller</h2>
       
-      		
+      
+      
+      
+      
+      
+      function Scroll(){
+              var self = this;
+
+  
+        var defaults = {
+
+          to_top_trigger_point: 733,
+
+          scroll_duration: 800,
+
+          scroll_offset : 0
+
+        };
+        
+              self.init = function(options){
+
+          self.settings = $.extend(defaults, options);
+
+    
+                      self.to_top();
+
+                      self.to_anchor();
+
+          self.get_anchor();
+          self.get_current();
+
+              };
+  
+              self.to_target = function(target){
+
+                      try{
+                              var targetOffset = $("[scroll=" + target + "]");
+
+                      }catch(err){
+
+                              var targetOffset = [];
+
+                      }
+                
+
+                      if( targetOffset.length ){
+
+                              var targetOffset = targetOffset.offset().top - self.settings.scroll_offset;
+
+                              $('html,body').animate({scrollTop: targetOffset}, self.settings.scroll_duration);
+
+                      };
+              };
+
+  
+              self.to_top = function(){
+
+                      $(window).scroll(function() {
+
+            if ( timer ) clearTimeout(timer);
+
+      
+            var timer = setTimeout(function(){
+
+                                if($(this).scrollTop() > self.settings.to_top_trigger_point) {
+
+                                        $('#to_top').fadeIn();        
+
+                                } else {
+
+                                        $('#to_top').fadeOut();
+
+                                }
+            }, 100);
+
+                      });
+
+
+                      $('#to_top').click(function() {
+
+                              $('body, html').animate({scrollTop: 0}, self.settings.scrollDuration);
+
+                      });
+              };
+
+  
+              self.to_anchor = function(){
+
+          $("a[href*=#]").click(function(){
+
+                              var url = $(this).attr("href");
+
+                              self.to_target( url.substring(url.indexOf("#")+1) );
+
+                      });
+              };
+
+  
+        self.get_anchor = function(){
+
+          setTimeout(function(){
+
+                        self.to_target( document.location.hash.substring(1) );
+
+          }, 200);
+
+              };
+  
+        self.get_current = function() {
+
+          $(window).scroll(function() {
+
+            if ( timer ) clearTimeout(timer);
+
+      
+            var timer = setTimeout(function(){
+
+              var visibles = $('[scroll]').filter(function(i){
+
+                return ($(this).offset().top <= $(window).scrollTop() + self.settings.scroll_offset &&
+
+                  $(this).offset().top + $(this).outerHeight() > $(window).scrollTop() + self.settings.scroll_offset);
+
+              });
+    
+                                self.set_current( visibles.first().attr("scroll") );
+
+            }, 100)
+
+          });
+        };
+  
+
+        self.set_current = function(anchor) {
+
+          $("a[href*=#]").removeClass("active");
+
+          $("a[href*=#" + anchor + "]").addClass("active");
+
+        };
+      }
+      
+      
+      
 		<% end %>
 	<% end %>
 <% end %>

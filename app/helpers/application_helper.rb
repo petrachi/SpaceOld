@@ -2,9 +2,8 @@ module ApplicationHelper
   # include GridHelper
   # include GridFormHelper
   
-  include NewGrid
+  # include NewGrid
   
-  include RKit::DecorableHelper
   include ErbHelper
   include GoogleAnalyticsHelper
   

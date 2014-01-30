@@ -30,9 +30,9 @@
 				<%= @screencast.title %>
 			</h2>
 			
-			<iframe width="840" height="500" src="//www.youtube.com/embed/<%= @screencast.embed %>?rel=0" frameborder="0" allowfullscreen></iframe>
+      <%= @screencast.embed %>
 			
-            <%= @screencast.navigate if @screencast.serie %>
+			<%= @screencast.navigate if @screencast.serie %>
 			
 			<h3><%= t 'blog.screencast.ressources' %></h3>
 			

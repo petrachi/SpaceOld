@@ -2,9 +2,9 @@
 # encoding: utf-8
 
 @wcs_1 = Blog::Screencast.create :user => @primal_user.blog_user,
-  :title => "WCS : Prélude",
+  :title => "Prélude WCS:Jane",
   :summary => "Nouvelle émission : On part de zéro et va construire un site internet complet ! Et dans ce prélude, on fait un petit tour du langage ruby ! Youpi !",
-  :embed => "",
+  :embed => "pofjHEBRwgE",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Exercice
@@ -29,12 +29,12 @@
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
-  :serie => :wcs_prelude
+  :published_at => "30-01-2014".to_datetime,
+  :serie => :prelude_wcs_jane
 
 @wcs_2 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Définition du concept de classes et d'objets en ruby, plus un peu de syntaxe qui va bien.",
-  :embed => "",
+  :embed => "4MKmprtkT4I",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Classes
@@ -70,12 +70,12 @@ space_library = Library.new("Space Library")
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
+  :published_at => "30-01-2014".to_datetime,
   :following => @wcs_1
 
 @wcs_3 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On continue et on crée des synergies entre nos différentes classes.",
-  :embed => "",
+  :embed => "JYDYDTZK9r8",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       <%= coderay({inline: true}, "Book") %>, <%= coderay({inline: true}, "Author") %> & <%= coderay({inline: true}, "Library") %>
@@ -136,12 +136,12 @@ book_postman = Book.new "The Jolly Postman or Other People's Letters", author_ah
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
+  :published_at => "30-01-2014".to_datetime,
   :following => @wcs_2
   
 @wcs_4 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On arrive sur la fin de l'exercice, et on réussit cette fois à afficher la liste des livres présents dans notre bibliothèque.",
-  :embed => "",
+  :embed => "q5xF5n4JZJU",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Afficher la liste des <%= coderay({inline: true}, "Book") %>s
@@ -184,12 +184,12 @@ Book.new "The Very Hungry Caterpillar", Author.new("Eric Carle"), space_library
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
+  :published_at => "30-01-2014".to_datetime,
   :following => @wcs_3
   
 @wcs_5 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On va plus loin pour permettre d'ordonner l'affichage des livres. Un peu d'ordre, ça fait du bien.",
-  :embed => "",
+  :embed => "_eNf53OwEoQ",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       La loi et l'ordre
@@ -261,12 +261,12 @@ Author : Raymond Briggs"
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
+  :published_at => "30-01-2014".to_datetime,
   :following => @wcs_4
 
 @wcs_6 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "Dernière partie et fin de l'épisode, on donner un rapide aperçu des possibilités folles de ruby via le method_missing et le define_method ! Whoaw !",
-  :embed => "",
+  :embed => "0qgOMBJ8v14",
   :snippet => Blog::Snippet.create(:erb => %q{
     <p>
       Method missing
@@ -310,5 +310,5 @@ end
   }),
   :pool => :wcs_jane,
   :published => true,
-  :published_at => "".to_datetime,
+  :published_at => "30-01-2014".to_datetime,
   :following => @wcs_5
