@@ -1,107 +1,173 @@
-<div class="cube">
-              <span class="top side"></span>
-              <span class="left side"></span>
-              <span class="right side"></span>
-              <span class="bottom side">
-                <span class="back side"></span>
-              </span>
-            </div>
-            
-            
-            
+<%= container_tag do %>
+  <span id="fold" class="btn">Click to fold</span><br/>
+  <span id="unfold" class="btn">Click to unfold</span>
 
-            .cube,
-            .cube .side {
-              width: 5em;
-              height: 5em;
-              background: rgba(153, 170, 187, 0.8);
-              /* -webkit-box-shadow: inset 0 0 0 5px #334455, 0 0 1px 1px #334455; */
-              -moz-box-shadow: inset 0 0 0 5px #334455, 0 0 1px 1px #334455;
-              box-shadow: inset 0 0 0 5px #334455, 0 0 0px 0px #334455;
-              border-radius: 3px;
-              -webkit-transform-style: preserve-3d;
-              -moz-transform-style: preserve-3d;
-              -ms-transform-style: preserve-3d;
-              -o-transform-style: preserve-3d;
-              transform-style: preserve-3d;
-            }
+  <div id="cube">
+    <div id="top"></div>
+    <div id="front"></div>
+    <div id="left"></div>
+    <div id="right"></div>
+    <div id="bottom">
+      <div id="back"></div>
+    </div>
+  </div>
+  
+  <%= scss %Q{
+    $base-sizing: 5em;
+    
+    #cube{
+      margin: $base-sizing {
+        bottom: $base-sizing * 2;
+      };
+      
+      height: $base-sizing * 2;
+      width: $base-sizing * 2;
+    
+      position: relative;
+      -webkit-transform-style: preserve-3d;
+      -webkit-perspective: 15em;
+      -webkit-perspective-origin: $base-sizing $base-sizing;
+      
+      
+      .side{
+        height: $base-sizing * 2;
+        width: $base-sizing * 2;
+        
+        background-color: rgba($primary-color, .4);
+        box-shadow: 0 0 0 .25em $primary-color inset;
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        @include backface-visibility(visible);
+        @include transition(all linear 4s);
+      }
+      
+      #top,
+      #front,
+      #left,
+      #right,
+      #bottom,
+      #back{
+        @extend .side;
+      }
+      
+      #top{
+        top: -$base-sizing * 2;
+        
+        -webkit-transform-origin: 50% 100%;
+      }
+      
+      #front{
+      }
+      
+      #left{
+        left: -$base-sizing * 2;
+        
+        -webkit-transform-origin: 100% 50%;
+      }
+      
+      #right{
+        left: $base-sizing * 2;
+        
+        -webkit-transform-origin: 0% 50%;
+      }
+      
+      #bottom{
+        top: $base-sizing * 2;
+        
+        -webkit-transform-origin: 50% 0%;
+        -webkit-transform-style: preserve-3d;
+      }
+      
+      #back{
+        top: $base-sizing * 2;
+        
+        -webkit-transition-delay: 1s;
+        -webkit-transform-origin: 50% 0%;
+      }
+      
+      &.folded{
+        #top{
+          -webkit-transform: rotateX(90deg);
+        }
+      
+        #front{
+        }
+      
+        #left{
+          -webkit-transform: rotateY(-90deg);
+        }
+      
+        #right{
+          -webkit-transform: rotateY(90deg);
+        }
+      
+        #bottom{
+          -webkit-transform: rotateX(-90deg);
+        }
+      
+        #back{
+          -webkit-transform: rotateX(-90deg);
+        }
+      }
+    }
+  } %>
+  
+  
+  
+  <script>
+    
+    
+    
+    [].forEach.call(document.querySelectorAll('#fold'), function(el) {
+      el.addEventListener('click', function() {
+        r_kit.addClass(document.getElementById("cube"), "folded");
+      })
+    });
+    
+    [].forEach.call(document.querySelectorAll('#unfold'), function(el) {
+      el.addEventListener('click', function() {
+        r_kit.removeClass(document.getElementById("cube"), "folded");
+      })
+    });
+    
+    /*
+    next to do, 
+    integrate event handlers in rkit js
+    then, add an event on the mouse hover
+    to set the perspective origin to the mouse position
+    
+    then, add even on scroll
+    to change values of perspective distance (by a multiplier, not linear)
+    carefull to the min value
+    
+    then, add exven on mouse out to restore default values
+    
+    then, add a "default state" that is an animation over the perspective origin value, (fr : créer un effet de "flottement")
+    
+    then, setup a clean css style, with big borders over the "hover perspective" area, with 3 arrows arround it like : 
+          |
+       ___v__
+    -> |    |<-
+       ------
+    
+    3 big white arrow with enougth space to writ on them "Hover" 'The' "mouse"
+    (maybe, you can create somme king of "arrow css class", then add it to rkit)
+    
+    
+    then, add a state when the user is in "hover" mode, to hide the 3 arrow and add 2 arrows with instruction to scroll.
+    
+    then, delete the "fold/unflod" btns, wich are only for dev, and make the #front side of cube to handle that (with a cool icon and a little text, wrap me please !)
+    
+    
+    then, you're done, good job !
+    */
+    
+    
+  </script>
+  
+<% end %>
 
-            .cube {
-              -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
-              -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
-              -ms-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
-              -o-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
-              transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0em) translateY(0em) translateZ(0em);
-            }
-            .cube .side {
-              position: absolute;
-              top: 0;
-              left: 0;
-            }
-            .cube .top {
-              top: -5em;
-              -webkit-transform: rotateX(90deg);
-              -moz-transform: rotateX(90deg);
-              -ms-transform: rotateX(90deg);
-              -o-transform: rotateX(90deg);
-              transform: rotateX(90deg);
-              -webkit-transform-origin: 50% 100%;
-              -moz-transform-origin: 50% 100%;
-              -ms-transform-origin: 50% 100%;
-              -o-transform-origin: 50% 100%;
-              transform-origin: 50% 100%;
-            }
-            .cube .left {
-              left: -5em;
-              -webkit-transform: rotateY(-90deg);
-              -moz-transform: rotateY(-90deg);
-              -ms-transform: rotateY(-90deg);
-              -o-transform: rotateY(-90deg);
-              transform: rotateY(-90deg);
-              -webkit-transform-origin: 100% 50%;
-              -moz-transform-origin: 100% 50%;
-              -ms-transform-origin: 100% 50%;
-              -o-transform-origin: 100% 50%;
-              transform-origin: 100% 50%;
-            }
-            .cube .right {
-              left: 5em;
-              -webkit-transform: rotateY(90deg);
-              -moz-transform: rotateY(90deg);
-              -ms-transform: rotateY(90deg);
-              -o-transform: rotateY(90deg);
-              transform: rotateY(90deg);
-              -webkit-transform-origin: 0% 50%;
-              -moz-transform-origin: 0% 50%;
-              -ms-transform-origin: 0% 50%;
-              -o-transform-origin: 0% 50%;
-              transform-origin: 0% 50%;
-            }
-            .cube .bottom {
-              top: 5em;
-              -webkit-transform: rotateX(-90deg);
-              -moz-transform: rotateX(-90deg);
-              -ms-transform: rotateX(-90deg);
-              -o-transform: rotateX(-90deg);
-              transform: rotateX(-90deg);
-              -webkit-transform-origin: 50% 0%;
-              -moz-transform-origin: 50% 0%;
-              -ms-transform-origin: 50% 0%;
-              -o-transform-origin: 50% 0%;
-              transform-origin: 50% 0%;
-            }
-            .cube .bottom .back {
-              top: 5em;
-              -webkit-transform: rotateX(-90deg);
-              -moz-transform: rotateX(-90deg);
-              -ms-transform: rotateX(-90deg);
-              -o-transform: rotateX(-90deg);
-              transform: rotateX(-90deg);
-              -webkit-transform-origin: 50% 0%;
-              -moz-transform-origin: 50% 0%;
-              -ms-transform-origin: 50% 0%;
-              -o-transform-origin: 50% 0%;
-              transform-origin: 50% 0%;
-            }
-            
             

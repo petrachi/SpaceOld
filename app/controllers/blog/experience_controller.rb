@@ -37,6 +37,10 @@ class Blog::ExperienceController < Blog::ApplicationController
        if params[:page] == "4"
           render :template => "blog/experience/tmp_4", layout: false
         end
+        
+        if params[:page] == "5"
+           render :template => "blog/experience/tmp_5"
+         end
       
 =begin      
       experiment = Blog::Experiment.where(:id => 4)
