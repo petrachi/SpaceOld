@@ -1,31 +1,59 @@
-<%= container_tag do %>
-  <span id="fold" class="btn">Click to fold</span><br/>
-  <span id="unfold" class="btn">Click to unfold</span>
+<span id="fold" class="btn">Click to fold</span><br/>
+<span id="unfold" class="btn">Click to unfold</span>
 
-  <div id="cube">
-    <div id="top"></div>
-    <div id="front"></div>
-    <div id="left"></div>
-    <div id="right"></div>
-    <div id="bottom">
-      <div id="back"></div>
+
+<hr/>
+<form name="Show">
+            <input type="text" name="MouseX" value="0" size="4"> X<br>
+            <input type="text" name="MouseY" value="0" size="4"> Y<br>
+      </form>
+    
+
+<%= container_tag do %>
+  <div id="cube_container">
+    <div id="cube">
+      <div id="top"></div>
+      <div id="front"></div>
+      <div id="left"></div>
+      <div id="right"></div>
+      <div id="bottom">
+        <div id="back"></div>
+      </div>
     </div>
   </div>
+  
+  <div id="mark"></div>
   
   <%= scss %Q{
     $base-sizing: 5em;
     
+    #cube_container{
+    -webkit-transform-style: preserve-3d;
+    -webkit-perspective: 50em;
+    -webkit-perspective-origin: $base-sizing $base-sizing;
+    }
+    
+    #mark{
+      position: absolute;
+      height: 2px;
+      width: 2px;
+      background-color: white;
+      
+      top: 500px;
+      left: 500px;
+    }
+    
     #cube{
-      margin: $base-sizing {
-        bottom: $base-sizing * 2;
+      margin: $base-sizing * 2 {
+        bottom: $base-sizing * 4;
       };
       
       height: $base-sizing * 2;
       width: $base-sizing * 2;
     
       position: relative;
+      -webkit-transform: translateZ(-1em);
       -webkit-transform-style: preserve-3d;
-      -webkit-perspective: 15em;
       -webkit-perspective-origin: $base-sizing $base-sizing;
       
       
@@ -33,15 +61,15 @@
         height: $base-sizing * 2;
         width: $base-sizing * 2;
         
-        background-color: rgba($primary-color, .4);
-        box-shadow: 0 0 0 .25em $primary-color inset;
+        background-color: rgba($primary-color, .6);
+        box-shadow: 0 0 0 .25em black inset;
         
         position: absolute;
         top: 0;
         left: 0;
         
         @include backface-visibility(visible);
-        @include transition(all linear 4s);
+        @include transition(all linear 2s);
       }
       
       #top,
@@ -84,7 +112,7 @@
       #back{
         top: $base-sizing * 2;
         
-        -webkit-transition-delay: 1s;
+        -webkit-transition-delay: .5s;
         -webkit-transform-origin: 50% 0%;
       }
       
@@ -122,9 +150,18 @@
     
     
     [].forEach.call(document.querySelectorAll('#fold'), function(el) {
+      /*
       el.addEventListener('click', function() {
         r_kit.addClass(document.getElementById("cube"), "folded");
       })
+      */
+     
+      
+      function toto() {
+        r_kit.addClass(document.getElementById("cube"), "folded");
+      }
+      
+       el.onclick = toto;
     });
     
     [].forEach.call(document.querySelectorAll('#unfold'), function(el) {
@@ -132,6 +169,37 @@
         r_kit.removeClass(document.getElementById("cube"), "folded");
       })
     });
+    
+    
+    // obj.style["-webkit-background-size"] = "400px"
+    
+    
+
+
+
+
+                document.onmousemove = getMouseXY;
+
+
+                var tempX = 0
+                var tempY = 0
+
+
+
+                function getMouseXY(e) {
+                    
+                     tempX = e.pageX
+                     tempY = e.pageY
+
+
+                    document.Show.MouseX.value = tempX
+                    document.Show.MouseY.value = tempY
+                    
+                    document.getElementById("cube_container").style["-webkit-perspective-origin"] = (tempX - 500) + "px " + (tempY - 500) + "px"
+                    
+                    return true
+                    }
+    
     
     /*
     next to do, 
@@ -160,6 +228,35 @@
     then, add a state when the user is in "hover" mode, to hide the 3 arrow and add 2 arrows with instruction to scroll.
     
     then, delete the "fold/unflod" btns, wich are only for dev, and make the #front side of cube to handle that (with a cool icon and a little text, wrap me please !)
+    
+    then, write an article about some vaillajs to r_kit js
+    
+    
+    
+    
+    
+    use case for rkit :
+    // function "getmouseposition" is already defined, an return an array with mouse x & y values
+    
+    cube = rkit.select("#cube");
+    
+    fold_toggle = r_kit.select("a#fold");
+    fold_toggle.on_click(function(elt){
+      cube.add_class("folded")
+    })
+    
+    // this event listener could have been "cube.listen("hover", function(){"
+    cube.on_hover(function(){
+      position = getmouseposition
+    
+      style = rkit.style()
+      style.add_propertie("-webkit-perspective-origin", "500px 400px");
+      // this could be : rkit.style({"-webkit-perspective-origin": "500px 400px"})
+      
+      cube.add_style(style);
+    })
+    
+    // fin use case
     
     
     then, you're done, good job !
