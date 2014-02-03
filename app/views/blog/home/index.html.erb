@@ -8,6 +8,112 @@
 	</p>
 	
 	<p class="text-center">
-		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize, :class=>:btn %>
+		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize, class: :btn %>
 	</p>
 <% end %>
+
+<%= container_tag class: :items_center do %>
+
+  <%= row_tag do %>
+    <%= col_6_tag do %>
+    		<%= coderay do %>
+def points_on_sphere n
+n = n.to_f
+pts = Array.new
+
+inc = Math::PI * (3 - Math::sqrt(5))
+off = 2 / n
+
+(0...n).each do |k|
+  y = k * off - 1 + (off / 2)    
+  r = Math::sqrt(1 - y**2)
+  phi = k * inc
+
+  x_phi = Math::PI/2 - Math::acos(y)
+
+  pts << [1.0, phi, x_phi]
+end
+
+pts
+end
+  			<% end %>
+    <% end %>
+  
+    <%= col_6_tag do %>
+      <h1>
+        <i class="icon-code"></i>
+        Articles
+      </h1>
+    
+      <p>
+        youpi yop
+      </p>
+    
+      <p>
+        <%= link_to t(:go_to), Blog::Article, :class=>:btn %>
+      </p>
+    <% end %>
+  <% end %>
+  
+  <%= row_tag do %>
+    <%= col_6_tag do %>
+      <h1><i class="icon-fire"></i> Experiences</h1>
+      
+      <p>
+        youpi yop
+      </p>
+      
+      <p>
+        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
+      </p>
+    <% end %>
+    
+    <%= col_6_tag do %>
+      <% erb Blog::Experience.published.tagged(:sphere).run %>
+    <% end %>
+  <% end %>
+  
+  
+  <%= row_tag do %>
+    <%= col_6_tag do %>
+      ???
+    <% end %>
+  
+    <%= col_6_tag do %>
+      <h1><i class="icon-bolt"></i> Ressources</h1>
+      
+      <p>
+        youpi yop
+      </p>
+      
+      <p>
+        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
+      </p>
+    <% end %>
+  <% end %>
+  
+  <%= row_tag do %>
+    <%= col_6_tag do %>
+      <h1><i class="icon-youtube-play"></i> Screencasts</h1>
+      
+      <p>
+        youpi yop
+      </p>
+      
+      <p>
+  			<script src="https://apis.google.com/js/plusone.js"></script>
+  			<div class="g-ytsubscribe" data-channelid="UCOYFTIqHc5de50CMJK6s9Rw" data-layout="full" data-theme="default">
+  			</div>
+      </p>
+      
+      <p>
+        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
+      </p>
+    <% end %>
+    
+    <%= col_6_tag do %>
+      <% erb Blog::Screencast.published.tagged(:design_struct_1).decorate(self).embed %>
+    <% end %>
+  <% end %>
+<% end %>
+

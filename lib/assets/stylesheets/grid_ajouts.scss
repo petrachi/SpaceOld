@@ -14,3 +14,20 @@
 	}
 }
 */
+
+// ruby should convert underscore into tiret case
+.container.items_center{
+  .row{
+    align-items: center;
+    
+    [class*=col-]{
+      :first-child{
+        margin-top: 0;
+      }
+      
+      :last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
