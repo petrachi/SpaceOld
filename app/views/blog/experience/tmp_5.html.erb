@@ -22,122 +22,123 @@
     </div>
   </div>
   
-  <div id="mark"></div>
   
   <%= scss %Q{
     $base-sizing: 5em;
     
-    #cube_container{
-    -webkit-transform-style: preserve-3d;
-    -webkit-perspective: 50em;
-    -webkit-perspective-origin: $base-sizing $base-sizing;
-    }
-    
-    #mark{
-      position: absolute;
-      height: 2px;
-      width: 2px;
-      background-color: white;
-      
-      top: 500px;
-      left: 500px;
-    }
-    
-    #cube{
-      margin: $base-sizing * 2 {
+    #cube_container{    
+      padding: $base-sizing * 2 {
         bottom: $base-sizing * 4;
       };
       
-      height: $base-sizing * 2;
-      width: $base-sizing * 2;
-    
-      position: relative;
-      -webkit-transform: translateZ(-1em);
-      -webkit-transform-style: preserve-3d;
-      -webkit-perspective-origin: $base-sizing $base-sizing;
+      border: $primary-color 1px solid;
+      
+      @include transition(all linear 2s);
+      -webkit-transition-delay: 2s;
+      
+      background-image: -webkit-linear-gradient(left, #111111, transparent 25%, transparent 75%, #111111), url(/assets/blog/main.jpg);
+      background-size: 100% auto;
+      background-position: center center;
       
       
-      .side{
+      #cube{
         height: $base-sizing * 2;
         width: $base-sizing * 2;
+    
+        position: relative;
+        margin: auto;
         
-        background-color: rgba($primary-color, .6);
-        box-shadow: 0 0 0 .25em black inset;
-        
-        position: absolute;
-        top: 0;
-        left: 0;
-        
-        @include backface-visibility(visible);
-        @include transition(all linear 2s);
-      }
-      
-      #top,
-      #front,
-      #left,
-      #right,
-      #bottom,
-      #back{
-        @extend .side;
-      }
-      
-      #top{
-        top: -$base-sizing * 2;
-        
-        -webkit-transform-origin: 50% 100%;
-      }
-      
-      #front{
-      }
-      
-      #left{
-        left: -$base-sizing * 2;
-        
-        -webkit-transform-origin: 100% 50%;
-      }
-      
-      #right{
-        left: $base-sizing * 2;
-        
-        -webkit-transform-origin: 0% 50%;
-      }
-      
-      #bottom{
-        top: $base-sizing * 2;
-        
-        -webkit-transform-origin: 50% 0%;
         -webkit-transform-style: preserve-3d;
-      }
-      
-      #back{
-        top: $base-sizing * 2;
+        -webkit-perspective-origin: $base-sizing $base-sizing;
+        -webkit-perspective: 100em;
         
-        -webkit-transition-delay: .5s;
-        -webkit-transform-origin: 50% 0%;
-      }
       
-      &.folded{
+        .side{
+          height: $base-sizing * 2;
+          width: $base-sizing * 2;
+        
+          background-color: rgba($primary-color, .6);
+          box-shadow: 0 0 0 .25em black inset;
+        
+          position: absolute;
+          top: 0;
+          left: 0;
+        
+          @include backface-visibility(visible);
+          @include transition(all linear 2s);
+        }
+      
+        #top,
+        #front,
+        #left,
+        #right,
+        #bottom,
+        #back{
+          @extend .side;
+        }
+      
         #top{
-          -webkit-transform: rotateX(90deg);
+          top: -$base-sizing * 2;
+        
+          -webkit-transform-origin: 50% 100%;
         }
       
         #front{
         }
       
         #left{
-          -webkit-transform: rotateY(-90deg);
+          left: -$base-sizing * 2;
+        
+          -webkit-transform-origin: 100% 50%;
         }
       
         #right{
-          -webkit-transform: rotateY(90deg);
+          left: $base-sizing * 2;
+        
+          -webkit-transform-origin: 0% 50%;
         }
       
         #bottom{
-          -webkit-transform: rotateX(-90deg);
+          top: $base-sizing * 2;
+        
+          -webkit-transform-origin: 50% 0%;
+          -webkit-transform-style: preserve-3d;
         }
       
         #back{
-          -webkit-transform: rotateX(-90deg);
+          top: $base-sizing * 2;
+        
+          -webkit-transition-delay: .5s;
+          -webkit-transform-origin: 50% 0%;
+        }
+      }
+    
+      &:hover{
+        padding: $base-sizing * 3;
+        
+        #cube{
+          #top{
+            -webkit-transform: rotateX(90deg);
+          }
+    
+          #front{
+          }
+    
+          #left{
+            -webkit-transform: rotateY(-90deg);
+          }
+    
+          #right{
+            -webkit-transform: rotateY(90deg);
+          }
+    
+          #bottom{
+            -webkit-transform: rotateX(-90deg);
+          }
+    
+          #back{
+            -webkit-transform: rotateX(-90deg);
+          }
         }
       }
     }
@@ -190,15 +191,102 @@
                     
                      tempX = e.pageX
                      tempY = e.pageY
+                     
+                     
+                     cube = document.getElementById("cube");
+                     style = window.getComputedStyle(cube, null);
+                     style.getPropertyValue("width"); // get "160px", the full thing
+                     
 
-
-                    document.Show.MouseX.value = tempX
-                    document.Show.MouseY.value = tempY
+                     
+                     var _x = 0
+                     var _y = 0
+                     
+                     console.log(style.getPropertyValue("width"));
+                     console.log(style.width);
+                     
+                     
+                       _x += cube.offsetLeft - cube.scrollLeft + (parseInt(style.getPropertyValue("width"), 10));
+                       _y += cube.offsetTop - cube.scrollTop + (parseInt(style.getPropertyValue("height"), 10)) ;
                     
-                    document.getElementById("cube_container").style["-webkit-perspective-origin"] = (tempX - 500) + "px " + (tempY - 500) + "px"
+                       rel_x = e.pageX - _x
+                       rel_y = e.pageY - _y
+                    
+                    document.Show.MouseX.value = rel_x
+                    document.Show.MouseY.value = rel_y
+                    
+                    
+                  
+                    document.getElementById("cube").style["-webkit-perspective-origin"] = (-rel_x * 2) + "px " + (-rel_y * 2) + "px"
                     
                     return true
                     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                    /*
+                    this is to disable scroll
+                    but when it's disabled, you can't scroll, so it's not like prevent default ...
+                    
+                    
+                    
+                    
+                    
+                    
+                    function preventDefault(e) {
+                      e = e || window.event;
+                      if (e.preventDefault)
+                          e.preventDefault();
+                      //e.returnValue = false;  
+                      
+                      
+                      scrollevent();
+                    }
+                    
+                    var scrollval = 0
+                    
+                    function scrollevent(){
+                      
+                      if(cubehover){
+                        
+                        scrollval++
+                        
+                        document.getElementById("cube").style["-webkit-transform"] = "translateZ(-" + scrollval + "px)";
+                        
+                      }
+                    }
+                    
+                    var cubehover = false;
+                    window.addEventListener('scroll', function() {
+                            console.log('scrolling');
+                            
+                            
+                    });
+                    
+   
+    document.getElementById('cube_container').onmouseover = function(){
+      window.onmousewheel = document.onmousewheel = preventDefault;
+      
+      cubehover = true;
+      
+    }
+    
+    document.getElementById('cube_container').onmouseout = function(){
+window.onmousewheel = document.onmousewheel = null;       
+
+cubehover = false;
+
+    }
+  */
+    
+    
     
     
     /*
