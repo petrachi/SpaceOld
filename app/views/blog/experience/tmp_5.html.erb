@@ -52,6 +52,7 @@
         -webkit-perspective-origin: $base-sizing $base-sizing;
         -webkit-perspective: 100em;
         
+        // -webkit-transform: rotateY(90deg);
       
         .side{
           height: $base-sizing * 2;
@@ -202,22 +203,27 @@
                      var _x = 0
                      var _y = 0
                      
-                     console.log(style.getPropertyValue("width"));
-                     console.log(style.width);
+                     console.log(cube.offsetLeft);
                      
                      
-                       _x += cube.offsetLeft - cube.scrollLeft + (parseInt(style.getPropertyValue("width"), 10));
-                       _y += cube.offsetTop - cube.scrollTop + (parseInt(style.getPropertyValue("height"), 10)) ;
+                       _x += cube.offsetLeft - cube.scrollLeft + (parseInt(style.getPropertyValue("width"), 10)/2);
+                       _y += cube.offsetTop - cube.scrollTop + (parseInt(style.getPropertyValue("height"), 10)/2);
+                       
+                       // this is not right yet, I want the perspective origin to be at 5em 5em, when the mouse is at the center of the cube (offset + width/2)
+                       
+                       // width == 10em
                     
-                       rel_x = e.pageX - _x
-                       rel_y = e.pageY - _y
+                    
+                    
+                       rel_x = e.pageX - _x - 80
+                       rel_y = e.pageY - _y - 80 // 80 is width/2
                     
                     document.Show.MouseX.value = rel_x
                     document.Show.MouseY.value = rel_y
                     
                     
-                  
-                    document.getElementById("cube").style["-webkit-perspective-origin"] = (-rel_x * 2) + "px " + (-rel_y * 2) + "px"
+                    // increase the deformation (by *2) is better effect, but this mess with the center of the cube for perspective origin
+                    document.getElementById("cube").style["-webkit-perspective-origin"] = (-rel_x) + "px " + (-rel_y) + "px"
                     
                     return true
                     }
@@ -346,6 +352,10 @@ cubehover = false;
     })
     
     // fin use case
+    
+    
+    
+    then, maybe, propose a click btn to add specific views, rotate the cube for 90 deg in X, or in Y, and add the 3 views simutaneously. this could be nice to see.
     
     
     then, you're done, good job !
