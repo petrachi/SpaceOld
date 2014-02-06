@@ -5,6 +5,7 @@ module ApplicationHelper
   # include NewGrid
   
   include ErbHelper
+  include TagHelper
   include GoogleAnalyticsHelper
   
   def authorized? application

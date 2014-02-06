@@ -1,3 +1,8 @@
+PATH
+  remote: /Users/elPetrachi/Dev/r_kit
+  specs:
+    r_kit (0.1.4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,7 +78,6 @@ GEM
       chunky_png (~> 1.2.7)
     pg (0.17.0)
     polyglot (0.3.3)
-    r_kit (0.1.4.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -141,7 +145,7 @@ DEPENDENCIES
   newrelic_rpm
   oily_png
   pg
-  r_kit
+  r_kit!
   rails (= 3.2.14)
   rails-i18n
   sass-rails (~> 3.2.3)

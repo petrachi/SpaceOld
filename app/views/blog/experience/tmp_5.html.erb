@@ -33,8 +33,8 @@
       
       border: $primary-color 1px solid;
       
-      @include transition(all linear 2s);
-      -webkit-transition-delay: 2s;
+      @include transition(all linear .1s);
+      -webkit-transition-delay: .35s;
       
       background-image: -webkit-linear-gradient(left, #111111, transparent 25%, transparent 75%, #111111), url(/assets/blog/main.jpg);
       background-size: 100% auto;
@@ -66,7 +66,7 @@
           left: 0;
         
           @include backface-visibility(visible);
-          @include transition(all linear 2s);
+          @include transition(all ease .25s);
         }
       
         #top,
@@ -109,13 +109,16 @@
         #back{
           top: $base-sizing * 2;
         
-          -webkit-transition-delay: .5s;
+          -webkit-transition-delay: .3s;
           -webkit-transform-origin: 50% 0%;
         }
       }
     
       &:hover{
-        padding: $base-sizing * 3;
+        padding: {
+          top: $base-sizing * 3;
+          bottom: $base-sizing * 3;
+        };
         
         #cube{
           #top{
@@ -356,6 +359,10 @@ cubehover = false;
     
     
     then, maybe, propose a click btn to add specific views, rotate the cube for 90 deg in X, or in Y, and add the 3 views simutaneously. this could be nice to see.
+    
+    
+    wow, this style for cube borders is very impressive : 0 0 5em 0.5em black
+    this too is very interesting : 0 0 35em -.5em black (with full transparent bg-color)
     
     
     then, you're done, good job !
