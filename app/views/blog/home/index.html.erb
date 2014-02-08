@@ -13,7 +13,9 @@
 <% end %>
 
 
-<div id="home">
+<div id="home" class="text-center">
+  <i><< j'ai tellement voulu >></i> - Thomas Petrachi
+  
   <div id="articles">
 
     <%= container_tag do %>
@@ -31,57 +33,47 @@
       <%= row_tag do %>
         <%= col_6_tag offset: 3 do %>
           <%= coderay do %>
-    class Programmer
-      attr_accessor :language
-
-      def initialize language
-        @language = language
-      end
-
-      def happy?
-        language == :ruby
-      end
-
-      def make_happy!
-        self.language = :ruby
-      end
+class Object
+  def native_methods
+    methods.select do |method_name| 
+      method(method_name).source_location.nil?
     end
+  end
 
-    you = Programmer.new LANGUAGE
+  def ruby_methods() methods - native_methods end
 
-    unless you.happy?
-      you.make_happy!
-    end
+  def inspect_methods
+    %Q{
+      +-----
+      | C written methods: #{ native_methods.size }
+      | Ruby written methods: #{ ruby_methods.size }
+      +-----
+    } 
+  end
+end
 
+?> [Array, Hash, String, Fixnum].map &:inspect_methods
+=> "
+      +-----
+      | Native methods (written in C): 98
+      | Support methods (written in Ruby): 125
+      +-----
 
-    ////
-    case
-    when song.name == "Misty"
-      puts "Not again!"
-    when song.duration > 120
-      puts "Too long!"
-    when Time.now.hour > 21
-      puts "It's too late"
-    else
-      song.play
-    end
+      +-----
+      | Native methods (written in C): 98
+      | Support methods (written in Ruby): 126
+      +-----
 
-    kind = case year
-           when 1850..1889 then "Blues"
-           when 1890..1909 then "Ragtime"
-           when 1910..1929 then "New Orleans Jazz"
-           when 1930..1939 then "Swing"
-           when 1940..1950 then "Bebop"
-           else "Jazz"
-           end
+      +-----
+      | Native methods (written in C): 98
+      | Support methods (written in Ruby): 124
+      +-----
 
-
-           ////
-       
-           # open object and add "methods_infos" method, that display a multiline string with native & non native methods counts (minus inherited methods)
-           # then show the result for tree or four classes
-            [Array, Hash, String].map{|x| x.methods.select{|y| x.method(y).source_location }.size }
-
+      +-----
+      | Native methods (written in C): 95
+      | Support methods (written in Ruby): 124
+      +-----
+"
           <% end %>
         <% end %>
       <% end %>
@@ -121,10 +113,6 @@
             Where I explain what we do in that section<br/>
             And some other cool stuff !
           </p>
-    
-          <p>
-            <%= btn_to t(:go_to), Blog::Ressource %>
-          </p>
         <% end %>
   
         <%= col_6_tag class: "text-left" do %>
@@ -133,11 +121,13 @@
           </p>
         <% end %>
       <% end %>
+      
+      <p>
+        <%= btn_to t(:go_to), Blog::Ressource %>
+      </p>
     <% end %>
   </div>
-  
-  mettre une série de petits triangles, avec le background
-  
+    
   <div id="screencasts">
     <%= container_tag do %>
       <h1>
@@ -201,109 +191,4 @@
 
 
 
-
-<%= container_tag class: :items_center do %>
-
-  <%= row_tag do %>
-    <%= col_6_tag do %>
-    		<%= coderay do %>
-def points_on_sphere n
-n = n.to_f
-pts = Array.new
-
-inc = Math::PI * (3 - Math::sqrt(5))
-off = 2 / n
-
-(0...n).each do |k|
-  y = k * off - 1 + (off / 2)    
-  r = Math::sqrt(1 - y**2)
-  phi = k * inc
-
-  x_phi = Math::PI/2 - Math::acos(y)
-
-  pts << [1.0, phi, x_phi]
-end
-
-pts
-end
-  			<% end %>
-    <% end %>
-  
-    <%= col_6_tag do %>
-      <h1>
-        <i class="icon-code"></i>
-        Articles
-      </h1>
-    
-      <p>
-        youpi yop
-      </p>
-    
-      <p>
-        <%= link_to t(:go_to), Blog::Article, :class=>:btn %>
-      </p>
-    <% end %>
-  <% end %>
-  
-  <%= row_tag do %>
-    <%= col_6_tag do %>
-      <h1><i class="icon-fire"></i> Experiences</h1>
-      
-      <p>
-        youpi yop
-      </p>
-      
-      <p>
-        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
-      </p>
-    <% end %>
-    
-    <%= col_6_tag do %>
-      <% erb Blog::Experience.published.tagged(:sphere).run %>
-    <% end %>
-  <% end %>
-  
-  
-  <%= row_tag do %>
-    <%= col_6_tag do %>
-      ???
-    <% end %>
-  
-    <%= col_6_tag do %>
-      <h1><i class="icon-bolt"></i> Ressources</h1>
-      
-      <p>
-        youpi yop
-      </p>
-      
-      <p>
-        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
-      </p>
-    <% end %>
-  <% end %>
-  
-  <%= row_tag do %>
-    <%= col_6_tag do %>
-      <h1><i class="icon-youtube-play"></i> Screencasts</h1>
-      
-      <p>
-        youpi yop
-      </p>
-      
-      <p>
-  			<script src="https://apis.google.com/js/plusone.js"></script>
-  			<div class="g-ytsubscribe" data-channelid="UCOYFTIqHc5de50CMJK6s9Rw" data-layout="full" data-theme="default">
-  			</div>
-      </p>
-      
-      <p>
-        <%= link_to t(:go_to), Blog::Experience, class: :btn %>
-      </p>
-    <% end %>
-    
-    <%= col_6_tag do %>
-      <% erb Blog::Screencast.published.tagged(:design_struct_1).decorate(self).embed %>
-    <% end %>
-  <% end %>
-<% end %>
 
