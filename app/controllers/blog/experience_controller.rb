@@ -26,6 +26,10 @@ class Blog::ExperienceController < Blog::ApplicationController
   #if Rails.env == "development"
   
     def tmp
+      params[:page] ||= "1"
+      render :template => "blog/experience/tmp_#{ params[:page] }"
+      
+=begin      
       if params[:page] == "2"
         render :template => "blog/experience/tmp_2"
       end
@@ -41,7 +45,7 @@ class Blog::ExperienceController < Blog::ApplicationController
         if params[:page] == "5"
            render :template => "blog/experience/tmp_5"
          end
-      
+=end      
 =begin      
       experiment = Blog::Experiment.where(:id => 4)
 	      		.with_version(5)

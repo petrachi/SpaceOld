@@ -16,18 +16,46 @@
 */
 
 // ruby should convert underscore into tiret case
-.container.items_center{
+.container.items-center{
   .row{
     align-items: center;
     
+  }
+}
+
+
+.container.margin-sharp{
+  .row{
     [class*=col-]{
       :first-child{
         margin-top: 0;
       }
-      
+  
       :last-child{
         margin-bottom: 0;
       }
     }
   }
 }
+
+.container.margin-join{  
+  .row:not(:first-of-type){
+    [class*=col-]{
+      :first-child{
+        margin-top: 0;
+      }
+    }
+  }
+  
+  .row:not(:last-of-type){
+    [class*=col-]{
+      :last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+
+

@@ -1,50 +1,33 @@
-<%= container_3_tag @sections do |section| %>
-	<h2 class="text-center">
-		<%= t "blog.#{ section }.name" %>
-	</h2>
-	
-	<p>
-		<%= t "blog.#{ section }.summary" %>
-	</p>
-	
-	<p class="text-center">
-		<%= link_to t(:go_to), "blog/#{ section }".classify.constantize, class: :btn %>
-	</p>
-<% end %>
-
-
 <div id="home" class="text-center">
-  <i><< j'ai tellement voulu >></i> - Thomas Petrachi
   
   <div id="articles">
-
     <%= container_tag do %>
-      <h1>
+      <h2>
         <i class="icon-code"></i>
         Articles
-      </h1>
-  
+      </h2>
+      
       <p>
         Some text that matters<br/>
         Where I explain what we do in that section<br/>
         And some other cool stuff !
       </p>
-  
+      
       <%= row_tag do %>
         <%= col_6_tag offset: 3 do %>
           <%= coderay do %>
 class Object
   def native_methods
-    methods.select do |method_name| 
-      method(method_name).source_location.nil?
+    instance_methods(false).select do |method_name| 
+      instance_method(method_name).source_location.nil?
     end
   end
 
-  def ruby_methods() methods - native_methods end
+  def ruby_methods() instance_methods(false) - native_methods end
 
   def inspect_methods
     %Q{
-      +-----
+      +----- #{ self }
       | C written methods: #{ native_methods.size }
       | Ruby written methods: #{ ruby_methods.size }
       +-----
@@ -54,24 +37,27 @@ end
 
 ?> [Array, Hash, String, Fixnum].map &:inspect_methods
 => "
+      +----- Array
+      | C written methods: 91
+      | Ruby written methods: 31
       +-----
-      | Native methods (written in C): 98
-      | Support methods (written in Ruby): 125
-      +-----
+    
 
+      +----- Hash
+      | C written methods: 54
+      | Ruby written methods: 43
       +-----
-      | Native methods (written in C): 98
-      | Support methods (written in Ruby): 126
-      +-----
+    
 
+      +----- String
+      | C written methods: 111
+      | Ruby written methods: 43
       +-----
-      | Native methods (written in C): 98
-      | Support methods (written in Ruby): 124
-      +-----
+    
 
-      +-----
-      | Native methods (written in C): 95
-      | Support methods (written in Ruby): 124
+      +----- Fixnum
+      | C written methods: 34
+      | Ruby written methods: 0
       +-----
 "
           <% end %>
@@ -83,10 +69,10 @@ end
   <div id="experiences">
 
     <%= container_tag do %>
-      <h1>
+      <h2>
         <i class="icon-fire"></i>
         Experiences
-      </h1>
+      </h2>
   
       <%= erb Blog::Experience.published.tagged(:sphere).run(:mini) %>
   
@@ -103,8 +89,11 @@ end
   </div>
   
   <div id="ressources">
-    <%= container_tag class: :items_center do %>
-      <h1><i class="icon-bolt"></i> Ressources</h1>
+    <%= container_tag class: "items_center margin_sharp" do %>
+      <h2>
+        <i class="icon-bolt"></i>
+        Ressources
+      </h2>
   
       <%= row_tag do %>
         <%= col_6_tag class: "text-right" do %>
@@ -127,14 +116,14 @@ end
       </p>
     <% end %>
   </div>
-    
+
   <div id="screencasts">
-    <%= container_tag do %>
-      <h1>
+    <%= container_tag class: :margin_join do %>
+      <h2>
         <i class="icon-youtube-play"></i>
         Screencasts
-      </h1>
-  
+      </h2>
+
       <%= erb Blog::Screencast.published.tagged(:design_struct_1).decorate(self).embed %>
 
       <p>
@@ -142,45 +131,43 @@ end
         Where I explain what we do in that section<br/>
         And some other cool stuff !
       </p>
-  
+
 
       <p>
         <%= link_to t(:go_to), Blog::Screencast, class: :btn %>
       </p>
-  
+
       <%= row_tag do %>
         <%= col_6_tag class: "text-right" do %>
           <p>
             Ruby pour les experts !
           </p>
         <% end %>
-      
+
         <%= col_6_tag class: "text-left" do %>
           <p>
             <%= btn_to :htcpcp, blog_screencasts_path(pool: :htcpcp) %>
           </p>
         <% end %>
       <% end %>
-  
+
       <%= row_tag do %>
         <%= col_6_tag class: "text-right" do %>
           <p>
             Ruby pour les noobs !
           </p>
         <% end %>
-      
+
         <%= col_6_tag class: "text-left" do %>
           <p>
             <%= btn_to :wcs_jane, blog_screencasts_path(pool: :wcs_jane) %>
           </p>
         <% end %>
       <% end %>
-  
-      <p>
-    		<script src="https://apis.google.com/js/plusone.js"></script>
-    		<div class="g-ytsubscribe" data-channelid="UCOYFTIqHc5de50CMJK6s9Rw" data-layout="full" data-theme="default">
-    		</div>
-      </p>
+
+      <script src="https://apis.google.com/js/plusone.js"></script>
+      <div class="g-ytsubscribe" data-channelid="UCOYFTIqHc5de50CMJK6s9Rw" data-layout="full" data-theme="default">
+      </div>
     <% end %>
 
 

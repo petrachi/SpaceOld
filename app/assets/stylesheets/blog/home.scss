@@ -1,122 +1,48 @@
-#home{
-  
-  #experiences{
-  //  background-color: #181818;
-    
-  .container{
-    
-    // box-shadow: 0 -1em 1em -1em black, 0 1em 1em -1em black;
-    
-    
-    position: relative;
-    background-color: #111;
-    
-    &:before{
-      position: absolute;
-      width: 90%;
-      height: 10%;
-      left: 5%;
-      border-radius: 50%;
-      z-index: -1;
-      top: 0%;
-      content: "";
-      box-shadow: 0 0 1em .25em black;
-    }
-    
-    &:after{
-      position: absolute;
-      width: 90%;
-      height: 10%;
-      left: 5%;
-      border-radius: 50%;
-      z-index: -1;
-      bottom: 0%;
-      content: "";
-      box-shadow: 0 0 1em .25em black;
-    }
-    
-    
-    /*
-    $black: #111;
-    $grey: #181818;
-    
-    background-color:silver;
-    background-image: 
-    radial-gradient(circle at 100% 150%, $black 24%, $grey 25%, $grey 28%, $black 29%, $black 36%, $grey 36%, $grey 40%, transparent 40%, transparent),
-    radial-gradient(circle at 0    150%, $black 24%, $grey 25%, $grey 28%, $black 29%, $black 36%, $grey 36%, $grey 40%, transparent 40%, transparent),
-    radial-gradient(circle at 50%  100%, $grey 10%, $black 11%, $black 23%, $grey 24%, $grey 30%, $black 31%, $black 43%, $grey 44%, $grey 50%, $black 51%, $black 63%, $grey 64%, $grey 71%, transparent 71%, transparent),
-    radial-gradient(circle at 100% 50%, $grey 5%, $black 6%, $black 15%, $grey 16%, $grey 20%, $black 21%, $black 30%, $grey 31%, $grey 35%, $black 36%, $black 45%, $grey 46%, $grey 49%, transparent 50%, transparent),
-    radial-gradient(circle at 0    50%, $grey 5%, $black 6%, $black 15%, $grey 16%, $grey 20%, $black 21%, $black 30%, $grey 31%, $grey 35%, $black 36%, $black 45%, $grey 46%, $grey 49%, transparent 50%, transparent);
-    background-size:100px 50px;
-    */
-    
-    
-    
+#home {  
+  h2 {
+    font-size: 4em;
+    margin: 0 0 .5em;
   }
+  
+  .sections {
+    padding: 4em 0;
     
+    .container {
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .alt-sections {
+    padding-top: 2em;
     
+    background-color: $background-alt-color;
+    @include normal-box-shadow;
+  }
+  
+  #articles,
+  #experiences,
+  #ressources,
+  #screencasts {
+    @extend .sections;
+  }
+  
+  #experiences,
+  #screencasts {
+    @extend .alt-sections;
   }
   
   #screencasts{
-    
-    background-color: #181818;
-        box-shadow: 0 0 1em black;
-    
-    
-    
-    /*
-    $black: #111;
-    $grey: black;
-    
-background:
-linear-gradient(324deg, $black 4%,   transparent 4%) -70px 43px,
-linear-gradient( 36deg, $black 4%,   transparent 4%) 30px 43px,
-linear-gradient( 72deg, $grey 8.5%, transparent 8.5%) 30px 43px,
-linear-gradient(288deg, $grey 8.5%, transparent 8.5%) -70px 43px,
-linear-gradient(216deg, $grey 7.5%, transparent 7.5%) -70px 23px,
-linear-gradient(144deg, $grey 7.5%, transparent 7.5%) 30px 23px,
-
-linear-gradient(324deg, $black 4%,   transparent 4%) -20px 93px,
-linear-gradient( 36deg, $black 4%,   transparent 4%) 80px 93px,
-linear-gradient( 72deg, $grey 8.5%, transparent 8.5%) 80px 93px,
-linear-gradient(288deg, $grey 8.5%, transparent 8.5%) -20px 93px,
-linear-gradient(216deg, $grey 7.5%, transparent 7.5%) -20px 73px,
-linear-gradient(144deg, $grey 7.5%, transparent 7.5%) 80px 73px;
-background-color: $black;
-background-size: 100px 100px;
-    
-    */
-    /*
-    $black: black;
-    
-background-color: #111;
-background-image: linear-gradient(30deg, $black 12%, transparent 12.5%, transparent 87%, $black 87.5%, $black),
-linear-gradient(150deg, $black 12%, transparent 12.5%, transparent 87%, $black 87.5%, $black),
-linear-gradient(30deg, $black 12%, transparent 12.5%, transparent 87%, $black 87.5%, $black),
-linear-gradient(150deg, $black 12%, transparent 12.5%, transparent 87%, $black 87.5%, $black),
-linear-gradient(60deg, $grey 25%, transparent 25.5%, transparent 75%, $grey 75%, $grey), 
-linear-gradient(60deg, $grey 25%, transparent 25.5%, transparent 75%, $grey 75%, $grey);
-background-size:80px 140px;
-background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-    */
-    
-    
-    .container{
-      //border-top: 1px solid black;
-      
-      /*
-			@include background-image( 
-				linear-gradient(135deg, transparent 5px, $grey 5px, $grey 6px, transparent 6px),
-        linear-gradient(45deg, transparent 12px, $grey 12px, $grey 13px, transparent 13px)
-			);
-      
-      background-size: 16px 10px;
-      background-repeat: repeat-x;
-      */
-      
-      
-      position: relative;
-      
-    }
+    margin-bottom: -1em;
   }
 }
+
+
+/*
+et c'est beaucoup ce genre de choses qu'on a pu voir sur cette run
+c'est a dire savoir est-ce qu'il faut prendre le risque et etre sur d'essayer de passer 
+en fait c'est beaucoup de stabilisation de la run
+savoir est ce qu'il faut prendre le risque pour rajouter de la chance 
+ou est ce qu'il vaut mieux stabiliser le jeu pour essayer de passer et gagner de la chance
+*/

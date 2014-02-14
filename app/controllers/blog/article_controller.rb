@@ -25,9 +25,9 @@ class Blog::ArticleController < Blog::ApplicationController
   
   #### Dev zone
   #if Rails.env == "development"
-  
-    def tmp
-      @article = Blog::Article.first.decorate(view_context)
+  def tmp
+    params[:page] ||= "1"
+    render :template => "blog/article/tmp_#{ params[:page] }"
 	  end
   
   

@@ -7,15 +7,16 @@ Space::Application.routes.draw do
       match "/articles(/p/:pool)(/s/:serie)" => :index, :as => :blog_articles
       match "/article/:tag" => :show, :as => :blog_article
     
-      match "/tmp_a" => :tmp
+      # to delete
+      match "/article/tmp(/:page)" => :tmp
     end
   
     controller "experience" do
       match "/experiences(/p/:pool)" => :index, :as => :blog_experiences
       match "/experience/:tag" => :show, :as => :blog_experience
-    
-      match "/tmp_e" => :tmp
-      match "/try_hard" => :try_hard
+      
+      # to delete
+      match "/experience/tmp(/:page)" => :tmp
     end
   
     controller "ressource" do

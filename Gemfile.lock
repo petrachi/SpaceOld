@@ -1,7 +1,7 @@
 PATH
   remote: /Users/elPetrachi/Dev/r_kit
   specs:
-    r_kit (0.1.4.2)
+    r_kit (0.2.0)
 
 GEM
   remote: https://rubygems.org/

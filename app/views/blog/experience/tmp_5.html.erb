@@ -36,7 +36,7 @@
       @include transition(all linear .1s);
       -webkit-transition-delay: .35s;
       
-      background-image: -webkit-linear-gradient(left, #111111, transparent 25%, transparent 75%, #111111), url(/assets/blog/main.jpg);
+   //   background-image: -webkit-linear-gradient(left, #111111, transparent 25%, transparent 75%, #111111), url(/assets/blog/main.jpg);
       background-size: 100% auto;
       background-position: center center;
       
@@ -58,8 +58,15 @@
           height: $base-sizing * 2;
           width: $base-sizing * 2;
         
+          
           background-color: rgba($primary-color, .6);
-          box-shadow: 0 0 0 .25em black inset;
+        //  box-shadow: 0 0 50em black inset;
+          
+          
+          
+          // this style will be used for mutation "always folded no background"
+          // box-shadow: 0 0 0 .25em black inset;        
+        
         
           position: absolute;
           top: 0;
@@ -115,6 +122,10 @@
       }
     
       &:hover{
+        .side{
+          box-shadow: 0 0 5em 0.5em black;
+        }
+        
         padding: {
           top: $base-sizing * 3;
           bottom: $base-sizing * 3;
