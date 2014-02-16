@@ -7,12 +7,10 @@ gem 'rails', '3.2.14'
 
 group :development, :test do
 	gem 'mysql2'
-  gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
 end
 
 group :production do
 	gem 'pg'
-  gem 'r_kit'
 end
 
 # Out of :assets because of the scss herper (use scss inline)
@@ -60,6 +58,10 @@ gem 'oily_png'
 
 # Code Highlight
 gem 'coderay'
+
+# this is my all in one gem
+gem 'r_kit'
+# gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
 
 # manipulation of png - needed for genetic octopus experience
 gem "chunky_png", "~> 1.2.9"
