@@ -1,0 +1,27 @@
+<div id="ressources">
+  <%= container_tag class: "items_center margin_sharp" do %>
+    <h2>
+      <%= link_to t("blog.ressource.title"), Blog::Ressource %>
+    </h2>
+
+    <%= row_tag do %>
+      <%= col_6_tag class: "text-right" do %>
+        <p>
+          <%= t "blog.ressource.descr" %>
+        </p>
+      <% end %>
+
+      <%= col_6_tag class: "text-left" do %>
+        <p>
+          <% Blog::Ressource.pools.each do |pool| %><!--
+            --><%= btn_to t("blog.ressource.pools.#{ pool }.title"), Blog::Ressource.pool_url(pool) %><!--
+          --><% end %>
+        </p>
+      <% end %>
+    <% end %>
+    
+    <p>
+      <%= btn_to t(:go_to), Blog::Ressource %>
+    </p>
+  <% end %>
+</div>

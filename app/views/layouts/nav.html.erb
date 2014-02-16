@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= t("#{ @application }.name").titleize %></title>
+		<title><%= t("#{ @application }.title").titleize %></title>
 		
 		<%= stylesheet_link_tag @application, :media => 'all' %>	
 		<%= javascript_include_tag 'application' %>
@@ -10,7 +10,7 @@
 		
 		<%= csrf_meta_tags %>
 	</head>
-	<body id="<%= @application %>" layout="nav">
+	<body id="<%= @application %>" layout="nav" data-section="<%= @section %>" data-location="<%= controller.controller_name %>#<%= controller.action_name %>">
 		<header>
 			<%= container_tag do %>
 				<%= row_tag do %>
@@ -23,7 +23,7 @@
 					<% end %>
 			
 					<%= col_10_tag :id => :title, :append => 1 do %>
-						<h1><%= link_to t("#{ @application }.name"), root_url %></h1>
+						<h1><%= link_to t("#{ @application }.title"), root_url %></h1>
 					<% end %>
 				<% end %>
 			<% end %>
@@ -44,7 +44,7 @@
 						}
 					} do |section| %>
 				<h3>
-					<%= link_to t("#{ @application }.#{ section }.name"), "#{ @application }/#{ section }".classify.constantize %>
+					<%= link_to t("#{ @application }.#{ section }.title"), "#{ @application }/#{ section }".classify.constantize %>
 				</h3>
 			<% end %>
 		</nav>

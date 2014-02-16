@@ -1,0 +1,34 @@
+<div id="screencasts">
+  <%= container_tag class: :margin_join do %>
+    <h2>
+      <%= link_to t("blog.screencast.title"), Blog::Screencast %>
+    </h2>
+
+    <%= erb Blog::Screencast.published.tagged(:design_struct_1).decorate(self).embed %>
+
+    <p>
+      <%= t("blog.screencast.descr") %>
+    </p>
+
+
+    <p>
+      <%= link_to t(:go_to), Blog::Screencast, class: :btn %>
+    </p>
+    
+    <% Blog::Screencast.pools(except: :try_hard).each do |pool| %>
+      <%= row_tag do %>
+        <%= col_6_tag class: "text-right" do %>
+          <p>
+            <%= t "blog.screencast.pools.#{ pool }.descr" %>
+          </p>
+        <% end %>
+
+        <%= col_6_tag class: "text-left" do %>
+          <p>
+            <%= btn_to t("blog.screencast.pools.#{ pool }.title"), Blog::Screencast.pool_url(pool) %>
+          </p>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

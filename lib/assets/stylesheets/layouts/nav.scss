@@ -31,7 +31,9 @@
 			}
 			
 			h3{
-				margin: 0; 
+				@include link-unstyled-title;
+        
+        margin: 0; 
 				padding: 0;
 				
 				font-size: 1.5em;
@@ -49,10 +51,16 @@
 					);
 					
 					&:hover{ 
+            opacity: 1;
+            
 						@include background-image( 
 							linear-gradient(top, transparent 4em, rgba($background-color, .85) 4em)
 						);
 					}
+          
+          [class*=icon-]{
+            display: none;
+          }
 				}
 			}
 		}
@@ -76,14 +84,13 @@
 			0 1px 3px rgba(black, .3),
 			0 1px 0 rgba(white, .1) inset
 		);
-		@include border-radius(1px);
 		
 		p{
 			margin: .5em 1em;
-            
-            a{
-                font-weight: bold;
-            }
+      
+      a{
+          font-weight: bold;
+      }
 		}
 	}
 }

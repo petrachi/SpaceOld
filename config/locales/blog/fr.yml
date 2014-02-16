@@ -1,43 +1,58 @@
 fr:
     blog:
-        name: "SPACE BLOG"
-        summary: "Des expérimentations techniques, des articles pour expliquer et des liens vers les ressources les plus utiles. De toute façon je fais ce que je veux, c'est mon espace ici !"
+        title: "SPACE BLOG"
+        descr: "Mon petit monde de bonheur. Et j'en profite pour faire un peu n'importe quoi : des démos techiques front-end, des articles sur le développement web, des vidéos où je code en live. J'ai même mis des liens vers mes ressources préférées !"
         
         article:
-            name: "Articles"
-            summary: "Laissez vous entrainer par de fantastiques aventures techniques en tous genres !"
+            title: '<i class="icon-code"></i> Articles'
+            descr: "4 ans d'expertise en développement web<br/>Toutes les meilleures techniques en Ruby, Rails, et front-end<br/>Enjoy yourself !"
             pool: "Catégorie"
             serie: "Série"
             series:
                 pagination: "Dans la même série"
             
+            
         experience:
-            name: "Expériences"
-            summary: "Le petit chimiste appliqué aux technologies web. Attention, la compagnie ne pourra pas être tenue responsable des graves sévices auquels vous vous exposez."
+            title: '<i class="icon-fire"></i> Experiences'
+            descr: "Une sphére full 3D en pur html/css !<br/>Des tas de démos front-end, toujours à la pointe de la technologie<br/>Pas de texte, pas d'explications, juste du code"
             
             version: 
                 name: "Versions"
             
-        ressource:
-            name: "Ressources"
-            summary: "Ici gît tout mon savoir. Venez à la source, si vous pensez en avoir le courage."
             
-            pool:
-                technology_watch: "Veille"
-                demo: "Démos"
-                blog: "Blogs"
-                doc: "Docs"
-                tutorial: "Tutos"
-        
+        ressource:
+            title: '<i class="icon-bolt"></i> Ressources'
+            descr: "Tous les liens qui m'ont fait vibrer<br/>Des articles, des vidéos, des confs<br/>Toutes les ressources utiles aux meilleurs devs RoR !"
+            
+            pools:
+                misc:
+                  title: "Divers"
+                video:
+                  title: "Vidéos"
+            
+            
         screencast:
-            name: "Screencasts"
-            summary: "Allez, on va faire des vidéos, parceque ça a de la gueule quand même."
+            title: '<i class="icon-youtube-play"></i> Screencasts'
+            descr: "Des scéances de coding en live !<br/>Regardez-moi créer une DSL presque sans les mains,<br/>Ou apprenez Rails en partant de zéro."
+            
             pool: "Playlist"
+            pools:
+              try_hard: 
+                title: "Try Hard"
+                descr: "Premières videos tests"
+              htcpcp: 
+                title: "htcpcp"
+                descr: "Screencasts de haut niveau en ruby et rails"
+              wcs_jane: 
+                title: "wcs:jane"
+                descr: "Tutoriels pour les débutants sur rails"
+            
             serie: "Série"
             series:
                 pagination: "Dans la même série"
             ressources: "Ressources"
             subscribe_youtube: "Chaine Youtube"
+        
         
         snippet:
             ruby: "Ruby"

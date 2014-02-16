@@ -1,0 +1,17 @@
+<div id="experiences">
+  <%= container_tag do %>
+    <h2>
+      <%= link_to t("blog.experience.title"), Blog::Experience %>
+    </h2>
+
+    <%= erb Blog::Experience.published.tagged(:sphere).run(:mini) %>
+
+    <p>
+      <%= t "blog.experience.descr" %>
+    </p>
+
+    <p>
+      <%= btn_to t(:go_to), Blog::Experience %>
+    </p>
+  <% end %>  
+</div>

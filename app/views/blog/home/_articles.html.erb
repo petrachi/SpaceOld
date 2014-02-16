@@ -1,0 +1,62 @@
+<div id="articles">
+  <%= container_tag do %>
+    <h2>
+      <%= link_to t("blog.article.title"), Blog::Article %>
+    </h2>
+    
+    <p>
+      <%= t "blog.article.descr" %>
+    </p>
+    
+    <%= row_tag do %>
+      <%= col_6_tag offset: 3 do %>
+        <%= coderay do %>
+class Object
+  def native_methods
+    instance_methods(false).select do |method_name| 
+      instance_method(method_name).source_location.nil?
+    end
+  end
+
+  def ruby_methods() instance_methods(false) - native_methods end
+
+  def inspect_methods
+    %Q{
+      +----- #{ self }
+      | C written methods: #{ native_methods.size }
+      | Ruby written methods: #{ ruby_methods.size }
+      +-----
+    } 
+  end
+end
+
+?> [Array, Hash, String, Fixnum].map &:inspect_methods
+=> "
+      +----- Array
+      | C written methods: 91
+      | Ruby written methods: 31
+      +-----
+  
+
+      +----- Hash
+      | C written methods: 54
+      | Ruby written methods: 43
+      +-----
+  
+
+      +----- String
+      | C written methods: 111
+      | Ruby written methods: 43
+      +-----
+  
+
+      +----- Fixnum
+      | C written methods: 34
+      | Ruby written methods: 0
+      +-----
+"
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
