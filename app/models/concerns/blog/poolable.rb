@@ -22,6 +22,17 @@ class Blog::Poolable < Module
       validates_presence_of :pool
       validates_inclusion_of :pool, in: inclusion_in
     end
+    
+    def pools options = {}
+      except = Array.wrap(options[:except])
+        .map(&:to_s)
+      
+      group(:pool).pluck(:pool) - except
+    end
+    
+    def pool_url pool
+      URL.send "#{ ActiveModel::Naming.route_key self }_path", pool: pool
+    end
   end
   
   module InstanceMethods

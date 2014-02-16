@@ -12,6 +12,7 @@ module Blog::Seriable
     validates_uniqueness_of :following_id, if: :following
     
     scope :serie, -> serie { where(serie: serie) }
+    scope :firsts_of_series, where(following_id: nil)
   end
   
   def set_following
@@ -33,5 +34,9 @@ module Blog::Seriable
   
   def serie_collection
     self.class.where(serie: serie)
+  end
+  
+  def serie_size
+    serie_collection.count
   end
 end

@@ -8,11 +8,17 @@ class Blog::ArticleController < Blog::ApplicationController
   def index
     @articles = Blog::Article.published.order("id desc")
     @articles = @articles.pool params[:pool] if params[:pool]
-    @articles = @articles.serie params[:serie] if params[:serie]
+    @articles = if params[:serie]
+      @articles.serie params[:serie] 
+    else
+      @articles.firsts_of_series
+    end
     
     @articles = @articles.paginate params[:page].to_i, 16 if params[:page] || (params[:page] = 1)
     
-    @articles.map!{ |article| article.decorate(view_context) }
+    @articles.map! do |article| 
+      article.decorate view_context, showcase: params[:serie].blank?
+    end
   end
   
   def show
