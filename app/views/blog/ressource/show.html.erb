@@ -1,0 +1,21 @@
+<%= container_tag class: :items_top do %>
+	<%= row_tag do %>
+		<%= col_3_tag :element => :sidebar do %>
+			<h2>
+			  <%= @ressource.title %>
+			</h2>
+      
+      <p>
+        <%= @ressource.summary %>
+      </p>
+      
+      <p>
+        <%= @ressource.link_to %>
+      </p>
+		<% end %>
+	
+		<%= col_9_tag :element => :article do %>
+			<%= @ressource.preview %>
+		<% end %>
+	<% end %>
+<% end %>

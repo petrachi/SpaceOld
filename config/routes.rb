@@ -21,6 +21,7 @@ Space::Application.routes.draw do
   
     controller "ressource" do
       match "/ressources(/p/:pool)" => :index, :as => :blog_ressources
+      match "/ressource/:tag" => :show, :as => :blog_ressource
     end
     
     controller "screencast" do

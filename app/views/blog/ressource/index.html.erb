@@ -1,17 +1,14 @@
-<%= container_3_tag @ressources do |ressource| %>
+<%= container_3_tag @ressources do |pool, ressources| %>
 	<h3 class="text-center">
-		<%= ressource.title %>
+    <%= t "blog.ressource.pools.#{ pool }.title" %>
 	</h3>
-	
-	<p>
-		<%= ressource.summary %>
-	</p>
-	
-	<p class="text-center">
-		<%= link_to t(:link), ressource.link, target: :_blank, class: :btn %>
-	</p>
   
-  <% if false %>
-    <iframe src="<%= ressource.link %>"></iframe>
-  <% end %>
+  <ul>
+    <% ressources.each do |ressource| %>
+      <li>
+        <%= btn_to ressource.title, ressource %><!--
+        --><%= ressource.link_to %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

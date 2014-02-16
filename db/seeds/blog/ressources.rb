@@ -2,20 +2,22 @@
 # encoding: utf-8
 
 Blog::Ressource.create :user => @primal_user.blog_user,
-  :title => "HCN",
-  :summary => "HCN (Human Coders News) est un des incontournables sites de veille info en français.",
+  :title => "Human Coder News",
+  :summary => "Site français de veille techno.",
   :link => "http://news.humancoders.com/",
-  :pool => :technology_watch,
+  :pool => :misc,
   :published => true,
   :published_at => "05-05-2013".to_datetime,
   :tag => :hcn
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "Railscasts",
-  :summary => "Des Screencasts qui parlent de rails ... d'où le nom ... c'est une contraction ... astucieux vous trouvez pas ?",
+  :summary => "Tutos vidéos sur rails et son écosystème.",
   :link => "http://railscasts.com/",
-  :pool => :technology_watch,
-  :published => false
+  :pool => :video,
+  :published => true,
+  :published_at => "16-02-2014".to_datetime,
+  :tag => :railscasts
 
 Blog::Ressource.create :user => @primal_user.blog_user,
   :title => "TryRuby",

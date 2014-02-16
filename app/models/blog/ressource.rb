@@ -1,7 +1,9 @@
 class Blog::Ressource < ActiveRecord::Base
   belongs_to :user
   
-  include Blog::Poolable.new inclusion_in: [:technology_watch, :demo, :blog, :doc, :tutorial]
+  acts_as_decorables
+  
+  include Blog::Poolable.new inclusion_in: [:article, :video, :lib, :misc]
   include Blog::Publishable
   include Blog::Taggable
   
