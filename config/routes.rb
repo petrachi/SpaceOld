@@ -1,45 +1,72 @@
+#module ActionDispatch::Routing::Mapper::Base
+#  def conditionnal_match path, conditions, rest
+#    
+#    conditions.each do |action, constraint|
+#      match path => action, as: rest[:as], constraints: constraint
+#    end
+#  end
+#end
+
+
+
 Space::Application.routes.draw do
 
-  scope :module => :blog, :constraints => {:subdomain => "blog"} do
-    match "/install" => "user#install", :as => "install"
+  scope module: :blog, constraints: {subdomain: "blog"} do
+    match "/install" => "user#install", as: "install"
   
     controller "article" do
-      match "/articles(/p/:pool)(/s/:serie)" => :index, :as => :blog_articles
-      match "/article/:tag" => :show, :as => :blog_article
+      match "/articles(/p/:pool)(/s/:serie)" => :index, as: :blog_articles
+      match "/article/:tag" => :show, as: :blog_article
     
       # to delete
       match "/article/tmp(/:page)" => :tmp
     end
   
     controller "experience" do
-      match "/experiences(/p/:pool)" => :index, :as => :blog_experiences
-      match "/experience/:tag" => :show, :as => :blog_experience
+      match "/experiences(/p/:pool)" => :index, as: :blog_experiences
+      match "/experience/:tag" => :show, as: :blog_experience
       
       # to delete
       match "/experience/tmp(/:page)" => :tmp
     end
   
     controller "ressource" do
-      match "/ressources(/p/:pool)" => :index, :as => :blog_ressources
-      match "/ressource/:tag" => :show, :as => :blog_ressource
+      
+      
+      
+      # dsl extend
+#      conditionnal_match "/ressources(/p/:pool)", {
+#        index: ->(request){ request.path_parameters[:pool].blank? },
+#        pool: ->(request){ request.path_parameters[:pool].present? }
+#      }, as: :blog_ressources #, constraints: 
+      
+    # manually  
+    #  match "/ressources(/p/:pool)" => :index, as: :blog_ressources, constraints: ->(request){ request.path_parameters[:pool].blank? }
+    #  match "/ressources(/p/:pool)" => :pool, as: :blog_ressources, constraints: ->(request){ request.path_parameters[:pool].present? }
+      
+      
+      
+      
+      match "/ressources(/p/:pool)" => :index, as: :blog_ressources
+      match "/ressource/:tag" => :show, as: :blog_ressource
     end
     
     controller "screencast" do
-      match "/screencasts(/p/:pool)(/s/:serie)(/page-:page)" => :index, :as => :blog_screencasts
-      match "/screencast/:tag" => :show, :as => :blog_screencast
+      match "/screencasts(/p/:pool)(/s/:serie)(/page-:page)" => :index, as: :blog_screencasts
+      match "/screencast/:tag" => :show, as: :blog_screencast
     end
     
     controller "snippet" do
-      match "/snippet/:id" => :show, :as => :blog_snippet
+      match "/snippet/:id" => :show, as: :blog_snippet
     end
   
-    root :to => "home#index"
+    root to: "home#index"
   end
-  match "/space_blog" => "space#blog", :as => "space_blog"
+  match "/space_blog" => "space#blog", as: :space_blog
   
   
   match "/:controller(/:action(/:id))"  
-  root :to => "space#index"
+  root to: "space#index"
   
   
   # The priority is based upon order of creation:

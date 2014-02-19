@@ -14,6 +14,14 @@ class Blog::RessourceController < Blog::ApplicationController
       .group_by(&:pool)
   end
   
+  def pool
+    @ressources = Blog::Ressource.published
+    @ressources = @ressources.pool params[:pool] if params[:pool]
+    @ressources = @ressources.map do |ressource|
+        ressource.decorate view_context
+      end
+  end
+  
   def show
     @ressource = Blog::Ressource.published
       .tagged(params[:tag])

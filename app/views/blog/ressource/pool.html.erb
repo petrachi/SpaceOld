@@ -1,0 +1,11 @@
+<%= container_tag do %>
+  <ul>
+    <% @ressources.each do |ressource| %>
+      <li>
+        <%= btn_to ressource.title, ressource %><!--
+        --><%= ressource.link_to %>
+        <%= ressource.summary %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
