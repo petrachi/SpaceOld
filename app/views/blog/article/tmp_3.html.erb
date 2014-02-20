@@ -10,6 +10,69 @@
     to_boolean en rails (voir vodeclic object)
     utile pour les params post "true"
       
+      
+      
+      
+      <i>Ruby ne posséde pas de méthode #to_boolean debase? Ce n'est pas un probléme puisque l'évaluation des conditions est basé sur la méthode #nil?. Sauf quand on utilise les query_parameters de Rails ...</i>
+      
+      <h2>Object#to_boolean</h2>
+      
+    <p>En Rails, les paramétres récupérés à partir de l'url (via coderay ActionDispatch::Http::Parameters#parameters) sont toujours des instances de coderay String. Utiliser un paramètre booléen dans ces conditions devient vite impossible, et votre code pourrait ressembler à ça coderay if params[:boolean] == "true".</p>
+    
+    <h3>ActiveRecord</h3>
+    
+    <p>Les développeurs d'ActiveRecord, l'ORM par défault de Rails, ont déjà rencontrés ce problème. Lorsque vous utiliser directement les paramètres envoyés par un formulaire pour sauvegarder un objet dans votre BDD. Et heureusement pour nous, ils ont aussi trouvé une solution élégante.</p>
+    
+    <p>Quelque part dans coderay Activerecord se trouve le fichier coderay activerecord/lib/active_record/connection_adapters/abstract/schema_definitions.rb, et à l'intérieur se trouve une définition pour la méthode coderay ActiveRecord::ConnectionAdapters::Column#value_to_boolean</p>
+    
+    coderay
+    def value_to_boolean(value)
+          if value.is_a?(String) && value.blank?
+            nil
+          else
+            TRUE_VALUES.include?(value)
+          end
+        end
+        
+        <h3>Monkey Patching Ruby core</h3>
+    
+    <p>On va pouvoir se servir de cette méthode pour étendre la classe coderay Object, et y ajouter une méthode coderay to_boolean</p>
+    
+    coderay
+    class Object
+  def to_bool value
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean value
+  end
+  
+  <p>Grâce à cet extend, tous les objet on accès à notre nouvelle méthode (puisque toutes les classes de Ruby héritent de la classe coderay Object), et nous pouvons nous reposer sur l'implémentation de cette méthode par coderay ActiveRecord</p>
+  
+  <h3>Gestion de la dépendances</h3>
+  
+  <p>Avec ce monkey patch, nous ajoutons une dépendances de toute notre application sur le code d' coderay ActiveRecord. Ce n'est pas trop risqué de faire cela, puisqu' coderay ActiveRecord est une partie importante de Rails, et par ce biais, son implémentation ne risque pas de changer trop brutalement.</p>
+  
+  <p>Pas de chance cependant, la méthode coderay ActiveRecord::ConnectionAdapters::Column#value_to_boolean à été dépréciée, et la dernière version stable de ce code date de a version 3.0.9 de Rails.</p>
+  
+  <p>N'ayant pas trouvé de solutions alternatives, je continue d'utiliser ce code en production. S'il venait un jour à casser, ce serait facile de récupérer l'implémentation de la méthode d'active record et de l'insérer dans notre monkey patch. Il nous suffirait de définir la contante coderay TRUE_VALUES, qui ressemble grosso modo à ça : </p>
+  
+  coderay
+  TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
+  FALSE_VALUES = [false, 0, '0', 'f', 'F', 'false', 'FALSE'].to_set
+  
+  <h3>Conclusion</h3>
+  
+  <p>Mon code est un peu plus sympa depuis le monkey patch, j'ai remplacé mes vielles conditions par coderay if params[:boolean].to_boolean .</p>
+  
+  <p>J'hésite encore à aller un peu plus loin, à monkey patcher la méthode coderay String#nil? afin de considérer les coderay FALSE_VALUES comme coderay false. Je ne suis pas sûr de vouloir généraliser ce comportement, et si j'avais un jour un formulaire sur le genre, avec des valeurs 'h'/'f' (pour 'homme' et 'femme') ?</p>
+  
+  <p>Ce sera tout pour aujourd'hui. Je suis plutôt content de cette nouvelle méthode, confiant de sa stabilitée, et je vais garder un appel explicite. Après tout, je reste d'accord avec l'implémentation de Ruby qui dit que même 0 est une valeur qui a du sens, et qui ne devrait pas être évalué à coderay false.</p>
+  
+  <p>Allez, retournez jouer dans le jardin, et on se retourve bientôt !</p>
+
+  
+end
+    
+    
+    
     
 		<% end %>
   <% end %>
