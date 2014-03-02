@@ -1,3 +1,8 @@
+PATH
+  remote: /Users/elPetrachi/Dev/r_kit
+  specs:
+    r_kit (0.2.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,7 +74,6 @@ GEM
       chunky_png (~> 1.2.7)
     pg (0.17.0)
     polyglot (0.3.3)
-    r_kit (0.2.1)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -128,13 +132,13 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 3.2.1)
   compass-rails
-  font-awesome-rails
+  font-awesome-rails (~> 3.2.1)
   jquery-rails
   mysql2
   newrelic_rpm
   oily_png
   pg
-  r_kit
+  r_kit!
   rails (= 3.2.14)
   rails-i18n
   sass-rails (~> 3.2.3)

@@ -27,7 +27,7 @@ group :assets do
 
 	gem 'uglifier', '>= 1.0.3'
   	
-	gem 'font-awesome-rails'
+	gem 'font-awesome-rails', '~> 3.2.1'
 end
 
 gem 'jquery-rails'
@@ -60,8 +60,8 @@ gem 'oily_png'
 gem 'coderay'
 
 # this is my all in one gem
-gem 'r_kit'
-# gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
+# gem 'r_kit'
+gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
 
 # manipulation of png - needed for genetic octopus experience
 gem "chunky_png", "~> 1.2.9"
