@@ -1,24 +1,24 @@
 [layout=main]{
 	header{
 		margin: 0;
-		
+
 		h1{
 			font:{
 				size: 6em;
 				weight: 400;
 			};
-			
-			margin: 1em 0; 
+
+			margin: 1em 0;
 			text-align: center;
 		}
-		
+
 		#return{
 			h1{
 				font-size: 4em;
 				margin: 1.75em 0;
 			}
 		}
-    
+
     .row{
       [class*=col-]{
         align-self: center;
@@ -31,11 +31,10 @@
 	&[layout=main]{
 		header{
 			background: {
-				position: center center;
-				size: 100% auto;
+				size: cover;
 				repeat: no-repeat;
 			};
-			@include background-image( 
+			@include background-image(
 				linear-gradient(left, $background-color, transparent 25%, transparent 75%, $background-color),
 				image-url("/assets/#{$application}/main.jpg")
 			);

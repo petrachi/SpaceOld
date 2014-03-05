@@ -1,0 +1,2 @@
+module Stol::ApplicationHelper
+end

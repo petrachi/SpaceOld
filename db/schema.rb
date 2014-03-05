@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131015113637) do
+ActiveRecord::Schema.define(:version => 20140305192236) do
 
   create_table "blog_articles", :force => true do |t|
     t.integer  "user_id"
@@ -82,7 +82,15 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
   add_index "blog_screencasts", ["tag"], :name => "index_blog_screencasts_on_tag"
   add_index "blog_screencasts", ["user_id"], :name => "index_blog_screencasts_on_user_id"
 
-  create_table "blog_snippets", :force => true do |t|
+  create_table "blog_users", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "blog_users", ["user_id"], :name => "index_blog_users_on_user_id"
+
+  create_table "snippets", :force => true do |t|
     t.integer  "runnable_id"
     t.string   "runnable_type"
     t.integer  "primal_id"
@@ -98,16 +106,80 @@ ActiveRecord::Schema.define(:version => 20131015113637) do
     t.datetime "updated_at",                        :null => false
   end
 
-  add_index "blog_snippets", ["primal_id"], :name => "index_blog_snippets_on_primal_id"
-  add_index "blog_snippets", ["runnable_id", "runnable_type"], :name => "index_blog_snippets_on_runnable_id_and_runnable_type"
+  add_index "snippets", ["primal_id"], :name => "index_snippets_on_primal_id"
+  add_index "snippets", ["runnable_id", "runnable_type"], :name => "index_snippets_on_runnable_id_and_runnable_type"
 
-  create_table "blog_users", :force => true do |t|
+  create_table "stol_methods", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "version_id"
+    t.string   "title"
+    t.text     "summary"
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
+    t.string   "tag"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "stol_methods", ["tag"], :name => "index_stol_methods_on_tag"
+  add_index "stol_methods", ["user_id"], :name => "index_stol_methods_on_user_id"
+  add_index "stol_methods", ["version_id"], :name => "index_stol_methods_on_version_id"
+
+  create_table "stol_services", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "version_id"
+    t.string   "title"
+    t.text     "summary"
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
+    t.string   "tag"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "stol_services", ["tag"], :name => "index_stol_services_on_tag"
+  add_index "stol_services", ["user_id"], :name => "index_stol_services_on_user_id"
+  add_index "stol_services", ["version_id"], :name => "index_stol_services_on_version_id"
+
+  create_table "stol_setups", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "version_id"
+    t.string   "title"
+    t.text     "summary"
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
+    t.string   "tag"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "stol_setups", ["tag"], :name => "index_stol_setups_on_tag"
+  add_index "stol_setups", ["user_id"], :name => "index_stol_setups_on_user_id"
+  add_index "stol_setups", ["version_id"], :name => "index_stol_setups_on_version_id"
+
+  create_table "stol_users", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "blog_users", ["user_id"], :name => "index_blog_users_on_user_id"
+  add_index "stol_users", ["user_id"], :name => "index_stol_users_on_user_id"
+
+  create_table "stol_versions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "version_id"
+    t.string   "title"
+    t.text     "summary"
+    t.boolean  "published",    :default => false
+    t.datetime "published_at"
+    t.string   "tag"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "stol_versions", ["tag"], :name => "index_stol_versions_on_tag"
+  add_index "stol_versions", ["user_id"], :name => "index_stol_versions_on_user_id"
+  add_index "stol_versions", ["version_id"], :name => "index_stol_versions_on_version_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
