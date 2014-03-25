@@ -1,2 +1,2 @@
-class Stol::JavascriptService < Service
+class Stol::JavascriptService < Stol::Service
 end

@@ -5,7 +5,7 @@ class Blog::Experience < ActiveRecord::Base
   
   include Blog::Poolable.new inclusion_in: [:experience]
   include Blog::Publishable
-  include Blog::Runnable
+  include Runnable
   include Blog::Taggable
   
   validates_presence_of :user, :title, :summary

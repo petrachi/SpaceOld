@@ -7,7 +7,7 @@
             <input type="text" name="MouseX" value="0" size="4"> X<br>
             <input type="text" name="MouseY" value="0" size="4"> Y<br>
       </form>
-    
+
 
 <%= container_tag do %>
   <div id="cube_container">
@@ -21,61 +21,61 @@
       </div>
     </div>
   </div>
-  
-  
+
+
   <%= scss %Q{
     $base-sizing: 5em;
-    
-    #cube_container{    
+
+    #cube_container{
       padding: $base-sizing * 2 {
         bottom: $base-sizing * 4;
       };
-      
+
       border: $primary-color 1px solid;
-      
+
       @include transition(all linear .1s);
       -webkit-transition-delay: .35s;
-      
+
    //   background-image: -webkit-linear-gradient(left, #111111, transparent 25%, transparent 75%, #111111), url(/assets/blog/main.jpg);
       background-size: 100% auto;
       background-position: center center;
-      
-      
+
+
       #cube{
         height: $base-sizing * 2;
         width: $base-sizing * 2;
-    
+
         position: relative;
         margin: auto;
-        
+
         -webkit-transform-style: preserve-3d;
         -webkit-perspective-origin: $base-sizing $base-sizing;
         -webkit-perspective: 100em;
-        
+
         // -webkit-transform: rotateY(90deg);
-      
+
         .side{
           height: $base-sizing * 2;
           width: $base-sizing * 2;
-        
-          
+
+
           background-color: rgba($primary-color, .6);
         //  box-shadow: 0 0 50em black inset;
-          
-          
-          
+
+
+
           // this style will be used for mutation "always folded no background"
-          // box-shadow: 0 0 0 .25em black inset;        
-        
-        
+          // box-shadow: 0 0 0 .25em black inset;
+
+
           position: absolute;
           top: 0;
           left: 0;
-        
+
           @include backface-visibility(visible);
           @include transition(all ease .25s);
         }
-      
+
         #top,
         #front,
         #left,
@@ -84,73 +84,73 @@
         #back{
           @extend .side;
         }
-      
+
         #top{
           top: -$base-sizing * 2;
-        
+
           -webkit-transform-origin: 50% 100%;
         }
-      
+
         #front{
         }
-      
+
         #left{
           left: -$base-sizing * 2;
-        
+
           -webkit-transform-origin: 100% 50%;
         }
-      
+
         #right{
           left: $base-sizing * 2;
-        
+
           -webkit-transform-origin: 0% 50%;
         }
-      
+
         #bottom{
           top: $base-sizing * 2;
-        
+
           -webkit-transform-origin: 50% 0%;
           -webkit-transform-style: preserve-3d;
         }
-      
+
         #back{
           top: $base-sizing * 2;
-        
+
           -webkit-transition-delay: .3s;
           -webkit-transform-origin: 50% 0%;
         }
       }
-    
+
       &:hover{
         .side{
           box-shadow: 0 0 5em 0.5em black;
         }
-        
+
         padding: {
           top: $base-sizing * 3;
           bottom: $base-sizing * 3;
         };
-        
+
         #cube{
           #top{
             -webkit-transform: rotateX(90deg);
           }
-    
+
           #front{
           }
-    
+
           #left{
             -webkit-transform: rotateY(-90deg);
           }
-    
+
           #right{
             -webkit-transform: rotateY(90deg);
           }
-    
+
           #bottom{
             -webkit-transform: rotateX(-90deg);
           }
-    
+
           #back{
             -webkit-transform: rotateX(-90deg);
           }
@@ -158,38 +158,38 @@
       }
     }
   } %>
-  
-  
-  
+
+
+
   <script>
-    
-    
-    
+
+
+
     [].forEach.call(document.querySelectorAll('#fold'), function(el) {
       /*
       el.addEventListener('click', function() {
         r_kit.addClass(document.getElementById("cube"), "folded");
       })
       */
-     
-      
+
+
       function toto() {
         r_kit.addClass(document.getElementById("cube"), "folded");
       }
-      
+
        el.onclick = toto;
     });
-    
+
     [].forEach.call(document.querySelectorAll('#unfold'), function(el) {
       el.addEventListener('click', function() {
         r_kit.removeClass(document.getElementById("cube"), "folded");
       })
     });
-    
-    
+
+
     // obj.style["-webkit-background-size"] = "400px"
-    
-    
+
+
 
 
 
@@ -203,185 +203,183 @@
 
 
                 function getMouseXY(e) {
-                    
+
                      tempX = e.pageX
                      tempY = e.pageY
-                     
-                     
+
+
                      cube = document.getElementById("cube");
                      style = window.getComputedStyle(cube, null);
                      style.getPropertyValue("width"); // get "160px", the full thing
-                     
 
-                     
+
+
                      var _x = 0
                      var _y = 0
-                     
+
                      console.log(cube.offsetLeft);
-                     
-                     
+
+
                        _x += cube.offsetLeft - cube.scrollLeft + (parseInt(style.getPropertyValue("width"), 10)/2);
                        _y += cube.offsetTop - cube.scrollTop + (parseInt(style.getPropertyValue("height"), 10)/2);
-                       
+
                        // this is not right yet, I want the perspective origin to be at 5em 5em, when the mouse is at the center of the cube (offset + width/2)
-                       
+
                        // width == 10em
-                    
-                    
-                    
+
+
+
                        rel_x = e.pageX - _x - 80
                        rel_y = e.pageY - _y - 80 // 80 is width/2
-                    
+
                     document.Show.MouseX.value = rel_x
                     document.Show.MouseY.value = rel_y
-                    
-                    
+
+
                     // increase the deformation (by *2) is better effect, but this mess with the center of the cube for perspective origin
                     document.getElementById("cube").style["-webkit-perspective-origin"] = (-rel_x) + "px " + (-rel_y) + "px"
-                    
+
                     return true
                     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
                     /*
                     this is to disable scroll
                     but when it's disabled, you can't scroll, so it's not like prevent default ...
-                    
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
                     function preventDefault(e) {
                       e = e || window.event;
                       if (e.preventDefault)
                           e.preventDefault();
-                      //e.returnValue = false;  
-                      
-                      
+                      //e.returnValue = false;
+
+
                       scrollevent();
                     }
-                    
+
                     var scrollval = 0
-                    
+
                     function scrollevent(){
-                      
+
                       if(cubehover){
-                        
+
                         scrollval++
-                        
+
                         document.getElementById("cube").style["-webkit-transform"] = "translateZ(-" + scrollval + "px)";
-                        
+
                       }
                     }
-                    
+
                     var cubehover = false;
                     window.addEventListener('scroll', function() {
                             console.log('scrolling');
-                            
-                            
+
+
                     });
-                    
-   
+
+
     document.getElementById('cube_container').onmouseover = function(){
       window.onmousewheel = document.onmousewheel = preventDefault;
-      
+
       cubehover = true;
-      
+
     }
-    
+
     document.getElementById('cube_container').onmouseout = function(){
-window.onmousewheel = document.onmousewheel = null;       
+window.onmousewheel = document.onmousewheel = null;
 
 cubehover = false;
 
     }
   */
-    
-    
-    
-    
+
+
+
+
     /*
-    next to do, 
+    next to do,
     integrate event handlers in rkit js
     then, add an event on the mouse hover
     to set the perspective origin to the mouse position
-    
+
     then, add even on scroll
     to change values of perspective distance (by a multiplier, not linear)
     carefull to the min value
-    
+
     then, add exven on mouse out to restore default values
-    
+
     then, add a "default state" that is an animation over the perspective origin value, (fr : créer un effet de "flottement")
-    
-    then, setup a clean css style, with big borders over the "hover perspective" area, with 3 arrows arround it like : 
+
+    then, setup a clean css style, with big borders over the "hover perspective" area, with 3 arrows arround it like :
           |
        ___v__
     -> |    |<-
        ------
-    
+
     3 big white arrow with enougth space to writ on them "Hover" 'The' "mouse"
     (maybe, you can create somme king of "arrow css class", then add it to rkit)
-    
-    
+
+
     then, add a state when the user is in "hover" mode, to hide the 3 arrow and add 2 arrows with instruction to scroll.
-    
+
     then, delete the "fold/unflod" btns, wich are only for dev, and make the #front side of cube to handle that (with a cool icon and a little text, wrap me please !)
     wait, don't need a click for that, just add the folded style on the :hover style
-    
+
     then, write an article about some vaillajs to r_kit js
-    
-    
-    
-    
-    
+
+
+
+
+
     use case for rkit :
     // function "getmouseposition" is already defined, an return an array with mouse x & y values
-    
+
     cube = rkit.select("#cube");
-    
+
     fold_toggle = r_kit.select("a#fold");
     fold_toggle.on_click(function(elt){
       cube.add_class("folded")
     })
-    
+
     // this event listener could have been "cube.listen("hover", function(){"
     cube.on_hover(function(){
       position = getmouseposition
-    
+
       style = rkit.style()
       style.add_propertie("-webkit-perspective-origin", "500px 400px");
       // this could be : rkit.style({"-webkit-perspective-origin": "500px 400px"})
-      
+
       cube.add_style(style);
     })
-    
+
     // fin use case
-    
-    
-    
+
+
+
     then, maybe, propose a click btn to add specific views, rotate the cube for 90 deg in X, or in Y, and add the 3 views simutaneously. this could be nice to see.
-    
-    
+
+
     wow, this style for cube borders is very impressive : 0 0 5em 0.5em black
     this too is very interesting : 0 0 35em -.5em black (with full transparent bg-color)
-    
-    
+
+
     then, you're done, good job !
     */
-    
-    
-  </script>
-  
-<% end %>
 
-            
+
+  </script>
+
+<% end %>

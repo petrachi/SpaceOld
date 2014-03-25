@@ -2,7 +2,6 @@ class CreateStolVersions < ActiveRecord::Migration
   def change
     create_table :stol_versions do |t|
       t.references :user
-      t.references :version
 
       t.string :title
       t.text :summary
@@ -14,7 +13,6 @@ class CreateStolVersions < ActiveRecord::Migration
       t.timestamps
     end
     add_index :stol_versions, :user_id
-    add_index :stol_versions, :version_id
     add_index :stol_versions, :tag
   end
 end

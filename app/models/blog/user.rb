@@ -3,10 +3,8 @@ class Blog::User < ActiveRecord::Base
   has_many :articles
   has_many :experiences
   has_many :ressources
-  
-  
+
   validates_presence_of :user
-  
-  
+
   delegate :to_s, to: :user
 end

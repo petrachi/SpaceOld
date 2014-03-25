@@ -11,6 +11,7 @@ class CreateStolServices < ActiveRecord::Migration
       t.datetime :published_at
       t.string :tag
 
+      t.string :type
       t.timestamps
     end
     add_index :stol_services, :user_id

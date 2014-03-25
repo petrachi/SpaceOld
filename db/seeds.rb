@@ -10,6 +10,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 load File.join(File.dirname(__FILE__), 'seeds', 'users.rb')
-Dir[File.join(File.dirname(__FILE__), "seeds", "*", "**", "*.rb")].sort.each do |l| 
+Dir[File.join(File.dirname(__FILE__), "seeds", "*", "**", "*.rb")].sort.each do |l|
   load l
 end

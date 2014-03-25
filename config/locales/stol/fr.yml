@@ -1,4 +1,4 @@
 fr:
     stol:
         title: "SPACE STOL"
-        descr: "A documentation for the RKit gem. And as the gemspec says, RKit is like a tool box that holds basics versions of all the services you will need when starting a new Rails applications. It already have decorators, pagination, authentication, CSS base, and many to come !"
+        descr: "The documentation for the RKit gem. And as the gemspec says, RKit is like a tool box that holds basics versions of all the services you will need when starting a new Rails applications. It already have decorators, pagination, authentication, CSS base, and many to come !"

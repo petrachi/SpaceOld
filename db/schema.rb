@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20140305192236) do
     t.boolean  "published",    :default => false
     t.datetime "published_at"
     t.string   "tag"
+    t.string   "type"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end
@@ -167,7 +168,6 @@ ActiveRecord::Schema.define(:version => 20140305192236) do
 
   create_table "stol_versions", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "version_id"
     t.string   "title"
     t.text     "summary"
     t.boolean  "published",    :default => false
@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(:version => 20140305192236) do
 
   add_index "stol_versions", ["tag"], :name => "index_stol_versions_on_tag"
   add_index "stol_versions", ["user_id"], :name => "index_stol_versions_on_user_id"
-  add_index "stol_versions", ["version_id"], :name => "index_stol_versions_on_version_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

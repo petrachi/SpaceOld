@@ -6,7 +6,7 @@ class Blog::Screencast < ActiveRecord::Base
   
   include Blog::Poolable.new inclusion_in: [:try_hard, :htcpcp, :wcs_jane]
   include Blog::Publishable
-  include Blog::Runnable
+  include Runnable
   include Blog::Seriable
   include Blog::Taggable
   

@@ -2,63 +2,62 @@ fr:
     blog:
         title: "SPACE BLOG"
         descr: "Mon petit monde de bonheur. Et j'en profite pour faire un peu n'importe quoi : des démos techiques front-end, des articles sur le développement web, des vidéos où je code en live. J'ai même mis des liens vers mes ressources préférées !"
-        
-        article:
+
+        articles:
             title: '<i class="icon-code"></i> Articles'
             descr: "4 ans d'expertise en développement web<br/>Toutes les meilleures techniques en Ruby, Rails, et front-end<br/>Enjoy yourself !"
             pool: "Catégorie"
             serie: "Série"
             series:
                 pagination: "Dans la même série"
-            
-            
-        experience:
+
+
+        experiences:
             title: '<i class="icon-fire"></i> Experiences'
             descr: "Une sphére full 3D en pur html/css !<br/>Des tas de démos front-end, toujours à la pointe de la technologie<br/>Pas de texte, pas d'explications, juste du code"
-            
-            version: 
+
+            version:
                 name: "Versions"
-            
-            
-        ressource:
+
+
+        ressources:
             title: '<i class="icon-bolt"></i> Ressources'
             descr: "Tous les liens qui m'ont fait vibrer<br/>Des articles, des vidéos, des confs<br/>Toutes les ressources utiles aux meilleurs devs RoR !"
-            
+
             pools:
                 misc:
                   title: "Divers"
                 video:
                   title: "Vidéos"
-            
-            
-        screencast:
+
+
+        screencasts:
             title: '<i class="icon-youtube-play"></i> Screencasts'
             descr: "Des scéances de coding en live !<br/>Regardez-moi créer une DSL presque sans les mains,<br/>Ou apprenez Rails en partant de zéro."
-            
+
             pool: "Playlist"
             pools:
-              try_hard: 
+              try_hard:
                 title: "Try Hard"
                 descr: "Premières videos tests"
-              htcpcp: 
+              htcpcp:
                 title: "htcpcp"
                 descr: "Screencasts de haut niveau en ruby et rails"
-              wcs_jane: 
+              wcs_jane:
                 title: "wcs:jane"
                 descr: "Tutoriels pour les débutants sur rails"
-            
+
             serie: "Série"
             series:
                 pagination: "Dans la même série"
             ressources: "Ressources"
             subscribe_youtube: "Chaine Youtube"
-        
-        
-        snippet:
+
+
+        snippets:
             ruby: "Ruby"
             scss: "Scss"
             erb: "Erb"
             js: "Javascript"
             reveal: "Afficher le code"
             raw: "Afficher le code (raw)"
-            

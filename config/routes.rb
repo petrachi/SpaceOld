@@ -14,7 +14,7 @@ Space::Application.routes.draw do
   scope module: :blog, constraints: {subdomain: "blog"} do
     match "/install" => "user#install", as: "install"
 
-    controller "article" do
+    controller "articles" do
       match "/articles(/p/:pool)(/s/:serie)" => :index, as: :blog_articles
       match "/article/:tag" => :show, as: :blog_article
 
@@ -22,7 +22,7 @@ Space::Application.routes.draw do
       match "/article/tmp(/:page)" => :tmp
     end
 
-    controller "experience" do
+    controller "experiences" do
       match "/experiences(/p/:pool)" => :index, as: :blog_experiences
       match "/experience/:tag" => :show, as: :blog_experience
 
@@ -30,7 +30,7 @@ Space::Application.routes.draw do
       match "/experience/tmp(/:page)" => :tmp
     end
 
-    controller "ressource" do
+    controller "ressources" do
 
 
 
@@ -51,12 +51,12 @@ Space::Application.routes.draw do
       match "/ressource/:tag" => :show, as: :blog_ressource
     end
 
-    controller "screencast" do
+    controller "screencasts" do
       match "/screencasts(/p/:pool)(/s/:serie)(/page-:page)" => :index, as: :blog_screencasts
       match "/screencast/:tag" => :show, as: :blog_screencast
     end
 
-    controller "snippet" do
+    controller "snippets" do
       match "/snippet/:id" => :show, as: :blog_snippet
     end
 
@@ -65,6 +65,11 @@ Space::Application.routes.draw do
 
 
   scope module: :stol, constraints: {subdomain: "stol"} do
+    controller "rubies" do
+      match "/rubies" => :index, as: :stol_rubies
+      match "/ruby/:id" => :show, as: :stol_ruby
+    end
+
     root to: "home#index"
   end
 

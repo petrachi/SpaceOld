@@ -16,7 +16,7 @@
 # A Book have a title and an Author
 # An Author has a name
 
-# Janet & Allan Ahlberg have written : 
+# Janet & Allan Ahlberg have written :
 # Each Peach Pear Plum
 # The Jolly Postman or Other People’s Letters
 
@@ -39,7 +39,7 @@
     <p>
       Classes
     </p>
-    
+
     <%= coderay do %>
 class Library
   def initialize name
@@ -59,11 +59,11 @@ class Author
   end
 end
     <% end %>
-    
+
     <p>
       Main
     </p>
-    
+
     <%= coderay do %>
 space_library = Library.new("Space Library")
     <% end %>
@@ -80,7 +80,7 @@ space_library = Library.new("Space Library")
     <p>
       <%= coderay({inline: true}, "Book") %>, <%= coderay({inline: true}, "Author") %> & <%= coderay({inline: true}, "Library") %>
     </p>
-  
+
     <%= coderay do %>
 class Library
   attr_accessor :name, :books
@@ -121,11 +121,11 @@ class Author
   end
 end
     <% end %>
-    
+
     <p>
       Main
     </p>
-    
+
     <%= coderay do %>
 space_library = Library.new("Space Library")
 
@@ -138,7 +138,7 @@ book_postman = Book.new "The Jolly Postman or Other People's Letters", author_ah
   :published => true,
   :published_at => "30-01-2014".to_datetime,
   :following => @wcs_2
-  
+
 @wcs_4 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On arrive sur la fin de l'exercice, et on réussit cette fois à afficher la liste des livres présents dans notre bibliothèque.",
   :embed => "q5xF5n4JZJU",
@@ -166,11 +166,11 @@ class Book
   end
 end
     <% end %>
-    
+
     <p>
       Main
     </p>
-    
+
     <%= coderay do %>
 space_library = Library.new("Space Library")
 
@@ -186,7 +186,7 @@ Book.new "The Very Hungry Caterpillar", Author.new("Eric Carle"), space_library
   :published => true,
   :published_at => "30-01-2014".to_datetime,
   :following => @wcs_3
-  
+
 @wcs_5 = Blog::Screencast.create :user => @primal_user.blog_user,
   :summary => "On va plus loin pour permettre d'ordonner l'affichage des livres. Un peu d'ordre, ça fait du bien.",
   :embed => "_eNf53OwEoQ",
@@ -211,13 +211,13 @@ class Library
       @books
     end
   end
-  
+
   def inspect order = nil
     books(order).map do |book|
       book.inspect
     end
   end
-  
+
   def inspect_by_book_title
     inspect(:book_title)
   end
@@ -227,11 +227,11 @@ class Library
   end
 end
     <% end %>
-    
+
     <p>
       Main
     </p>
-    
+
     <%= coderay do %>
 ?> space_library.inspect_by_book_title
 => "-- Book --
@@ -293,11 +293,11 @@ class Library
   end
 end
     <% end %>
-    
+
     <p>
       Define method
     </p>
-    
+
     <%= coderay do %>
 class Library
   ["book_title", "author_name"].each do |order|

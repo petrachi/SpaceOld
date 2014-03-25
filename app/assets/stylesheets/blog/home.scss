@@ -3,36 +3,36 @@
     font-size: 4em;
     margin: 0 0 .5em;
   }
-  
+
   .sections {
     padding: 4em 0;
-    
+
     .container {
       > :last-child {
         margin-bottom: 0;
       }
     }
   }
-  
+
   .alt-sections {
     padding-top: 2em;
-    
+
     background-color: $background-alt-color;
     @include normal-box-shadow;
   }
-  
+
   #articles,
   #experiences,
   #ressources,
   #screencasts {
     @extend .sections;
   }
-  
+
   #experiences,
   #screencasts {
     @extend .alt-sections;
   }
-  
+
   #screencasts{
     padding-bottom: 1.75em;
     margin-bottom: -1em;
@@ -42,8 +42,8 @@
 
 /*
 et c'est beaucoup ce genre de choses qu'on a pu voir sur cette run
-c'est a dire savoir est-ce qu'il faut prendre le risque et etre sur d'essayer de passer 
+c'est a dire savoir est-ce qu'il faut prendre le risque et etre sur d'essayer de passer
 en fait c'est beaucoup de stabilisation de la run
-savoir est ce qu'il faut prendre le risque pour rajouter de la chance 
+savoir est ce qu'il faut prendre le risque pour rajouter de la chance
 ou est ce qu'il vaut mieux stabiliser le jeu pour essayer de passer et gagner de la chance
 */

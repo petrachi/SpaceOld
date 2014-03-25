@@ -1,2 +1,2 @@
-class Stol::CssService < Service
+class Stol::CssService < Stol::Service
 end

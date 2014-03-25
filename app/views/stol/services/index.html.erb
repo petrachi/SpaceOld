@@ -1,0 +1,13 @@
+<%= container_3_tag @services do |service| %>
+  <h2 class="text-center">
+    <%= service.title %>
+  </h2>
+
+  <p>
+    <%= service.summary.html_safe %>
+  </p>
+
+  <p class="text-center">
+    <%= btn_to t(:discover), service %>
+  </p>
+<% end %>

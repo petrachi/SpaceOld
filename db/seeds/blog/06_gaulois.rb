@@ -81,14 +81,14 @@ end
 ?> world = World.new 2
 ?> world.show
 => [
-  [-1, -1, 0], 
-  [-1, 0, -1], 
-  [-1, 1, -2], 
-  [0, -1, 1], 
-  [0, 0, 0], 
-  [0, 1, -1], 
-  [1, -1, 2], 
-  [1, 0, 1], 
+  [-1, -1, 0],
+  [-1, 0, -1],
+  [-1, 1, -2],
+  [0, -1, 1],
+  [0, 0, 0],
+  [0, 1, -1],
+  [1, -1, 2],
+  [1, 0, 1],
   [1, 1, 0]
 ]
 		<% end %>
@@ -155,7 +155,7 @@ end
 		<p>
 			Allez, on a fait un monde et deux gaulois, je crois qu'on a le droit à un moment de repos. Demain, on verra comment faire avancer notre gaulois.
 		</p>
-		
+
 		<p>
 		  C'est tout pour cette fois. Vraiment, c'est pas la peine de rester y'en aura pas plus.
 		</p>
@@ -164,8 +164,8 @@ end
   :published => true,
   :published_at => "03-10-2013".to_datetime,
   :serie => :gaulois
-  
-  
+
+
 @gaulois_2_article = Blog::Article.create :user => @primal_user.blog_user,
   :summary => %q{
     On va se bouger aujourd'hui ! Et les gaulois aussi, ça suffit ! Allez allez c'est parti.
@@ -194,7 +194,7 @@ class Province
   def initialize x, y, z, world
   	@x, @y, @z, @world = x, y, z, world
   end
-  
+
   def distance province
     [
       (@x - province.x).abs,
@@ -202,7 +202,7 @@ class Province
       (@z - province.z).abs,
     ].max
   end
-  
+
   def vision distance
   	@world.provinces.select do |province|
   		(@x - distance..@x + distance) === province.x and
@@ -230,12 +230,12 @@ class World
   end
 end
 		<% end %>
-    
+
     <p>
       C'est ici que le choix des trois coordonnées paye. La méthode de distance cherche juste la valeur maximale de la différence de chaque coordonnée. Et la méthode de vision sélectionne une plage trés simple de valeurs pour chaque coordonnées.<br/>
       Essayez donc chez vous de reproduire ces deux fonctions avec seulement deux coordonnées, toujours pour une carte "hexagonale", et venez me dire aprés que c'était plus facile.
     </p>
-    
+
 		<h3>Gaulois#move</h3>
 
 		<p>
@@ -263,7 +263,7 @@ end
 		  On peut voir le résultat directement. J'ai volontairement choisi un monde assez petit pour cette fois, car avec cette méthode de déplacement aléatoire, il peut se passer de nombreux tours de jeu avant que nos deux personnages soient réunis.
 		</p>
 
-		<%= coderay do %>		
+		<%= coderay do %>
 ?> world = World.new 2
 puts "Gauloise stands on #{ world.gauloise.province.show.inspect }"
 
@@ -302,7 +302,7 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
   :pool => :ruby,
   :published => true,
   :published_at => "03-10-2013".to_datetime,
-  :following => @gaulois_1_article  
+  :following => @gaulois_1_article
 
 @gaulois_3_article = Blog::Article.create :user => @primal_user.blog_user,
   :summary => %q{
@@ -337,7 +337,7 @@ class Gaulois
   def look &block
     @province.vision(@vision).detect &block
   end
-  
+
   def find_a_way
   	province_gauloise = look{ |province| province == @world.gauloise.province }
 
@@ -361,7 +361,7 @@ class Gaulois
   		@province.vision(1).except(@province)
   	end
   end
-  
+
   def move
     @province = find_a_way
   end
@@ -373,7 +373,7 @@ end
 		<p>
 			La seconde amélioration sera de mémoriser toutes les provinces déjà visitées, et éviter d'y retourner.
 		</p>
-		
+
 		<p>
 		  Pour ajouter ce nouveau comportement, on va créer un attribut <%= coderay({:inline => true}, ":seen") %>, dans lequel nous allons enregistrer toutes les positions déjà vue.<br/>
 		  On va aussi modifier la méthode <%= coderay({:inline => true}, "Gaulois#move") %>, afin d'exclure, si possible, les provinces visitées de la sélection des provinces sur lequelles se déplacer. Je dis "si possible", car on ne peut pas exclure de se retrouver coincé dans un cul de sac. À ce moment, il faudra retourner sur ses pas.
@@ -414,7 +414,7 @@ class Gaulois
   		possible_provinces.sample
   	end
   end
-  
+
   def move
     @province = find_a_way
     @seen << @province
@@ -426,7 +426,7 @@ end
 			Avec ça, notre gaulois devrait pouvoir retouver sa gauloise un peu plus rapidement. Allez, je lance le script sur un monde plus grand que la dernière fois, et je rajoute des <%= coderay({:inline => true}, "puts") %> pour plus de clarté.
 		</p>
 
-		<%= coderay do %>		
+		<%= coderay do %>
 ?> world = World.new 7
 puts "Gauloise stands on #{ world.gauloise.province.show.inspect }"
 
@@ -457,11 +457,11 @@ puts "L'amour triomphe toujours chez les gaulois ! Gaulois has reach #{ world.ga
 		<p>
 			J'ai surtout l'habitude d'utiliser ruby via rails. Le fait de ne pas avoir de système de données persistant  m'a fait retravailler le concept de visibilité des objets. Une instance de <%= coderay({:inline => true}, "Province") %> n'a pas accés "naturellement" aux autres instances de <%= coderay({:inline => true}, "Province") %>.
 		</p>
-		
+
 		<p>
 			Cette expérience en "plain ruby" m'a beaucoup plu, et je vais essayer de coder plus souvent en dehors de rails. J'essaierait peut être bientôt de reproduire certains comportements d'<%= coderay({:inline => true}, "ActiveRecord") %>, afin de mieux saisir cette mécanique de visibilité des objets.
 		</p>
-    
+
 		<p>
 			Allez, je vous laisse les copains. C'est fini, vous pouvez partir ... Non mais rentrez chez vous maintenant, ça commence à devenir gênant.
 		</p>

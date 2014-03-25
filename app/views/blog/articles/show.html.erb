@@ -9,21 +9,21 @@
 					--><%= @article.paginate %>
 				</p>
 			<% end %>
-			
+
 			<h3><%=t 'blog.article.pool' %></h3>
-			
+
 			<p>
 				<%= btn_to @article.pool, @article.pool_url %>
 			</p>
 		<% end %>
-		
+
 		<%= col_9_tag tag: :article do %>
 			<h2>
 				<%= @article.title %>
 			</h2>
-			
+
 			<%= erb @article.run %>
-			
+
 			<%= @article.navigate if @article.serie %>
 		<% end %>
 	<% end %>

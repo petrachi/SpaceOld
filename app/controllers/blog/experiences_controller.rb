@@ -1,59 +1,59 @@
-class Blog::ExperienceController < Blog::ApplicationController
+class Blog::ExperiencesController < Blog::ApplicationController
   def get_location
-    @section = :experience
+    @section = :experiences
     super
   end
-  
+
   def index
     @experiences = Blog::Experience.published.order("id desc")
     @experiences = @experiences.pool params[:pool] if params[:pool]
-    
+
     @experiences = @experiences.paginate params[:page].to_i, 16 if params[:page] || (params[:page] = 1)
   end
-  
+
   def show
     @experience = Blog::Experience.published
       .tagged(params[:tag])
   end
-  
-  
-  
-  
-  
+
+
+
+
+
   # helper NewGrid
-  
+
   #### Dev zone
   #if Rails.env == "development"
-  
+
     def tmp
       params[:page] ||= "1"
       render :template => "blog/experience/tmp_#{ params[:page] }"
-      
-=begin      
+
+=begin
       if params[:page] == "2"
         render :template => "blog/experience/tmp_2"
       end
-      
+
       if params[:page] == "3"
         render :template => "blog/experience/tmp_3"
       end
-      
+
        if params[:page] == "4"
           render :template => "blog/experience/tmp_4", layout: false
         end
-        
+
         if params[:page] == "5"
            render :template => "blog/experience/tmp_5"
          end
-=end      
-=begin      
+=end
+=begin
       experiment = Blog::Experiment.where(:id => 4)
 	      		.with_version(5)
 	      		.first
-	    
+
 	    scss = %q{
-	      
-	      
+
+
 
 		.sc-icon-sprite{
 		    background-image: inline-sprite($youpi-sprites);
@@ -128,12 +128,12 @@ class Blog::ExperienceController < Blog::ApplicationController
 		  margin: 1em 5em;
 		}
   }
-	    
+
 	    @code = %Q{
 	      <%= scss %Q{#{ scss }} %>
 	    }
 =end
-=begin	    
+=begin
 	    @code = %Q{
 	      <%
           #{ experiment.version.params }
@@ -148,13 +148,13 @@ class Blog::ExperienceController < Blog::ApplicationController
           #{ experiment.version.js }
         </script>
 	    }
-=end	    
+=end
 	  end
-	  
+
 	  def try_hard
 	   render layout: false
 	  end
-	  
+
   #end
   ####
 end

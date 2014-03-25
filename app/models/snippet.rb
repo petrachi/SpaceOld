@@ -3,6 +3,9 @@ class Snippet < ActiveRecord::Base
 
   acts_as_decorables
 
+  include Mutable.new mutables: %w(params ruby scss erb js)
+  include Precompilable
+
   validates_presence_of :erb
 
   def run mutation = nil
