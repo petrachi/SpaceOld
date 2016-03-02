@@ -1,12 +1,12 @@
 <%= content_for :red_bar do %>
-	<% @experience.snippet.decorate(self).tap do |snippet| %>
+	<% SnippetDecorator.new(@experience.snippet, self).tap do |snippet| %>
 		<%= snippet.reveal %> - <%= link_to t("blog.snippet.raw"), snippet, target: :_blank %>
 	<% end %>
 <% end %>
 
 
 <%= container_tag do %>
-	<% @experience.snippet.decorate(self).tap do |snippet| %>
+	<% SnippetDecorator.new(@experience.snippet, self).tap do |snippet| %>
 		<%= snippet.code %>
 	<% end %>
 <% end %>

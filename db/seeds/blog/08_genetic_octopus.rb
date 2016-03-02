@@ -15,7 +15,7 @@
 
       score_increment = 6.6
       score_to_reach = if Rails.env == "development"
-        20
+        100
       else
         100
       end
@@ -52,7 +52,7 @@
     		person[:genes].zip(@searched_genes).each_with_index do |(gene, searched_gene), index|
     			if gene == searched_gene
     				score += 1
-    			elsif rand < @mutation_rate					
+    			elsif rand < @mutation_rate
     				person[:muted][index] = create_gene
     			end
     		end
@@ -91,7 +91,7 @@
 
     		if @population_of_one[:score] == @searched_genes.size
     			@evolution_tree << [@population_of_one, generation]
-    			break 
+    			break
     		end
 
     		if mutation[:score] > @population_of_one[:score]
@@ -106,33 +106,33 @@
 
     	def asset_data_uri path
     	  env = Rails.application.assets.is_a?(Sprockets::Index) ? Rails.application.assets.instance_variable_get('@environment') : Rails.application.assets
-        
+
     	  asset = env.find_asset path
-        
+
         throw "Could not find asset '#{path}'" if asset.nil?
-        
+
         base64 = Base64.encode64(asset.to_s).gsub(/\s+/, "")
         "data:#{asset.content_type};base64,#{Rack::Utils.escape(base64)}"
     	end
-      
+
     	def genes_to_uri genes
     		png = ChunkyPNG::Image.new(@searched_image.width, @searched_image.height, genes)
     		png.save("app/assets/images/blog/experience/genetic_best.png")
-    		
+
     		uri = asset_data_uri("blog/experience/genetic_best.png")
     		File.delete("app/assets/images/blog/experience/genetic_best.png")
-    		
+
     		uri
     	end
     },
     :scss => %q{
       .genetic-octopus{
     		margin: 1em 0 2em;
-        
+
         .row{
           align-items: center;
         }
-        
+
     		.hill-climbing{
     			padding-top: 1em !important;
     			text-align: center;
@@ -148,12 +148,12 @@
       <div class="genetic-octopus">
         <%= rows_2_tag @evolution_tree, :cols => {:class => :'hill-climbing display-none'} do |person, generation| %>
 
-        	<% 
+        	<%
         		m = color_start_hex.match /#(..)(..)(..)/
         		color_start = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
 
         		m = color_end_hex.match /#(..)(..)(..)/
-        		color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex} 
+        		color_end = {:r=>m[1].hex, :v=>m[2].hex, :b=>m[3].hex}
 
         		percent = person[:score] * 100 / @searched_genes.size
 
@@ -194,5 +194,3 @@
   :published_at => "25-10-2013".to_datetime,
   :tag => :genetic_octopus,
   :pool => :experience
-
-

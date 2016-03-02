@@ -26,7 +26,7 @@ group :assets do
 	# gem 'therubyracer', :platforms => :ruby
 
 	gem 'uglifier', '>= 1.0.3'
-  	
+
 	gem 'font-awesome-rails', '~> 3.2.1'
 end
 
@@ -54,14 +54,14 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'newrelic_rpm'
 
 # For compass sprite
-gem 'oily_png' 
+gem 'oily_png'
 
 # Code Highlight
 gem 'coderay'
 
 # this is my all in one gem
-# gem 'r_kit'
-gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
+gem 'r_kit', '0.2.1.1'
+# gem 'r_kit', :path => "/Users/elPetrachi/Dev/r_kit"
 
 # manipulation of png - needed for genetic octopus experience
 gem "chunky_png", "~> 1.2.9"

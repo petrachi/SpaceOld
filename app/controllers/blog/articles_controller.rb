@@ -33,7 +33,7 @@ class Blog::ArticlesController < Blog::ApplicationController
   #if Rails.env == "development"
   def tmp
     params[:page] ||= "1"
-    render :template => "blog/article/tmp_#{ params[:page] }"
+    render :template => "blog/articles/tmp_#{ params[:page] }"
 	  end
 
 

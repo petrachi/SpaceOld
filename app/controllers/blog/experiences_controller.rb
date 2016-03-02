@@ -27,7 +27,7 @@ class Blog::ExperiencesController < Blog::ApplicationController
 
     def tmp
       params[:page] ||= "1"
-      render :template => "blog/experience/tmp_#{ params[:page] }"
+      render :template => "blog/experiences/tmp_#{ params[:page] }"
 
 =begin
       if params[:page] == "2"
